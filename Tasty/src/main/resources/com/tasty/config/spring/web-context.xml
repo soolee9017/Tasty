@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- service, dao bean 등록 -->
+	
+	<context:component-scan base-package="com.tasty.controller, com.tasty.dao.impl, com.tasty.service.impl"/>
+	<mvc:annotation-driven/>
+	
+	
+	
+	<!-- mybatis 연동 bean 설정-->
+	<!-- BasicDataSource -->
+	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close"
+	 			p:driverClassName="oracle.jdbc.driver.OracleDriver"
+	 			p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+	 			p:username="tasty" p:password="tasty"
+	 			p:maxTotal="100" p:initialSize="2"/>
+	
+	<!-- JNDI DataSource 연동 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" p:jndiName="java:/comp/env/jdbc/kgmyh"/>
+	-->
+	<bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+	 		   p:configLocation="classpath:com/tasty/config/mybatis/mybatis-config.xml"
+	 		   p:dataSource-ref="dataSource" />
+	 
+	<!-- SqlSessionTemplate 생성 - 생성자로 sqlSessionFactoryBean을 주입 -->
+	<bean name="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+		      c:sqlSessionFactory-ref="sqlSessionFactory"/>
+		      
+	<!-- Transaction 처리 -->
+	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+			  p:dataSource-ref="dataSource"/>
+	<tx:annotation-driven transaction-manager="transactionManager"/>	
+	
+	
+	<!-- 
+		multipartResolver 빈 등록 
+			-enctype='multipart/form-data' 요청을 받았을 때 DispatcherServlet이 
+			요청파라미터들 (업로드된 파일 포함) 처리를 위해 호출하는 빈. 
+	 -->
+	 <bean name="multipartResolver"
+	 	   class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+   
+	<!-- ViewResolver -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+			  p:prefix="/WEB-INF/view/"/>		
+			  
+			  
+	<mvc:view-controller path="index.do" view-name="index.jsp"/>      
+</beans>
