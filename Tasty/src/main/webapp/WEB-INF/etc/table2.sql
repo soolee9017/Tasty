@@ -237,7 +237,32 @@ ALTER TABLE MISSION_MEMBER
  
        
 ----------------------------------14.사진----------------------------
+---- 사진
+--ALTER TABLE PHOTO
+--	DROP CONSTRAINT PK_PHOTO; -- 사진 기본키
 
+-- 사진
+DROP TABLE PHOTO CASCADE CONTRAINT;
+
+-- 사진
+CREATE TABLE PHOTO (
+	photo_num  NUMBER(20)   NOT NULL, -- 사진번호
+	photo_path VARCHAR2(30) NULL      -- 사진경로
+);
+
+-- 사진 기본키
+CREATE UNIQUE INDEX PK_PHOTO
+	ON PHOTO ( -- 사진
+		photo_num ASC -- 사진번호
+	);
+
+-- 사진
+ALTER TABLE PHOTO
+	ADD
+		CONSTRAINT PK_PHOTO -- 사진 기본키
+		PRIMARY KEY (
+			photo_num -- 사진번호
+		);
 
 
 ------------------------------------------15. 리뷰사진----------------------------------------
