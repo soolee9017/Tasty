@@ -111,7 +111,6 @@ section>article>form input {
 		</ul>
 	</nav>
 	<p></p>
-
 	<section>
 		<header>
 			<h1>Yolty 50</h1>

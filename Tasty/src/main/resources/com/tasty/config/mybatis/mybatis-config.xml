@@ -6,4 +6,12 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
+	<typeAliases>
+		<package name="com.tasty.vo"/>
+	</typeAliases>
+
+
+	<mappers>
+		<mapper resource="com/tasty/config/mybatis/mapper/ReviewMapper.xml" />
+	</mappers>
 </configuration>
