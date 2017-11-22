@@ -7,9 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<h1>index.do/index.jsp 입니당</h1>
-<a href="/Tasty/test/request.jsp">request.jsp</a>
+<h1>request</h1> 
+<form action="${initParam.rootPath }/review/getAllReview.do" method="post">
+	<input type="text" name="address"/>
+	<button>조회</button>
+</form>
 
 </body>
 </html>
