@@ -13,7 +13,11 @@
 
 <ul>
 <c:forEach items="${requestScope.result}" var="review">
-	<li>${review}</li>
+	<c:forEach items="${review.menuList}" var="menu">
+		<c:forEach items="${menu.mtList}" var="menu_taste">
+			<li>${menu_taste}</li>
+		</c:forEach>
+		</c:forEach>
 </c:forEach>
 </ul>
 

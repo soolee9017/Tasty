@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ReviewMapper">
 
-<resultMap type="review" id="review-resultmap" extends="review-join-menu-resultmap", "menu-join-menu_taste-resultmap">
+<resultMap type="review" id="review-resultmap">
 	<id column="review_num" property="reviewNum"/>
 	<result column = "address" property="address"/>
 	<result column = "store_name" property="storeName"/>
@@ -19,43 +19,37 @@
 <resultMap type="review" id="review-join-menu-resultmap" extends="review-resultmap">
 	<collection property="menuList" ofType="menu">
 		<id column="menu_num" property="menuNum"/>
-		<result column="review_num" property="reviewNum"/>
 		<result column="menu_name" property="menuName"/>
+		
+			<collection property="mtList" ofType="MenuTaste">
+				<result column="menu_num" property="menuNum"/>
+				<result column="td_num" property="tdNum"/>
+				<association property="allTaste" javaType="allTaste">
+						<id column="td_num" property="tdNum"/>
+						<result column="taste_num" property="tasteNum"/>
+						<result column="degree_num" property="degreeNum"/>
+						<association property="taste" javaType="taste">
+							<id column="taste_num" property="tasteNum"/>
+							<result column="taste_name" property="tasteName"/>
+						</association>
+						<association property="degree" javaType="degree">
+							<id column="degree_num" property="degreeNum"/>
+							<result column="degree" property="degree"/>
+						</association>
+						
+				</association>
+			</collection>
+			
+			
+			
 	</collection>
 </resultMap>
 
-<resultMap type="menu" id="menu-join-menu_taste-resultmap" extends="review-join-menu-resultmap">
-	<collection property="mtList" ofType="menuTaste">
-		<result column="td_num" property="tdNum"/>
-		<result column="menu_num" property="menuNum"/>
-	</collection>
-</resultMap>
-
-<resultMap type="menuTaste" id="menu_taste-join-all_taste-resultmap" extends="menu-join-menu_taste-resultmap">
-	<association property="allTaste" javaType="allTaste">
-		<id column="td_num" property="tdNum"/>
-		<result column="taste_num" property="tasteNum"/>
-		<result column="degree_num" property="degreeNum"/>
-	</association>
-</resultMap>
-
-<resultMap type="allTaste" id="all_taste-join-taste_and_degree-resultmap" extends="menu_taste-join-all_taste-resultmap">
-	<association property="taste" javaType="taste">
-		<id column="taste_num" property="tasteNum"/>
-		<result column="taste_name" property="tasteName"/>
-	</association>
-	<association property="degree" javaType="degree">
-		<id column="degree_num" property="degreeNum"/>
-		<result column="degree" property="degree"/>
-	</association>
-</resultMap>
 
 
 
 
-
-
-<select id="selectReviewByAddress" parameterType="String" resultMap="all_taste-join-taste_and_degree-resultmap">
+<select id="selectReviewByAddress" parameterType="String" resultMap="review-join-menu-resultmap">
 	select *
 	from review r, menu m, menu_taste mt, all_taste at, taste t, degree d 
 	where address = #{value}
@@ -64,6 +58,9 @@
 	and mt.td_num=at.td_num(+)
 	and at.taste_num=t.taste_num(+)
 	and at.degree_num=d.degree_num(+) 
+	
+
+
 </select>
 
 
