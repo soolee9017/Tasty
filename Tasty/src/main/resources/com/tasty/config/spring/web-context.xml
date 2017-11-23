@@ -16,7 +16,10 @@
 	<context:component-scan base-package="com.tasty.controller, com.tasty.dao.impl, com.tasty.service.impl"/>
 	<mvc:annotation-driven/>
 	
-	
+	<mvc:view-controller path="/main.do" view-name="main.tiles"/>
+	<mvc:view-controller path="/template.do" view-name="template.tiles"/>
+	<mvc:view-controller path="map_eatery.do" view-name="/WEB-INF/view/content/util/map_eatery.jsp"/>
+	<mvc:view-controller path="/util/information.do" view-name="util/information.tiles"/>
 	
 	<!-- mybatis 연동 bean 설정-->
 	<!-- BasicDataSource -->
@@ -54,8 +57,20 @@
 	<!-- ViewResolver -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 			  p:prefix="/WEB-INF/view/"/>		
-			  
-			  
-	<mvc:view-controller path="index.do" view-name="index.jsp"/>
-	<mvc:view-controller path="search_eatery.do" view-name="search_eatery.jsp"/>
+	
+	<bean name="tilesConfig" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:com/tasty/config/tiles/tiles-config.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean name="tilesVR" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="1"/>
+	</bean>
+	<bean name="internalVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2"/>
+	</bean>
+	
+	
 </beans>
