@@ -19,10 +19,10 @@ $(document).ready(function(){
 			"beforeSend":function(){
 				if(evtSrc.selectedIndex == 0){
 					alert("맛을 선택하세요");
-					$("#degreeSel").html("<option>정도를 선택하세요</option>");
+					$(evtSrc).next().html("<option>정도를 선택하세요</option>");
 					return false;
 				}else if(evtSrc.selectedIndex == 8){
-					$("#degreeSel").html("<option>선택불가</option>");
+					$(evtSrc).next().html("<option>선택불가</option>");
 					return false;
 				}
 			},
@@ -32,8 +32,7 @@ $(document).ready(function(){
 				$.each(list, function(){
 					txt += "<option>"+this+"</option>"
 				});
-				
-				$("#degreeSel").html(txt);
+				$(evtSrc).next().html(txt);
 			}
 		});		
 	});
