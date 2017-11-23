@@ -1,6 +1,7 @@
 package com.tasty.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Review implements Serializable{
@@ -19,6 +20,8 @@ public class Review implements Serializable{
 	
 	private Member member;
 	private List<Menu> menuList;
+	private List<TempRoute> tempRouteList; // 생성자가 필요 없음 
+	private List<ReviewPhoto> reviewPhotoList; //생성자가 필요 없음 
 	
 	public Review() {}
 
@@ -53,24 +56,14 @@ public class Review implements Serializable{
 		this.member = member;
 	}
 
-	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
-			int ratings, int ups, int downs, String posX, String posY, List<Menu> menuList) {
-		this.reviewNum = reviewNum;
-		this.address = address;
-		this.storeName = storeName;
-		this.email = email;
-		this.title = title;
-		this.content = content;
-		this.ratings = ratings;
-		this.ups = ups;
-		this.downs = downs;
-		this.posX = posX;
-		this.posY = posY;
-		this.menuList = menuList;
-	}
+	
+	
+	
+
 
 	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
-			int ratings, int ups, int downs, String posX, String posY, Member member, List<Menu> menuList) {
+			int ratings, int ups, int downs, String posX, String posY, Member member, List<Menu> menuList,
+			List<TempRoute> tempRouteList, List<ReviewPhoto> reviewPhotoList) {
 		this.reviewNum = reviewNum;
 		this.address = address;
 		this.storeName = storeName;
@@ -84,6 +77,8 @@ public class Review implements Serializable{
 		this.posY = posY;
 		this.member = member;
 		this.menuList = menuList;
+		this.tempRouteList = tempRouteList;
+		this.reviewPhotoList = reviewPhotoList;
 	}
 
 	public int getReviewNum() {
