@@ -10,6 +10,8 @@ public class Taste implements Serializable {
 	
 	private List<AllTaste> atList;
 	
+	private MemberTaste memberTaste;
+	
 	public Taste() {}
 
 	public Taste(int tasteNum, String tasteName) {
@@ -21,6 +23,14 @@ public class Taste implements Serializable {
 		this.tasteNum = tasteNum;
 		this.tasteName = tasteName;
 		this.atList = atList;
+	}
+	
+	
+
+	public Taste(int tasteNum, String tasteName, MemberTaste memberTaste) {
+		this.tasteNum = tasteNum;
+		this.tasteName = tasteName;
+		this.memberTaste = memberTaste;
 	}
 
 	public int getTasteNum() {
@@ -46,10 +56,20 @@ public class Taste implements Serializable {
 	public void setAtList(List<AllTaste> atList) {
 		this.atList = atList;
 	}
+	
+
+	public MemberTaste getMemberTaste() {
+		return memberTaste;
+	}
+
+	public void setMemberTaste(MemberTaste memberTaste) {
+		this.memberTaste = memberTaste;
+	}
 
 	@Override
 	public String toString() {
-		return String.format("Taste [tasteNum=%s, tasteName=%s, atList=%s]", tasteNum, tasteName, atList);
+		return "Taste [tasteNum=" + tasteNum + ", tasteName=" + tasteName + ", atList=" + atList + ", memberTaste="
+				+ memberTaste + "]";
 	}
 
 	@Override
@@ -57,6 +77,7 @@ public class Taste implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((atList == null) ? 0 : atList.hashCode());
+		result = prime * result + ((memberTaste == null) ? 0 : memberTaste.hashCode());
 		result = prime * result + ((tasteName == null) ? 0 : tasteName.hashCode());
 		result = prime * result + tasteNum;
 		return result;
@@ -75,6 +96,11 @@ public class Taste implements Serializable {
 			if (other.atList != null)
 				return false;
 		} else if (!atList.equals(other.atList))
+			return false;
+		if (memberTaste == null) {
+			if (other.memberTaste != null)
+				return false;
+		} else if (!memberTaste.equals(other.memberTaste))
 			return false;
 		if (tasteName == null) {
 			if (other.tasteName != null)
