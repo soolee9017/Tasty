@@ -25,7 +25,6 @@
 	 			p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
 	 			p:username="tasty" p:password="tasty"
 	 			p:maxTotal="100" p:initialSize="2"/>
-	
 	<!-- JNDI DataSource 연동 
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" p:jndiName="java:/comp/env/jdbc/kgmyh"/>
 	-->
@@ -57,5 +56,6 @@
 			  p:prefix="/WEB-INF/view/"/>		
 			  
 			  
-	<mvc:view-controller path="index.do" view-name="index.jsp"/>      
+	<mvc:view-controller path="index.do" view-name="index.jsp"/>
+	<mvc:view-controller path="search_eatery.do" view-name="search_eatery.jsp"/>
 </beans>

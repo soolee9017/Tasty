@@ -3,8 +3,6 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 
 <configuration>
-
-
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
@@ -16,5 +14,4 @@
 	<mappers>
 		<mapper resource="com/tasty/config/mybatis/mapper/ReviewMapper.xml" />
 	</mappers>
-
 </configuration>
