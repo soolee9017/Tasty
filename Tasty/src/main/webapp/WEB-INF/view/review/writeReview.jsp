@@ -23,10 +23,19 @@ $(document).ready(function(){
 				}
 			},
 			"success":function(degreeList){
-				var txt="<option>정도를 선택하세요</option>";
-				$.each(degreeList, function(){
-					txt += "<option>"+this+"</option>"
-				});
+				
+				var txt =""
+					if($("#tasteSel").get(0).selectedIndex == 7){
+					txt = "<option>선택불가</option>";
+				}else{
+					txt="<option>정도를 선택하세요</option> ";
+	
+					$.each(degreeList, function(){
+						txt += "<option>"+this+"</option>"
+					});
+				
+				}
+				
 				
 				$("#degreeSel").html(txt);
 			}
@@ -57,6 +66,7 @@ $(document).ready(function(){
 		<option>${taste.tasteName}</option>	
 	</c:forEach>
 </select>
+
 <select id="degreeSel">
 	<option>정도를 선택하세요</option>
 </select>
@@ -67,7 +77,7 @@ $(document).ready(function(){
 <button id="plusMenu" type="button">메뉴추가</button>
 </form>
 
-jjjjjjjjjjjjjjjjjj
+
 
 </body>
 </html>
