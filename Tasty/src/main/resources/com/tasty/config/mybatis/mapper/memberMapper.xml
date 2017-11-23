@@ -1,4 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tasty.config.mybatis.mapper.memberMapper">
+
+	
+<!-- 	<sql id="select-sql">
+		select	email,
+				password,
+				nickname,
+				name,
+				phone_num,
+				gender,
+				total_ups,
+				totas_downs,
+		from	member
+	</sql>
+
+	<sql id="select-join-memberTaste-sql">
+		select	m.email,
+				m.password,
+				m.nickname,
+				m.name,
+				m.phone_num,
+				m.gender,
+				m.total_ups,
+				m.total_downs,
+				mbt. taste_num
+		from	member m, member_taste mbt, taste t
+		where	m.email = mbt.email
+		and		mbt.taste_num = t.taste_num(+)
+	</sql>
+	
+	<sql id="select-join-taste-sql">
+		select	mt.email,
+				mbt. taste_num,
+				t.taste_num,
+				t. taste_name
+		from	member_taste mbt, taste t
+		where	t.taste_num = mbt.taste_num
+	</sql> -->
+	
+	
+	<resultMap type="member" id="member-resultmap">
+		<id column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="nickname" property="nickname"/>
+		<result column="name" property="name"/>
+		<result column="phone_num" property="phoneNum"/>
+		<result column="gender" property="gender"/>
+		<result column="total_ups" property="totalUps"/>
+		<result column="total_downs" property="totalDowns"/>
+	</resultMap>
+	
+	<resultMap type="member" id="member-join-memberTaste-resultmap" extends="member-resultmap">
+		<collection property="memberTasteList" ofType="MemberTaste">
+			<!-- <result column="email" property="email"/> -->
+			<result column="taste_num" property="tasteNum"/>
+					<collection property="tasteList" ofType="Taste">
+						<id column="taste_num" property="tasteNum"/>
+						<result column="taste_name" property="tasteName"/>
+					</collection>
+			</collection>
+</resultMap>
+
+
+
+
+	<!-- 삽입 -->
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER VALUES  (#{email},
+									#{password},
+									#{nickname}, 
+									#{name},
+									#{phoneNum},
+									#{gender},
+									#{totalUps},
+									#{totalDowns}) 
+									<!-- 맛,,,? -->
+	</insert>
+
+	<!-- 삭제 -->
+	<delete id="deleteMemberByEmail" parameterType="string" >
+		delete from member where email = #{value}
+	</delete>
+	
+	<!-- 수정 -->
+	<update id="updateMemberByEmail" parameterType="member">
+		update	member
+		set		password = #{password},
+				nickname = #{nickname},
+				name = #{name}, 
+				phone_num = #{phoneNum}
+				gender = #{gender}
+				total_ups = #{totalUps}
+				total_downs = #{totalDowns}
+				<!-- 맛,,,? -->
+		where	email = #{email}
+	</update>
+
+	<!-- 조회 -->
+	<select id="selectMemberByEmail" parameterType="string" resultMap="member-join-memberTaste-resultmap">
+		<!-- 		
+		<include refid="select-join-memberTaste-sql"/>
+		where email = #{value} 
+		 -->
+		select *
+		from member m, member_taste mbt, taste t 
+		where m.email = #{value}
+		and m.email=mbt.email
+		and t.taste_num=mbt.taste_num(+)
+		
+	</select>
 </mapper>
+
+
+
+
+
