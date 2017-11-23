@@ -125,5 +125,6 @@ section>article>form input {
 			</div>
 		</article>
 	</section>
+	<a href="${initParam.rootPath }/review/getAllTaste.do">리뷰작성</a>
 </body>
 </html>

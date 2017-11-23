@@ -12,7 +12,7 @@
 $(document).ready(function(){
 	$("#tasteSel").on("change",function(){
 		$.ajax({
-			"url":"/Tasty/review/getAllDegree.do",
+			"url":"/review/getAllDegree",
 			"data":"taste="+$(this).val(),
 			"dataType":"json",
 			"beforeSend":function(){
@@ -22,18 +22,21 @@ $(document).ready(function(){
 					return false;
 				}
 			},
-			"success":function(degreeList){
+			"success":function(list){
 				var txt="<option>정도를 선택하세요</option>";
-				$.each(degreeList, function(){
+				$.each(list, function(){
 					txt += "<option>"+this+"</option>"
 				});
 				
 				$("#degreeSel").html(txt);
+			},
+			"error":function(){
+				alert("요청 처리도중 오류가 발생했습니다.")
 			}
 		});		
 	});
 	$("#plusMenu").on("click",function(){
-		$("#menu_layer").prependTo("#menu");	
+		$("#menu_layer").appendTo("#menu_layer");	
 	});
 });
 
@@ -48,23 +51,22 @@ $(document).ready(function(){
 
 제목 : <input type="text" name="title"><br>
 내용: <textarea name="content" cols="40" rows="8"></textarea><br>
+메뉴 : 
 <div id="menu_layer">
-메뉴 : <input type='text' name='menu'>
+<input type='text' name='menu'>
 
 <select id='tasteSel'>
 	<option id='option'>맛을 선택하세요.</option>
 	<c:forEach items="${requestScope.tasteList }" var="taste">
-		<option>${taste.tasteName}</option>	
+		<option>${taste}</option>	
 	</c:forEach>
 </select>
 <select id="degreeSel">
 	<option>정도를 선택하세요</option>
 </select>
-</div> 
-<div id="menu"> 
-	
-</div>
 <button id="plusMenu" type="button">메뉴추가</button>
+</div> 
+
 </form>
 
 jjjjjjjjjjjjjjjjjj
