@@ -57,7 +57,7 @@ body {
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    가게 이름 : <input type="text" id="keyword" size="15" placeholder="맛집"> 
+                    가게 이름 : <input type="text" id="keyword" size="15" placeholder="맛집" value="${requestScope.keyward}"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
