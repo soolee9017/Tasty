@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tasty.config.mybatis.mapper.MissionMapper">
-	<!-- 
+<!-- 	<!-- 
 		MissionAdmin관련 mapper
 		+ 관리자가 미션을 등록
 		+ 관리자가 미션을 삭제
 		+ 관리자가 미션을 수정
 		+ 관리자가 미션을 조회
 	 -->
-	 
+<!-- 	 
 	 <sql id="mission-column-sql">
 	 	mission_name, mission_name, misison_content, current_people, max_people, start_date, end_date
 	 </sql>
@@ -17,19 +17,19 @@
 	 	mission_cert_num, email, title, content, missionNum
 	 </sql>
 
-	<!-- 미션 내용 전체 조회 -->
+	미션 내용 전체 조회
 	<sql id="mission-select-sql">
 		SELECT <include refid="mission-column-sql"/>
 		FROM mission_admin
 	</sql>
 	
-	<!-- 미션 인증게시판 내용 전체조회 -->
+	미션 인증게시판 내용 전체조회
 	<sql id="missionCert-select-sql">
 		SELECT <include refid="missionCert-column-sql"/>
 		FROM mission_cert_board
 	</sql>
 	
-	<!-- ResultMap등록 -->
+	ResultMap등록
 	<resultMap type="mission" id="mission-resultmap">
 		<id column="mission_num" property="missionNum"/>
 		<result column="mission_name" property="missionName"/>
@@ -49,11 +49,11 @@
 					<result column="photo_path" property="photoPath"/>
 				</association>
 			</collection>
-	</resultMap>
+	</resultMap> --> -->
 	
 	
 	<!-- 미션번호로 미션 사진,전체정보 조회  -->
-	<select id="selectMissionByMissionNum" parameterType="int" resultMap="mission-join-photo-resultmap">
+<!-- 	<select id="selectMissionByMissionNum" parameterType="int" resultMap="mission-join-photo-resultmap">
 		select *
 		from mission_admin ma, mission_photo mp, photo p
 		where ma.mission_num = #{value}
@@ -79,7 +79,7 @@
 	</insert>
 	
 	
-	<!-- 미션글번호로 댓글들 조회 -->
+	미션글번호로 댓글들 조회
 	<select id="selectMissionCertByMissionNum" parameterType="int" resultMap="missonCert">
 	SELECT mission_cert_num, email, title, content, misisonNum
       FROM misison_cert_board mc
@@ -88,7 +88,7 @@
 	 WHERE mi.mission_num = #{missionNum}
 	</select>
 
-
+ -->
 	
 	
 	
