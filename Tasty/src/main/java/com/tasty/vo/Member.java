@@ -13,7 +13,8 @@ public class Member implements Serializable {
 	private String gender;
 	private int totalUps;
 	private int totalDowns;
-	
+	private List<MemberTaste> memberTasteList;
+	private List<MissionMember> missionMemberList;
 	private List<Review> reviewList;
 	
 	public Member() {}
@@ -30,8 +31,24 @@ public class Member implements Serializable {
 		this.totalDowns = totalDowns;
 	}
 
+	public List<MemberTaste> getMemberTasteList() {
+		return memberTasteList;
+	}
+
+	public void setMemberTasteList(List<MemberTaste> memberTasteList) {
+		this.memberTasteList = memberTasteList;
+	}
+
+	public List<MissionMember> getMissionMemberList() {
+		return missionMemberList;
+	}
+
+	public void setMissionMemberList(List<MissionMember> missionMemberList) {
+		this.missionMemberList = missionMemberList;
+	}
+
 	public Member(String email, String password, String nickname, String name, String phoneNum, String gender,
-			int totalUps, int totalDowns, List<Review> reviewList) {
+			int totalUps, int totalDowns, List<MemberTaste> memberTasteList) {
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
@@ -40,7 +57,7 @@ public class Member implements Serializable {
 		this.gender = gender;
 		this.totalUps = totalUps;
 		this.totalDowns = totalDowns;
-		this.reviewList = reviewList;
+		this.memberTasteList = memberTasteList;
 	}
 
 	public String getEmail() {
@@ -114,6 +131,8 @@ public class Member implements Serializable {
 	public void setReviewList(List<Review> reviewList) {
 		this.reviewList = reviewList;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -121,6 +140,7 @@ public class Member implements Serializable {
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+		result = prime * result + ((memberTasteList == null) ? 0 : memberTasteList.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((nickname == null) ? 0 : nickname.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -149,6 +169,11 @@ public class Member implements Serializable {
 			if (other.gender != null)
 				return false;
 		} else if (!gender.equals(other.gender))
+			return false;
+		if (memberTasteList == null) {
+			if (other.memberTasteList != null)
+				return false;
+		} else if (!memberTasteList.equals(other.memberTasteList))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -184,9 +209,9 @@ public class Member implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format(
-				"Member [email=%s, password=%s, nickname=%s, name=%s, phoneNum=%s, gender=%s, totalUps=%s, totalDowns=%s, reviewList=%s]",
-				email, password, nickname, name, phoneNum, gender, totalUps, totalDowns, reviewList);
+		return "Member [email=" + email + ", password=" + password + ", nickname=" + nickname + ", name=" + name
+				+ ", phoneNum=" + phoneNum + ", gender=" + gender + ", totalUps=" + totalUps + ", totalDowns="
+				+ totalDowns + ", memberTasteList=" + memberTasteList + ", reviewList=" + reviewList + "]";
 	}
 	
 	

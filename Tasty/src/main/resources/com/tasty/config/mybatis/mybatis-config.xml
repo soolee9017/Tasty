@@ -14,5 +14,6 @@
 	<mappers>
 		<mapper resource="com/tasty/config/mybatis/mapper/ReviewMapper.xml" />
 		<mapper resource="com/tasty/config/mybatis/mapper/TasteMapper.xml"/>
+		<mapper resource="com/tasty/config/mybatis/mapper/MemberMapper.xml"/>
 	</mappers>
 </configuration>

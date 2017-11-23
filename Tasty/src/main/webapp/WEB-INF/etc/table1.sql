@@ -6,6 +6,27 @@
 
 -------------------------------------1.회원------------------------------
 
+INSERT INTO MEMBER VALUES ('aaa@aaa.com', 'aaa', 'a1', 'aaa', '000-0000-0000', 'f', '11', '1');
+INSERT INTO MEMBER VALUES ('bbb@bbb.com', 'bbb', 'b2', 'bbb', '111-1111-1111', 'm', '22', '2');
+INSERT INTO MEMBER VALUES ('ccc@ccc.com', 'ccc', 'c3', 'ccc', '222-2222-2222', 'f', '33', '3');
+INSERT INTO MEMBER VALUES ('ddd@ddd.com', 'ddd', 'd4', 'ddd', '333-3333-3333', 'm', '44', '4');
+INSERT INTO MEMBER VALUES ('eee@eee.com', 'eee', 'e5', 'eee', '444-4444-4444', 'f', '55', '5');
+
+insert into MEMBER_TASTE values ('aaa@aaa.com', '1');
+insert into MEMBER_TASTE values ('bbb@bbb.com', '2');
+insert into MEMBER_TASTE values ('ccc@ccc.com', '3');
+insert into MEMBER_TASTE values ('ccc@ccc.com', '5');
+insert into MEMBER_TASTE values ('ccc@ccc.com', '7');
+insert into MEMBER_TASTE values ('aaa@aaa.com', '6');
+insert into MEMBER_TASTE values ('ddd@ddd.com', '4');
+
+select taste_num 
+from member, member_taste
+where MEMBER_TASTE.email = 'ccc@ccc.com'
+	and member_taste.email = member.email;
+
+
+
 /*ALTER TABLE MEMBER
    DROP CONSTRAINT PK_MEMBER; --회원 기본키*/
 
@@ -39,7 +60,22 @@ ALTER TABLE MEMBER
          email -- 아이디
       );
       
-      
+ 
+DROP TABLE AUTHORITIES;
+/*권한 테이블 - ROLE_ADMIN, ROLE_MEMBER*/
+CREATE TABLE AUTHORITIES(
+	USER_ID VARCHAR2(20),
+	AUTHORITY VARCHAR2(20) NOT NULL,
+	CONSTRAINT PK_AUTHORITIES PRIMARY KEY(email, AUTHORITY),
+	CONSTRAINT FK_AUTHORITIES_USERS FOREIGN KEY(email) REFERENCES MEMBER
+);
+
+
+select * from users;
+
+select * from AUTHORITIES;
+
+insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN')
       
      
       
