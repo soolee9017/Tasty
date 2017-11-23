@@ -107,7 +107,7 @@ section>article>form input {
 			<li><a href="#">추천맛집</a></li>
 			<li><a href="#">추천루트</a></li>
 			<li><a href="#">메뉴</a></li>
-			<li><a href="#">커뮤니티</a></li>
+			<li><a href="${initParam.rootPath}/mission/getAllMission.do">커뮤니티</a></li>
 		</ul>
 	</nav>
 	<p></p>

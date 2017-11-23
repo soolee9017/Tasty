@@ -1,5 +1,16 @@
 package com.tasty.service;
 
-public interface MissionService {
+import java.util.List;
 
+import com.tasty.vo.Mission;
+
+public interface MissionService {
+	//int insertMission(Mission mission);
+	
+	
+	
+	List<Mission> selectAllMission();
+	
+	
+	
 }
