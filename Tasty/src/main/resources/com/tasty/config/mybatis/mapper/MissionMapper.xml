@@ -17,19 +17,16 @@
 	 	mission_cert_num, email, title, content, missionNum
 	 </sql>
 
-	<!-- 미션 내용 전체 조회 -->
 	<sql id="mission-select-sql">
 		SELECT <include refid="mission-column-sql"/>
 		FROM mission_admin
 	</sql>
 	
-	<!-- 미션 인증게시판 내용 전체조회 -->
 	<sql id="missionCert-select-sql">
 		SELECT <include refid="missionCert-column-sql"/>
 		FROM mission_cert_board
 	</sql>
 	
-	<!-- ResultMap등록 -->
 	<resultMap type="mission" id="mission-resultmap">
 		<id column="mission_num" property="missionNum"/>
 		<result column="mission_name" property="missionName"/>
@@ -51,6 +48,7 @@
 				</collection>
 				
 			</collection>
+
 	</resultMap>
 
 
@@ -66,11 +64,11 @@
 		INSERT INTO mission(<include refid="mission-select-sql"/>) 
 		VALUES (#{missionNum},#{missionName},#{missionContent},#{currentPeople},#{maxPeople},#{startDate},#{endDate})
 	</insert>
-	
-	
-	
 
-	<select id="selectMissionByMissionNum" parameterType="int" resultMap="mission-join-photo-resultmap">
+
+	 미션번호로 미션 사진,전체정보 조회  
+<select id="selectMissionByMissionNum" parameterType="int" resultMap="mission-join-photo-resultmap">
+
 		select *
 		from mission_admin ma, mission_photo mp, photo p
 		where ma.mission_num = #{value}
@@ -84,9 +82,17 @@
 	</insert>
 	
 	
--->
 
+	미션글번호로 댓글들 조회
+	<select id="selectMissionCertByMissionNum" parameterType="int" resultMap="missonCert">
+	SELECT mission_cert_num, email, title, content, misisonNum
+      FROM misison_cert_board mc
+	  JOIN mission mi
+	    ON mc.mission_num = mi.mission_num
+	 WHERE mi.mission_num = #{missionNum}
+	</select>
 
+ -->
 	
 	
 	
