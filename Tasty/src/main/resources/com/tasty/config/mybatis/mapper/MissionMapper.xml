@@ -1,4 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tasty.config.mybatis.mapper.MissionMapper">
+	<!-- 
+		MissionAdmin관련 mapper
+		+ 관리자가 미션을 등록
+		+ 관리자가 미션을 삭제
+		+ 관리자가 미션을 수정
+		+ 관리자가 미션을 조회
+	 -->
+	 
+	 <sql id="mission-column-sql">
+	 	mission_name, mission_name, misison_content, current_people, max_people, start_date, end_date
+	 </sql>
+	 
+	 <sql id="missionCert-column-sql">
+	 	mission_cert_num, email, title, content, missionNum
+	 </sql>
+
+	<sql id="mission-select-sql">
+		SELECT <include refid="mission-column-sql"/>
+		FROM mission_admin
+	</sql>
+	
+	<sql id="missionCert-select-sql">
+		SELECT <include refid="missionCert-column-sql"/>
+		FROM mission_cert_board
+	</sql>
+	
+	<resultMap type="mission" id="mission-resultmap">
+		<id column="mission_num" property="missionNum"/>
+		<result column="mission_name" property="missionName"/>
+		<result column="mission_content" property="missionContent"/>
+		<result column="current_people" property="currentPeople"/>
+		<result column="max_people" property="maxPeople"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+	</resultMap>
+	
+	<resultMap type="mission" id="mission-join-photo-resultmap" extends="mission-resultmap">
+			<collection property="missionPhotoList" ofType="missionPhoto">
+				<result column="photo_num" property="photoNum"/>
+				<result column="mission_num" property="missionNum"/>
+				
+				<collection property="photoList" ofType="photo">
+					<id column="photo_num" property="photoNum"/>
+					<result column="photo_path" property="photoPath"/>
+				</collection>
+				
+			</collection>
+
+	</resultMap>
+
+
+
+	<select id="selectAllMission" resultMap="mission-join-photo-resultmap">
+		select * from MISSION_ADMIN, MISSION_PHOTO
+		where MISSION_ADMIN.MISSION_NUM = MISSION_PHOTO.MISSION_NUM
+	</select>
+
+	
+<!-- 
+	<insert id="insertMission" parameterType="mission">
+		INSERT INTO mission(<include refid="mission-select-sql"/>) 
+		VALUES (#{missionNum},#{missionName},#{missionContent},#{currentPeople},#{maxPeople},#{startDate},#{endDate})
+	</insert>
+
+
+	 미션번호로 미션 사진,전체정보 조회  
+<select id="selectMissionByMissionNum" parameterType="int" resultMap="mission-join-photo-resultmap">
+
+		select *
+		from mission_admin ma, mission_photo mp, photo p
+		where ma.mission_num = #{value}
+		and ma.mission_num = mp.mission_num(+)
+		and mp.photo_num = p.photo_num(+)
+	</select>
+	
+	
+	<insert id="insertMissionCert" parameterType="missionCert">
+		INSERT INTO mission_cert(<include refid="missionCert-select-sql"/>) VALUES (#{missionCertNum},#{email},#{title},#{content},#},#{missionNum})
+	</insert>
+	
+	
+
+	미션글번호로 댓글들 조회
+	<select id="selectMissionCertByMissionNum" parameterType="int" resultMap="missonCert">
+	SELECT mission_cert_num, email, title, content, misisonNum
+      FROM misison_cert_board mc
+	  JOIN mission mi
+	    ON mc.mission_num = mi.mission_num
+	 WHERE mi.mission_num = #{missionNum}
+	</select>
+
+ -->
+	
+	
+	
+
 </mapper>
