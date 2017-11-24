@@ -9,9 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 <title>Insert title here</title>
 
-<script src="/Tasty/script/jquery-3.2.1.min.js"></script>
 <script src="/Tasty/script/star.js"></script>
-<script type="text/javascript" src="${initParam.rootPath }/script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#tasteSel").on("change",function(){
@@ -45,9 +44,20 @@ $(document).ready(function(){
 			}
 		});		
 	});
+	
+	
 	$("#plusMenu").on("click",function(){
 		$("#menu_layer").prependTo("#menu");	
 	});
+	
+	
+	$("#plusPhoto").on("click",function(){
+		
+		$('<input type="file" name="upImage"><br>').appendTo("#photo");
+		
+	});
+	
+	
 });
 
 </script>
@@ -141,7 +151,26 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 <div id="menu"> 
 	
 </div>
+
+
 <button id="plusMenu" type="button">메뉴추가</button>
+
+<br><br>
+
+
+사진추가
+
+<div id="photo_layer">
+<input type="file" name="upImage"><br>
+</div>
+
+<div id="photo">
+</div>
+
+<button id="plusPhoto" type="button">사진 추가</button>
+
+
+
 </form>
 
 

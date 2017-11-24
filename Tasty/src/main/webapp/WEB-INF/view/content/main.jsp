@@ -7,4 +7,6 @@
 		onclick="imgSearch();">
 </form>
 
+<a href="/Tasty/review/getAllTaste.do">리뷰작성</a>
+
 
