@@ -63,20 +63,37 @@ $(document).ready(function(){
       txt += "</select>";
       txt += "<select id='degreeSel'>";
       txt += "<option>정도를 선택하세요</option>";
-      txt += "</select>"+"&nbsp;";
+      txt += "</select>"+"&nbsp;"+"</br>";
       
       $("#menu").append(txt)
    });
    
-   $("#plusPhoto").on("click",function(){
-	      
-	      $('<input type="file" name="upImage"><br>').appendTo("#photo");
-	      
-	 });
    
+   
+   $("#plusPhoto").on("click",function(){
+       
+       $('<input type="file" name="upImage"><button type="button" id="photoDelete">사진삭제</button><br>').appendTo("#photo");
+       
+   });
+   
+   
+   
+
+   $("#photoDelete").on("click",function(){
+
+    	alert('zzzz');
+    
+   });
+
+
+
    
 });
 
+
+
+   
+   
 </script>
 
 
@@ -164,7 +181,6 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 </div> 
 
 <div id="menu">
-   
 </div>
 
 <button id="plusMenu" type="button">메뉴추가</button>&nbsp;
@@ -177,6 +193,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 
 ----사진---	 
 <div id="photo">
+<input type="file" name="upImage"><button type="button" id="photoDelete">사진삭제</button><br>
 </div>
 
 <button id="plusPhoto" type="button">사진 추가</button>
