@@ -6,11 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<style type="text/css">
+table{
+   width: 500px;
+}
+</style>
 
 <script src="/Tasty/script/star.js"></script>
 <script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function(){
    $("#menu, #menu_layer").on("change",".tasteSel", function(){
       var evtSrc = this;
@@ -40,39 +45,42 @@ $(document).ready(function(){
       });      
    });
    $("#plusTaste").on("click",function(){
-            
-      var txt = "<select class='tasteSel'>";
-      txt += "<option id='option'>맛을 선택하세요.</option>";
-      txt += "<c:forEach items='${requestScope.tasteList }' var='taste'>";
-      txt += "<option>${taste.tasteName}</option>";   
-      txt += "</c:forEach>";
-      txt += "</select>";
-      txt += "<select id='degreeSel'>";
-      txt += "<option>정도를 선택하세요</option>";
-      txt += "</select>"+"&nbsp;";
+      var txt = '<tbody id="tasteSelect">';
+      txt += '<tr>';
+      txt += "<td></td>";
+      txt += '<td>';
+      txt += $("#tasteSel").html();
+      txt += '</td>';
+      txt += '<td>';
+      txt += $("#degreeSel").html();
+      txt += '</td>';
+      txt += '</tr>';
+      txt += '</tbody>';
       
-      $("#menu").append(txt)
+      $("#menu_layer").append(txt)
    });
+   
+   $("#deleteTaste").on("click",function(){
+    
+   });
+   
    $("#plusMenu").on("click",function(){
-      var txt = "메뉴 : <input type='text' name='menu'>"+"&nbsp;";
-      txt += "<select class='tasteSel'>";      
-      txt += "<option id='option'>맛을 선택하세요.</option>";
-      txt += "<c:forEach items='${requestScope.tasteList }' var='taste'>";
-      txt += "<option>${taste.tasteName}</option>";   
-      txt += "</c:forEach>";
-      txt += "</select>";
-      txt += "<select id='degreeSel'>";
-      txt += "<option>정도를 선택하세요</option>";
-      txt += "</select>"+"&nbsp;"+"</br>";
+      var txt = '<tbody>';
+      txt += '<tr>';
+      txt += "<td>ss</td>";
+      txt += "<td>ss</td>";
+      txt += "<td>ss</td>";
+      txt += "</tr>";
+      txt += "</tbody>";
       
-      $("#menu").append(txt)
+      $("#menu_layer").append(txt);
    });
    
    
    
    $("#plusPhoto").on("click",function(){
        
-       $('<input type="file" name="upImage" id="imgInp"><button type="button" id="photoDelete">사진삭제</button><br>').appendTo("#photo");
+       $('<input type="file" name="upImage"><button type="button" id="photoDelete">사진삭제</button><br>').appendTo("#photo");
        
    });
    
@@ -81,7 +89,7 @@ $(document).ready(function(){
 
    $("#photoDelete").on("click",function(){
 
-    	alert('zzzz');
+       alert('zzzz');
     
    });
 
@@ -90,24 +98,6 @@ $(document).ready(function(){
    
 });
 
-
-$(function() {
-    $("#imgInp").on('change', function(){
-        readURL(this);
-    });
-});
-
-function readURL(input) {
-    if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
-        }
-
-      reader.readAsDataURL(input.files[0]);
-    }
-}
 
 
    
@@ -153,7 +143,13 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 
 <form action="#" method="post">
 
-<span class="star-input">
+
+
+
+제목 : <input type="text" name="title"><br>
+내용: <textarea name="content" cols="40" rows="8"></textarea><br>
+
+별점 : <span class="star-input">
    <span class="input">
       <input type="radio" name="star-input" value="0.5" id="p0.5">
        <label for="p0.5">0.5</label>
@@ -178,59 +174,69 @@ star-input>.input.focus{outline:1px dotted #ddd;}
      </span>
      <output for="star-input"><b>0</b>점</output>                  
 </span>
+<br>
+
+<table border='1' id="menu_layer">
+<thead>
+   <tr>
+      <td>메뉴</td>
+      <td>맛</td>
+      <td>정도</td>
+   </tr>
+</thead>
+<tbody id="tasteSelect">
+   <tr>
+       <td><input type='text' name='menu'></td>
+       <td>
+       <span id="tasteSel">
+      <select id='tasteSel' class='tasteSel'>
+         <option id='option'>맛을 선택하세요.</option>
+         <c:forEach items="${requestScope.tasteList }" var="taste">
+            <option>${taste.tasteName}</option>   
+         </c:forEach>
+      </select>
+      </span>       
+       </td>
+       <td>
+       <span id="degreeSel">
+       <select id="degreeSel">
+            <option>정도를 선택하세요</option>
+      </select>
+      </span>
+       </td>
+   </tr>
+</tbody>
+<tfoot>
+   <tr>
+      <td colspan='3'>
+      <button id="plusMenu">메뉴 추가</button>
+      <button id="deleteMenu">메뉴 삭제</button>
+      <button id="plusTaste" type="button">맛추가</button></td>
+   </tr>
+</tfoot>
+</table>
 
 
+<button id="deleteTaste" type="button">맛삭제</button>
 
-제목 : <input type="text" name="title"><br>
-내용: <textarea name="content" cols="40" rows="8"></textarea><br>
 
-<div id="menu_layer">
-메뉴 : <input type='text' name='menu'>
-<select class='tasteSel'>
-   <option id='option'>맛을 선택하세요.</option>
-   <c:forEach items="${requestScope.tasteList }" var="taste">
-      <option>${taste.tasteName}</option>   
-   </c:forEach>
-</select>
+<!-- <button id="plusMenu" type="button">메뉴추가</button>&nbsp; -->
 
-<select id="degreeSel">
-   <option>정도를 선택하세요</option>
-</select>
-</div> 
-
-<div id="menu">
-</div>
-
-<button id="plusMenu" type="button">메뉴추가</button>&nbsp;
-<button id="plusTaste" type="button">맛추가</button>
 
 
 
 
 <br><br><br>
 
-----사진---	 
+----사진---    
 <div id="photo">
-<input type="file" name="upImage" id="imgInp">
-<button type="button" id="photoDelete">사진삭제</button><br>
+<input type="file" name="upImage"><button type="button" id="photoDelete">사진삭제</button><br>
 </div>
 
 <button id="plusPhoto" type="button">사진 추가</button>
 
 
-       <img id="blah" src="#" />
-
-<br>
-
-
-
-
-
-
 </form>
-
-
-
 
 </body>
 </html>
