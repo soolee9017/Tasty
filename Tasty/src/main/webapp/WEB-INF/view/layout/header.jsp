@@ -60,7 +60,7 @@
       <ul class="nav navbar-nav navbar-left">
         <li><a href="#home">추천맛집</a></li>
         <li><a href="#band">추천루트</a></li>
-        <li><a href="#tour">미션</a></li>
+        <li><a href="${initParam.rootPath }/mission/getAllMission.do">미션</a></li>
         <li><a href="#contact">커뮤니티</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">더 보기

@@ -53,13 +53,13 @@
 	
 	<resultMap type="member" id="member-join-memberTaste-resultmap" extends="member-resultmap">
 		<collection property="memberTasteList" ofType="MemberTaste">
-			<!-- <result column="email" property="email"/> -->
+			<result column="email" property="email"/>
 			<result column="taste_num" property="tasteNum"/>
-					<collection property="tasteList" ofType="Taste">
-						<id column="taste_num" property="tasteNum"/>
-						<result column="taste_name" property="tasteName"/>
-					</collection>
+			<collection property="tasteList" ofType="Taste">
+				<id column="taste_num" property="tasteNum"/>
+				<result column="taste_name" property="tasteName"/>
 			</collection>
+		</collection>
 </resultMap>
 
 
@@ -74,8 +74,8 @@
 									#{phoneNum},
 									#{gender},
 									#{totalUps},
-									#{totalDowns}) 
-									<!-- 맛,,,? -->
+									#{totalDowns},
+									#{memberTasteList})
 	</insert>
 
 	<!-- 삭제 -->

@@ -263,6 +263,8 @@ ALTER TABLE REVIEW
 -- 리뷰
 DROP TABLE REVIEW cascade constraint;
 
+insert into review values('1', '판교', '판교가게', 'bbb@bbb.com', '판교가게감', '내용내용', '4.5', '8', '5', '55', '44');
+
 -- 리뷰
 CREATE TABLE REVIEW (
    review_num NUMBER(12)     NOT NULL, -- 리뷰번호
@@ -423,8 +425,9 @@ create sequence taste_seq;
 drop sequence degree_seq;
 create sequence degree_seq;
 
-delete from taste;
+delete from taste where taste_num=16;
 delete from degree;
+select * from TASTE;
 
 INSERT INTO TASTE VALUES (taste_seq.nextval,'짠');
 INSERT INTO TASTE VALUES (taste_seq.nextval,'단');
