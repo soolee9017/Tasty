@@ -39,27 +39,8 @@ public class TasteController {
 		degreeList.add(1);
 		degreeList.add(2);
 		degreeList.add(3);
-		
-		System.out.println(taste);
-		
-		List tasteList = service.selectAllTaste();
-		
-		System.out.println(tasteList);
-		
-		
-		
-		if(taste.equals(tasteList.get(7))) {
-			List<String> errorMessage = new ArrayList<>();
-			errorMessage.add("선택불가");
-			System.out.println(errorMessage);
-			return errorMessage;
-			
-		}else {
-			System.out.println(degreeList);
-			return degreeList;
-	
-		}
-		
+
+		return degreeList;
 		
 	}
 }
