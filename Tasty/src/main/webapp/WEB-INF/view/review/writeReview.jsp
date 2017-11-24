@@ -34,6 +34,7 @@
 <script
 	src="${initParam.rootPath}/resource/bootstrap/js/themes/krajee-uni/theme.js"
 	type="text/javascript"></script>
+	
 <script type="text/javascript">
 	$(document)
 			.ready(
