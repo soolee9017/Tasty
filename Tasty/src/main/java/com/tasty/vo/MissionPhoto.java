@@ -9,6 +9,9 @@ public class MissionPhoto {
 	
 	private Mission mission;
 	private List<Photo> photoList;
+	
+	
+	
 	public MissionPhoto() {
 	}
 	public MissionPhoto(int photoNum, int missionNum, Mission mission, List<Photo> photoList) {

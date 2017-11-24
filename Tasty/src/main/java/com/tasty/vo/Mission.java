@@ -13,6 +13,7 @@ public class Mission implements Serializable{
 	private Date startDate;
 	private Date endDate;
 	private List<MissionPhoto> missionPhotoList;//생성자 만들었음
+	
 	public Mission() {
 	}
 	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,

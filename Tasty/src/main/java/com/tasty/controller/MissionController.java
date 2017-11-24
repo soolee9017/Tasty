@@ -36,6 +36,7 @@ public class MissionController {
 	@RequestMapping("getAllMission")
 	public ModelAndView getAllMission(){
 		List<Mission> list = service.selectAllMission();
+		System.out.println(list);
 		return new ModelAndView("mission_all_view.jsp","result",list);
 	}
 	

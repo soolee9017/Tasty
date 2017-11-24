@@ -16,7 +16,7 @@ public class MissionDAOImpl implements MissionDAO{
 	private SqlSessionTemplate session;
 
 	private String makeSqlId(String id) {
-		return "MissionMapper."+id;
+		return "com.tasty.config.mybatis.mapper.MissionMapper."+id;
 	}
 	
 	/*@Override

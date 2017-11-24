@@ -1,57 +1,10 @@
-<%@ page contentType="text/html;charset=utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-<script src="/Tasty/script/jquery-3.2.1.min.js"></script>
-<script src="/Tasty/script/star.js"></script>
-<script type="text/javascript" src="${initParam.rootPath }/script/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#tasteSel").on("change",function(){
-		$.ajax({
-			"url":"/Tasty/review/getAllDegree.do",
-			"data":"taste="+$(this).val(),
-			"dataType":"json",
-			"beforeSend":function(){
-				if($("#tasteSel").get(0).selectedIndex == 0){
-					alert("맛을 선택하세요");
-					$("#degreeSel").html("<option>정도를 선택하세요</option>");
-					return false;
-				}
-			},
-			"success":function(degreeList){
-				
-				var txt =""
-					if($("#tasteSel").get(0).selectedIndex == 7){
-					txt = "<option>선택불가</option>";
-				}else{
-					txt="<option>정도를 선택하세요</option> ";
-	
-					$.each(degreeList, function(){
-						txt += "<option>"+this+"</option>"
-					});
-				
-				}
-				
-				
-				$("#degreeSel").html(txt);
-			}
-		});		
-	});
-	$("#plusMenu").on("click",function(){
-		$("#menu_layer").prependTo("#menu");	
-	});
-});
-
-</script>
-
-
-
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+<title>별점</title>
 <style>
 .star-input>.input,
 .star-input>.input>label:hover,
@@ -80,15 +33,9 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 .star-input>output{display:inline-block;width:60px; font-size:18px;text-align:right; vertical-align:middle;}
 </style>
 
-
-
 </head>
+
 <body>
-
-<h2>${requestScope.storeName}의 리뷰작성 페이지</h2>
-
-<form action="#" method="post">
-
 <span class="star-input">
 	<span class="input">
 		<input type="radio" name="star-input" value="0.5" id="p0.5">
@@ -114,32 +61,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
   	</span>
   	<output for="star-input"><b>0</b>점</output>						
 </span>
-
-
-
-제목 : <input type="text" name="title"><br>
-내용: <textarea name="content" cols="40" rows="8"></textarea><br>
-<div id="menu_layer">
-메뉴 : <input type='text' name='menu'>
-
-<select id='tasteSel'>
-	<option id='option'>맛을 선택하세요.</option>
-	<c:forEach items="${requestScope.tasteList }" var="taste">
-		<option>${taste.tasteName}</option>	
-	</c:forEach>
-</select>
-
-<select id="degreeSel">
-	<option>정도를 선택하세요</option>
-</select>
-</div> 
-<div id="menu"> 
-	
-</div>
-<button id="plusMenu" type="button">메뉴추가</button>
-</form>
-
-
-
+<script src="/Tasty/script/jquery-3.2.1.min.js"></script>
+<script src="/Tasty/script/star.js"></script>
 </body>
 </html>

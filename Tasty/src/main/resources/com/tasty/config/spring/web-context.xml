@@ -16,6 +16,7 @@
 	<context:component-scan base-package="com.tasty.controller, com.tasty.dao.impl, com.tasty.service.impl"/>
 	<mvc:annotation-driven/>
 	
+	
 	<mvc:view-controller path="/main.do" view-name="main.tiles"/>
 	<mvc:view-controller path="/template.do" view-name="template.tiles"/>
 	<mvc:view-controller path="map_eatery.do" view-name="/WEB-INF/view/content/util/map_eatery.jsp"/>
@@ -67,7 +68,8 @@
 		<property name="order" value="1"/>
 	</bean>
 	<bean name="internalVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		  p:prefix="/WEB-INF/view/" p:order="2"/>
+	      p:prefix="/WEB-INF/view/" p:order="2"/>
+
 	
 	
 </beans>
