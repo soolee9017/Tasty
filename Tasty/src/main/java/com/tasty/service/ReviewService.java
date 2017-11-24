@@ -7,4 +7,6 @@ import com.tasty.vo.Review;
 public interface ReviewService {
 
 	List<Review> selectReviewByAddress(String address);
+	
+	int insertReview(Review review);
 }

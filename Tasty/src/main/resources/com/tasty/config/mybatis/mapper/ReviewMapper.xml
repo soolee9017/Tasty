@@ -58,11 +58,22 @@
 	and mt.td_num=at.td_num(+)
 	and at.taste_num=t.taste_num(+)
 	and at.degree_num=d.degree_num(+) 
-	
-
-
 </select>
 
+
+<insert id="insertReview" parameterType="review">
+	INSERT INTO REVIEW VALUES  (#{reviewNum},
+									#{address},
+									#{storeName}, 
+									#{email},
+									#{title},
+									#{content},
+									#{ratings},
+									#{ups},
+									#{downs},
+									#{posX},
+									#{posY})
+</insert>
 
 
 </mapper>

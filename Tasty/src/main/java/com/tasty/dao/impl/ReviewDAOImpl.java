@@ -24,5 +24,10 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return session.selectList(makeSqlId("selectReviewByAddress"), address);
 	}
 
+	@Override
+	public int insertReview(Review review) {
+		return session.insert(makeSqlId("insertReview"), review);
+	}
+
 	
 }

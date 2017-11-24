@@ -13,49 +13,21 @@
 	color: black;
 }
 
-p {
-	width: 100%;
-	height: 1px;
-	background-color: black;
-}
-
-.nav>ul {
-	width: 100%;
-	height: 50px;
-}
-
-.nav>ul>li {
-	text-align: center;
-	width: 25%;
-	line-height: 50px;
-}
-
-section>header {
-	margin-top: 80px;
-	text-align: center;
-}
-
-section>header h1 {
+section header h1 {
+	padding-top: 60px;
+	margin-bottom: 150px;
 	font-size: 120px;
-	color: blue;
-}
-
-.header h1 {
-	font-size: 50px;
-	color: blue;
-}
-
-section>article {
-	margin-top: 100px;
-	height: 100px;
+	color: white;
+	position: static;
+	z-index: 5;
 }
 
 #searchEater {
-	-webkit-border-radius: 15px 0 0 15px;
-	font-size: 20px;
+	-webkit-border-radius: 15px;
+	font-size: 17px;
 	padding-left: 8px;
 	height: 40px;
-	z-index: 1;
+	z-index: 4;
 }
 
 #keyward img {
@@ -63,6 +35,14 @@ section>article {
 	z-index: 3;
 	width: 34px;
 	height: 34px;
+}
+
+.back {
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 102%;
+	height: 570px;
+	margin-top: 49.5px;
+	z-index: 2;
 }
 </style>
 <link type="text/css" rel="stylesheet"
@@ -92,20 +72,18 @@ section>article {
 </head>
 <body>
 	<div class="container-fluid text-center">
-		<header class="row page-header">
+		<header class="row">
 			<tiles:insertAttribute name="header" />
 		</header>
 		<section>
-			<header>
-				<h1>Yolty 50</h1>
-			</header>
 			<article>
-				<tiles:insertAttribute name="content"/>
+				<tiles:insertAttribute name="content" />
 			</article>
 		</section>
 		<footer class="row text-center">
 			<tiles:insertAttribute name="footer" />
 		</footer>
+		
 	</div>
 </body>
 </html>

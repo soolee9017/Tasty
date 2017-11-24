@@ -81,16 +81,7 @@ $(document).ready(function(){
      $("#")
    });
    $("#plusMenu").on("click",function(){
-      var txt = "메뉴 : <input type='text' name='menu'>"+"&nbsp;";
-      txt += "<select class='tasteSel'>";      
-      txt += "<option id='option'>맛을 선택하세요.</option>";
-      txt += "<c:forEach items='${requestScope.tasteList }' var='taste'>";
-      txt += "<option>${taste.tasteName}</option>";   
-      txt += "</c:forEach>";
-      txt += "</select>";
-      txt += "<select id='degreeSel'>";
-      txt += "<option>정도를 선택하세요</option>";
-      txt += "</select>"+"&nbsp;"+"</br>";
+	  var txt = "<tbody><tr><td></td><td><select class='tasteSel' name='tastes'><option>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste'><option>${taste.tasteName}</option></c:forEach></select></td><td><select id='degreeSel' name='degrees'><option>정도를 선택하세요</option></select></td></tr></tbody>";
       
       $("#menu").append(txt)
    });
@@ -130,22 +121,55 @@ $(document).ready(function(){
 제목 : <input type="text" name="title"><br>
 내용: <textarea name="content" cols="40" rows="8"></textarea><br>
 
-<div id="menu_layer">
+<table id="menu_layer">
+	<thead>
+		<tr>
+			<td>메뉴</td>
+			<td>맛</td>
+			<td>정도</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<input type='text' name='menu'>
+			</td>
+			<td>
+				<select class='tasteSel' name="tastes">
+				   <option>맛을 선택하세요.</option>
+				   <c:forEach items="${requestScope.tasteList }" var="taste">
+				      <option>${taste.tasteName}</option>   
+				   </c:forEach>
+				</select>
+			</td>
+			<td>
+				<select id="degreeSel" name="degrees">
+  					<option>정도를 선택하세요</option>
+				</select>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+
+<%-- <div id="menu_layer">
 메뉴 : <input type='text' name='menu'>
-<select class='tasteSel'>
-   <option id='option'>맛을 선택하세요.</option>
+<select class='tasteSel' name="tastes">
+   <option>맛을 선택하세요.</option>
    <c:forEach items="${requestScope.tasteList }" var="taste">
       <option>${taste.tasteName}</option>   
    </c:forEach>
 </select>
 
-<select id="degreeSel">
+<select id="degreeSel" name="degrees">
    <option>정도를 선택하세요</option>
 </select>
 </div> 
+ --%>
 
-<div id="menu">
-</div>
+<span id="menu">
+</span>
 
 <button id="plusMenu" type="button">메뉴추가</button>&nbsp;
 <button id="plusTaste" type="button">맛추가</button>

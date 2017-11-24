@@ -21,6 +21,11 @@ public class ReviewServiceImpl implements ReviewService{
 	public List<Review> selectReviewByAddress(String address) {
 		return reviewDao.selectReviewByAddress(address);
 	}
+
+	@Override
+	public int insertReview(Review review) {
+		return reviewDao.insertReview(review);
+	}
 	
 	
 
