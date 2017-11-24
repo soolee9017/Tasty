@@ -72,7 +72,7 @@ $(document).ready(function(){
    
    $("#plusPhoto").on("click",function(){
        
-       $('<input type="file" name="upImage"><button type="button" id="photoDelete">사진삭제</button><br>').appendTo("#photo");
+       $('<input type="file" name="upImage" id="imgInp"><button type="button" id="photoDelete">사진삭제</button><br>').appendTo("#photo");
        
    });
    
@@ -90,6 +90,24 @@ $(document).ready(function(){
    
 });
 
+
+$(function() {
+    $("#imgInp").on('change', function(){
+        readURL(this);
+    });
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+}
 
 
    
@@ -193,13 +211,26 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 
 ----사진---	 
 <div id="photo">
-<input type="file" name="upImage"><button type="button" id="photoDelete">사진삭제</button><br>
+<input type="file" name="upImage" id="imgInp">
+<button type="button" id="photoDelete">사진삭제</button><br>
 </div>
 
 <button id="plusPhoto" type="button">사진 추가</button>
 
 
+       <img id="blah" src="#" />
+
+<br>
+
+
+
+
+
+
 </form>
+
+
+
 
 </body>
 </html>
