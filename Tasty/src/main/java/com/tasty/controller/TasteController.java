@@ -15,7 +15,7 @@ import com.tasty.service.TasteService;
 @Controller
 @RequestMapping("/review/")
 public class TasteController {
-
+	int index = 0;
 	@Autowired
 	TasteService service;
 	
@@ -25,6 +25,17 @@ public class TasteController {
 		List tasteList = service.selectAllTaste();
 		return new ModelAndView("review/writeReview.jsp","tasteList",tasteList);
 	}
+	
+//	@RequestMapping("getTasteWithoutBeforeTaste")
+//	public ModelAndView getTasteWithoutBeforeTaste(@RequestParam String selectedTaste) {
+//		List tasteList = service.selectAllTaste();
+//		for(Object taste : tasteList) {
+//			if(taste.equals(selectedTaste)) {
+//				tasteList.remove(selectedTaste);
+//			}
+//		}
+//		return new ModelAndView("review/writeReview.jsp","tasteList",tasteList);
+//	}
 	
 	@RequestMapping("getAllTaste2")
 	public ModelAndView getAllTaste2() {
