@@ -70,6 +70,7 @@
 	</bean>
 	<bean name="internalVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 	      p:prefix="/WEB-INF/view/" p:order="2"/>
+
 	
 	
 </beans>

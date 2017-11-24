@@ -30,6 +30,19 @@ public class Member implements Serializable {
 		this.totalUps = totalUps;
 		this.totalDowns = totalDowns;
 	}
+	
+	public Member(String email, String password, String nickname, String name, String phoneNum, String gender,
+			int totalUps, int totalDowns, List<MemberTaste> memberTasteList) {
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+		this.name = name;
+		this.phoneNum = phoneNum;
+		this.gender = gender;
+		this.totalUps = totalUps;
+		this.totalDowns = totalDowns;
+		this.memberTasteList = memberTasteList;
+	}
 
 	public List<MemberTaste> getMemberTasteList() {
 		return memberTasteList;
@@ -45,19 +58,6 @@ public class Member implements Serializable {
 
 	public void setMissionMemberList(List<MissionMember> missionMemberList) {
 		this.missionMemberList = missionMemberList;
-	}
-
-	public Member(String email, String password, String nickname, String name, String phoneNum, String gender,
-			int totalUps, int totalDowns, List<MemberTaste> memberTasteList) {
-		this.email = email;
-		this.password = password;
-		this.nickname = nickname;
-		this.name = name;
-		this.phoneNum = phoneNum;
-		this.gender = gender;
-		this.totalUps = totalUps;
-		this.totalDowns = totalDowns;
-		this.memberTasteList = memberTasteList;
 	}
 
 	public String getEmail() {

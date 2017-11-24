@@ -6,7 +6,12 @@
 		src="${initParam.rootPath}/icon/main_search.png"
 		onclick="imgSearch();">
 </form>
+<a href="${initParam.rootPath }/review/getAllTaste.do">리뷰작성</a>
 
-<a href="/Tasty/review/getAllTaste.do">리뷰작성</a>
+
+
+
+
+<a href="${initParam.rootPath }/review/getAllTaste2.do">requestMember</a>
 
 

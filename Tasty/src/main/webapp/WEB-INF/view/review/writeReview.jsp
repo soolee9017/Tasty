@@ -9,45 +9,72 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 <title>Insert title here</title>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
 <script src="/Tasty/script/star.js"></script>
 <script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#tasteSel").on("change",function(){
+	$("#menu, #menu_layer").on("change",".tasteSel", function(){
+		var evtSrc = this;
 		$.ajax({
 			"url":"/Tasty/review/getAllDegree.do",
 			"data":"taste="+$(this).val(),
 			"dataType":"json",
 			"beforeSend":function(){
-				if($("#tasteSel").get(0).selectedIndex == 0){
+				if(evtSrc.selectedIndex == 0){
 					alert("맛을 선택하세요");
-					$("#degreeSel").html("<option>정도를 선택하세요</option>");
+					/* $(evtSrc).next() 는 $("#menu, #menu_layer").on("change" 액션을 취하고, 다음 tag에 적용하는 것이다.. */ 
+					$(evtSrc).next().html("<option>정도를 선택하세요</option>");
+					return false;
+				}else if(evtSrc.selectedIndex == 8){
+					$(evtSrc).next().html("<option>선택불가</option>");
 					return false;
 				}
 			},
-			"success":function(degreeList){
+			"success":function(list){
 				
-				var txt =""
-					if($("#tasteSel").get(0).selectedIndex == 7){
-					txt = "<option>선택불가</option>";
-				}else{
-					txt="<option>정도를 선택하세요</option> ";
-	
-					$.each(degreeList, function(){
-						txt += "<option>"+this+"</option>"
-					});
-				
-				}
-				
-				
-				$("#degreeSel").html(txt);
+				var txt="<option>정도를 선택하세요</option>";
+				$.each(list, function(){
+					txt += "<option>"+this+"</option>"
+				});
+				$(evtSrc).next().html(txt);
 			}
 		});		
 	});
+<<<<<<< HEAD
 	
 	
+=======
+	$("#plusTaste").on("click",function(){
+		var txt = "<select class='tasteSel'>";
+		txt += "<option id='option'>맛을 선택하세요.</option>";
+		txt += "<c:forEach items='${requestScope.tasteList }' var='taste'>";
+		txt += "<option>${taste.tasteName}</option>";	
+		txt += "</c:forEach>";
+		txt += "</select>";
+		txt += "<select id='degreeSel'>";
+		txt += "<option>정도를 선택하세요</option>";
+		txt += "</select>"+"<br>";
+		
+		$("#menu").append(txt)
+	});
+>>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
 	$("#plusMenu").on("click",function(){
-		$("#menu_layer").prependTo("#menu");	
+		var txt = "메뉴 : <input type='text' name='menu'>&nbsp;";
+		txt += "<select class='tasteSel'>";		
+		txt += "<option id='option'>맛을 선택하세요.</option>";
+		txt += "<c:forEach items='${requestScope.tasteList }' var='taste'>";
+		txt += "<option>${taste.tasteName}</option>";	
+		txt += "</c:forEach>";
+		txt += "</select>";
+		txt += "<select id='degreeSel'>";
+		txt += "<option>정도를 선택하세요</option>";
+		txt += "</select>"+"<br>";
+		
+		$("#menu").append(txt)
 	});
 	
 	
@@ -134,10 +161,10 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 
 제목 : <input type="text" name="title"><br>
 내용: <textarea name="content" cols="40" rows="8"></textarea><br>
+
 <div id="menu_layer">
 메뉴 : <input type='text' name='menu'>
-
-<select id='tasteSel'>
+<select class='tasteSel'>
 	<option id='option'>맛을 선택하세요.</option>
 	<c:forEach items="${requestScope.tasteList }" var="taste">
 		<option>${taste.tasteName}</option>	
@@ -148,10 +175,12 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 	<option>정도를 선택하세요</option>
 </select>
 </div> 
-<div id="menu"> 
+
+<div id="menu">
 	
 </div>
 
+<<<<<<< HEAD
 
 <button id="plusMenu" type="button">메뉴추가</button>
 
@@ -171,9 +200,11 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 
 
 
+=======
+<button id="plusMenu" type="button">메뉴추가</button>&nbsp;
+<button id="plusTaste" type="button">맛추가</button>
+>>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
 </form>
-
-
 
 </body>
 </html>
