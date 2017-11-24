@@ -425,8 +425,9 @@ create sequence taste_seq;
 drop sequence degree_seq;
 create sequence degree_seq;
 
-delete from taste;
+delete from taste where taste_num=16;
 delete from degree;
+select * from TASTE;
 
 INSERT INTO TASTE VALUES (taste_seq.nextval,'짠');
 INSERT INTO TASTE VALUES (taste_seq.nextval,'단');

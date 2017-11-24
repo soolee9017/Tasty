@@ -55,8 +55,6 @@
 	
    
 	<!-- ViewResolver -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-			  p:prefix="/WEB-INF/view/"/>		
 	
 	<bean name="tilesConfig" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -68,9 +66,8 @@
 	<bean name="tilesVR" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
 		<property name="order" value="1"/>
 	</bean>
-	<bean name="internalVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="2"/>
-	</bean>
+	<bean name="internalVR" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		  p:prefix="/WEB-INF/view/" p:order="2"/>
 	
 	
 </beans>
