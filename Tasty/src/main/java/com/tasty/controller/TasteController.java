@@ -39,7 +39,7 @@ public class TasteController {
 		degreeList.add(1);
 		degreeList.add(2);
 		degreeList.add(3);
-
+		
 		return degreeList;
 		
 	}

@@ -69,25 +69,21 @@ section header h1 {
 		}
 	}
 </script>
-
 </head>
 <body>
 	<div class="container-fluid text-center">
 		<header class="row">
 			<tiles:insertAttribute name="header" />
 		</header>
-
 		<section>
 			<article>
 				<tiles:insertAttribute name="content" />
 			</article>
 		</section>
-
 		<footer class="row text-center">
 			<tiles:insertAttribute name="footer" />
 		</footer>
-		<a href="${initParam.rootPath }/review/getAllTaste.do">리뷰작성</a>
-	<a href="${initParam.rootPath }/review/getAllTaste2.do">requestMember</a>
+		
 	</div>
 </body>
 </html>
