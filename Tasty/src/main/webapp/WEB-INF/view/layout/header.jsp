@@ -43,17 +43,18 @@
 
 /* On hover, the dropdown links will turn red */
 .dropdown-menu li a:hover {
-	background-color: red !important;
+	background-color: #FF4800 !important;
 }
+
 </style>
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
-      </button>
+      </button> -->
       <a class="navbar-brand" href="${initParam.rootPath}/main.do">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
@@ -73,10 +74,10 @@
           </ul>
         </li>
       </ul>
-      <ul>
-      	<li></li>
-      	<li></li>
-      	<li></li>
+      <ul class="nav navbar-nav navbar-right">
+      	<li><a href="#"></a></li>
+      	<li><a href="#"></a></li>
+      	<li><button class="btn btn-info" style="margin-top:8px;">회원가입</button></li>
       </ul>
     </div>
   </div>
