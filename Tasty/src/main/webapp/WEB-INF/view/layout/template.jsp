@@ -97,7 +97,7 @@ section>article {
 		</header>
 		<section>
 			<header>
-				<h1>Yolty 50</h1>
+				<h1>YOLTY 50</h1>
 			</header>
 			<article>
 				<tiles:insertAttribute name="content"/>

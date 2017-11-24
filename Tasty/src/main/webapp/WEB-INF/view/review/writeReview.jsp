@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 <title>Insert title here</title>
 
 <script src="/Tasty/script/jquery-3.2.1.min.js"></script>
@@ -89,6 +91,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 
 <form action="#" method="post">
 
+별점:
 <span class="star-input">
 	<span class="input">
 		<input type="radio" name="star-input" value="0.5" id="p0.5">
@@ -114,6 +117,8 @@ star-input>.input.focus{outline:1px dotted #ddd;}
   	</span>
   	<output for="star-input"><b>0</b>점</output>						
 </span>
+<br>
+
 
 
 
