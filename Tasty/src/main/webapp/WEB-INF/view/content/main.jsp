@@ -9,3 +9,5 @@
 <a href="${initParam.rootPath }/review/getAllTaste.do">리뷰작성</a>
 
 
+<a href="${initParam.rootPath }/review/getAllTaste2.do">requestMember</a>
+
