@@ -19,6 +19,7 @@ $(document).ready(function(){
 			"beforeSend":function(){
 				if(evtSrc.selectedIndex == 0){
 					alert("맛을 선택하세요");
+					/* $(evtSrc).next() 는 $("#menu, #menu_layer").on("change" 액션을 취하고, 다음 tag에 적용하는 것이다.. */ 
 					$(evtSrc).next().html("<option>정도를 선택하세요</option>");
 					return false;
 				}else if(evtSrc.selectedIndex == 8){
