@@ -57,7 +57,7 @@
       <a class="navbar-brand" href="${initParam.rootPath}/main.do">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-left">
         <li><a href="#home">추천맛집</a></li>
         <li><a href="#band">추천루트</a></li>
         <li><a href="#tour">미션</a></li>
@@ -72,6 +72,11 @@
             <li><a href="#">연혁 소개</a></li> 
           </ul>
         </li>
+      </ul>
+      <ul>
+      	<li></li>
+      	<li></li>
+      	<li></li>
       </ul>
     </div>
   </div>
