@@ -59,41 +59,37 @@
 	</select>
 
 	
-<!-- 
+	<!-- 미션 등록  -->
 	<insert id="insertMission" parameterType="mission">
-		INSERT INTO mission(<include refid="mission-select-sql"/>) 
-		VALUES (#{missionNum},#{missionName},#{missionContent},#{currentPeople},#{maxPeople},#{startDate},#{endDate})
+		INSERT INTO mission 
+		VALUES (#{missionNum},
+				#{missionName},
+				#{missionContent},
+				#{currentPeople},
+				#{maxPeople},
+				#{startDate},
+				#{endDate})
 	</insert>
-
-
-	 미션번호로 미션 사진,전체정보 조회  
-<select id="selectMissionByMissionNum" parameterType="int" resultMap="mission-join-photo-resultmap">
-
-		select *
-		from mission_admin ma, mission_photo mp, photo p
-		where ma.mission_num = #{value}
-		and ma.mission_num = mp.mission_num(+)
-		and mp.photo_num = p.photo_num(+)
-	</select>
+	<!-- 미션 수정 -->
+	<update id="updateMissionByMissionNum" parameterType="mission">
+		UPDATE MISSION
+		SET  mission_name = #{missionName},
+			 mission_content = #{missionContent},
+			 current_people = #{current_people},
+			 current_people = #{currentPeople},
+			 start_date = #{startDate},
+			 end_date =  #{endDate}
+		WHERE mission_num = #{missionNum}
+	</update>	
+	
+	<!-- 미션 삭제 -->
+	<delete id="deleteMissionByMissionNum">
+			delete from mission where mission_num = #{value}
+	</delete>
 	
 	
-	<insert id="insertMissionCert" parameterType="missionCert">
-		INSERT INTO mission_cert(<include refid="missionCert-select-sql"/>) VALUES (#{missionCertNum},#{email},#{title},#{content},#},#{missionNum})
-	</insert>
-	
-	
 
-	미션글번호로 댓글들 조회
-	<select id="selectMissionCertByMissionNum" parameterType="int" resultMap="missonCert">
-	SELECT mission_cert_num, email, title, content, misisonNum
-      FROM misison_cert_board mc
-	  JOIN mission mi
-	    ON mc.mission_num = mi.mission_num
-	 WHERE mi.mission_num = #{missionNum}
-	</select>
 
- -->
-	
 	
 	
 
