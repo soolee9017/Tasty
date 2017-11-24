@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="/Tasty/script/jquery-3.2.1.min.js"></script>
+
 <script src="/Tasty/script/star.js"></script>
-<script type="text/javascript" src="${initParam.rootPath }/script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#menu, #menu_layer").on("change",".tasteSel", function(){
@@ -39,8 +39,21 @@ $(document).ready(function(){
 			}
 		});		
 	});
+	$("#plusTaste").on("click",function(){
+		var txt = "<select class='tasteSel'>";
+		txt += "<option id='option'>맛을 선택하세요.</option>";
+		txt += "<c:forEach items='${requestScope.tasteList }' var='taste'>";
+		txt += "<option>${taste.tasteName}</option>";	
+		txt += "</c:forEach>";
+		txt += "</select>";
+		txt += "<select id='degreeSel'>";
+		txt += "<option>정도를 선택하세요</option>";
+		txt += "</select>"+"<br>";
+		
+		$("#menu").append(txt)
+	});
 	$("#plusMenu").on("click",function(){
-		var txt = "메뉴 : <input type='text' name='menu'>";
+		var txt = "메뉴 : <input type='text' name='menu'>&nbsp;";
 		txt += "<select class='tasteSel'>";		
 		txt += "<option id='option'>맛을 선택하세요.</option>";
 		txt += "<c:forEach items='${requestScope.tasteList }' var='taste'>";
@@ -145,8 +158,8 @@ star-input>.input.focus{outline:1px dotted #ddd;}
 	
 </div>
 
-<button id="plusMenu" type="button">메뉴추가</button>
-
+<button id="plusMenu" type="button">메뉴추가</button>&nbsp;
+<button id="plusTaste" type="button">맛추가</button>
 </form>
 
 </body>
