@@ -68,7 +68,7 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="${initParam.rootPath}/util/information.do">회사 소개</a></li>
+            <li><a href="${initParam.rootPath}/content/util/information.do">회사 소개</a></li>
             <li><a href="#">인사말</a></li>
             <li><a href="#">연혁 소개</a></li> 
           </ul>
