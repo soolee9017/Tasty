@@ -21,13 +21,24 @@ public class MissionServiceImpl implements MissionService{
 		return missionDao.selectAllMission();
 	}
 
-	/*@Override
+	@Override
+	public int updateMissionByMissionNum(Mission mission) {
+		return missionDao.updateMissionByMissionNum(mission);
+	}
+
+	@Override
+	public int deleteMissionByMissonNum(int missionNum) {
+		return missionDao.deleteMissionByMissionNum(missionNum);
+	}
+
+	@Override
 	public int insertMission(Mission mission) {
 		return missionDao.insertMission(mission);
 	}
-*/
+
 	
 	
 	
 	
 }
+

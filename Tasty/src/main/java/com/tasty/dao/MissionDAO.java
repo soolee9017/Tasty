@@ -11,10 +11,28 @@ public interface MissionDAO {
 	 * @param mission
 	 * @return
 	 */
-	//int insertMission(Mission mission);
+	int insertMission(Mission mission);
 	
-		
+	/**
+	 * 미션을 조회하는 dao
+	 * @return
+	 */
 	List<Mission> selectAllMission();
+	
+	/**
+	 * 미션번호로 미션을 삭제하는 dao
+	 * @param missionNum
+	 * @return
+	 */
+	int deleteMissionByMissionNum(int missionNum);
+	
+	/**
+	 * 미션을 수정하는 dao
+	 * @param missionNum
+	 * @return
+	 */
+	int updateMissionByMissionNum(Mission mission);
 	
 	
 }
+

@@ -62,7 +62,7 @@ section header h1 {
 	src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">	
 	function imgSearch() {
 		var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 		var search = document.getElementById('searchEater').value;
