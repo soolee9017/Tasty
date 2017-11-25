@@ -46,7 +46,7 @@ $(document).ready(function(){
             if(evtSrc.selectedIndex == 0){
                alert("맛을 선택하세요");
                /* $(evtSrc).next() 는 $("#menu, #menu_layer").on("change" 액션을 취하고, 다음 tag에 적용하는 것이다.. */ 
-               $(evtSrc).next().html("<option>정도를 선택하세요</option>");
+               $(evtSrc).next().html("<option value=''>정도를 선택하세요</option>");
                return false;
             }else if(evtSrc.selectedIndex == 8){
                $(evtSrc).next().html("<option>선택불가</option>");
@@ -55,7 +55,7 @@ $(document).ready(function(){
          },
          "success":function(list){
             
-            var txt="<option>정도를 선택하세요</option>";
+            var txt="<option value=''>정도를 선택하세요</option>";
             $.each(list, function(){
                txt += "<option>"+this+"</option>"
             });
@@ -64,12 +64,18 @@ $(document).ready(function(){
       });      
    });
       
+    
+    var finalArr = [];
+      
    $("#plusMenu").on("click",function(){
+     
+
+	  
 	  
 	  var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
       txt += "<td><input type='text' name='menu'></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
-      txt += "<td><span><select class='tasteSel' name='tastes'><option>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste'><option>${taste.tasteName}</option></c:forEach></select>";
-      txt += "<select id='degreeSel' name='degrees'><option>정도를 선택하세요</option></select></span></td></tr>";
+      txt += "<td><span><select class='tasteSel' name='tastes' required><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste'><option>${taste.tasteName}</option></c:forEach></select>";
+      txt += "<select id='degreeSel' name='degrees' required><option value=''>정도를 선택하세요</option></select></span></td></tr>";
       $("#menu_layer > tbody").append(txt)
       
    });
@@ -78,18 +84,18 @@ $(document).ready(function(){
     
    
    $("#menu_layer").on("click",".plusTaste2",function(){
-	   
-	   if($(this).parent().next().children().length == 3){
-		   alert('더이상 맛 추가 안됨');
-		   return;
-	   }
-	   
-	   
-	     var txt = "<span><select class='tasteSel' name='tastes'><option>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste'><option>${taste.tasteName}</option></c:forEach></select><select id='degreeSel' name='degrees'><option>정도를 선택하세요</option></select><button type='button' class='deleteTaste'>X</button></span>";
-	     $(this).parent().next().append(txt);
-	     
-	 	 
-	});
+      
+      if($(this).parent().next().children().length == 3){
+         alert('더이상 맛 추가 안됨');
+         return;
+      }
+      
+      
+        var txt = "<span><select class='tasteSel' name='tastes' required><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste'><option>${taste.tasteName}</option></c:forEach></select><select id='degreeSel' name='degrees' required><option value=''>정도를 선택하세요</option></select><button type='button' class='deleteTaste'>X</button></span>";
+        $(this).parent().next().append(txt);
+        
+        
+   });
    
    
   
@@ -127,19 +133,68 @@ $(document).ready(function(){
        $(this).parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
    }); 
    
+   
+   $("#sendBtn").on("click", function() { 
+	   
+		var totalTr = $('#tBody>tr').length;
+	   
+
+		
+		var temp =[];
+		var name;
+		var sLength;
+		var selVal;
+		
+  	 	for(var i = 0; i<totalTr ; i++){
+		
+		   temp = [];
+		   temp.push('/');
+		    name= $('#tBody>tr:eq('+i+') input').val();
+		    sLength = $('#tBody>tr:eq('+i+') select').length;
+		   temp.push(name);
+		   
+		   
+			 for(var s=0; s<sLength ; s++){
+				   
+				  selVal= $('#tBody>tr:eq('+i+') select:eq('+s+')').val();
+				  temp.push(selVal);
+			   }
+	   		
+		   finalArr.push(temp); 
+	   } 
+		
+		
+//		alert(finalArr);	
+		
+		$('#finalArr').val(finalArr);
+		
+//		alert($('#finalArr').val());
+		
+		 $("#reviewForm").submit(); 
+	   
+   }); 
+   
   
+   
 });
 
 
-
-
 </script>
+
+
+<style type="text/css">
+
+
+
+
+</style>
+
 </head>
 <body>
 
    <h2>${requestScope.storeName}의리뷰작성 페이지</h2>
 
-   <form action="#" method="post">
+   <form action="${initParam.rootPath }/test/reviewTest.jsp" method="post" id="reviewForm">
       <input type="text" class="rating rating-loading" value="0"
          data-size="sm" title=""> 제목 : <input type="text" name="title"><br>
       내용:
@@ -150,28 +205,30 @@ $(document).ready(function(){
          <thead>
             <tr>
                <td>메뉴삭제</td>
-               <td>메뉴</td>
+   
+               <td>메뉴 이름</td>
                <td>맛 추가</td>
                <td>맛+정도</td>
             </tr>
          </thead>
-         <tbody>
+         <tbody id="tBody">
             <tr>
-            	<td><button type="button" class="deleteMenu">메뉴삭제</button></td>
+               <td><button type="button" class="deleteMenu">메뉴삭제</button></td>
             
+  
                <td><input type='text' name='menu'></td>
                
                
                <td><button type='button'class='plusTaste2'>맛 추가</button></td>
                
                
-               <td><span><select class='tasteSel' name="tastes">
-                     <option>맛을 선택하세요.</option>
+               <td><span><select class='tasteSel' name="tastes" required>
+                     <option value="">맛을 선택하세요.</option>
                      <c:forEach items="${requestScope.tasteList }" var="taste">
                         <option>${taste.tasteName}</option>
                      </c:forEach>
-               </select> <select id="degreeSel" name="degrees">
-                     <option>정도를 선택하세요</option>
+               </select> <select id="degreeSel" name="degrees" required>
+                     <option value="">정도를 선택하세요</option>
                </select></span></td>
                
             </tr>
@@ -199,6 +256,17 @@ $(document).ready(function(){
       </table>
       <button type="button" id="plusPhoto">사진추가</button>
       <br>
+      <br>
+      <br>
+      <br>
+
+<input type="hidden" id="finalArr" name="finalArr" value="">
+
+---------------리뷰 최종 전송 버튼 ---------------------<br>
+<button id="sendBtn" type="button">리뷰 전송</button>
+
+
+	
 
 
    </form>
