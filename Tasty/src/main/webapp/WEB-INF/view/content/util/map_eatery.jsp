@@ -243,13 +243,13 @@ body {
 		var clusterer = new daum.maps.MarkerClusterer({
 			map : map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
 			averageCenter : true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-			minLevel : 2
+			minLevel : 3
 		// 클러스터 할 최소 지도 레벨 
 		});
 
 		// 장소 검색 객체를 생성합니다 
 		var ps = new daum.maps.services.Places();
-
+		
 		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 		var infowindow = new daum.maps.InfoWindow({
 			zIndex : 1
@@ -267,9 +267,12 @@ body {
 				alert('키워드를 입력해주세요!');
 				return false;
 			}
-
+			
 			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-			ps.keywordSearch(keyword, placesSearchCB);
+			ps.keywordSearch(keyword, placesSearchCB,{
+				category_group_code : 'FD6,CE7'
+			});
+			
 		}
 
 		// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다

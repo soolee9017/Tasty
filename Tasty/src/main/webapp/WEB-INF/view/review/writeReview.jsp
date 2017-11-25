@@ -10,30 +10,13 @@
    href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" media="all"
    href="${initParam.rootPath}/resource/bootstrap/css/star-rating.css">
-<link rel="stylesheet"
-   href="${initParam.rootPath}/resource/bootstrap/js/themes/krajee-fa/theme.css"
-   media="all" type="text/css" />
-<link rel="stylesheet"
-   href="${initParam.rootPath}/resource/bootstrap/js/themes/krajee-svg/theme.css"
-   media="all" type="text/css" />
-<link rel="stylesheet"
-   href="${initParam.rootPath}/resource/bootstrap/js/themes/krajee-uni/theme.css"
-   media="all" type="text/css" />
 <script type="text/javascript"
    src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
    src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-   src="${initParam.rootPath}/resource/bootstrap/js/star-rating.min.js"></script>
-<script
-   src="${initParam.rootPath}/resource/bootstrap/js/themes/krajee-fa/theme.js"
-   type="text/javascript"></script>
-<script
-   src="${initParam.rootPath}/resource/bootstrap/js/themes/krajee-svg/theme.js"
-   type="text/javascript"></script>
-<script
-   src="${initParam.rootPath}/resource/bootstrap/js/themes/krajee-uni/theme.js"
-   type="text/javascript"></script>
+   src="${initParam.rootPath}/resource/bootstrap/js/star-rating.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
    $("#menu, #menu_layer").on("change",".tasteSel", function(){
@@ -108,7 +91,7 @@ $(document).ready(function(){
 <h2>${requestScope.storeName}의 리뷰작성 페이지</h2>
 
 <form action="#" method="post">
-<input type="text" class="rating rating-loading" value="4" data-size="sm" title="">
+<input type="text" class="rating rating-loading" value="0" data-size="sm" title="">
 제목 : <input type="text" name="title"><br>
 내용: <textarea name="content" cols="40" rows="8"></textarea><br>
 

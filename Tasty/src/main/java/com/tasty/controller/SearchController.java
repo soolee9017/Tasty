@@ -11,6 +11,6 @@ public class SearchController {
 	
 	@RequestMapping("mapEatery")
 	public ModelAndView searchEatery(@RequestParam String keyward) {
-		return new ModelAndView("/map_eatery.do","keyward",keyward);
+		return new ModelAndView("/content/util/map_eatery.jsp","keyward",keyward);
 	}
 }

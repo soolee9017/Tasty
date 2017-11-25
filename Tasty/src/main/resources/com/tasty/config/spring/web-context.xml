@@ -20,7 +20,7 @@
 	
 	<mvc:view-controller path="/main.do" view-name="main.tiles"/>
 	<mvc:view-controller path="/template.do" view-name="template.tiles"/>
-	<mvc:view-controller path="map_eatery.do" view-name="/WEB-INF/view/content/util/map_eatery.jsp"/>
+	<mvc:view-controller path="/map_eatery.do" view-name="/WEB-INF/view/content/util/map_eatery.jsp"/>
 	<mvc:view-controller path="/util/information.do" view-name="util/information.tiles"/>
 	
 	<!-- mybatis 연동 bean 설정-->

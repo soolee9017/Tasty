@@ -77,7 +77,7 @@
       <ul class="nav navbar-nav navbar-right">
       	<li><a href="#"></a></li>
       	<li><a href="#"></a></li>
-      	<li><button class="btn btn-info" style="margin-top:8px;">회원가입</button></li>
+      	<li><button class="btn btn-info btn-md" style="margin-top:8px;">회원가입</button></li>
       </ul>
     </div>
   </div>
