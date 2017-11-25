@@ -23,5 +23,4 @@ public class TasteDAOImpl implements TasteDAO{
 		return session.selectList(makeSqlId("selectAllTaste"));
 	}
 
-	
 }

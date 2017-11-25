@@ -1,6 +1,7 @@
 package com.tasty.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Taste implements Serializable {
@@ -10,7 +11,7 @@ public class Taste implements Serializable {
 	
 	private List<AllTaste> atList;
 	
-	private MemberTaste memberTaste;
+	private ArrayList<MemberTaste> memberTasteList;
 	
 	public Taste() {}
 
@@ -27,10 +28,10 @@ public class Taste implements Serializable {
 	
 	
 
-	public Taste(int tasteNum, String tasteName, MemberTaste memberTaste) {
+	public Taste(int tasteNum, String tasteName, ArrayList<MemberTaste> memberTasteList) {
 		this.tasteNum = tasteNum;
 		this.tasteName = tasteName;
-		this.memberTaste = memberTaste;
+		this.memberTasteList = memberTasteList;
 	}
 
 	public int getTasteNum() {
@@ -58,18 +59,18 @@ public class Taste implements Serializable {
 	}
 	
 
-	public MemberTaste getMemberTaste() {
-		return memberTaste;
+	public List<MemberTaste> getMemberTasteList() {
+		return memberTasteList;
 	}
 
-	public void setMemberTaste(MemberTaste memberTaste) {
-		this.memberTaste = memberTaste;
+	public void setMemberTasteList(ArrayList<MemberTaste> memberTasteList) {
+		this.memberTasteList = memberTasteList;
 	}
 
 	@Override
 	public String toString() {
-		return "Taste [tasteNum=" + tasteNum + ", tasteName=" + tasteName + ", atList=" + atList + ", memberTaste="
-				+ memberTaste + "]";
+		return "Taste [tasteNum=" + tasteNum + ", tasteName=" + tasteName + ", atList=" + atList + ", memberTasteList="
+				+ memberTasteList + "]";
 	}
 
 	@Override
@@ -77,7 +78,7 @@ public class Taste implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((atList == null) ? 0 : atList.hashCode());
-		result = prime * result + ((memberTaste == null) ? 0 : memberTaste.hashCode());
+		result = prime * result + ((memberTasteList == null) ? 0 : memberTasteList.hashCode());
 		result = prime * result + ((tasteName == null) ? 0 : tasteName.hashCode());
 		result = prime * result + tasteNum;
 		return result;
@@ -97,10 +98,10 @@ public class Taste implements Serializable {
 				return false;
 		} else if (!atList.equals(other.atList))
 			return false;
-		if (memberTaste == null) {
-			if (other.memberTaste != null)
+		if (memberTasteList == null) {
+			if (other.memberTasteList != null)
 				return false;
-		} else if (!memberTaste.equals(other.memberTaste))
+		} else if (!memberTasteList.equals(other.memberTasteList))
 			return false;
 		if (tasteName == null) {
 			if (other.tasteName != null)

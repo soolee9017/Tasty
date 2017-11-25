@@ -29,8 +29,7 @@ public class TasteController {
 	@RequestMapping("getAllTaste2")
 	public ModelAndView getAllTaste2() {
 		List tasteList = service.selectAllTaste();
-		System.out.println(tasteList);
-		return new ModelAndView("member/requestMember.jsp","tasteList",tasteList);
+		return new ModelAndView("member/requestMember.jsp","tasteList", tasteList);
 	}
 	
 	@RequestMapping("getAllDegree")
