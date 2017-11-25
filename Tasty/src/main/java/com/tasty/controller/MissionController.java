@@ -27,18 +27,39 @@ public class MissionController {
 	
 	
 	
-	/*@RequestMapping("getMissonByMissionNum")
-	public ModelAndView getMissionByMissionNum(@RequestParam int missionNum){
-		List<Mission> list = service.selectMissionByMissionNum(missionNum);
-		return new ModelAndView("mission_all_view.jsp","result",list);
-	}*/
+	@RequestMapping("getMissonByMissionNum")
+	public ModelAndView registerMission(@ModelAttribute Mission mission, HttpServletRequest request){
+		service.insertMission(mission);
+		return new ModelAndView("mission_register_success.jsp","result",mission.getMissionNum());
+	}
 	
 	@RequestMapping("getAllMission")
 	public ModelAndView getAllMission(){
 		List<Mission> list = service.selectAllMission();
 		System.out.println(list);
-		return new ModelAndView("mission_all_view.jsp","result",list);
+		return new ModelAndView("/mission/mission_all_view.jsp","result",list);
+	}
+	
+	@RequestMapping("removeMissionByMissionNum")
+	public ModelAndView deleteMissionByMissionNum(@RequestParam int missionNum) {
+		service.deleteMissionByMissonNum(missionNum);
+		return new ModelAndView("remove_mission_success.jsp","result",missionNum);
+	}
+	
+	@RequestMapping("updateMission")
+	public ModelAndView updateMissionByMissionNum(@ModelAttribute Mission mission, HttpServletRequest request) {
+		service.updateMissionByMissionNum(mission);
+		return new ModelAndView("mission_update_success.jsp","mission",mission);
+	}
+	
+	@RequestMapping("insertMission")
+	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request) {
+		service.insertMission(mission);
+		return new ModelAndView("register_mission_success.jsp","mission",mission);
 	}
 	
 	
+	
+	
 }
+
