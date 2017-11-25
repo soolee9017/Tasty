@@ -48,7 +48,6 @@ $(document).ready(function(){
    });
       
     
-    var finalArr = [];
       
    $("#plusMenu").on("click",function(){
      
@@ -130,8 +129,8 @@ $(document).ready(function(){
 		
   	 	for(var i = 0; i<totalTr ; i++){
 		
-		   temp = [];
-		   temp.push('/');
+		  
+		  
 		    name= $('#tBody>tr:eq('+i+') input').val();
 		    sLength = $('#tBody>tr:eq('+i+') select').length;
 		   temp.push(name);
@@ -142,16 +141,15 @@ $(document).ready(function(){
 				  selVal= $('#tBody>tr:eq('+i+') select:eq('+s+')').val();
 				  temp.push(selVal);
 			   }
-	   		
-		   finalArr.push(temp); 
+
+		   temp.push('/');
 	   } 
 		
 		
-//		alert(finalArr);	
+		alert(temp);	
 		
-		$('#finalArr').val(finalArr);
+		$('#finalArr').val(temp);
 		
-//		alert($('#finalArr').val());
 		
 		 $("#reviewForm").submit(); 
 	   
