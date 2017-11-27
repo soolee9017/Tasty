@@ -23,7 +23,7 @@ public class TasteController {
 	@RequestMapping("getAllTaste")
 	public ModelAndView getAllTaste() {
 		List tasteList = service.selectAllTaste();
-		return new ModelAndView("review/writeReview.tiles","tasteList",tasteList);
+		return new ModelAndView("review/writeReview.jsp","tasteList",tasteList);
 	}
 	
 	@RequestMapping("getAllTaste2")
