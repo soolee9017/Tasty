@@ -34,5 +34,8 @@ public interface MissionDAO {
 	int updateMissionByMissionNum(Mission mission);
 	
 	
+	List<Mission> selectMissionByMissionName(String missionName);
+	
+	
 }
 

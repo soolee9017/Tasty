@@ -6,7 +6,7 @@ import com.tasty.vo.Mission;
 
 public interface MissionService {
 	
-	int insertMission(Mission mission);
+	void insertMission(Mission mission);
 	
 	
 	List<Mission> selectAllMission();
@@ -17,6 +17,6 @@ public interface MissionService {
 	
 	int deleteMissionByMissonNum(int missionNum);
 	
-	
+	List<Mission> selectMissionByMissionName(String missionName);
 	
 }
