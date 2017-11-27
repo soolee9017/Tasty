@@ -12,4 +12,10 @@
 	from taste
 </select>
 
+
+<insert id="insertAllTaste" parameterType="map">
+
+insert into all_taste values(td_num_seq.nextval, #{tasteNum},#{degreeNum})
+
+</insert>
 </mapper>

@@ -20,6 +20,12 @@ public class MissionDAOImpl implements MissionDAO{
 	}
 	
 	@Override
+	public List<Mission> selectMissionByMissionName(String missionName) {
+		
+		return session.selectList(makeSqlId("selectMissionByMissionName"),missionName);
+	}
+
+	@Override
 	public int deleteMissionByMissionNum(int missionNum) {
 		return session.delete(makeSqlId("deleteMissionByMissionNum"), missionNum);
 	}

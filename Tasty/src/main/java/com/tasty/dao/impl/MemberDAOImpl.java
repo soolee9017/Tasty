@@ -1,14 +1,12 @@
 package com.tasty.dao.impl;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tasty.dao.MemberDAO;
 import com.tasty.vo.Member;
-import com.tasty.vo.Review;
+import com.tasty.vo.MemberTaste;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
@@ -27,6 +25,16 @@ public class MemberDAOImpl implements MemberDAO{
 		}
 
 		@Override
+		public int insertMemberTaste(MemberTaste memberTaste) {
+			return session.insert(makeSqlId("insertMemberTaste"), memberTaste);
+		}
+		
+		/*@Override
+		public int insertMemberTaste(int tasteNum) {
+			return session.insert(makeSqlId("insertMemberTaste"), tasteNum);
+		}
+*/
+		@Override
 		public int deleteMemberByEmail(String email) {
 			return session.delete(makeSqlId("deleteMemberByEmail"), email);
 		}
@@ -41,6 +49,8 @@ public class MemberDAOImpl implements MemberDAO{
 			return session.selectOne(makeSqlId("selectMemberByEmail"), email);
 		}
 
+
+	
 		
 	}
 

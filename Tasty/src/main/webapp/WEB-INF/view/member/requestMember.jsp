@@ -19,28 +19,34 @@
 	Gender	 <input type="text" name="gender"/><br>
 	TotalUps <input type="number" name="totalUps" value="0"/><br>
 	TotalDowns <input type="number" name="totalDowns" value="0"/><br>
-	맛 1 :
+	<button type="submit">등록</button>
+</form>
+<p>
+
+
+<form action="${initParam.rootPath }/member/registerMemberTaste.do" method="post">	
+	Email	<input type="text" name="email" /><p>
+	맛 1 :&nbsp;
 	<select name="taste1">
 	<option>맛을 선택하세요.</option>
 	<c:forEach items="${requestScope.tasteList }" var="taste">
 		<option>${taste.tasteName}</option>	
 	</c:forEach>
-	</select><br>
-	맛 2 :
+	</select>&nbsp;&nbsp;
+ 	맛 2 :&nbsp;
 	<select name="taste2">
 	<option>맛을 선택하세요.</option>
 	<c:forEach items="${requestScope.tasteList }" var="taste">
 		<option>${taste.tasteName}</option>	
 	</c:forEach>
-	</select><br>
-	맛 3 :
+	</select>&nbsp;&nbsp;
+	맛 3 :&nbsp;
 	<select name="taste3">
 	<option>맛을 선택하세요.</option>
 	<c:forEach items="${requestScope.tasteList }" var="taste">
 		<option>${taste.tasteName}</option>	
 	</c:forEach>
-	</select><br>
-
+	</select><p> 
 	<!-- MemberTaste 
 			짠 <input type="checkbox" name="memberTasteList" value="1"/>&nbsp;&nbsp;
 			단 <input type="checkbox" name="memberTasteList" value="2"/>&nbsp;&nbsp;
@@ -76,5 +82,13 @@
 	<input type="text" name="email"/>
 	<button>조회</button>
 </form>
+<p>
+<p>
 </body>
 </html>
+
+
+
+
+
+

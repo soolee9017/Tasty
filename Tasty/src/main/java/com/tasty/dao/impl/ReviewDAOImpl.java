@@ -1,5 +1,6 @@
 package com.tasty.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,5 +25,23 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return session.selectList(makeSqlId("selectReviewByAddress"), address);
 	}
 
+	@Override
+	public int insertMenu(String name) {
+		return session.insert(makeSqlId("insertMenu"),name);
+	}
+
+	@Override
+	public int insertMenuTaste() {
+		return session.insert(makeSqlId("insertMenuTaste"));
+	}
+
+	@Override
+	public int insertReview(String title) {
+		return session.insert(makeSqlId("insertReview"),title);
+	}
+	
+	
+	
+	
 	
 }

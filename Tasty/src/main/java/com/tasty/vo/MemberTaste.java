@@ -9,7 +9,7 @@ public class MemberTaste implements Serializable{
 	private int tasteNum;
 	
 	private Member member;
-	private List<Taste> tasteList;
+	private List<Taste> tasteList; 
 	
 	public MemberTaste() {
 		
@@ -22,6 +22,16 @@ public class MemberTaste implements Serializable{
 		this.tasteList = tasteList;
 	}
 
+
+	public MemberTaste(String email, List<Taste> tasteList) {
+		this.email = email;
+		this.tasteList = tasteList;
+	}
+
+	public MemberTaste(String email, int tasteNum) {
+		this.email = email;
+		this.tasteNum = tasteNum;
+	}
 
 	public List<Taste> getTasteList() {
 		return tasteList;
@@ -54,6 +64,7 @@ public class MemberTaste implements Serializable{
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	
 
 	@Override
 	public int hashCode() {
@@ -98,7 +109,7 @@ public class MemberTaste implements Serializable{
 	@Override
 	public String toString() {
 		return "MemberTaste [email=" + email + ", tasteNum=" + tasteNum + ", member=" + member + ", tasteList="
-				+ tasteList + "]";
+				+ tasteList +  "]";
 	}
 
 

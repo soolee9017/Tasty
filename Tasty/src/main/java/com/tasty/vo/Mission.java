@@ -1,8 +1,12 @@
 package com.tasty.vo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Mission implements Serializable{
 	private int missionNum;
@@ -10,24 +14,16 @@ public class Mission implements Serializable{
 	private String missionContent;
 	private int currentPeople;
 	private int maxPeople;
+	@DateTimeFormat(pattern="yyy-MM-dd")
 	private Date startDate;
+	@DateTimeFormat(pattern="yyy-MM-dd")
 	private Date endDate;
 	private List<MissionPhoto> missionPhotoList;//생성자 만들었음
-	
+	private List<MultipartFile> upImage;
 	public Mission() {
 	}
 	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,
-			Date startDate, Date endDate) {
-		this.missionNum = missionNum;
-		this.missionName = missionName;
-		this.missionContent = missionContent;
-		this.currentPeople = currentPeople;
-		this.maxPeople = maxPeople;
-		this.startDate = startDate;
-		this.endDate = endDate;
-	}
-	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,
-			Date startDate, Date endDate, List<MissionPhoto> missionPhotoList) {
+			Date startDate, Date endDate, List<MissionPhoto> missionPhotoList, List<MultipartFile> upImage) {
 		this.missionNum = missionNum;
 		this.missionName = missionName;
 		this.missionContent = missionContent;
@@ -36,6 +32,7 @@ public class Mission implements Serializable{
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.missionPhotoList = missionPhotoList;
+		this.upImage = upImage;
 	}
 	public int getMissionNum() {
 		return missionNum;
@@ -85,11 +82,18 @@ public class Mission implements Serializable{
 	public void setMissionPhotoList(List<MissionPhoto> missionPhotoList) {
 		this.missionPhotoList = missionPhotoList;
 	}
+	public List<MultipartFile> getUpImage() {
+		return upImage;
+	}
+	public void setUpImage(List<MultipartFile> upImage) {
+		this.upImage = upImage;
+	}
 	@Override
 	public String toString() {
 		return "Mission [missionNum=" + missionNum + ", missionName=" + missionName + ", missionContent="
 				+ missionContent + ", currentPeople=" + currentPeople + ", maxPeople=" + maxPeople + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", missionPhotoList=" + missionPhotoList + "]";
+				+ startDate + ", endDate=" + endDate + ", missionPhotoList=" + missionPhotoList + ", upImage=" + upImage
+				+ "]";
 	}
 	@Override
 	public int hashCode() {
@@ -103,6 +107,7 @@ public class Mission implements Serializable{
 		result = prime * result + missionNum;
 		result = prime * result + ((missionPhotoList == null) ? 0 : missionPhotoList.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+		result = prime * result + ((upImage == null) ? 0 : upImage.hashCode());
 		return result;
 	}
 	@Override
@@ -145,8 +150,14 @@ public class Mission implements Serializable{
 				return false;
 		} else if (!startDate.equals(other.startDate))
 			return false;
+		if (upImage == null) {
+			if (other.upImage != null)
+				return false;
+		} else if (!upImage.equals(other.upImage))
+			return false;
 		return true;
 	}
+
 	
 	
 	

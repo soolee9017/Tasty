@@ -53,19 +53,29 @@
 
 
 
-	<select id="selectAllMission" resultMap="mission-join-photo-resultmap">
+	<select id="selectAllMission2" resultMap="mission-join-photo-resultmap">
 		select * from MISSION_ADMIN, MISSION_PHOTO
 		where MISSION_ADMIN.MISSION_NUM = MISSION_PHOTO.MISSION_NUM
+	</select>
+	
+	<select id="selectAllMission" resultMap="mission-resultmap">
+		select * from MISSION_ADMIN
 	</select>
 
 	
 	<!-- 미션 등록  -->
 	<insert id="insertMission" parameterType="mission">
-		INSERT INTO mission 
-		VALUES (#{missionNum},
+		INSERT INTO mission_admin (mission_num, mission_name,
+			 mission_content,
+			 current_people,
+			 max_people,
+			 start_date,
+			 end_date)
+		VALUES (
+		mission_admin_seq.nextval,
 				#{missionName},
 				#{missionContent},
-				#{currentPeople},
+				0,
 				#{maxPeople},
 				#{startDate},
 				#{endDate})
@@ -76,7 +86,7 @@
 		SET  mission_name = #{missionName},
 			 mission_content = #{missionContent},
 			 current_people = #{current_people},
-			 current_people = #{currentPeople},
+			 max_people = #{maxPeople},
 			 start_date = #{startDate},
 			 end_date =  #{endDate}
 		WHERE mission_num = #{missionNum}
@@ -87,6 +97,15 @@
 			delete from mission where mission_num = #{value}
 	</delete>
 	
+	<!-- 미션 이름으로 미션 검색 -->
+	<select id="selectMissionByMissionName">
+		select * 
+		from misson_admin
+		WHERE misison_name LIKE '%'+#{value}+'%'
+	</select>
+	
+	
+
 	
 
 
