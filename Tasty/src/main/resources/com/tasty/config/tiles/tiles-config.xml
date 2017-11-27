@@ -17,7 +17,6 @@
 	<definition name="*/*/*.tiles" extends="template">
 		<put-attribute name="content" value="/WEB-INF/view/{1}/{2}/{3}.jsp"/>
 	</definition>
-	
 </tiles-definitions>
 
 

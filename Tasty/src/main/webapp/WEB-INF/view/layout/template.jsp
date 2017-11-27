@@ -33,15 +33,6 @@ section header h1 {
 	z-index: 4;
 	border:0px solid;
 }
-
-#keyward img {
-	position: relative;
-	z-index: 3;
-	width: 34px;
-	height: 34px;
-	cursor:pointer;
-}
-
 .back {
 	background-color: rgba(0, 0, 0, 0.3);
 	width: 100%;
