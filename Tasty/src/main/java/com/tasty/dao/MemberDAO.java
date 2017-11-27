@@ -17,6 +17,8 @@ public interface MemberDAO {
 	
 	int insertMemberTaste(MemberTaste memberTaste);
 	
+	//int insertMemberTaste(int tasteNum);
+	
 	/**
 	 * 삭제(탈퇴)
 	 * @param email
