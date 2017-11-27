@@ -1,6 +1,8 @@
 
 package com.tasty.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,13 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void addMemberTaste(MemberTaste memberTaste) {
 		memberDao.insertMemberTaste(memberTaste);
+	}	
+	
+/*	@Override
+	public void addMemberTaste(int tasteNum) {
+		memberDao.insertMemberTaste(tasteNum);
 	}
-
+*/
 
 	@Override
 	public void removeMemberByEmail(String email) {

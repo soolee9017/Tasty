@@ -20,11 +20,20 @@ insert into MEMBER_TASTE values ('ccc@ccc.com', '7');
 insert into MEMBER_TASTE values ('aaa@aaa.com', '6');
 insert into MEMBER_TASTE values ('ddd@ddd.com', '4');
 
+select * from MEMBER_TASTE order by email;
+
 select taste_num 
 from member, member_taste
 where MEMBER_TASTE.email = 'ccc@ccc.com'
 	and member_taste.email = member.email;
 
+	
+INSERT INTO member_taste
+SELECT '3' FROM taste
+WHERE condition;
+
+
+	
 
 
 /*ALTER TABLE MEMBER

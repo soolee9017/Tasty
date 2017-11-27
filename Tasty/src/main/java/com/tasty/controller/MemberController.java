@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.service.MemberService;
 import com.tasty.service.TasteService;
+import com.tasty.service.impl.MemberServiceImpl;
 import com.tasty.service.impl.TasteServiceImpl;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
@@ -34,28 +35,26 @@ public class MemberController {
 	@RequestMapping("registerMemberTaste")
 	public ModelAndView registerMemberTaste(@RequestParam String email, @RequestParam String taste1, @RequestParam String taste2, @RequestParam String taste3) {
 		TasteService tasteService = new TasteServiceImpl();
+		//MemberService memberService = new MemberServiceImpl();
 		
 		List<String> tasteList = tasteService.selectAllTaste();
 
-		for(int i=0; i<tasteList.size(); i++ ) {
+		//List를 한바퀴 돌면서 번호와 비교
+		for(int i=0; i<tasteList.size(); i++ ) { 
 			if(tasteList.get(i).equals(taste1)) {
-				int tasteNum1 = tasteList.get(i).length();
+				int tasteNum1 = i+1;
 				service.addMemberTaste(new MemberTaste(email, tasteNum1));
 			}else if(tasteList.get(i).equals(taste2)) {
-				int tasteNum2 = tasteList.get(i).length();
+				int tasteNum2 = i+1;
 				service.addMemberTaste(new MemberTaste(email, tasteNum2));
 			}else if(tasteList.get(i).equals(taste3)) {
-				int tasteNum3 = tasteList.get(i).length();
+				int tasteNum3 = i+1;
 				service.addMemberTaste(new MemberTaste(email, tasteNum3));
 			}
 		}
 		System.out.println(tasteList);
 		return new ModelAndView("member/registerMemberTaste.jsp", "tasteList", tasteList);
 	}
-
-	
-	
-
 	
 	@RequestMapping("updateMemberByEmail")
 	public ModelAndView updateMemberByEmail(@ModelAttribute Member member, HttpServletRequest request) {
