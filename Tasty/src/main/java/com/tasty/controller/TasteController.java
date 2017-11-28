@@ -1,7 +1,9 @@
 package com.tasty.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +17,22 @@ import com.tasty.service.TasteService;
 @Controller
 @RequestMapping("/review/")
 public class TasteController {
-
+	int index = 0;
 	@Autowired
 	TasteService service;
 	
-
+	@RequestMapping("insertAllTaste")
+	public String insertAllTaste() {
+		Map map = new HashMap<>();
+		map.put("tasteNum", 4);
+		map.put("degreeNum",1);
+		service.insertAllTaste(map);
+		
+		System.out.println("완성됨");
+		return "review/writeReview.jsp";
+	}
+	
+	
 	@RequestMapping("getAllTaste")
 	public ModelAndView getAllTaste() {
 		List tasteList = service.selectAllTaste();

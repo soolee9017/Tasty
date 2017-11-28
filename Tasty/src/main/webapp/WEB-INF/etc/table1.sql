@@ -233,7 +233,7 @@ ALTER TABLE ALL_TASTE
       REFERENCES TASTE ( -- 입맛
          taste_num -- 맛 번호
       )
-       
+      ON DELETE CASCADE
        ;
 
 -- 맛 + 정도
@@ -246,7 +246,7 @@ ALTER TABLE ALL_TASTE
       REFERENCES DEGREE ( -- 맛의 정도
          degree_num -- 정도 번호
       )
-       
+      ON DELETE CASCADE
        ;
       
 
@@ -354,6 +354,7 @@ ALTER TABLE MENU
       REFERENCES REVIEW ( -- 리뷰
          review_num -- 리뷰번호
       )
+      ON DELETE CASCADE
        
        ;
       
@@ -405,7 +406,7 @@ ALTER TABLE MENU_TASTE
       REFERENCES MENU ( -- 메뉴
          menu_num -- 메뉴번호
       )
-       
+      ON DELETE CASCADE
        ;
       
       

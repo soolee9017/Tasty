@@ -6,4 +6,11 @@ import com.tasty.vo.Review;
 
 public interface ReviewDAO {
 	List<Review> selectReviewByAddress(String address);
+	
+	int insertReview(Review review);
+	int insertMenu(String name);
+	
+	int insertMenuTaste();
+	
+	int insertReview(String title);
 }
