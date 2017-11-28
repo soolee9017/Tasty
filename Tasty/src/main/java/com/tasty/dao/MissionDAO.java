@@ -3,6 +3,7 @@ package com.tasty.dao;
 import java.util.List;
 
 import com.tasty.vo.Mission;
+import com.tasty.vo.MissionMember;
 
 public interface MissionDAO {
 	
@@ -36,6 +37,11 @@ public interface MissionDAO {
 	
 	List<Mission> selectMissionByMissionName(String missionName);
 	
+	
+	int insertMissionMember(MissionMember missionMember);
+	
+	
+	Mission selectMissionByMissionNum(int missionNum);
 	
 }
 

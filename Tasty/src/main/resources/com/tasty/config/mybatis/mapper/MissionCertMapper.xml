@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tasty.config.mybatis.mapper.MissionMapper">
+	<!-- 
+		MissionCertBoard관련 mapper
+	 -->
+	 
+	 <sql id="missionCert-column-sql">
+	 	mission_cert_num, email, title, content, mission_num
+	 </sql>
+	 
+	
+	
+	<sql id="missionCert-select-sql">
+		SELECT <include refid="missionCert-column-sql"/>
+		FROM mission_cert_board
+	</sql>
+	<resultMap type="missonCert" id="missionCert-resultmap">
+		<id column="mission_cert_num" property="missionCertNum"/>
+		<result column="email" property="email"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="mission_num" property="missionNum"/>
+	</resultMap>
+	
+	<resultMap type="mission" id="missionCert-join-photo-resultmap" extends="missionCert-resultmap">
+			<collection property="missionCertPhotoList" ofType="missionCertPhoto">
+				<result column="photo_num" property="photoNum"/>
+				<result column="mission_cert_num" property="missionCertNum"/>
+				
+				<collection property="photoList" ofType="photo">
+					<id column="photo_num" property="photoNum"/>
+					<result column="photo_path" property="photoPath"/>
+				</collection>
+			</collection>
+	</resultMap>
+	
+	
+	
+	<!-- 모든 미션인증글을 조회 -->
+	<select id="selectAllMissionCertPhoto" resultMap="missionCert-join-photo-resultmap"> 
+		select * 
+		from mission_cert_board, mission_cert_photo
+		where mission_cert_board.mission_cert_num = mission_cert_photo.photo_num
+	</select>
+	
+
+
+	<select id="selectAllMissionCert" resultMap="missionCert-resultmap">
+		select * from mission_cert_board
+	</select>
+	
+	<!-- 미션 인증글 등록  -->
+	<insert id="insertMissionCert" parameterType="missionCert">
+		INSERT INTO mission_admin (mission_cert_num, email,
+			 title,
+			 content,
+			 mission_num)
+		VALUES (
+		mission_admin_seq.nextval,
+				#{email},
+				#{title},
+				#{content},
+				#{mission_num})
+	</insert>
+	<!-- 미션 수정 -->
+	<update id="updateMissionByMissionNum" parameterType="mission">
+		UPDATE MISSION
+		SET  mission_name = #{missionName},
+			 mission_content = #{missionContent},
+			 current_people = #{current_people},
+			 max_people = #{maxPeople},
+			 start_date = #{startDate},
+			 end_date =  #{endDate}
+		WHERE mission_num = #{missionNum}
+	</update>	
+	
+	<!-- 미션번호로 해당 미션 삭제 -->
+	<delete id="deleteMissionCertByMissionCertNum">
+			delete from mission_cert_board where mission_cert_num = #{value}
+	</delete>
+	
+		
+	<insert id="insertMissionMember" parameterType="missionMember">
+		insert into mission_member(mission_num,email)
+		values (#{missionNum},#{email})
+	</insert>
+	 
+	
+
+
+	
+	
+
+</mapper>

@@ -37,6 +37,11 @@
 		<result column="end_date" property="endDate"/>
 	</resultMap>
 	
+	<resultMap type="missionMember" id="missionMember-resultmap">
+		<id column="email" property="email"/>
+		<id column="mission_num" property="missionNum"/>
+	</resultMap>
+	
 	<resultMap type="mission" id="mission-join-photo-resultmap" extends="mission-resultmap">
 			<collection property="missionPhotoList" ofType="missionPhoto">
 				<result column="photo_num" property="photoNum"/>
@@ -46,11 +51,13 @@
 					<id column="photo_num" property="photoNum"/>
 					<result column="photo_path" property="photoPath"/>
 				</collection>
-				
 			</collection>
-
 	</resultMap>
-
+	
+	
+	
+	
+	
 
 
 	<select id="selectAllMission2" resultMap="mission-join-photo-resultmap">
@@ -89,23 +96,32 @@
 			 max_people = #{maxPeople},
 			 start_date = #{startDate},
 			 end_date =  #{endDate}
-		WHERE mission_num = #{missionNum}
+		WHERE mission_num = #{missionNum}  
 	</update>	
 	
-	<!-- 미션 삭제 -->
+	<!-- 미션번호로 해당 미션 삭제 -->
 	<delete id="deleteMissionByMissionNum">
-			delete from mission where mission_num = #{value}
+			delete from mission_admin where mission_num = #{value}
 	</delete>
 	
 	<!-- 미션 이름으로 미션 검색 -->
-	<select id="selectMissionByMissionName">
+	<select id="selectMissionByMissionName" resultMap="mission-resultmap">
 		select * 
-		from misson_admin
-		WHERE misison_name LIKE '%'+#{value}+'%'
+		from mission_admin
+		WHERE mission_name LIKE '%'||#{value}||'%'
+
 	</select>
 	
+	<insert id="insertMissionMember" parameterType="missionMember">
+		insert into mission_member(mission_num,email)
+		values (#{missionNum},#{email})
+	</insert>
 	
-
+	<select id="selectMissionByMissionNum" resultMap="mission-resultmap">
+		select * from mission_admin
+		where mission_num=#{value}
+	</select>
+	
 	
 
 
