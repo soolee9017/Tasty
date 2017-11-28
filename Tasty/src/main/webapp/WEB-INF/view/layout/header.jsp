@@ -97,10 +97,11 @@
 
 <%--회원/관리자 공통 메뉴 /member로 시작 --%>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')">
-	<li><a href="${initParam.rootPath }/member/mypage.do">사용자 정보조회</a></li>
+	<li><a href="${initParam.rootPath }/member/mypage.do">
+	<span style="color:#d5d5d5;" class="glyphicon glyphicon-user"></span>사용자 정보조회</a></li>
 </sec:authorize>
       
-<!--       	<li><a href="#"><span style="color:#d5d5d5;" class="glyphicon glyphicon-user"></span>내 정보</a></li> -->
+<!-- <li><a href="#"><span style="color:#d5d5d5;" class="glyphicon glyphicon-user"></span>내 정보</a></li> -->
       </ul>
       
 

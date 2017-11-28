@@ -32,7 +32,6 @@ public class MemberServiceImpl implements MemberService{
 		//권한
 		memberDao.insertAuthority(new Authority(member.getEmail(), role));
 		//
-		System.out.println(member);
 		if(role.equals("ROLE_ADMIN")) {
 			memberDao.insertAuthority(new Authority(member.getEmail(), "ROLE_MEMBER"));
 		}

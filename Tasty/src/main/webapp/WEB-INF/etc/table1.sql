@@ -37,14 +37,15 @@ DROP TABLE MEMBER cascade constraint;
 -- 회원
 CREATE TABLE MEMBER (
    email       VARCHAR2(50) NOT NULL, -- 아이디
-   password    varchar2(20) NULL,     -- 비밀번호
+   password    varchar2(80) NULL,     -- 비밀번호
    nickname    varchar2(50) NULL,     -- 별명
    name        varchar2(50) NULL,     -- 실명
    phone_num   varchar2(13) NULL,     -- 전화번호
    gender      varchar2(10) NULL,     -- 성별
    
    total_ups   NUMBER(3)    NULL,     -- 총 추천수
-   total_downs NUMBER(3)    NULL      -- 총 비추천수
+   total_downs NUMBER(3)    NULL,      -- 총 비추천수
+   MEMBER_CERT NUMBER(1)   DEFAULT 1 NOT NULL
 );
 
 -- 회원 기본키
@@ -62,14 +63,14 @@ ALTER TABLE MEMBER
       );
       
  
-DROP TABLE AUTHORITIES;
+DROP TABLE AUTHORITY;
 /*권한 테이블 - ROLE_ADMIN, ROLE_MEMBER*/
-CREATE TABLE AUTHORITIES(
-	USER_ID VARCHAR2(20),
-	AUTHORITY VARCHAR2(20) NOT NULL,
-	CONSTRAINT PK_AUTHORITIES PRIMARY KEY(email, AUTHORITY),
-	CONSTRAINT FK_AUTHORITIES_USERS FOREIGN KEY(email) REFERENCES MEMBER
-);
+CREATE TABLE AUTHORITY(
+   EMAIL VARCHAR2(50),
+   AUTHORITY VARCHAR2(20) NOT NULL,
+   CONSTRAINT PK_AUTHORITY PRIMARY KEY(EMAIL, AUTHORITY),
+   CONSTRAINT FK_AUTHORITY_MEMBER FOREIGN KEY(EMAIL) REFERENCES MEMBER
+);    
 
 
 select * from users;
