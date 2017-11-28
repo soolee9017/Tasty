@@ -29,7 +29,6 @@ public class MainController {
 	@RequestMapping("join_member")
 	public ModelAndView registerMember(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname, @RequestParam String phoneNum, @RequestParam String gender) {
 		Member member = new Member(email, password, name, nickname, phoneNum, gender);
-		System.out.println(member);
 		service.addMember(member, "ROLE_MEMBER");
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
@@ -37,6 +36,7 @@ public class MainController {
 	   @RequestMapping("join_success")
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);
+	      System.out.println(member);
 	      return new ModelAndView("member/join_success.tiles", "member", member);
 	   }
 	

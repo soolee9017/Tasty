@@ -55,6 +55,7 @@
 		<result column="gender" property="gender"/>
 		<result column="total_ups" property="totalUps"/>
 		<result column="total_downs" property="totalDowns"/>
+		<result column="member_cert" property="memberCert"/>
 	</resultMap>
 	
 	<resultMap type="memberTaste" id="memberTaste-resultmap">
@@ -106,7 +107,8 @@
 
 	<!-- 삽입 -->
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO MEMBER(email, password, nickname, name, phone_num, gender, member_cert) VALUES  (#{email},
+		INSERT INTO MEMBER(email, password, nickname, name, phone_num, gender, member_cert) VALUES  
+									(#{email},
 									#{password},
 									#{nickname}, 
 									#{name},
@@ -146,15 +148,8 @@
 
 	<!-- 조회 -->
 	<select id="selectMemberByEmail" parameterType="string" resultMap="member-join-memberTaste-resultmap">
-		 		
-		<!-- <include refid="select-join-memberTaste-sql"/>
-		where email = #{value}  -->
-		
-		select *
-		from member m, member_taste mbt, taste t 
-		where m.email = #{value}
-		and m.email=mbt.email
-		and t.taste_num=mbt.taste_num(+)
+		select * from member
+		where email = #{value}
 		and member_cert = 1
 	</select>
 	
