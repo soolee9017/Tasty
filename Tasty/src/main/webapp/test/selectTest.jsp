@@ -20,24 +20,66 @@ $(document).ready(function(){
 </script>
 
 <form action="${initParam.rootPath }/review/test.do" method="post">
-<span id="aaa">
-<select name="everymeal">
-	<option>아침</option>
-	<option>점심</option>
-	<option>저녁</option>
-</select>
-<select name="food">
-	<option>가리비</option>
-	<option>짬짜면</option>
-	<option>오리고기</option>
-	<option>콘팡</option>
-</select>
-</span><br><br>
-
-<span id="bbb">
-
-</span>
-
+				<input type='text' name='menuList[0].menu'>
+				<select class='tasteSel' name="menuList[0].tasteList[0].tastes">
+				   <option>맛을 선택하세요.</option>
+				      <option>신맛2</option>
+				      <option>신맛3</option>
+				      <option>신맛4</option>   
+				</select>
+				<select id="degreeSel" name="menuList[0].tasteList[0].degrees">
+  					<option>1</option>
+  					<option>2</option>
+  					<option>3</option>
+				</select>
+				<select class='tasteSel' name="menuList[0].tasteList[1].tastes">
+				   <option>맛을 선택하세요.</option>
+				      <option>신맛2</option>
+				      <option>신맛3</option>
+				      <option>신맛4</option>   
+				</select>
+				<select id="degreeSel" name="menuList[0].tasteList[1].degrees">
+  					<option>1</option>
+  					<option>2</option>
+  					<option>3</option>
+				</select>
+				<hr>
+				<input type='text' name='menuList[1].menu'>
+				<select class='tasteSel' name="menuList[1].tasteList[0].tastes">
+				   <option>맛을 선택하세요.</option>
+				      <option>신맛2</option>
+				      <option>신맛3</option>
+				      <option>신맛4</option>   
+				</select>
+				<select id="degreeSel" name="menuList[1].tasteList[0].degrees">
+  					<option>1</option>
+  					<option>2</option>
+  					<option>3</option>
+				</select>
+				<select class='tasteSel' name="menuList[1].tasteList[1].tastes">
+				   <option>맛을 선택하세요.</option>
+				      <option>신맛2</option>
+				      <option>신맛3</option>
+				      <option>신맛4</option>   
+				</select>
+				<select id="degreeSel" name="menuList[1].tasteList[1].degrees">
+  					<option>1</option>
+  					<option>2</option>
+  					<option>3</option>
+				</select>
+				
+				
+				<select class='tasteSel' name="menuList[1].tasteList[2].tastes">
+				   <option>맛을 선택하세요.</option>
+				      <option>신맛2</option>
+				      <option>신맛3</option>
+				      <option>신맛4</option>   
+				</select>
+				<select id="degreeSel" name="menuList[1].tasteList[2].degrees">
+  					<option>1</option>
+  					<option>2</option>
+  					<option>3</option>
+				</select>
 <button type="submit" type="button">제출</button>
 </form>
 

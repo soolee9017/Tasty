@@ -1,5 +1,7 @@
 package com.tasty.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,17 +50,32 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("test")
-	public ModelAndView test(@RequestParam List everymeal, @RequestParam List food) {
+	public ModelAndView test(@RequestParam String menuLists/*넘어올 이름으로 바꾸기*/) {
+		String[] menus = menuLists.split(","); //,를 빼고 menus 배열에 값이 차례로 들어간다.
+		List<String> menuList = new ArrayList<String>();
 		
-		for(Object meal : everymeal) {
-			System.out.println(meal);
+		for(String menu : menus) {
+			menuList.add(menu); //menuList 라는 list에 menus 배열에 있는 값들을 넣는다.
 		}
 		
-		for(Object f : food) {
-			System.out.println(f);
+		
+		List<String> list = new ArrayList<String>(menuList.size()); // /를 기준으로 메뉴를 하나씩 넣을 리스트.
+		
+		int cnt = -1;
+		for(int i=0; i<menuList.size(); i++) {
+			cnt++;
+			if(!(menuList.get(i)).equals("/")) {
+				list.add(cnt, menuList.get(i));
+				
+				continue;
+			}
 		}
-		String result="";
-		return new ModelAndView("", "result", result);
+		
+
+		System.out.println("run");
+		System.out.println(list);
+		return null;
+		
 				
 	}
 }
