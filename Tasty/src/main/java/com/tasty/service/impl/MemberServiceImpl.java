@@ -1,13 +1,14 @@
 
 package com.tasty.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tasty.dao.MemberDAO;
 import com.tasty.service.MemberService;
+import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
 
@@ -17,9 +18,24 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO memberDao;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Override
-	public void addMember(Member member) {
+	@Transactional
+	public void addMember(Member member, String role) {
+		
+		//패스워드 암호화
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
+		//회원
 		memberDao.insertMember(member);
+		//권한
+		memberDao.insertAuthority(new Authority(member.getEmail(), role));
+		//
+		System.out.println(member);
+		if(role.equals("ROLE_ADMIN")) {
+			memberDao.insertAuthority(new Authority(member.getEmail(), "ROLE_MEMBER"));
+		}
 	}
 	
 	@Override
