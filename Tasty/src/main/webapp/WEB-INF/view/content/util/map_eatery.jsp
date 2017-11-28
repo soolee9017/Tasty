@@ -7,18 +7,71 @@
 <title>Insert title here</title>
 <link type="text/css" rel="stylesheet"
 	href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">
-<link type="text/css" rel="stylesheet"
-	href="${initParam.rootPath}/resource/sweetalert/css/sweetalert2.css">
+<link type="text/css" rel="stylesheet" media="all"
+	href="${initParam.rootPath}/resource/bootstrap/css/star-rating.css">
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
+	src="${initParam.rootPath}/resource/bootstrap/js/star-rating.js"></script>
 <style type="text/css">
 body {
 	height: 700px;
 	margin: 0 auto;
+}
+
+.wrap {
+	width: 288px;
+	height: 80px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	width: 286px;
+	height: 120px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+	padding: 5px 0 0 10px;
+	height: 30px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.info .close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info .close:hover {
+	cursor: pointer;
 }
 
 .map_wrap, .map_wrap * {
@@ -185,10 +238,6 @@ body {
 	background-color: skyblue;
 	border: 0px;
 }
-
-#searchForm {
-	display: none;
-}
 </style>
 </head>
 <body>
@@ -201,7 +250,6 @@ body {
 			<div id="pagination"></div>
 		</div>
 		<div id="search_wrap">
-			<button></button>
 			<form id="searchForm" onsubmit="searchPlaces(); return false;">
 				<label for="search">가게 이름 : &nbsp;</label><input type="text"
 					id="keyword" size="15" placeholder="가게 이름 혹은 키워드를(을) 입력해주세요."
@@ -288,6 +336,7 @@ body {
 
 			}
 		}
+
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
 
@@ -312,23 +361,10 @@ body {
 				// 마커와 검색결과 항목에 mouseover 했을때
 				// 해당 장소에 인포윈도우에 장소명을 표시합니다
 				// mouseout 했을 때는 인포윈도우를 닫습니다
-				(function(marker, title, lat, lng) {
-					daum.maps.event.addListener(marker, 'mouseover',
-							function() {
-								displayInfowindow(marker, title);
-							});
-
-					daum.maps.event.addListener(marker, 'mouseout', function() {
-						infowindow.close();
-					});
-
-					itemEl.onmouseover = function() {
+				(function(marker, title) {
+					daum.maps.event.addListener(marker, 'click', function() {
 						displayInfowindow(marker, title);
-					};
-
-					itemEl.onmouseout = function() {
-						infowindow.close();
-					};
+					});
 				})(marker, places[i].place_name);
 
 				fragment.appendChild(itemEl);
@@ -433,15 +469,29 @@ body {
 		}
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 		// 인포윈도우에 장소명을 표시합니다
-		
-		function displayInfowindow(marker, title) {
-			var content = '<div style="padding:5px;z-index:1;">' + title
-					+ '<br>' + marker.getPosition().getLat() + '<br>' + marker.getPosition().getLng() + '</div>';
+		var content = "";
 
+		function displayInfowindow(marker, title) {
+			content = '<div class="wrap">'
+					+ '<div class="info">'
+					+ '<div class="title">'
+					+ title
+					+ '<div class="close" onclick="closeOverlay()" title="닫기"></div>'
+					+ '</div>'
+					+ '<form action="${initParam.rootPath}/review/getAllTaste.do">'
+					+ '<div class="body">'
+					+ '<input type="hidden" id="lat" name="lat" value="">'
+					+ '<input type="hidden" id="lng" name="lng" value="">'
+					+ '<button type="submit" class="btn btn-info" style="float:right;height:50px;">리뷰 작성</button></div>'
+					+ '</div>' + '</form>' + '</div>';
 			infowindow.setContent(content);
 			infowindow.open(map, marker);
+			$("#lat").val(marker.getPosition().getLat());
+			$('#lng').val(marker.getPosition().getLng());
 		}
-
+		function closeOverlay() {
+			infowindow.close();
+		}
 		// 검색결과 목록의 자식 Element를 제거하는 함수입니다
 		function removeAllChildNods(el) {
 			while (el.hasChildNodes()) {
