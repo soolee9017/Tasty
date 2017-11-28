@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.service.MissionService;
-import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
+import com.tasty.vo.MissionCert;
 import com.tasty.vo.MissionMember;
 
 @Controller
@@ -24,6 +24,7 @@ public class MissionController {
 	
 	@Autowired
 	MissionService service;
+	
 	
 	
 	@RequestMapping("getMissonByMissionNum")

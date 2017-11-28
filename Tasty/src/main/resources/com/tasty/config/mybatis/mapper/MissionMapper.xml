@@ -89,10 +89,10 @@
 	</insert>
 	<!-- 미션 수정 -->
 	<update id="updateMissionByMissionNum" parameterType="mission">
-		UPDATE MISSION
+		UPDATE MISSION_ADMIN
 		SET  mission_name = #{missionName},
 			 mission_content = #{missionContent},
-			 current_people = #{current_people},
+			 current_people = #{currentPeople},
 			 max_people = #{maxPeople},
 			 start_date = #{startDate},
 			 end_date =  #{endDate}

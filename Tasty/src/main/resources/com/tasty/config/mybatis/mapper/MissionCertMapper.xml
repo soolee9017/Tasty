@@ -23,7 +23,7 @@
 		<result column="mission_num" property="missionNum"/>
 	</resultMap>
 	
-	<resultMap type="mission" id="missionCert-join-photo-resultmap" extends="missionCert-resultmap">
+	<resultMap type="missionCertPhoto" id="missionCert-join-photo-resultmap" extends="missionCert-resultmap">
 			<collection property="missionCertPhotoList" ofType="missionCertPhoto">
 				<result column="photo_num" property="photoNum"/>
 				<result column="mission_cert_num" property="missionCertNum"/>
@@ -36,8 +36,14 @@
 	</resultMap>
 	
 	
+	<!-- 미션 인증게시판에서 사용할 닉네임을 포함한 정보를 가지고있는 resultmap 만들기 -->
 	
-	<!-- 모든 미션인증글을 조회 -->
+	
+	
+	
+	
+	
+	<!-- 미션에 있는 모든 미션인증글 조회 -->
 	<select id="selectAllMissionCertPhoto" resultMap="missionCert-join-photo-resultmap"> 
 		select * 
 		from mission_cert_board, mission_cert_photo
@@ -52,12 +58,13 @@
 	
 	<!-- 미션 인증글 등록  -->
 	<insert id="insertMissionCert" parameterType="missionCert">
-		INSERT INTO mission_admin (mission_cert_num, email,
-			 title,
-			 content,
-			 mission_num)
+		INSERT INTO mission_cert_board (mission_cert_num, 
+						   email,
+						   title,
+						   content,
+						   mission_num)
 		VALUES (
-		mission_admin_seq.nextval,
+		mission_cert_board_seq.nextval,
 				#{email},
 				#{title},
 				#{content},
@@ -75,7 +82,7 @@
 		WHERE mission_num = #{missionNum}
 	</update>	
 	
-	<!-- 미션번호로 해당 미션 삭제 -->
+	<!-- 미션번호로 해당 미션인증글 삭제 -->
 	<delete id="deleteMissionCertByMissionCertNum">
 			delete from mission_cert_board where mission_cert_num = #{value}
 	</delete>
@@ -85,6 +92,14 @@
 		insert into mission_member(mission_num,email)
 		values (#{missionNum},#{email})
 	</insert>
+	
+	<!-- 미션인증게시판에 글 쓴 사람의 닉네임 조회 -->
+	<select id="selectMissionCertNickname" resultmap="">
+		Select nickname From MEMBER inner JOIN mission_member
+		ON MEMBER.email = mission_member.email
+		inner JOIN mission_cert_board
+		ON MEMBER.email = mission_cert_board.email
+	</select>
 	 
 	
 

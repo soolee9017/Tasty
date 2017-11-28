@@ -2,10 +2,13 @@ package com.tasty.service;
 
 import java.util.List;
 
-import com.tasty.vo.Mission;
-import com.tasty.vo.MissionMember;
+import com.tasty.vo.MissionCert;
 
 public interface MissionCertService {
 	
+	
+	List<MissionCert> selectAllMissionCert();
+	
+	int insertMissionCert(MissionCert missionCert);
 
 }

@@ -1,5 +1,7 @@
 package com.tasty.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,8 +20,13 @@ public class MissionCertDAOImpl implements MissionCertDAO{
 	}
 
 	@Override
-	public int insertMissionCert(MissionCert missonCert) {
-		return session.insert(makeSqlId("insertMissionCert"),missonCert);
+	public int insertMissionCert(MissionCert missionCert) {
+		return session.insert(makeSqlId("insertMissionCert"),missionCert);
+	}
+
+	@Override
+	public List<MissionCert> selectAllMissionCert() {
+		return session.selectList(makeSqlId("selectAllMissionCert"));
 	}
 	
 	
