@@ -68,8 +68,5 @@ $(document).ready(function(){
 </div> 
 
 </form>
-
-jjjjjjjjjjjjjjjjjj
-
 </body>
 </html>
