@@ -29,6 +29,12 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
+	public List<Review> selectReviewByEmail(String email) {
+		return reviewDao.selectReviewByEmail(email);
+	}
+	
+	
+	@Override
 	public int insertReview(Review review) {
 		return reviewDao.insertReview(review);
 	}
@@ -87,7 +93,13 @@ public class ReviewServiceImpl implements ReviewService{
 		   
 		   return 0;
 	}
-	
+
+	@Override
+	public int deleteReview(String email) {
+		return reviewDao.deleteReview(email);
+	}
+
+
 	
 	
 	
