@@ -2,6 +2,7 @@ package com.tasty.dao;
 
 import java.util.List;
 
+import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
 
@@ -39,6 +40,11 @@ public interface MemberDAO {
 	 * @return
 	 */
 	Member selectMemberByEmail(String email);
+	
+	int insertAuthority(Authority authority);
+
+	List<Authority> selectAuthorityByEmail(String email);
+	
 	
 	
 }

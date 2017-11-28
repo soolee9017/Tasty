@@ -13,7 +13,7 @@
 	
 	<!-- service, dao bean 등록 -->
 	
-	<context:component-scan base-package="com.tasty.controller, com.tasty.dao.impl, com.tasty.service.impl"/>
+	<context:component-scan base-package="com.tasty.controller"/>
 	<mvc:annotation-driven/>
 	
 	
@@ -23,39 +23,27 @@
 	<mvc:view-controller path="/map_eatery.do" view-name="/WEB-INF/view/content/util/map_eatery.jsp"/>
 	<mvc:view-controller path="/content/util/information.do" view-name="content/util/information.tiles"/>
 	
-	<!-- mybatis 연동 bean 설정-->
-	<!-- BasicDataSource -->
-	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close"
-	 			p:driverClassName="oracle.jdbc.driver.OracleDriver"
-	 			p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
-	 			p:username="tasty" p:password="tasty"
-	 			p:maxTotal="100" p:initialSize="2"/>
-	<!-- JNDI DataSource 연동 
-	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" p:jndiName="java:/comp/env/jdbc/kgmyh"/>
-	-->
-	<bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
-	 		   p:configLocation="classpath:com/tasty/config/mybatis/mybatis-config.xml"
-	 		   p:dataSource-ref="dataSource" />
-	 
-	<!-- SqlSessionTemplate 생성 - 생성자로 sqlSessionFactoryBean을 주입 -->
-	<bean name="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
-		      c:sqlSessionFactory-ref="sqlSessionFactory"/>
-		      
-	<!-- Transaction 처리 -->
-	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-			  p:dataSource-ref="dataSource"/>
-	<tx:annotation-driven transaction-manager="transactionManager"/>	
+	<!-- 링크 -->
+<!-- 비인증 관련 -->
+   <!-- 메인페이지 -->
+   <mvc:view-controller path="/index.do" view-name="index.tiles"/>
+   <!-- 403 권한 없음 에러 페이지 -->
+   <mvc:view-controller path="/error/access_denied.do" view-name="error/access_denied.tiles"/>
+   <!-- 로그인 폼 -->   
+   <mvc:view-controller path="/login_form.do" view-name="login_form.tiles"/>
+   <!-- 회원 가입 폼 -->
+   <mvc:view-controller path="/join_member_form.do" view-name="member/join_member_form.tiles"/>
+
+<!-- 회원, 관리자 공통 관련 : /member 로 시작-->   
+   <!-- 본인정보 조회 페이지 -->
+   <mvc:view-controller path="/member/mypage.do" view-name="member/mypage.tiles"/>
+   <!-- 사용자 정보 변경 폼 페이지 -->
+   <mvc:view-controller path="/member/update_profile_form.do" view-name="member/update_profile_form.tiles"/>
+
+<!-- 관리자만 관련 /admin 으로 시작 -->
+   <!-- 관리자 등록 폼 -->
+   <mvc:view-controller path="/admin/register_admin_form.do" view-name="admin/register_admin_form.tiles"/>
 	
-	
-	<!-- 
-		multipartResolver 빈 등록 
-			-enctype='multipart/form-data' 요청을 받았을 때 DispatcherServlet이 
-			요청파라미터들 (업로드된 파일 포함) 처리를 위해 호출하는 빈. 
-	 -->
-	 <bean name="multipartResolver"
-	 	   class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-	
-   
 	<!-- ViewResolver -->
 	
 	<bean name="tilesConfig" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">

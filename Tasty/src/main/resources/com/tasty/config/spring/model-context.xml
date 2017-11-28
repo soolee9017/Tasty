@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:component-scan base-package="com.tasty.dao.impl, com.tasty.service.impl"/>
+
+	<!-- mybatis 연동 bean 설정-->
+	<!-- BasicDataSource -->
+	<bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close"
+	 			p:driverClassName="oracle.jdbc.driver.OracleDriver"
+	 			p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+	 			p:username="tasty" p:password="tasty"
+	 			p:maxTotal="100" p:initialSize="2"/>
+	<!-- JNDI DataSource 연동 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" p:jndiName="java:/comp/env/jdbc/kgmyh"/>
+	-->
+	<bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+	 		   p:configLocation="classpath:com/tasty/config/mybatis/mybatis-config.xml"
+	 		   p:dataSource-ref="dataSource" />
+	 
+	<!-- SqlSessionTemplate 생성 - 생성자로 sqlSessionFactoryBean을 주입 -->
+	<bean name="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+		      c:sqlSessionFactory-ref="sqlSessionFactory"/>
+		      
+	<!-- Transaction 처리 -->
+	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+			  p:dataSource-ref="dataSource"/>
+	<tx:annotation-driven transaction-manager="transactionManager"/>	
+
+   <!-- 
+      파일 업로드를 위한 MultipartResolver 등록 
+      - Spring Security 적용시 name="filterMultipartResolver" 로 등록 (web.xml에 springMultipartFilter 필터 등록)
+      - Spring Security 적용하지 않는 경우 name="multipartResolver" 로 등록
+   -->
+   <bean name="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+</beans>

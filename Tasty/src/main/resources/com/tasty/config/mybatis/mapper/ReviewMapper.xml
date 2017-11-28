@@ -77,7 +77,7 @@ insert into menu values (menu_num_seq.nextval, review_num_seq.currval,#{value})
 insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 </insert>
 
-<insert id="insertReview" parameterType="review">
+<!-- <insert id="insertReview" parameterType="review">
 	INSERT INTO REVIEW VALUES  (#{reviewNum},
 									#{address},
 									#{storeName}, 
@@ -89,7 +89,7 @@ insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 									#{downs},
 									#{posX},
 									#{posY})
-</insert>
+</insert> -->
 
 
 </mapper>

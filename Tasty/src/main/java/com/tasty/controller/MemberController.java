@@ -1,38 +1,33 @@
 package com.tasty.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.service.MemberService;
 import com.tasty.service.TasteService;
-import com.tasty.service.impl.TasteServiceImpl;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
 import com.tasty.vo.Taste;
 
 @Controller
 @RequestMapping("/member/")
-public class MemberController {
-
+public class MemberController{
+	
 	@Autowired
 	MemberService service;
+	
 	@Autowired
 	TasteService tasteService;
-	@RequestMapping("registerMember")
-	public ModelAndView registerMember(@ModelAttribute Member member) {
-		service.addMember(member);
-		System.out.println(member);
-		return new ModelAndView("member/registerMember.jsp", "email", member.getEmail());
-	}
 	
 	@RequestMapping("registerMemberTaste")
 	public ModelAndView registerMemberTaste(@RequestParam String email, @RequestParam String taste1, @RequestParam String taste2, @RequestParam String taste3) {
@@ -77,4 +72,6 @@ public class MemberController {
 		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
 		
 	}
+
+
 }

@@ -12,6 +12,7 @@
 				gender,
 				total_ups,
 				totas_downs,
+				member_cert
 		from	member
 	</sql>
 
@@ -39,6 +40,11 @@
 		where	t.taste_num = mbt.taste_num
 	</sql> -->
 	
+	   <sql id="authority-select-sql">
+      SELECT  email, authority
+      FROM   authority
+   </sql>
+	
 	
 	<resultMap type="member" id="member-resultmap">
 		<id column="email" property="email"/>
@@ -61,6 +67,11 @@
 		<result column="taste_name" property="tasteName"/>
 	</resultMap>
 	
+	<resultMap id="authority-resultmap" type="authority">
+      <id column="email" property="email"/>
+      <result column="authority" property="authority"/>
+   </resultMap>
+	
 	<resultMap type="memberTaste" id="memberTaste-join-member-resultmap" extends="memberTaste-resultmap">
 		<association property="member" javaType="member">
 			<id column="email" property="email"/>
@@ -71,6 +82,7 @@
 			<result column="gender" property="gender"/>
 			<result column="total_ups" property="totalUps"/>
 			<result column="total_downs" property="totalDowns"/>
+			<result column="member_cert" property="memberCert"/>
 		</association>
 	</resultMap>
 	
@@ -94,18 +106,21 @@
 
 	<!-- 삽입 -->
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO MEMBER VALUES  (#{email},
+		INSERT INTO MEMBER(email, password, nickname, name, phone_num, gender, member_cert) VALUES  (#{email},
 									#{password},
 									#{nickname}, 
 									#{name},
 									#{phoneNum},
 									#{gender},
-									#{totalUps},
-									#{totalDowns})
+									1)
 	</insert>
 	
 	<insert id="insertMemberTaste" parameterType="memberTaste">
 		INSERT INTO MEMBER_TASTE(email, taste_num) VALUES (#{email}, #{tasteNum})
+	</insert>
+	
+	<insert id="insertAuthority" parameterType="authority">
+		insert into authority values (#{email}, #{authority})
 	</insert>
 
 	<!-- 삭제 -->
@@ -131,17 +146,24 @@
 
 	<!-- 조회 -->
 	<select id="selectMemberByEmail" parameterType="string" resultMap="member-join-memberTaste-resultmap">
-		<!-- 		
-		<include refid="select-join-memberTaste-sql"/>
-		where email = #{value} 
-		 -->
+		 		
+		<!-- <include refid="select-join-memberTaste-sql"/>
+		where email = #{value}  -->
+		
 		select *
 		from member m, member_taste mbt, taste t 
 		where m.email = #{value}
 		and m.email=mbt.email
 		and t.taste_num=mbt.taste_num(+)
-		
+		and member_cert = 1
 	</select>
+	
+	   <!-- 사용자 ID로 그 사용자의 권한 조회 -->
+   <select id="selectAuthorityByEmail" parameterType="string" resultMap="authority-resultmap">
+      <include refid="authority-select-sql"/>
+      WHERE email = #{value}
+   </select>
+	
 </mapper>
 
 

@@ -17,7 +17,7 @@ DROP TABLE AUTHORITY; -- AUTHORITIES
 
 CREATE TABLE MEMBER (
    email       VARCHAR2(50) NOT NULL, -- 아이디
-   password    varchar2(20) NULL,     -- 비밀번호
+   password    varchar2(80) NULL,     -- 비밀번호
    nickname    varchar2(50) NULL,     -- 별명
    name        varchar2(50) NULL,     -- 실명
    phone_num   varchar2(13) NULL,     -- 전화번호
@@ -25,7 +25,7 @@ CREATE TABLE MEMBER (
    
    total_ups   NUMBER(3)    NULL,     -- 총 추천수
    total_downs NUMBER(3)    NULL,      -- 총 비추천수
-   MEMBER_CERT NUMBER(1)	NOT NULL
+   MEMBER_CERT NUMBER(1)	DEFAULT 1 NOT NULL -- 1 : 인증가능
 );
 
 -- 회원 기본키
