@@ -3,6 +3,7 @@ package com.tasty.dao;
 import java.util.List;
 
 import com.tasty.vo.Member;
+import com.tasty.vo.MemberTaste;
 
 public interface MemberDAO {
 	
@@ -13,6 +14,10 @@ public interface MemberDAO {
 	 * @return
 	 */
 	int insertMember(Member member);
+	
+	int insertMemberTaste(MemberTaste memberTaste);
+	
+	//int insertMemberTaste(int tasteNum);
 	
 	/**
 	 * 삭제(탈퇴)

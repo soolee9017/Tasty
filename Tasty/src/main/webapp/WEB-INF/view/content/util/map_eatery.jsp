@@ -5,8 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link type="text/css" rel="stylesheet"
+	href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet"
+	href="${initParam.rootPath}/resource/sweetalert/css/sweetalert2.css">
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"
+	src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
 <style type="text/css">
 body {
 	height: 700px;
@@ -28,7 +36,7 @@ body {
 .map_wrap {
 	position: relative;
 	width: 100%;
-	height: 100%;
+	height: 80%;
 }
 
 #menu_wrap {
@@ -45,26 +53,6 @@ body {
 
 .bg_white {
 	background: #fff;
-}
-
-#menu_wrap hr {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 2px solid #5F5F5F;
-	margin: 3px 0;
-}
-
-#menu_wrap .option {
-	text-align: center;
-}
-
-#menu_wrap .option p {
-	margin: 10px 0;
-}
-
-#menu_wrap .option button {
-	margin-left: 5px;
 }
 
 #placesList li {
@@ -185,41 +173,43 @@ body {
 	text-align: center;
 }
 
-#pagination a {
-	display: inline-block;
-	margin-right: 10px;
+#pagination button {
+	width: 35px;
+	height: 35px;
 }
 
 #pagination .on {
 	font-weight: bold;
 	cursor: default;
-	color: #777;
+	color: white;
+	background-color: skyblue;
+	border: 0px;
+}
+
+#searchForm {
+	display: none;
 }
 </style>
 </head>
 <body>
+
 	<div class="map_wrap">
 		<div id="map"
 			style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-
 		<div id="menu_wrap" class="bg_white">
-			<div class="option">
-				<div>
-					<form onsubmit="searchPlaces(); return false;">
-						가게 이름 : <input type="text" id="keyword" size="15" placeholder="맛집"
-							value="${requestScope.keyward}">
-						<button type="submit">검색하기</button>
-					</form>
-				</div>
-			</div>
-			<hr>
 			<ul id="placesList"></ul>
 			<div id="pagination"></div>
 		</div>
-		<p>
-			<em>지도를 확대 또는 축소 해주세요!</em>
-		</p>
-		<p id="result"></p>
+		<div id="search_wrap">
+			<button></button>
+			<form id="searchForm" onsubmit="searchPlaces(); return false;">
+				<label for="search">가게 이름 : &nbsp;</label><input type="text"
+					id="keyword" size="15" placeholder="가게 이름 혹은 키워드를(을) 입력해주세요."
+					value="${requestScope.keyward}">
+				<button onclick="imgSearch();" id="seachEater" type="submit">검색
+				</button>
+			</form>
+		</div>
 	</div>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c9a267072d7a505da79a5cc7df2f5ba7&libraries=services,clusterer,drawing"></script>
@@ -233,7 +223,7 @@ body {
 			center : new daum.maps.LatLng(33.450701, 126.570667),
 			level : 2
 		};
-		
+
 		//지도 생성
 		var map = new daum.maps.Map(container, options);
 		//우측 옵션 (확대(줌))
@@ -243,7 +233,7 @@ body {
 		var clusterer = new daum.maps.MarkerClusterer({
 			map : map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
 			averageCenter : true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-			minLevel : 2
+			minLevel : 3
 		// 클러스터 할 최소 지도 레벨 
 		});
 
@@ -269,7 +259,10 @@ body {
 			}
 
 			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-			ps.keywordSearch(keyword, placesSearchCB);
+			ps.keywordSearch(keyword, placesSearchCB, {
+				category_group_code : 'FD6,CE7'
+			});
+
 		}
 
 		// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -295,7 +288,6 @@ body {
 
 			}
 		}
-
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
 
@@ -308,21 +300,19 @@ body {
 
 			// 지도에 표시되고 있는 마커를 제거합니다
 			removeMarker();
-
 			for (var i = 0; i < places.length; i++) {
 
 				// 마커를 생성하고 지도에 표시합니다
 				var placePosition = new daum.maps.LatLng(places[i].y,
 						places[i].x), marker = addMarker(placePosition, i), itemEl = getListItem(
 						i, places[i]); // 검색 결과 항목 Element를 생성합니다
-
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 				// LatLngBounds 객체에 좌표를 추가합니다
 				bounds.extend(placePosition);
 				// 마커와 검색결과 항목에 mouseover 했을때
 				// 해당 장소에 인포윈도우에 장소명을 표시합니다
 				// mouseout 했을 때는 인포윈도우를 닫습니다
-				(function(marker, title) {
+				(function(marker, title, lat, lng) {
 					daum.maps.event.addListener(marker, 'mouseover',
 							function() {
 								displayInfowindow(marker, title);
@@ -368,6 +358,10 @@ body {
 						+ '</span>';
 			} else {
 				itemStr += '    <span>' + places.address_name + '</span>';
+				itemStr += '<span>' + places.y + '</span>';
+
+				itemStr += '<span>' + places.x + '</span>';
+				itemStr += '<span>' + places.x + '</span>';
 			}
 
 			itemStr += '  <span class="tel">' + places.phone + '</span>'
@@ -391,7 +385,8 @@ body {
 			}, markerImage = new daum.maps.MarkerImage(imageSrc, imageSize,
 					imgOptions), marker = new daum.maps.Marker({
 				position : position, // 마커의 위치
-				image : markerImage
+				image : markerImage, // 마커 이미지
+				clickable : true
 			});
 
 			marker.setMap(map); // 지도 위에 마커를 표출합니다
@@ -419,8 +414,8 @@ body {
 			}
 
 			for (i = 1; i <= pagination.last; i++) {
-				var el = document.createElement('a');
-				el.href = "#";
+				var el = document.createElement('button');
+				el.className = 'btn btn-default';
 				el.innerHTML = i;
 
 				if (i === pagination.current) {
@@ -438,13 +433,15 @@ body {
 		}
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 		// 인포윈도우에 장소명을 표시합니다
+		
 		function displayInfowindow(marker, title) {
 			var content = '<div style="padding:5px;z-index:1;">' + title
-					+ '</div>';
+					+ '<br>' + marker.getPosition().getLat() + '<br>' + marker.getPosition().getLng() + '</div>';
 
 			infowindow.setContent(content);
 			infowindow.open(map, marker);
 		}
+
 		// 검색결과 목록의 자식 Element를 제거하는 함수입니다
 		function removeAllChildNods(el) {
 			while (el.hasChildNodes()) {

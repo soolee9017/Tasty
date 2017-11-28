@@ -1,6 +1,8 @@
 package com.tasty.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,4 +20,12 @@ public class TasteServiceImpl implements TasteService{
 	public List selectAllTaste() {
 		return tasteDao.selectAllTaste();
 	}
+	
+	@Override
+	public int insertAllTaste(Map map) {
+		System.out.println("service");
+		return tasteDao.insertAllTaste(map);
+	}
+	
+
 }

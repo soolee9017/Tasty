@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tasty.dao.MemberDAO;
 import com.tasty.service.MemberService;
 import com.tasty.vo.Member;
+import com.tasty.vo.MemberTaste;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -20,6 +21,17 @@ public class MemberServiceImpl implements MemberService{
 	public void addMember(Member member) {
 		memberDao.insertMember(member);
 	}
+	
+	@Override
+	public void addMemberTaste(MemberTaste memberTaste) {
+		memberDao.insertMemberTaste(memberTaste);
+	}	
+	
+/*	@Override
+	public void addMemberTaste(int tasteNum) {
+		memberDao.insertMemberTaste(tasteNum);
+	}
+*/
 
 	@Override
 	public void removeMemberByEmail(String email) {

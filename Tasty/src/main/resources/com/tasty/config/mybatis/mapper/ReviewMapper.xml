@@ -60,6 +60,22 @@
 	and at.degree_num=d.degree_num(+) 
 </select>
 
+<insert id="insertReview" parameterType="String">
+insert into review (review_num, title) values (review_num_seq.nextval, #{value});
+
+
+</insert>
+
+
+<insert id="insertMenu" parameterType="string">
+
+insert into menu values (menu_num_seq.nextval, review_num_seq.currval,#{value})
+</insert>
+
+<insert id="insertMenuTaste">
+
+insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
+</insert>
 
 <insert id="insertReview" parameterType="review">
 	INSERT INTO REVIEW VALUES  (#{reviewNum},

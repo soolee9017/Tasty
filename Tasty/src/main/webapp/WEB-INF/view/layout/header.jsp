@@ -68,7 +68,7 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="${initParam.rootPath}/util/information.do">회사 소개</a></li>
+            <li><a href="${initParam.rootPath}/content/util/information.do">회사 소개</a></li>
             <li><a href="#">인사말</a></li>
             <li><a href="#">연혁 소개</a></li> 
           </ul>
@@ -76,8 +76,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<li><a href="#"></a></li>
-      	<li><a href="#"></a></li>
-      	<li><button class="btn btn-info" style="margin-top:8px;">회원가입</button></li>
+      	<li><a href="#"><span style="color:#d5d5d5;" class="glyphicon glyphicon-user"></span>내 정보</a></li>
+      	<li><a href="#">회원가입</a></li>
       </ul>
     </div>
   </div>

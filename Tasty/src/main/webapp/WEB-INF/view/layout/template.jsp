@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+html, body{
+height:100%
+}
 * {
 	text-decoration: none;
 	list-style: none;
@@ -23,48 +26,44 @@ section header h1 {
 }
 
 #searchEater {
-	-webkit-border-radius: 15px;
+	-webkit-border-radius: 15px 0 0 15px;
 	font-size: 17px;
 	padding-left: 8px;
 	height: 40px;
 	z-index: 4;
+	border:0px solid;
 }
-
-#keyward img {
-	position: relative;
-	z-index: 3;
-	width: 34px;
-	height: 34px;
-}
-
 .back {
 	background-color: rgba(0, 0, 0, 0.3);
-	width: 102%;
+	width: 100%;
 	height: 570px;
 	margin-top: 49.5px;
 	z-index: 2;
+	position:absolute;
 }
+.foot{}
 </style>
 <link type="text/css" rel="stylesheet"
-	href="${initParam.rootPath}/resource/sweetalert/css/sweetalert2.css">
-<link type="text/css" rel="stylesheet"
 	href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet"
+	href="${initParam.rootPath}/resource/sweetalert/css/sweetalert2.css">
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
-	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
-<script type="text/javascript"
 	src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript"
+	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
+<script type="text/javascript">	
 	function imgSearch() {
 		var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 		var search = document.getElementById('searchEater').value;
-		if (!search || search.search(/\s/) != -1
-				|| special_pattern.test(search) == true) {
-			swal("", "가게 이름 혹은 키워드가 입력되지 않았거나 공백, 특수문자가 존재합니다.", "error");
+		if (search.search(/\s/) != -1 || special_pattern.test(search) == true) {
+			swal("", "가게 이름 혹은 키워드에 공백, 특수문자가 존재합니다.", "error");
 			return false;
-		} else {
-			document.getElementById('keyward').submit();
+		}else if(!search){
+			swal("", "가게 이름 혹은 키워드가 입력되지 않았습니다.", "error");
+			return false;
+		}else{
 			return true;
 		}
 	}
@@ -80,10 +79,9 @@ section header h1 {
 				<tiles:insertAttribute name="content" />
 			</article>
 		</section>
-		<footer class="row text-center">
+		<footer class="row text-center foot">
 			<tiles:insertAttribute name="footer" />
 		</footer>
-		
 	</div>
 </body>
 </html>

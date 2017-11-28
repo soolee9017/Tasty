@@ -11,6 +11,7 @@ import com.tasty.vo.Mission;
 
 @Service
 public class MissionServiceImpl implements MissionService{
+
 	@Autowired
 	private MissionDAO missionDao;
 	
@@ -21,13 +22,28 @@ public class MissionServiceImpl implements MissionService{
 		return missionDao.selectAllMission();
 	}
 
-	/*@Override
-	public int insertMission(Mission mission) {
-		return missionDao.insertMission(mission);
+	@Override
+	public int updateMissionByMissionNum(Mission mission) {
+		return missionDao.updateMissionByMissionNum(mission);
 	}
-*/
+
+	@Override
+	public int deleteMissionByMissonNum(int missionNum) {
+		return missionDao.deleteMissionByMissionNum(missionNum);
+	}
+
+	@Override
+	public void insertMission(Mission mission) {
+		missionDao.insertMission(mission);
+	}
+
+	@Override
+	public List<Mission> selectMissionByMissionName(String missionName) {
+		return missionDao.selectMissionByMissionName(missionName);
+	}
 	
 	
 	
 	
 }
+
