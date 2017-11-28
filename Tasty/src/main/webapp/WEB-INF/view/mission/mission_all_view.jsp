@@ -83,7 +83,7 @@ $(document).ready(function(){
 
 
 
-	<h2>mission 조회하기</h2>
+	<h2>mission 이름으로 조회하기</h2>
 	조회할 미션 이름 :
 	<form action="${initParam.rootPath }/mission/selectMissionName.do" method="get">
 		<input type="text" name="missionName" id="missionName">
