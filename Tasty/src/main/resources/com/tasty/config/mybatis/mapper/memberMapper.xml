@@ -105,7 +105,7 @@
 	</insert>
 	
 	<insert id="insertMemberTaste" parameterType="memberTaste">
-		INSERT INTO MEMBER(email, taste_num) VALUES (#{email}, #{tasteNum})
+		INSERT INTO MEMBER_TASTE(email, taste_num) VALUES (#{email}, #{tasteNum})
 	</insert>
 
 	<!-- 삭제 -->
