@@ -17,7 +17,7 @@ import com.tasty.service.TasteService;
 @Controller
 @RequestMapping("/review/")
 public class TasteController {
-
+	int index = 0;
 	@Autowired
 	TasteService service;
 	

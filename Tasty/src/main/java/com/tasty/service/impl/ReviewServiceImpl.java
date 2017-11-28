@@ -28,7 +28,16 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReviewByAddress(address);
 	}
 
+	@Override
+	public List<Review> selectReviewByEmail(String email) {
+		return reviewDao.selectReviewByEmail(email);
+	}
 	
+	
+	@Override
+	public int insertReview(Review review) {
+		return reviewDao.insertReview(review);
+	}
 	
 	
 	//insertReview 메소드 안봐도 됨~ 나중에 다 고칠거임~
@@ -84,7 +93,13 @@ public class ReviewServiceImpl implements ReviewService{
 		   
 		   return 0;
 	}
-	
+
+	@Override
+	public int deleteReview(String email) {
+		return reviewDao.deleteReview(email);
+	}
+
+
 	
 	
 	

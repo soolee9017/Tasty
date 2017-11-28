@@ -9,12 +9,12 @@
 <body>
 <h1>response 결과</h1>
 <ul>
-<%-- <c:forEach items="${requestScope.result}" var="member"> 
-	<c:forEach items="${member.memberTaste}" var="member_taste">
-		 <c:forEach items="${memberTaste.tasteList}" var="taste"> 
+ <c:forEach items="${requestScope.result}" var="member"> 
+	<%-- <c:forEach items="${member.memberTaste}" var="member_taste">
+		 <c:forEach items="${memberTaste.tasteList}" var="taste">  --%>
 <li>${member}</li>
 	</c:forEach>
-	 </c:forEach> 
+	<%-- </c:forEach> 
 	</c:forEach> --%>
 </ul>
 </body>

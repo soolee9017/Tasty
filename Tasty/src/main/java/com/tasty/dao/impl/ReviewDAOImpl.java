@@ -26,6 +26,10 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 
 	@Override
+	public int insertReview(Review review) {
+		return session.insert(makeSqlId("insertReview"), review);
+	}
+
 	public int insertMenu(String name) {
 		return session.insert(makeSqlId("insertMenu"),name);
 	}
@@ -38,6 +42,16 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public int insertReview(String title) {
 		return session.insert(makeSqlId("insertReview"),title);
+	}
+
+	@Override
+	public int deleteReview(String email) {
+		return session.delete(makeSqlId("deleteReview"), email);
+	}
+
+	@Override
+	public List<Review> selectReviewByEmail(String email) {
+		return session.selectList(makeSqlId("selectReviewByEmail"), email);
 	}
 	
 	

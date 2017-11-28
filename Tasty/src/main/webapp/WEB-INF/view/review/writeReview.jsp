@@ -52,9 +52,9 @@ $(document).ready(function(){
    $("#plusMenu").on("click",function(){
      
 
-	  
-	  
-	  var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
+   
+   
+   var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
       txt += "<td><input type='text' name='menu'></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
       txt += "<td><span><select class='tasteSel' name='tastes' required><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select>";
       txt += "<select id='degreeSel' name='degrees' required><option value=''>정도를 선택하세요</option></select></span></td></tr>";
@@ -117,58 +117,58 @@ $(document).ready(function(){
    
    
    $("#sendBtn").on("click", function() { 
-	   
- 		var totalTr = $('#tBody>tr').length;
-	   
+    
+   var totalTr = $('#tBody>tr').length;
+    
 
-		
-		var menuName =[];
-		var numOfTaste= [];
-		var listOfTaste = [];
-		var listOfDegree = [];
-		
-		var name;
-		var sLength;
-		var selVal;
-		
-  	 	for(var i = 0; i<totalTr ; i++){
-		
-		  
-		  
-		    name= $('#tBody>tr:eq('+i+') input').val();
-		    sLength = $('#tBody>tr:eq('+i+') select').length;
-		   
-		   menuName.push(name);
-		   numOfTaste.push(sLength/2);
-		   
-			 	 for(var s=0; s<sLength ; s++){
-						  
-						  selVal= $('#tBody>tr:eq('+i+') select:eq('+s+')').val();
-			 		 if(s%2 == 0){
-						  listOfTaste.push(selVal);	 			 
-			 		 }else{
-			 			 listOfDegree.push(selVal);
-			 		 }
-			  	 }
-  		 }
-		
-		
-		
-	
+  
+  var menuName =[];
+  var numOfTaste= [];
+  var listOfTaste = [];
+  var listOfDegree = [];
+  
+  var name;
+  var sLength;
+  var selVal;
+  
+     for(var i = 0; i<totalTr ; i++){
+  
+    
+    
+      name= $('#tBody>tr:eq('+i+') input').val();
+      sLength = $('#tBody>tr:eq('+i+') select').length;
+     
+     menuName.push(name);
+     numOfTaste.push(sLength/2);
+     
+      for(var s=0; s<sLength ; s++){
+        
+        selVal= $('#tBody>tr:eq('+i+') select:eq('+s+')').val();
+       if(s%2 == 0){
+        listOfTaste.push(selVal);      
+       }else{
+        listOfDegree.push(selVal);
+       }
+       }
+     }
+  
+  
+  
+ 
 
 
-/* 		alert(menuName);
-		alert(numOfTaste);
-		alert(listOfTaste);
-		alert(listOfDegree); */
-		
-		$('#listOfMenu').val(menuName);
-		$('#numOfTaste').val(numOfTaste);
-		$('#listOfTaste').val(listOfTaste);
-		$('#listOfDegree').val(listOfDegree);
-		
-		 $("#reviewForm").submit(); 
-	   
+/*   alert(menuName);
+  alert(numOfTaste);
+  alert(listOfTaste);
+  alert(listOfDegree); */
+  
+  $('#listOfMenu').val(menuName);
+  $('#numOfTaste').val(numOfTaste);
+  $('#listOfTaste').val(listOfTaste);
+  $('#listOfDegree').val(listOfDegree);
+  
+   $("#reviewForm").submit(); 
+    
    }); 
    
   
@@ -181,7 +181,7 @@ $(document).ready(function(){
 
 <style type="text/css">
 
-
+ 
 
 
 </style>
@@ -246,4 +246,4 @@ $(document).ready(function(){
 <button id="sendBtn" type="button">리뷰 전송</button>
    </form>
 </body>
-</html>
+</html> 

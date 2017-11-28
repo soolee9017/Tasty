@@ -1,10 +1,13 @@
 package com.tasty.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tasty.dao.MemberDAO;
+import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
 
@@ -23,6 +26,13 @@ public class MemberDAOImpl implements MemberDAO{
 		public int insertMember(Member member) {
 			return session.insert(makeSqlId("insertMember"), member);
 		}
+		
+
+		@Override
+		public int insertAuthority(Authority authority) {
+			return session.insert(makeSqlId("insertAuthority"), authority);
+		}
+
 
 		@Override
 		public int insertMemberTaste(MemberTaste memberTaste) {
@@ -48,6 +58,13 @@ public class MemberDAOImpl implements MemberDAO{
 		public Member selectMemberByEmail(String email) {
 			return session.selectOne(makeSqlId("selectMemberByEmail"), email);
 		}
+
+
+		@Override
+		public List<Authority> selectAuthorityByEmail(String email) {
+			return session.selectList(makeSqlId("selectAuthorityByEmail"), email);
+		}
+
 
 
 	
