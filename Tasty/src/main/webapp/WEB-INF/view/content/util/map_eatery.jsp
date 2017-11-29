@@ -480,8 +480,8 @@ body {
 					+ '</div>'
 					+ '<form action="${initParam.rootPath}/review/getAllTaste.do">'
 					+ '<div class="body">'
-					+ '<input type="hidden" id="lat" name="lat" value="">'
-					+ '<input type="hidden" id="lng" name="lng" value="">'
+					+ '<input type="hidden" id="lat" name="lat" value="">' //위도
+					+ '<input type="hidden" id="lng" name="lng" value="">'	//경도
 					+ '<button type="submit" class="btn btn-info" style="float:right;height:50px;">리뷰 작성</button></div>'
 					+ '</div>' + '</form>' + '</div>';
 			infowindow.setContent(content);
