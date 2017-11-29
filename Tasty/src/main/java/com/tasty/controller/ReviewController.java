@@ -1,12 +1,12 @@
 package com.tasty.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,15 +30,23 @@ public class ReviewController {
       return new ModelAndView("response.jsp","result",list);
    }
    
-   @RequestMapping("registerReview")
-   public ModelAndView registerReview(@RequestParam String address,
+   @RequestMapping(value="registerReview", method={RequestMethod.POST,RequestMethod.GET})
+
+   public ModelAndView registerReview(@RequestParam String listOfMenu,@RequestParam String numOfTaste,
+		   @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String title 
+		   /*@RequestParam String address,
          @RequestParam String storeName, @RequestParam String email,
          @RequestParam String title, @RequestParam String content,
          @RequestParam int ratings, @RequestParam int ups, @RequestParam int downs,
          @RequestParam String posX, @RequestParam String posY, @RequestParam List<String> tastes,
-         @RequestParam List degrees) {
+         @RequestParam List degrees*/) {
+	   System.out.println("컨트롤러 왔쟈낭");
+	 
+	   	reviewService.insertReview(listOfMenu, numOfTaste, listOfTaste, listOfDegree, title);
+	   
+	   return null;
    
-      //맛 3가지 중 같은 맛 골라서 넘겼는지 중복체크
+     /* //맛 3가지 중 같은 맛 골라서 넘겼는지 중복체크
       String firstTaste = tastes.get(0); //첫번째로 고른 맛
       String secondTaste = tastes.get(1);
       String thirdTaste = tastes.get(2);
@@ -50,7 +58,7 @@ public class ReviewController {
       
       
       Review review = new Review(0, address, storeName, email, title, content, ratings, ups, downs, posX, posY);
-      return new ModelAndView("", "result", review);
+      return new ModelAndView("", "result", review);*/
    }
    
    @RequestMapping("test")

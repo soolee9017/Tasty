@@ -11,9 +11,10 @@ public interface ReviewService {
 	
 	List<Review> selectReviewByEmail(String email);
 	
-	int insertReview(Review review);
-	int insertReview(String finalArr, String title);
+//	int insertReview(String finalArr, String title);
 	
 	int deleteReview(String email);
+
+	int insertReview(String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title);
 
 }
