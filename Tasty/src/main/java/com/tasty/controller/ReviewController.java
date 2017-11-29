@@ -46,19 +46,6 @@ public class ReviewController {
 	   
 	   return null;
    
-     /* //맛 3가지 중 같은 맛 골라서 넘겼는지 중복체크
-      String firstTaste = tastes.get(0); //첫번째로 고른 맛
-      String secondTaste = tastes.get(1);
-      String thirdTaste = tastes.get(2);
-      if(firstTaste.equals(secondTaste) || firstTaste.equals(thirdTaste) || secondTaste.equals(thirdTaste)) {
-         String errorMessage = "맛이 중복되었습니다.";
-         return new ModelAndView("","result", errorMessage);
-      }
-      
-      
-      
-      Review review = new Review(0, address, storeName, email, title, content, ratings, ups, downs, posX, posY);
-      return new ModelAndView("", "result", review);*/
    }
    
    @RequestMapping("test")
