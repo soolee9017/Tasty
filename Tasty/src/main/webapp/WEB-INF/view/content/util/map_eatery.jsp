@@ -498,7 +498,9 @@ body {
 					+ '<br>'
 					+ '<span class="places_tel"></span>'
 					+ '</div>'
-					+ '<input type="hidden" id="eateryTitle" name="eateryTitle" value=""'
+					+ '<input type="hidden" id="eateryJibun" name="eateryJibun" value="">' // 가게 지번
+					+ '<input type="hidden" id="eateryTel" name="eateryTel" value="">' //가게 번호
+					+ '<input type="hidden" id="eateryTitle" name="eateryTitle" value="">'//가게 이름
 					+ '<input type="hidden" id="lat" name="lat" value="">' //위도
 					+ '<input type="hidden" id="lng" name="lng" value="">' //경도
 					+ '<button type="submit" class="btn btn-info" style="float:right;height:50px;">리뷰 작성</button></div>'
@@ -516,6 +518,8 @@ body {
 				if (title.toString() == eateryNames[i]) {
 					$(".places_jibun").html($(".jibun" + (i + 1) + "").html());
 					$(".places_tel").html($(".tel" + (i + 1) + "").html());
+					$("#eateryJibun").val($(".jibun" + (i + 1) + "").html());
+					$("#eateryTel").val($(".tel" + (i + 1) + "").html());
 					break;
 				}
 			}
