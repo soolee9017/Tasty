@@ -2,34 +2,24 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript"
-   src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	 $("#menu_layer").on("change",".tasteSel", function(){
-      $.ajax({
-         "url":"/Tasty/review/getAllTaste3.do",
-         "dataType":"json",
-         "success":function(list){
-            var txt="<option value=''>맛을 선택하세요</option>";
-            $.each(list, function(){
-               txt += "<option>"+this+"</option>"
-            });
-            $(".tasteSel").html(txt);
-         }
-      });      
-   });
-	 
-	 $("#menu_layer").on("click",".plusTaste",function(){
-	      
-	      if($(this).parent().next().children().length == 3){
-	         alert('더이상 맛 추가 안됨');
-	         return;
-	      }
-	        
-	  });
+	$("#menu_layer").on("click",".plusTaste",function(){
+		if($(this).parent().next().children().length == 3){
+			alert("더이상 맛 추가 안됨");
+			return;
+		}
+		
+		var txt = "<span><select class='tasteSel' name='tastes' required='required'><option>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList}' var='taste'><option>${taste.tasteName}</option></c:forEach></select><button type='button' class='deleteTaste'>X</button></span>";
+		$(this).parent().next().append(txt);
+
+	});
+	
+	$("#menu_layer").on("click",".deleteTaste",function(){
+		$(this).parent().remove();
+	});
 });
-      
 </script>
 
 <h2>정보 수정 가입</h2>
@@ -79,10 +69,13 @@ $(document).ready(function(){
 		</thead>
 		<tbody id="tBody">
 			<tr>
-				<td><button type='button'class='plusTaste'>맛 추가</button></td>
+				<td><button type='button' class='plusTaste'>맛 추가</button></td>
 				<td>
 				<select class='tasteSel' name="tastes" required="required">
                    <option>맛을 선택하세요.</option>
+	                   <c:forEach items="${requestScope.tasteList}" var='taste'>
+							<option>${taste.tasteName}</option>
+						</c:forEach>
                  </select>
                  </td>
 			</tr>
