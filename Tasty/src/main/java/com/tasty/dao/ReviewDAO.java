@@ -10,7 +10,7 @@ public interface ReviewDAO {
 	
 	List<Review> selectReviewByEmail(String email);
 	
-	int insertReview(Review review);
+//	int insertReview(Review review);
 	int insertReview(String title);
 
 	int insertMenu(String name);

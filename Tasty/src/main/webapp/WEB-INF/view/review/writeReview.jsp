@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 
 <!DOCTYPE html>
 <html>
@@ -190,7 +191,8 @@ $(document).ready(function(){
 <body>
 
    <h2>${requestScope.storeName}의리뷰작성 페이지</h2>
-   <form action="${initParam.rootPath }/test/reviewTest.jsp" method="post" id="reviewForm">
+   <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm">
+   <sec:csrfInput/>
    <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="">
     제목 : <input type="text" name="title"><br>
       내용: <textarea name="content" cols="40" rows="8"></textarea>
