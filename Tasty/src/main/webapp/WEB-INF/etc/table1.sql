@@ -95,11 +95,6 @@ CREATE TABLE TASTE (
    taste_name VARCHAR2(20) NULL      -- 맛 이름
 );
 
--- 입맛 기본키
-CREATE UNIQUE INDEX PK_TASTE
-   ON TASTE ( -- 입맛
-      taste_num ASC -- 맛 번호
-   );
 
 -- 입맛
 ALTER TABLE TASTE
@@ -446,5 +441,8 @@ INSERT INTO DEGREE VALUES (degree_seq.nextval,'2');
 INSERT INTO DEGREE VALUES (degree_seq.nextval,'3');
 
 
+create sequence review_num_seq;
+create sequence menu_num_seq;
+create sequence td_num_seq;
 
       
