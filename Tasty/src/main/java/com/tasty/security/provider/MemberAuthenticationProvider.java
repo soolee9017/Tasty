@@ -13,6 +13,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tasty.dao.MemberDAO;
 import com.tasty.vo.Authority;
@@ -54,10 +56,10 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 	         authList.add(new SimpleGrantedAuthority(au.getAuthority()));
 	      }
 	      
-	      //인증한 사용자 정보(Principal), 패스워드, 인증된사용자의 권한들 을 넣어 Authentication객체 생성해 리턴
+	      //인증한 사용자 정보(Principal), 패스워드, 인증된 사용자의 권한들 을 넣어 Authentication객체 생성해 리턴
 	      return new UsernamePasswordAuthenticationToken(member, null, authList);
 	   }
-
+	
 	   @Override
 	   public boolean supports(Class<?> authentication) {
 	      return authentication.isAssignableFrom(UsernamePasswordAuthenticationToken.class);

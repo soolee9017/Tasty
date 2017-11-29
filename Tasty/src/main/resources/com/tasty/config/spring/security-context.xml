@@ -53,8 +53,8 @@
 		<form-login
 						login-page="/login_form.do"
 						login-processing-url="/login.do"
-						username-parameter="userId"
-						password-parameter="userPassword"
+						username-parameter="email"
+						password-parameter="password"
 						authentication-failure-handler-ref="loginFailHandler"
 						default-target-url="/index.do"/>
 		<logout logout-url="/logout.do" logout-success-url="/index.do"/>

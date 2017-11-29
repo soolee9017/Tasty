@@ -43,11 +43,6 @@ public class MemberServiceImpl implements MemberService{
 		memberDao.insertMemberTaste(memberTaste);
 	}	
 	
-/*	@Override
-	public void addMemberTaste(int tasteNum) {
-		memberDao.insertMemberTaste(tasteNum);
-	}
-*/
 
 	@Override
 	public void removeMemberByEmail(String email) {
@@ -55,8 +50,18 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public void withdrawMemberByEmail(String email) {
+		memberDao.withdrawMemberByEmail(email);
+	}
+	
+	@Override
 	public void updateMemberByEmail(Member member) {
 		memberDao.updateMemberByEmail(member);
+	}
+	
+	@Override
+	public void updateMemberTasteByEmail(MemberTaste memberTaste) {
+		memberDao.updateMemberTasteByEmail(memberTaste);
 	}
 
 	@Override

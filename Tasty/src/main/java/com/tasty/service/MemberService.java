@@ -11,10 +11,13 @@ public interface MemberService {
 	
 	void addMemberTaste(MemberTaste memberTaste);
 	
-	
 	void updateMemberByEmail(Member member);
 	
+	void updateMemberTasteByEmail(MemberTaste memberTaste);
+	
 	void removeMemberByEmail(String email);
+	
+	void withdrawMemberByEmail(String email);
 	
 	Member selectMemberByEmail(String email);
 
