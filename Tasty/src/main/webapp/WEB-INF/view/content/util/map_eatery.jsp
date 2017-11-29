@@ -448,6 +448,7 @@ body {
 				markers[i].setMap(null);
 			}
 			markers = [];
+			eateryNames = [];
 		}
 
 		// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
@@ -514,7 +515,7 @@ body {
 			$("#eateryTitle").val(title);
 			$("#lat").val(marker.getPosition().getLat());
 			$('#lng').val(marker.getPosition().getLng());
-			for (var i = 0; i < 15; i++) {
+			for (var i = 0; i < eateryNames.length; i++) {
 				if (title.toString() == eateryNames[i]) {
 					$(".places_jibun").html($(".jibun" + (i + 1) + "").html());
 					$(".places_tel").html($(".tel" + (i + 1) + "").html());
