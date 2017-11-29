@@ -118,19 +118,20 @@ $(document).ready(function(){
    
    
    $("#sendBtn").on("click", function() { 
+	  
     
    var totalTr = $('#tBody>tr').length;
     
 
   
-  var menuName =[];
-  var numOfTaste= [];
-  var listOfTaste = [];
-  var listOfDegree = [];
-  
-  var name;
-  var sLength;
-  var selVal;
+	  var menuName =[];
+	  var numOfTaste= [];
+	  var listOfTaste = [];
+	  var listOfDegree = [];
+	  
+	  var name;
+	  var sLength;
+	  var selVal;
   
      for(var i = 0; i<totalTr ; i++){
   
@@ -139,18 +140,42 @@ $(document).ready(function(){
       name= $('#tBody>tr:eq('+i+') input').val();
       sLength = $('#tBody>tr:eq('+i+') select').length;
      
+
+    
+     
+    /*  if(sLength == 2){
+    	 
+     }else if(sLength == 4){
+    	 if($('#tBody>tr:eq('+i+') select:eq(0)').val() == $('#tBody>tr:eq('+i+') select:eq(2)').val()){
+    		 alert('맛이 중복되었습니다');
+    		 return false;
+    	 }
+     }else if(sLength==6){
+    	 if($('#tBody>tr:eq('+i+') select:eq(0)').val() == $('#tBody>tr:eq('+i+') select:eq(2)').val()){
+    		 alert('맛이 중복되었습니다');
+    		 return false;
+    	 }else if($('#tBody>tr:eq('+i+') select:eq(0)').val() == $('#tBody>tr:eq('+i+') select:eq(4)').val()){
+    		 alert('맛이 중복되었습니다');
+    		 return false;
+    	 }else if($('#tBody>tr:eq('+i+') select:eq(2)').val() == $('#tBody>tr:eq('+i+') select:eq(4)').val()){
+    		 alert('맛이 중복되었습니다');
+    		 return false;
+    	 }
+     }
+      */
      menuName.push(name);
      numOfTaste.push(sLength/2);
      
       for(var s=0; s<sLength ; s++){
         
-        selVal= $('#tBody>tr:eq('+i+') select:eq('+s+')').val();
-       if(s%2 == 0){
-        listOfTaste.push(selVal);      
-       }else{
-        listOfDegree.push(selVal);
+       	 selVal= $('#tBody>tr:eq('+i+') select:eq('+s+')').val();
+	       	if(s%2 == 0){
+	       		 listOfTaste.push(selVal);      
+	       	}else{
+	      		  listOfDegree.push(selVal);
+	     	}
        }
-       }
+      
      }
   
   
@@ -190,7 +215,7 @@ $(document).ready(function(){
 </head>
 <body>
 
-   <h2>${requestScope.storeName}의리뷰작성 페이지</h2>
+   <h2>${param.storeName}의리뷰작성 페이지</h2>
    <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm">
    <sec:csrfInput/>
    <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="">
@@ -245,7 +270,7 @@ $(document).ready(function(){
 <input type="hidden" id="listOfDegree" name="listOfDegree" value="">
 
 ---------------리뷰 최종 전송 버튼 ---------------------<br>
-<button id="sendBtn" type="button">리뷰 전송</button>
+<button id="sendBtn">리뷰 전송</button>
    </form>
 </body>
 </html> 
