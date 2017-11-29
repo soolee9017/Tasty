@@ -336,7 +336,6 @@ body {
 
 			}
 		}
-
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
 
@@ -350,10 +349,9 @@ body {
 			// 지도에 표시되고 있는 마커를 제거합니다
 			removeMarker();
 			for (var i = 0; i < places.length; i++) {
-
 				// 마커를 생성하고 지도에 표시합니다
 				var placePosition = new daum.maps.LatLng(places[i].y,
-						places[i].x), marker = addMarker(placePosition, i), itemEl = getListItem(
+						places[i].x), marker = addMarker(placePosition,i), itemEl = getListItem(
 						i, places[i]); // 검색 결과 항목 Element를 생성합니다
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 				// LatLngBounds 객체에 좌표를 추가합니다
@@ -394,12 +392,7 @@ body {
 						+ '</span>';
 			} else {
 				itemStr += '    <span>' + places.address_name + '</span>';
-				itemStr += '<span>' + places.y + '</span>';
-
-				itemStr += '<span>' + places.x + '</span>';
-				itemStr += '<span>' + places.x + '</span>';
 			}
-
 			itemStr += '  <span class="tel">' + places.phone + '</span>'
 					+ '</div>';
 
@@ -424,7 +417,6 @@ body {
 				image : markerImage, // 마커 이미지
 				clickable : true
 			});
-
 			marker.setMap(map); // 지도 위에 마커를 표출합니다
 			markers.push(marker); // 배열에 생성된 마커를 추가합니다
 			clusterer.addMarkers(markers);
@@ -480,12 +472,14 @@ body {
 					+ '</div>'
 					+ '<form action="${initParam.rootPath}/review/getAllTaste.do">'
 					+ '<div class="body">'
-					+ '<input type="hidden" id="lat" name="lat" value="">'
-					+ '<input type="hidden" id="lng" name="lng" value="">'
+					+ '<input type="hidden" id="eateryTitle" name="eateryTitle" value=""'
+					+ '<input type="hidden" id="lat" name="lat" value="">' //위도
+					+ '<input type="hidden" id="lng" name="lng" value="">'	//경도
 					+ '<button type="submit" class="btn btn-info" style="float:right;height:50px;">리뷰 작성</button></div>'
 					+ '</div>' + '</form>' + '</div>';
 			infowindow.setContent(content);
 			infowindow.open(map, marker);
+			$("#eateryTitle").val(title);
 			$("#lat").val(marker.getPosition().getLat());
 			$('#lng').val(marker.getPosition().getLng());
 		}

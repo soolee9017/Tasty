@@ -74,7 +74,7 @@
 
 
 <insert id="insertReview" parameterType="String">
-insert into review (review_num, title) values (review_num_seq.nextval, #{value});
+insert into review (review_num, title) values (review_num_seq.nextval, #{value})
 
 
 </insert>
