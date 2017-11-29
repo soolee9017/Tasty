@@ -13,8 +13,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tasty.dao.MemberDAO;
 import com.tasty.vo.Authority;
@@ -42,6 +40,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 	      if(!encoder.matches(password, member.getPassword())){//틀린 패스워드
 	         throw new BadCredentialsException("패스워드를 확인하세요");
 	      }
+	  
 	      //인증 성공
 	      //권한 조회
 	      List<Authority> list = dao.selectAuthorityByEmail(id);

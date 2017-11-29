@@ -2,6 +2,18 @@
  * HANWOOL
  */
 
+
+
+
+  		select *
+  		from member m, member_taste mbt, taste t 
+  		where m.email = #{value}
+  		and m.email=mbt.email
+  		and t.taste_num=mbt.taste_num(+)
+
+
+
+
 ------- DROP TABLE ---------------------------
 
 DROP TABLE MEMBER cascade constraint; -- MEMBER
@@ -10,7 +22,9 @@ DROP TABLE TASTE cascade constraint; -- TASTE
 
 DROP TABLE MEMBER_TASTE cascade constraint; -- MEMBER_TASTE
 
-DROP TABLE AUTHORITY cascade constraint; -- AUTHORITIES
+DROP TABLE AUTHORITY; -- AUTHORITIES
+
+drop table authority cascade constraint;
 
 
 ------- CREATE + ALTER TABLE --------------------------
@@ -99,7 +113,7 @@ ALTER TABLE MEMBER_TASTE
       )
       REFERENCES MEMBER ( -- 회원
          email -- 아이디
-      )
+      );
       
       ON DELETE CASCADE;
        
@@ -141,9 +155,7 @@ ALTER TABLE AUTHORITY
 		EMAIL
 		) REFERENCES MEMBER(
 		EMAIL
-		)
-		
-		ON DELETE CASCADE;
+		);
 		
 	
 		

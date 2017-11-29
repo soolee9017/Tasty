@@ -43,6 +43,7 @@
 			<access-denied-handler> : 권한이 없는 사용자의 요청이 온 경우 처리
 			<authentication-manager> : 인증/권한 조회 처리 빈 등록
 	 -->
+	 
 	<http> <!-- ** → 전부 / * → 자원 -->
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/> <!-- /admin/경로로 들어왔을 경우 ROLE_ADMIN의 권한이 있어야 한다 -->
 		<intercept-url pattern="/member/**" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> 

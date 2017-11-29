@@ -15,8 +15,9 @@
 				member_cert
 		from	member
 	</sql>
+	-->
 
-	<sql id="select-join-memberTaste-sql">
+<!-- 	<sql id="select-join-memberTaste-sql">
 		select	m.email,
 				m.password,
 				m.nickname,
@@ -30,8 +31,8 @@
 		where	m.email = mbt.email
 		and		mbt.taste_num = t.taste_num(+)
 	</sql>
-	
-	<sql id="select-join-taste-sql">
+	 -->
+<!--	<sql id="select-join-taste-sql">
 		select	mt.email,
 				mbt. taste_num,
 				t.taste_num,
@@ -55,6 +56,7 @@
 		<result column="gender" property="gender"/>
 		<result column="total_ups" property="totalUps"/>
 		<result column="total_downs" property="totalDowns"/>
+		<result column="member_cert" property="memberCert"/>
 	</resultMap>
 	
 	<resultMap type="memberTaste" id="memberTaste-resultmap">
@@ -106,13 +108,15 @@
 
 	<!-- 삽입 -->
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO MEMBER(email, password, nickname, name, phone_num, gender, member_cert) VALUES  
+		INSERT INTO MEMBER(email, password, nickname, name, phone_num, gender, total_ups, total_downs, member_cert) VALUES  
 									(#{email},
 									#{password},
 									#{nickname}, 
 									#{name},
 									#{phoneNum},
 									#{gender},
+									0,
+									0,
 									1)
 	</insert>
 	
@@ -126,8 +130,8 @@
 
 	<!-- 탈퇴 (비인증) -->
 	<update id="withdrawMemberByEmail" parameterType="string">
-		update	member
-		set		member_cert = 0
+		update	AUTHORITY
+		set		authority = 'ROLE_NONE'
 		where	email = #{email}
 	</update>
 

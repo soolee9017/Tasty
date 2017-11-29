@@ -35,11 +35,25 @@ public class MainController {
 	 * @throws IOException 
 	 * @throws IllegalStateException 
 	 */
-	@RequestMapping("join_member")
-	public ModelAndView registerMember(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname, @RequestParam String phoneNum, @RequestParam String gender) {
+@RequestMapping("join_member")
+	public ModelAndView registerMember(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
+			@RequestParam String phoneNum, @RequestParam String gender, @RequestParam List<String> tastes) {
 		Member member = new Member(email, password, name, nickname, phoneNum, gender);
-		System.out.println(member);
+		System.out.println("controller로 옸쟈나");
+		System.out.println(tastes);
 		service.addMember(member, "ROLE_MEMBER");
+		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
+		System.out.println(tasteList);
+		for(int i=0; i<tastes.size(); i++) {
+			for(int j=0; j<tasteList.size(); j++) {
+				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
+					service.addMemberTaste(new MemberTaste(email, tasteList.get(j).getTasteNum()));
+					System.out.println(tasteList.get(j).getTasteNum());
+				}
+			}
+		}
+	
+		
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
 	
@@ -70,6 +84,7 @@ public class MainController {
 	   @RequestMapping("join_success")
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);
+	      System.out.println(member);
 	      return new ModelAndView("member/join_success.tiles", "member", member);
 	   }
 	
