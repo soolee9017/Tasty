@@ -7,6 +7,10 @@ public interface PhotoDAO {
 	
 	int insertPhoto(String path);
 	
-	
 	int insertReviewPhoto();
+	
+	
 }
+
+
+
