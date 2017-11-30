@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tasty.dao.MissionDAO;
 import com.tasty.service.MissionService;
 import com.tasty.vo.Mission;
+import com.tasty.vo.MissionMember;
 
 @Service
 public class MissionServiceImpl implements MissionService{
@@ -28,7 +29,7 @@ public class MissionServiceImpl implements MissionService{
 	}
 
 	@Override
-	public int deleteMissionByMissonNum(int missionNum) {
+	public int deleteMissionByMissionNum(int missionNum) {
 		return missionDao.deleteMissionByMissionNum(missionNum);
 	}
 
@@ -40,6 +41,16 @@ public class MissionServiceImpl implements MissionService{
 	@Override
 	public List<Mission> selectMissionByMissionName(String missionName) {
 		return missionDao.selectMissionByMissionName(missionName);
+	}
+
+	@Override
+	public void insertMissionMember(MissionMember missionMember) {
+		missionDao.insertMissionMember(missionMember);
+	}
+
+	@Override
+	public Mission selectMissionByMissionNum(int missionNum) {
+		return missionDao.selectMissionByMissionNum(missionNum);
 	}
 	
 	
