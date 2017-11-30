@@ -43,13 +43,16 @@ public class TasteController {
 	public ModelAndView getAllTaste2() {
 		List tasteList = service.selectAllTaste();
 		System.out.println("taste가지러옴");
-		return new ModelAndView("member/join_member_form.jsp","tasteList", tasteList);
+		tasteList.remove(tasteList.size()-1);
+		return new ModelAndView("member/join_member_form.tiles","tasteList", tasteList);
 	}
 	
 	@RequestMapping("getAllTaste3") //회원수정페이지로 넘어감
 	public ModelAndView getAllTaste3() {
 		List tasteList = service.selectAllTaste();
-		return new ModelAndView("member/update_profile_form.jsp","tasteList", tasteList);
+		System.out.println("무슨일이야");
+		tasteList.remove(tasteList.size()-1);
+		return new ModelAndView("member/update_profile_form.tiles","tasteList", tasteList);
 	}
 	
 	@RequestMapping("getAllDegree")

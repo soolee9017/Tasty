@@ -57,7 +57,7 @@ public class MainController {
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
 	
-	@RequestMapping("registerMemberTaste")
+	/*@RequestMapping("registerMemberTaste")
 	public ModelAndView registerMemberTaste(@RequestParam String email, @RequestParam String taste1, @RequestParam String taste2, @RequestParam String taste3) {
 		//MemberService memberService = new MemberServiceImpl();
 		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
@@ -80,7 +80,7 @@ public class MainController {
 		}
 		return new ModelAndView("redirect/join_success.do", "tasteList", tasteList);
 	}
-	
+	*/
 	   @RequestMapping("join_success")
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);

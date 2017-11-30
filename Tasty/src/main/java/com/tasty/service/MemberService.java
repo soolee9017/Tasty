@@ -19,6 +19,8 @@ public interface MemberService {
 	
 	void withdrawMemberByEmail(String email);
 	
+	void removeMemberTasteByEmail(String email);
+	
 	Member selectMemberByEmail(String email);
 
 

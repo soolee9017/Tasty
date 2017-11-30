@@ -48,6 +48,11 @@ public class MemberDAOImpl implements MemberDAO{
 		public int deleteMemberByEmail(String email) {
 			return session.delete(makeSqlId("deleteMemberByEmail"), email);
 		}
+		
+		@Override
+		public int deleteMemberTasteByEmail(String email) {
+			return session.delete(makeSqlId("deleteMemberTasteByEmail"), email);
+		}
 
 		@Override
 		public int updateMemberByEmail(Member member) {
@@ -69,7 +74,6 @@ public class MemberDAOImpl implements MemberDAO{
 		public List<Authority> selectAuthorityByEmail(String email) {
 			return session.selectList(makeSqlId("selectAuthorityByEmail"), email);
 		}
-
 
 
 	

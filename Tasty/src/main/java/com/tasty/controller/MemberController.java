@@ -1,5 +1,6 @@
 package com.tasty.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +26,8 @@ import com.tasty.dao.MemberDAO;
 import com.tasty.service.MemberService;
 import com.tasty.service.TasteService;
 import com.tasty.vo.Member;
+import com.tasty.vo.MemberTaste;
+import com.tasty.vo.Taste;
 
 @Controller
 @RequestMapping("/member/")
@@ -36,13 +42,33 @@ public class MemberController{
 	@Autowired
 	TasteService tasteService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
-	
-	@RequestMapping("updateMemberByEmail")
-	public ModelAndView updateMemberByEmail(@ModelAttribute Member member, HttpServletRequest request) {
+
+	@RequestMapping("update_member")
+	public ModelAndView updateMemberByEmail(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
+			@RequestParam String phoneNum, @RequestParam String gender, @RequestParam List<String> tastes) {
+		Member member = new Member(email, password, name, nickname, phoneNum, gender);
+		System.out.println("우엥");
+		System.out.println(tastes);
 		service.updateMemberByEmail(member);
-		return new ModelAndView("member/updateMemberByEmail.jsp", "member", member);
+		service.removeMemberTasteByEmail(email);
+		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
+		System.out.println(tasteList);
+		for(int i=0; i<tastes.size(); i++) {
+			for(int j=0; j<tasteList.size(); j++) {
+				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
+					service.addMemberTaste(new MemberTaste(email, tasteList.get(j).getTasteNum()));
+					System.out.println(tasteList.get(j).getTasteNum());
+		
 	}
+			}
+		}
+		return new ModelAndView("member/mypage.jsp", "member", member);
+			}
+	
+	
 	
 	@RequestMapping("removeMemberByEmail")
 	public ModelAndView removeMemberByEmail(@RequestParam String email) {
@@ -50,7 +76,7 @@ public class MemberController{
 		service.removeMemberByEmail(email);
 		return new ModelAndView("redirect:index.do", "result", email);
 	}
-
+	
 	
 	@RequestMapping("withdrawMemberByEmail")
 	public String withdrawMemberByEmail(@RequestParam Authentication authentication) throws AuthenticationException{

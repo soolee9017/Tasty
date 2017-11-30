@@ -86,8 +86,8 @@
 <%--인증된(로그인한) 사용자 메뉴 : 인증 안된상태에서 안보여야 하는 메뉴 --%>
 <sec:authorize access="isAuthenticated()">
 	<li><a id="logout" style="cursor: pointer;">로그아웃</a> <%-- ← GET방식이지만 로그아웃이기 때문에 csrf 토큰 체크를 해줘야 하는? --%>
-	<sec:authentication property="principal.email"/>
-	<li><a href="${initParam.rootPath }/member/withdrawMemberByEmail.do?email='<sec:authentication property="principal.email"/>'"/>회원 탈퇴</a></li>
+	<%-- <sec:authentication property="principal.email"/>
+	<li><a href="${initParam.rootPath }/member/withdrawMemberByEmail.do?email='<sec:authentication property="principal.email"/>'"/>회원 탈퇴</a></li> --%>
 </sec:authorize>
 
 

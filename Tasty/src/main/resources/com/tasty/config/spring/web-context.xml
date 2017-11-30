@@ -18,6 +18,7 @@
 	
 	
 	
+	
 	<mvc:view-controller path="/main.do" view-name="content/main.tiles"/>
 	<mvc:view-controller path="/template.do" view-name="template.tiles"/>
 	<mvc:view-controller path="/map_eatery.do" view-name="/WEB-INF/view/content/util/map_eatery.jsp"/>

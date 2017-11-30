@@ -38,6 +38,13 @@ public interface MemberDAO {
 	int deleteMemberByEmail(String email);
 	
 	/**
+	 * 
+	 * @param email
+	 * @return
+	 */
+	int deleteMemberTasteByEmail(String email);
+	
+	/**
 	 * 회원정보 수정
 	 * @param Member
 	 * @return

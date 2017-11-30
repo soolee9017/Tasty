@@ -149,13 +149,15 @@
 		set		password = #{password},
 				nickname = #{nickname},
 				name = #{name}, 
-				phone_num = #{phoneNum}
+				phone_num = #{phoneNum},
 				gender = #{gender}
-				total_ups = #{totalUps}
-				total_downs = #{totalDowns}
 		where	email = #{email}
 	</update>
-
+	
+	<delete id="deleteMemberTasteByEmail" parameterType="string">
+		delete from member_taste where email = #{value}
+	</delete>
+	
 	<update id="updateMemberTasteByEmail" parameterType="memberTaste">
 		update	memberTaste
 		set		taste_num=#{tasteNum}

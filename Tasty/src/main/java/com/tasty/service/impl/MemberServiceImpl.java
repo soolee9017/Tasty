@@ -54,6 +54,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public void removeMemberTasteByEmail(String email) {
+		memberDao.deleteMemberTasteByEmail(email);
+	}
+	
+	@Override
 	public void updateMemberByEmail(Member member) {
 		memberDao.updateMemberByEmail(member);
 	}
@@ -67,6 +72,8 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectMemberByEmail(String email) {
 		return memberDao.selectMemberByEmail(email);
 	}
+
+
 
 	
 }

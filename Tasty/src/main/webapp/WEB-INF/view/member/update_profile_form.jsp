@@ -38,7 +38,7 @@ $(document).ready(function(){
 		${requestScope.errorMessage }
 	</div>
 </c:if>
-<form id="updateForm" action="${initParam.rootPath }/member/update_profile.do" method="post" enctype="multipart/form-data">
+<form id="updateForm" action="${initParam.rootPath }/member/update_member.do" method="post" enctype="multipart/form-data">
 	<div class="form-group">
 		<label for="id">사용자 ID</label>
 		<input type="text" name="email" id="id" class="form-control" value='<sec:authentication property="principal.email"/>' readonly="readonly">
@@ -49,11 +49,11 @@ $(document).ready(function(){
 	</div>
 	<div class="form-group">
 		<label for="password">변경할 패스워드</label>
-		<input type="password" name="NewPassword" id="password" class="form-control" required="required">
+		<input type="password" name="newPassword" id="password" class="form-control" required="required">
 	</div>
 	<div class="form-group">
 		<label for="name">이름</label>
-		<input type="text" name="name" id="name" class="form-control" value='<sec:authentication property="principal.name"/>' required="required">
+		<input type="text" name="name" id="name" class="form-control" value='<sec:authentication property="principal.name"/>' readonly="readonly">
 	</div>
 	<div class="form-group">
 		<label for="nickname">닉네임</label>
@@ -63,32 +63,24 @@ $(document).ready(function(){
 		<label for="phoneNum">전화번호</label>
 		<input type="text" name="phoneNum" id="phoneNum" class="form-control" value='<sec:authentication property="principal.phoneNum"/>' required="required">
 	</div>
-    <div class="form-group">
+	<div class="form-group">
+		<label for="phoneNum">성별</label>
+		<input type="text" name="gender" id="gender" class="form-control" value='<sec:authentication property="principal.gender"/>' readonly="readonly"> 
+	</div>
+<!--     <div class="form-group">
       <label for="gender">성별</label>
       <label><input type='radio' name='gender' value='female'/>여성</label>
       <label><input type='radio' name='gender' value='male'/>남성</label>
+   </div> -->
+	
+  <div class="form-group">
+      <label for="tastes">맛</label><br>
+      <span id="tastes">
+      <c:forEach items="${requestScope.tasteList}" var='taste'>
+            <label><input type="checkbox" name="tastes" id="tastes">${taste.tasteName}</label>
+      </c:forEach>
+      </span>
    </div>
-	
-	
-	<table id="menu_layer" border="1">
-		<thead>
-		 	<tr>
-				<td>맛추가</td>
-				<td>맛</td>
-			</tr>
-		</thead>
-		<tbody id="tBody">
-			<tr>
-				<td><button type='button'class='plusTaste'>맛 추가</button></td>
-				<td>
-				<select class='tasteSel' name="tastes" required="required">
-                   <option>맛을 선택하세요.</option>
-                 </select>
-                 </td>
-			</tr>
-		</tbody>
-	</table>
-	
 	<sec:csrfInput/><%-- csrf 토큰 --%>
 	<button type="submit" class="btn btn-default">정보수정</button>
 </form>
