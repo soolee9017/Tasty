@@ -54,6 +54,7 @@ public class ReviewServiceImpl implements ReviewService{
 		   // 그 다음에 insertMenu 쿼리문에서 review_num_seq.currval 을 사용 할 수 있기 떄문이다. 
 		   // .nextval 을 한 다음에 currval에 넣어야 하므로
 		   
+		   
 		   int num = 0;
 		   for(int i = 0; i<menu.length; i++) {
 			   reviewDao.insertMenu(menu[i]);
