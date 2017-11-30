@@ -63,7 +63,7 @@ public class ReviewServiceImpl implements ReviewService{
 		   reviewDao.insertReview(title); 
 		   
 		   
-		   if(upImage != null & !upImage.isEmpty()) {
+		   if(upImage != null && !upImage.isEmpty()) {
 			   for(MultipartFile photo : upImage) {
 				   
 				   String fileName = UUID.randomUUID().toString().replace("-", "")+"+"+photo.getOriginalFilename();
