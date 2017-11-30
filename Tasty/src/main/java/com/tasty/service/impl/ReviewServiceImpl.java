@@ -3,10 +3,12 @@ package com.tasty.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.TasteDAO;
@@ -37,11 +39,10 @@ public class ReviewServiceImpl implements ReviewService{
 
 	
 	
-	//insertReview 메소드 안봐도 됨~ 나중에 다 고칠거임~
 
 	@Override
 	@Transactional
-	public int insertReview(String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title) {
+	public int insertReview(String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title, List<MultipartFile> upImage) {
 		
 		   String[] menu = listOfMenu.split(",");
 		   String[] numTaste = numOfTaste.split(",");
@@ -49,10 +50,13 @@ public class ReviewServiceImpl implements ReviewService{
 		   String[] degree = listOfDegree.split(",");
 		   
 		   reviewDao.insertReview(title); 
-		   //일단 Review 테이블 중 review_num 이랑 title 만 insert하는 방식으로 test 해볼 것이다. (review 테이블의 다른 칼럼은 무시) 
-		   //가장 먼저 review table에 데이터를 넣는다. insertReview 에 해당하는 쿼리문을 실행해야지만 review_num_seq.nextVal이 실행이 되고, 
-		   // 그 다음에 insertMenu 쿼리문에서 review_num_seq.currval 을 사용 할 수 있기 떄문이다. 
-		   // .nextval 을 한 다음에 currval에 넣어야 하므로
+		   
+		   
+		   if(upImage != null & !upImage.isEmpty()) {
+			   for(MultipartFile photo : upImage) {
+				   String fileName = photo.getOriginalFilename()+UUID.randomUUID().toString();
+			   }
+		   }
 		   
 		   int num = 0;
 		   for(int i = 0; i<menu.length; i++) {
