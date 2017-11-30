@@ -10,5 +10,7 @@ public interface MissionCertService {
 	List<MissionCert> selectAllMissionCert();
 	
 	int insertMissionCert(MissionCert missionCert);
+	
+	List<MissionCert> selectMissionCertByMissionNum(int missionNum);
 
 }

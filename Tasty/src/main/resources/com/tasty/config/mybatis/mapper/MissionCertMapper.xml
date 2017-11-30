@@ -100,6 +100,13 @@
 		inner JOIN mission_cert_board
 		ON MEMBER.email = mission_cert_board.email
 	</select>
+	
+	<!-- 해당 미션번호로 인증글 조회 -->
+	<select id="selectMissonCertByMissionNum" resultMap="missionCert-resultmap">
+		select mission_cert_num, email, title, content, mission_num 
+		from mission_cert_board 
+		where mission_num = #{missionNum}
+	</select>
 	 
 	
 

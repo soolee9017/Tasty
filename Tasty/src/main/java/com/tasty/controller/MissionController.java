@@ -72,7 +72,7 @@ public class MissionController {
 			}
 		}
 		//map.addAttribute("imageName",list);
-	*/
+	*/  
 		service.insertMission(mission);
 		
 		return new ModelAndView("/mission/register_mission_success.jsp");

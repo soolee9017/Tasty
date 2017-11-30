@@ -10,5 +10,6 @@ public interface MissionCertDAO {
 	
 	List<MissionCert> selectAllMissionCert();
 	
+	List<MissionCert> selectMissionCertByMissionNum(int missionNum);
 }
 

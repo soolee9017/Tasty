@@ -6,30 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#searchByMNBtn").on("click", function(){
-		$.ajax({
-			"url":"${initParam.rootPath}/mission/selectAllMissionCert.do",//dispatcherServlet을 찾기위한 구분자이다.
-			"type":"POST",
-			//"data":{"missionName":$("#missionName").val()},
-			"dataType":"json",
-			"success":function(obj){
-				var txt = "";
-				$(obj).each(function(){
-					var mission = this;
-					txt += "<tr><td>"+this.missionCertNum+"</td><td>"+this.email+"</td><td>"+this.title+"</td><td>"+this.content+"</td><td>"+this.missionNum+"</td></tr>";
-				});
-				
-				$("#listTbody").html(txt);
-				
-			},
-			
-			"error":function(){
-				alert("오류 발생");
-			}
-		});
-	});
-	
+
 
 </script>
 </head>

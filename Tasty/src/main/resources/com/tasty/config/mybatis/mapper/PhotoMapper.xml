@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tasty.config.mybatis.mapper.PhotoMapper">
+	<!-- 
+		photo관련 mapper
+	 -->
+	
+	
+	<resultMap type="photo" id="photo-resultmap">
+		<id column="photo_num" property="photoNum"/>
+		<result column="photo_path" property="photoPath"/>
+	</resultMap>
+	
+	<!-- 모든 사진 검색 -->
+	<select id="selectAllPhoto" resultMap="photo-resultmap">
+		select * from photo
+	</select>
+
+	
+	<!-- 사진 등록  -->
+	<insert id="insertMission" parameterType="mission">
+		INSERT INTO photo (photo_num, photo_path)
+		VALUES (
+				photo_seq.nextval,
+				#{photo_path}
+				)
+	</insert>
+	
+	
+	<!-- 사진 삭제 -->
+	<delete id="deletePhotoByPhotoNum">
+			delete from photo where photo_num = #{value}
+	</delete>
+	
+	
+
+	
+
+
+	
+	
+
+</mapper>

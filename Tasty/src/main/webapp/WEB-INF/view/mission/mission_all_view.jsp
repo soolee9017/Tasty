@@ -64,21 +64,53 @@ $(document).ready(function(){
 						
 </script>
 
+<style>
+div { 
+    display: block;
+}
+</style>
 </head>
 <body>
 	<h1>response 결과(전체미션)</h1>
 
-	<c:forEach items="${requestScope.result}" var="mission">
-		<ul>
-			<li>${mission.missionNum}</li>
-			<li>${mission.missionName}</li>
-			<li>${mission.missionContent}</li>
-			<li>${mission.currentPeople}</li>
-			<li>${mission.maxPeople}</li>
-			<li>${mission.startDate}</li>
-			<li>${mission.endDate}</li>
-		</ul>
-	</c:forEach>
+	
+	<div class="main_form"> 
+		<c:forEach items="${requestScope.result}" var="mission">
+			<div class="mission_box">
+				<a href="${initParam.rootPath }/mission/selectMissionNum.do?missionNum=${mission.missionNum}">
+					<div class="missions">
+						<div class="item_img_box">
+							이미지 들어갈자리
+							<!-- <img style="width:200px;" alt="mission_photo" src="사진파일의 경로"> -->
+							<!-- 상품이미지 경로 설정해야함 -->						
+						</div>
+						<div class="mission_spec">
+							<div class="mission_name">
+								미션명 : ${mission.missionName}
+							</div>
+						</div>
+						<div class="mission_spec">
+							<div class="max_people">
+								현재인원 / 총인원 : ${mission.currentPeople}/${mission.maxPeople}
+							</div>
+						</div>
+						<div class="mission_spec">
+							<div class="start_date">
+								시작일 : ${mission.startDate}
+							</div>
+						</div>
+						<div class="mission_spec">
+							<div class="end_date">
+								최종일 : ${mission.endDate}
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<br>
+			<br>
+		</c:forEach>
+	</div>
 
 
 

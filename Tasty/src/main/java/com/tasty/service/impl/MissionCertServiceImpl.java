@@ -24,6 +24,13 @@ public class MissionCertServiceImpl implements MissionCertService{
 	public int insertMissionCert(MissionCert missionCert) {
 		return missionCertDao.insertMissionCert(missionCert);
 	}
+
+	@Override
+	public List<MissionCert> selectMissionCertByMissionNum(int missionNum) {
+		return missionCertDao.selectMissionCertByMissionNum(missionNum);
+	}
+	
+	
 	
 	
 	

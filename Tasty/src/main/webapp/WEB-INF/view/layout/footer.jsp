@@ -2,3 +2,4 @@
 	pageEncoding="UTF-8"%>
 <a href="${initParam.rootPath }/review/getAllTaste.do">리뷰작성</a>
 <a href="${initParam.rootPath }/review/getAllTaste2.do">requestMember</a>
+<a href="${initParam.rootPath }/mission/getAllMission.do">미션조회작성</a>

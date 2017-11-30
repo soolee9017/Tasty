@@ -5,13 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"
+	src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#searchByMNBtn").on("click", function(){
+	$("#searchAllMissionCertBtn").on("click", function(){
 		$.ajax({
-			"url":"${initParam.rootPath}/mission/selectAllMissionCert.do",//dispatcherServlet을 찾기위한 구분자이다.
+			"url":"${initParam.rootPath}/missionCert/getMissionCertByMN.do",//dispatcherServlet을 찾기위한 구분자이다.
 			"type":"POST",
-			//"data":{"missionName":$("#missionName").val()},
+			"data":{"missionNum":$("#missionNum").val()},
 			"dataType":"json",
 			"success":function(obj){
 				var txt = "";
@@ -29,8 +31,14 @@ $(document).ready(function(){
 			}
 		});
 	});
-
+	
 });
+	/* $('input[type="date"]').each(function(i, obj) {
+        $(obj).datetimepicker({
+            timepicker:false,
+            format:'yyyy.MM.dd'
+        });
+    }); */
 	
 
 </script>
@@ -41,11 +49,11 @@ $(document).ready(function(){
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
 		미션이름 : <input type="text" name="missionName" value="${mission.missionName }" /><br>
 		미션 내용 :<br> 
-		<textarea name="missionContent" cols="40" rows="8" placeholder="${mission.missionContent }"></textarea><br>
+		<textarea name="missionContent" cols="40" rows="8" >${mission.missionContent }</textarea><br>
 		<input type="hidden" name="currentPeople" value="${mission.currentPeople }" />
 		최대인원 : <input type="number" name="maxPeople" value="${mission.maxPeople }" /> <br>
-		미션 시작일 : <input type="date" name="startDate" value="${mission.startDate }" /> <br>
-		미션 종료일 : <input type="date" name="endDate" value="${mission.endDate }" /><br>
+		미션 시작일 : <input type="date" name="startDate" id="startDate" value="${mission.startDate }" /> <br>
+		미션 종료일 : <input type="date" name="endDate" id="endDate" value="${mission.endDate }" /><br>
 
 		<button type="submit">수정하기</button>
 	</form>
@@ -62,10 +70,48 @@ $(document).ready(function(){
 	<p>
 	<p>
 <h2>미션 인증글 보기</h2>
-<form action="${initParam.rootPath }/missionCert/getAllMissionCert.do" method="get">
+	<div class="main_missionCertform">
+	<c:forEach items="${requestScope.list}" var="missionCert">
+		<div class="mission_cert_box">
+				<a href="${initParam.rootPath }/mission/selectMissionNum.do?missionNum=${missionCert.missionNum}">
+				<div class="mission_cert">
+					<div class="mission_cert_img_box">
+						인증사진들 들어갈 section
+						<img style="width: 200px;" alt="item_img" src=''>
+						<!-- 상품 이미지 -->
+					</div>
+					<div class="mission_cert_spec">
+						<div class="mission_cert_title">
+							인증글제목
+							${missionCert.title }
+						</div>
+					</div>
+						<div class="mission_cert_spec">
+						<div class="mission_cert_content">
+							인증글내용
+							${missionCert.content }
+						</div>
+					</div>
+						<div class="mission_cert_spec">
+						<div class="email">
+							이메일
+							${missionCert.email }
+						</div>
+					</div>
+					<div class="item_bar"></div>
+				</div>
+				</a>
+		</div>
+	</c:forEach>
+</div>
+
+
+
+<form action="${initParam.rootPath }/missionCert/getMissionCertByMN.do" method="get">
+	<input type="number" value="${mission.missionNum }" name="missionNum" id="missionNum">
 	<button type="button" id="searchAllMissionCertBtn">인증글 검색</button>
-		<div id="result"></div>
-	</form><table border='1' style="width: 500px;">
+	</form>
+	<table border='1' style="width: 500px;">
 	<thead>
 		<tr>
 			<td>미션인증번호</td>
@@ -79,8 +125,7 @@ $(document).ready(function(){
 	<tbody id="listTbody">
 	</tbody>
 </table>
-
-	<form action="${initParam.rootPath }/mission/insertMissionCert.do" method="post">
+	<form action="${initParam.rootPath }/mission/registerMissionCert.do" method="post">
 	<table>
 		<tr>
 			<td class="header">참여한 미션 : ${requestScope.mission.missionName}</td>
@@ -91,18 +136,18 @@ $(document).ready(function(){
 		</tr>
 		<tr>
 			<td>등록자 닉네임</td>
-			<td><input type="text" size="50" name="nickname" value="${requestScope.member.nickname }"></td>
+			<td><input type="text" size="50" name="email" value="${requestScope.member.email}"></td>
 		</tr>
 		<tr>
 			<td>인증 글 내용</td>
 			<td><input type="text" size="80" name="content" required="required"></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td>사진</td>
-			<td><input type="file" name="missionCertPhoto" required="required"></td>
-		</tr>
+			<td><input type="file" name="missionCertPhoto"></td>
+		</tr> -->
 		<tr>
-			<td><input type="submit" value="등록"></td>
+			<td><input type="submit" value="등록" id="mCBtn"></td>
 		</tr>
 		
 	
