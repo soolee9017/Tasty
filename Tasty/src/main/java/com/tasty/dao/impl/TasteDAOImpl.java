@@ -26,7 +26,6 @@ public class TasteDAOImpl implements TasteDAO{
 	
 	@Override
 	public int insertAllTaste(Map map) {
-		System.out.println("dao");
 		return session.insert(makeSqlId("insertAllTaste"),map);
 	}
 

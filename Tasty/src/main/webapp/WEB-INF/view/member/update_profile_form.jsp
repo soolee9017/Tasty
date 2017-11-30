@@ -66,6 +66,7 @@ $(document).ready(function(){
       </c:forEach>
       </span>
    </div>
+
 	<sec:csrfInput/><%-- csrf 토큰 --%>
 	<button type="submit" id="testBtn" class="btn btn-default">정보수정</button>
 </form>

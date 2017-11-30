@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +35,24 @@ public class TasteController {
 	}
 	
 	
+
 	@RequestMapping("getAllTaste") //리뷰페이지로 넘어감
 	public ModelAndView getAllTaste() {
 		List tasteList = service.selectAllTaste();
-		return new ModelAndView("review/writeReview.tiles","tasteList",tasteList);
+		return new ModelAndView("review/writeReview.jsp","tasteList",tasteList);
+	}
+	
+	@RequestMapping("setSession")//리뷰작성 페이지로
+	public String setSession(HttpSession session, @RequestParam String eateryTitle,
+			@RequestParam String eateryTel, @RequestParam String eateryJibun,
+			@RequestParam String lat, @RequestParam String lng) {
+		List tasteList = service.selectAllTaste();
+		session.setAttribute("eateryTitle", eateryTitle);
+		session.setAttribute("eateryTel", eateryTel);
+		session.setAttribute("eateryJibun", eateryJibun);
+		session.setAttribute("lat", lat);
+		session.setAttribute("lng", lng);
+		return "review/searchClick.jsp";
 	}
 	
 	@RequestMapping("getAllTaste2") //회원가입페이지로 넘어감
