@@ -120,6 +120,7 @@ $(document).ready(function(){
 	             return;
 	    	}
 	    }
+	    
      	
 /*       if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
         alert("완벽한 맛은 맛추가를 할 수 없습니다.");
