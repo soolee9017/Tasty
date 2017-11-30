@@ -53,6 +53,7 @@ public class ReviewServiceImpl implements ReviewService{
 			String listOfTaste, String listOfDegree, String title, List<MultipartFile> upImage)
 			throws Exception{
 		
+		
 		   String[] menu = listOfMenu.split(",");
 		   String[] numTaste = numOfTaste.split(",");
 		   String[] taste = listOfTaste.split(",");
