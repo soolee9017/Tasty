@@ -15,6 +15,18 @@
 		<div class="col-sm-2">이름</div>
 		<div class="col-sm-10"><sec:authentication property="principal.name"/></div>
 	</div>
+	<div class="row">
+		<div class="col-sm-2">닉네임</div>
+		<div class="col-sm-10"><sec:authentication property="principal.nickname"/></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">연락처</div>
+		<div class="col-sm-10"><sec:authentication property="principal.phoneNum"/></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">성별</div>
+		<div class="col-sm-10"><sec:authentication property="principal.gender"/></div>
+	</div>
 
 	
 	<div class="row" style="margin-top:20px">

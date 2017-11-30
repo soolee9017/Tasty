@@ -35,8 +35,9 @@ public class TasteController {
 	}
 	
 	
-	@RequestMapping("getAllTaste")
-	public ModelAndView getAllTaste(){
+
+	@RequestMapping("getAllTaste") //리뷰페이지로 넘어감
+	public ModelAndView getAllTaste() {
 		List tasteList = service.selectAllTaste();
 		return new ModelAndView("review/writeReview.jsp","tasteList",tasteList);
 	}
@@ -54,18 +55,18 @@ public class TasteController {
 		return "review/searchClick.jsp";
 	}
 	
-	@RequestMapping("getAllTaste2")//회원가입 페이지로
+	@RequestMapping("getAllTaste2") //회원가입페이지로 넘어감
 	public ModelAndView getAllTaste2() {
 		List tasteList = service.selectAllTaste();
-		tasteList.remove(7);
-		return new ModelAndView("member/requestMember.tiles","tasteList", tasteList);
+		System.out.println("taste가지러옴");
+		tasteList.remove(tasteList.size()-1);
+		return new ModelAndView("member/join_member_form.tiles","tasteList", tasteList);
 	}
 	
-	@RequestMapping("getAllTaste3")//회원수정 페이지로
+	@RequestMapping("getAllTaste3") //회원수정페이지로 넘어감
 	public ModelAndView getAllTaste3() {
 		List tasteList = service.selectAllTaste();
-		System.out.println(tasteList.size());
-		tasteList.remove(7);
+		tasteList.remove(tasteList.size()-1);
 		return new ModelAndView("member/update_profile_form.tiles","tasteList", tasteList);
 	}
 	

@@ -1,5 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	   
+	   $("#testBtn").on("click",function(){
+	       if($('input:checkbox[name="tastes"]:checked').length > 3){
+	         alert("맛추가안됨다");
+	         $('input:checkbox[name="tastes"]').prop("checked", false);
+	         return;
+	      }
+	   });
+	   function joinSuccess(){
+		   
+		   swal("","가입이 완료되었습니다.","success");
+	   }
+
+	});
+
+</script>
+
+
+
+
 <h2>회원 가입</h2>
 <form action="${initParam.rootPath }/join_member.do" method="post">
    <div class="form-group">
@@ -27,7 +51,17 @@
       <label><input type='radio' name='gender' value='female'/>여성</label>
       <label><input type='radio' name='gender' value='male'/>남성</label>
    </div>
-   <button type="submit" class="btn btn-default">가입</button>
+ 
+    <div class="form-group">
+      <label for="tastes">맛</label><br>
+      <span id="tastes">
+      <c:forEach items="${requestScope.tasteList}" var='taste'>
+            <label><input type="checkbox" name="tastes" id="tastes">${taste.tasteName}</label>
+      </c:forEach>
+      </span>
+   </div>
+   
+   <button type="submit" id="testBtn" class="btn btn-default">가입</button>
    <sec:csrfInput/><%-- csrf 토큰 --%>
 </form>
 
