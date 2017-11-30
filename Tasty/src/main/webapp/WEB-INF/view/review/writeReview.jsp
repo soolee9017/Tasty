@@ -119,9 +119,9 @@ $(document).ready(function(){
 	    	}
 	    }
      	
-      if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
+/*       if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
         alert("완벽한 맛은 맛추가를 할 수 없습니다.");
-        /* $('select').find('option:first').attr('selected', 'selected'); */
+        /* $('select').find('option:first').attr('selected', 'selected'); 
         return;
      }
       else if(selectedTaste == $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex 
@@ -130,7 +130,7 @@ $(document).ready(function(){
          alert("맛이 중복되었습니다.");
          $('select').find('option:first').attr('selected', 'selected');
          return;
-   }
+   } */
    
 
      menuName.push(name);
