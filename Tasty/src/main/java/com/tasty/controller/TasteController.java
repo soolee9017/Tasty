@@ -52,7 +52,7 @@ public class TasteController {
 		session.setAttribute("eateryJibun", eateryJibun);
 		session.setAttribute("lat", lat);
 		session.setAttribute("lng", lng);
-		return "review/searchClick.jsp";
+		return "review/searchClick.tiles";
 	}
 	
 	@RequestMapping("getAllTaste2") //회원가입페이지로 넘어감

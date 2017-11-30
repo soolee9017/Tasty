@@ -1,0 +1,162 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#searchAllMissionCertBtn").on("click", function(){
+		$.ajax({
+			"url":"${initParam.rootPath}/missionCert/getMissionCertByMN.do",//dispatcherServlet을 찾기위한 구분자이다.
+			"type":"POST",
+			"data":{"missionNum":$("#missionNum").val()},
+			"dataType":"json",
+			"success":function(obj){
+				var txt = "";
+				$(obj).each(function(){
+					var mission = this;
+					txt += "<tr><td>"+this.missionCertNum+"</td><td>"+this.email+"</td><td>"+this.title+"</td><td>"+this.content+"</td><td>"+this.missionNum+"</td></tr>";
+				});
+				
+				$("#listTbody").html(txt);
+				
+			},
+			
+			"error":function(){
+				alert("오류 발생");
+			}
+		});
+	});
+	
+});
+	/* $('input[type="date"]').each(function(i, obj) {
+        $(obj).datetimepicker({
+            timepicker:false,
+            format:'yyyy.MM.dd'
+        });
+    }); */
+	
+
+</script>
+</head>
+<body>
+	<h1>조회된 미션</h1>
+	<form action="${initParam.rootPath }/mission/modifyMission.do" method="post">
+		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
+		미션이름 : <input type="text" name="missionName" value="${mission.missionName }" /><br>
+		미션 내용 :<br> 
+		<textarea name="missionContent" cols="40" rows="8" >${mission.missionContent }</textarea><br>
+		<input type="hidden" name="currentPeople" value="${mission.currentPeople }" />
+		최대인원 : <input type="number" name="maxPeople" value="${mission.maxPeople }" /> <br>
+		미션 시작일 : <input type="date" name="startDate" id="startDate" value="${mission.startDate }" /> <br>
+		미션 종료일 : <input type="date" name="endDate" id="endDate" value="${mission.endDate }" /><br>
+
+		<button type="submit">수정하기</button>
+	</form>
+
+
+
+
+	<form
+		action="${initParam.rootPath }/mission/removeMissionByMissionNum.do"
+		method="get">
+		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
+		<button type="submit">미션 삭제하기</button>
+	</form>
+	<p>
+	<p>
+<h2>미션 인증글 보기</h2>
+	<div class="main_missionCertform">
+	<c:forEach items="${requestScope.list}" var="missionCert">
+		<div class="mission_cert_box">
+				<a href="${initParam.rootPath }/mission/selectMissionNum.do?missionNum=${missionCert.missionNum}">
+				<div class="mission_cert">
+					<div class="mission_cert_img_box">
+						인증사진들 들어갈 section
+						<img style="width: 200px;" alt="item_img" src=''>
+						<!-- 상품 이미지 -->
+					</div>
+					<div class="mission_cert_spec">
+						<div class="mission_cert_title">
+							인증글제목
+							${missionCert.title }
+						</div>
+					</div>
+						<div class="mission_cert_spec">
+						<div class="mission_cert_content">
+							인증글내용
+							${missionCert.content }
+						</div>
+					</div>
+						<div class="mission_cert_spec">
+						<div class="email">
+							이메일
+							${missionCert.email }
+						</div>
+					</div>
+					<div class="item_bar"></div>
+				</div>
+				</a>
+		</div>
+	</c:forEach>
+</div>
+
+
+
+<form action="${initParam.rootPath }/missionCert/getMissionCertByMN.do" method="get">
+	<input type="number" value="${mission.missionNum }" name="missionNum" id="missionNum">
+	<button type="button" id="searchAllMissionCertBtn">인증글 검색</button>
+	</form>
+	<table border='1' style="width: 500px;">
+	<thead>
+		<tr>
+			<td>미션인증번호</td>
+			<td>email</td>
+			<td>title</td>
+			<td>content</td>
+			<td>missionNum</td>
+			<td>등록된 사진</td>
+		</tr>
+	</thead>
+	<tbody id="listTbody">
+	</tbody>
+</table>
+	<form action="${initParam.rootPath }/mission/registerMissionCert.do" method="post">
+	<table>
+		<tr>
+			<td class="header">참여한 미션 : ${requestScope.mission.missionName}</td>
+		</tr>
+		<tr>
+			<td>인증 글 제목</td>
+			<td><input type="text" size="50" name="title" required="required"></td>
+		</tr>
+		<tr>
+			<td>등록자 닉네임</td>
+			<td><input type="text" size="50" name="email" value="${requestScope.member.email}"></td>
+		</tr>
+		<tr>
+			<td>인증 글 내용</td>
+			<td><input type="text" size="80" name="content" required="required"></td>
+		</tr>
+		<!-- <tr>
+			<td>사진</td>
+			<td><input type="file" name="missionCertPhoto"></td>
+		</tr> -->
+		<tr>
+			<td><input type="submit" value="등록" id="mCBtn"></td>
+		</tr>
+		
+	
+	</table>
+	<input type="hidden" name="missionNum" value="${reqeustScope.mission.missonNum }">
+</form>
+
+
+
+
+</body>
+</html>

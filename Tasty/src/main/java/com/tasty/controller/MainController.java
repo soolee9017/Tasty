@@ -35,7 +35,7 @@ public class MainController {
 	 * @throws IOException 
 	 * @throws IllegalStateException 
 	 */
-@RequestMapping("join_member")
+	@RequestMapping("join_member")
 	public ModelAndView registerMember(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
 			@RequestParam String phoneNum, @RequestParam String gender, @RequestParam List<String> tastes) {
 		Member member = new Member(email, password, name, nickname, phoneNum, gender);

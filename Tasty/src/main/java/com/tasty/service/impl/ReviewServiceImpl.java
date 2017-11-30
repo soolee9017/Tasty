@@ -53,6 +53,8 @@ public class ReviewServiceImpl implements ReviewService{
 			String listOfTaste, String listOfDegree, String title, List<MultipartFile> upImage)
 			throws Exception{
 		
+		
+	
 		   String[] menu = listOfMenu.split(",");
 		   String[] numTaste = numOfTaste.split(",");
 		   String[] taste = listOfTaste.split(",");
@@ -61,7 +63,7 @@ public class ReviewServiceImpl implements ReviewService{
 		   reviewDao.insertReview(title); 
 		   
 		   
-		   if(upImage != null & !upImage.isEmpty()) {
+		   if(upImage != null && !upImage.isEmpty()) {
 			   for(MultipartFile photo : upImage) {
 				   
 				   String fileName = UUID.randomUUID().toString().replace("-", "")+"+"+photo.getOriginalFilename();
@@ -73,6 +75,9 @@ public class ReviewServiceImpl implements ReviewService{
 				   photoDao.insertReviewPhoto();
 			   }
 		   }
+		   
+		   
+		   
 		   
 		   int num = 0;
 		   for(int i = 0; i<menu.length; i++) {

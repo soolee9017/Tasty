@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tasty.dao.MissionDAO;
 import com.tasty.vo.Mission;
+import com.tasty.vo.MissionMember;
 
 @Repository
 public class MissionDAOImpl implements MissionDAO{
@@ -43,8 +44,18 @@ public class MissionDAOImpl implements MissionDAO{
 	}
 
 	@Override
+	public int insertMissionMember(MissionMember missionMember) {
+		return session.insert(makeSqlId("insertMissionMember"),missionMember);
+	}
+
+	@Override
 	public List<Mission> selectAllMission() {
 		return session.selectList(makeSqlId("selectAllMission"));
+	}
+
+	@Override
+	public Mission selectMissionByMissionNum(int missionNum) {
+		return session.selectOne(makeSqlId("selectMissionByMissionNum"),missionNum);
 	}
 
 	
