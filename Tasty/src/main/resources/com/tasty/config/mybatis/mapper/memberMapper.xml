@@ -15,8 +15,9 @@
 				member_cert
 		from	member
 	</sql>
+	-->
 
-	<sql id="select-join-memberTaste-sql">
+<!-- 	<sql id="select-join-memberTaste-sql">
 		select	m.email,
 				m.password,
 				m.nickname,
@@ -30,8 +31,8 @@
 		where	m.email = mbt.email
 		and		mbt.taste_num = t.taste_num(+)
 	</sql>
-	
-	<sql id="select-join-taste-sql">
+	 -->
+<!--	<sql id="select-join-taste-sql">
 		select	mt.email,
 				mbt. taste_num,
 				t.taste_num,
@@ -107,13 +108,15 @@
 
 	<!-- 삽입 -->
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO MEMBER(email, password, nickname, name, phone_num, gender, member_cert) VALUES  
+		INSERT INTO MEMBER(email, password, nickname, name, phone_num, gender, total_ups, total_downs, member_cert) VALUES  
 									(#{email},
 									#{password},
 									#{nickname}, 
 									#{name},
 									#{phoneNum},
 									#{gender},
+									0,
+									0,
 									1)
 	</insert>
 	
@@ -125,11 +128,19 @@
 		insert into authority values (#{email}, #{authority})
 	</insert>
 
+	<!-- 탈퇴 (비인증) -->
+	<update id="withdrawMemberByEmail" parameterType="string">
+		update	AUTHORITY
+		set		authority = 'ROLE_NONE'
+		where	email = #{email}
+	</update>
+
 	<!-- 삭제 -->
 	<delete id="deleteMemberByEmail" parameterType="string" >
-		 delete from member where email = #{value}
+		 delete from member where email = #{value} 
 <!-- 		delete from member_taste where email = #{value}
-			and member.email = #{value} -->
+			and authority.email = #{value}
+			and member.email = #{value}  -->
 	</delete>
 	
 	<!-- 수정 -->
@@ -138,16 +149,27 @@
 		set		password = #{password},
 				nickname = #{nickname},
 				name = #{name}, 
-				phone_num = #{phoneNum}
+				phone_num = #{phoneNum},
 				gender = #{gender}
-				total_ups = #{totalUps}
-				total_downs = #{totalDowns}
-				<!-- 맛,,,? -->
+		where	email = #{email}
+	</update>
+	
+	<delete id="deleteMemberTasteByEmail" parameterType="string">
+		delete from member_taste where email = #{value}
+	</delete>
+	
+	<update id="updateMemberTasteByEmail" parameterType="memberTaste">
+		update	memberTaste
+		set		taste_num=#{tasteNum}
 		where	email = #{email}
 	</update>
 
 	<!-- 조회 -->
 	<select id="selectMemberByEmail" parameterType="string" resultMap="member-join-memberTaste-resultmap">
+		 		
+		<!-- <include refid="select-join-memberTaste-sql"/>
+		where email = #{value}  -->
+		
 		select * from member
 		where email = #{value}
 		and member_cert = 1

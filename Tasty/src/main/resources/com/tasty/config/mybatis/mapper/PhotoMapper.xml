@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PhotoMapper">
+
+
+
+
+
+<insert id="insertPhoto" parameterType="String">
+insert into photo values (photo_num_seq.nextval,#{value})
+
+</insert>
+
+
+<insert id="insertReviewPhoto">
+insert into review_photo values (photo_num_seq.currval,review_num_seq.currval)
+
+</insert>
+
+
+
+
+
+
+</mapper>

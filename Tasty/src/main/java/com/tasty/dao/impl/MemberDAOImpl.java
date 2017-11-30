@@ -39,21 +39,31 @@ public class MemberDAOImpl implements MemberDAO{
 			return session.insert(makeSqlId("insertMemberTaste"), memberTaste);
 		}
 		
-		/*@Override
-		public int insertMemberTaste(int tasteNum) {
-			return session.insert(makeSqlId("insertMemberTaste"), tasteNum);
+		@Override
+		public int withdrawMemberByEmail(String email) {
+			return session.update(makeSqlId("withdrawMemberByEmail"), email);
 		}
-*/
+
 		@Override
 		public int deleteMemberByEmail(String email) {
 			return session.delete(makeSqlId("deleteMemberByEmail"), email);
 		}
-
+		
 		@Override
-		public int updateMemberByEmail(Member Member) {
-			return session.update(makeSqlId("updateMemberByEmail"), Member);
+		public int deleteMemberTasteByEmail(String email) {
+			return session.delete(makeSqlId("deleteMemberTasteByEmail"), email);
 		}
 
+		@Override
+		public int updateMemberByEmail(Member member) {
+			return session.update(makeSqlId("updateMemberByEmail"), member);
+		}
+
+		@Override
+		public int updateMemberTasteByEmail(MemberTaste memberTaste) {
+			return session.update(makeSqlId("updateMemberTasteByEmail"), memberTaste);
+		}
+		
 		@Override
 		public Member selectMemberByEmail(String email) {
 			return session.selectOne(makeSqlId("selectMemberByEmail"), email);
@@ -64,7 +74,6 @@ public class MemberDAOImpl implements MemberDAO{
 		public List<Authority> selectAuthorityByEmail(String email) {
 			return session.selectList(makeSqlId("selectAuthorityByEmail"), email);
 		}
-
 
 
 	
