@@ -24,10 +24,10 @@ public class ReviewController {
    @Autowired
    TasteService tasteService;
    
-   @RequestMapping("getAllReview")
-   public ModelAndView getAllReview(@RequestParam String address){
+   @RequestMapping("getReviewByAddress")
+   public ModelAndView getReviewByAddress(@RequestParam String address){
       List<Review> list = reviewService.selectReviewByAddress(address);
-      return new ModelAndView("response.jsp","result",list);
+      return new ModelAndView("review/searchClick.jsp","list",list);
    }
    
    @RequestMapping(value="registerReview", method={RequestMethod.POST,RequestMethod.GET})
