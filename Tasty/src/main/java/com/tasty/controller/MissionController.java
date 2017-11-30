@@ -29,7 +29,7 @@ public class MissionController {
 	
 	@RequestMapping("getMissonByMissionNum")
 	public ModelAndView registerMission(@ModelAttribute Mission mission, HttpServletRequest request){
-		service.insertMission(mission);
+		//service.insertMission(mission);
 		return new ModelAndView("mission_register_success.jsp","result",mission.getMissionNum());
 	}
 	
@@ -73,7 +73,7 @@ public class MissionController {
 		}
 		//map.addAttribute("imageName",list);
 	*/  
-		service.insertMission(mission);
+		//service.insertMission(mission);
 		
 		return new ModelAndView("/mission/register_mission_success.jsp");
 	}

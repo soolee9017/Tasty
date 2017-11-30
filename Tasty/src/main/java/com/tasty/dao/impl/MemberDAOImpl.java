@@ -40,7 +40,7 @@ public class MemberDAOImpl implements MemberDAO{
 		}
 		
 		@Override
-		public int withdrawMemberByEmail(String email) {
+		public int deleteAuthorityByEmail(String email) {
 			return session.update(makeSqlId("withdrawMemberByEmail"), email);
 		}
 

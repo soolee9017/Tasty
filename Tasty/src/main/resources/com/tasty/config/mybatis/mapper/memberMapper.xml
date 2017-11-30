@@ -129,11 +129,9 @@
 	</insert>
 
 	<!-- 탈퇴 (비인증) -->
-	<update id="withdrawMemberByEmail" parameterType="string">
-		update	AUTHORITY
-		set		authority = 'ROLE_NONE'
-		where	email = #{email}
-	</update>
+	<delete id="deleteAuthorityByEmail" parameterType="string">
+		delete from authority where email = #{value}
+	</delete>
 
 	<!-- 삭제 -->
 	<delete id="deleteMemberByEmail" parameterType="string" >
@@ -150,7 +148,7 @@
 				nickname = #{nickname},
 				name = #{name}, 
 				phone_num = #{phoneNum},
-				gender = #{gender}
+				gender = #{gender} 
 		where	email = #{email}
 	</update>
 	
