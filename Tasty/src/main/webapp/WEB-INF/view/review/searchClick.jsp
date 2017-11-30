@@ -36,6 +36,8 @@ $(document).ready(function(){
 <h3>식당 주소: ${sessionScope.eateryJibun}</h3>
 <h3>식당 전화번호: ${sessionScope.eateryTel }</h3>
 
+<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
+
 <div class="reviewList">
 	
 </div>

@@ -107,6 +107,8 @@ $(document).ready(function(){
      
      for(var i = 0; i<totalTr ; i++){
 		name= $('#tBody>tr:eq('+i+') input').val();
+		sLength = $('#tBody>tr:eq('+i+') select').length;
+		
 	    var tasteSel = $('#tBody>tr:eq('+i+') .tasteSel');
 	    if(tasteSel.length == 1){//맛 select가 하나인 경우는 다음 tr로 이동
 	    	continue;
@@ -146,7 +148,7 @@ $(document).ready(function(){
            }
        }
       
-     }
+    }
   
   
   
