@@ -124,6 +124,7 @@ $(document).ready(function(){
 	}
 	
 
+      
      menuName.push(name);
      numOfTaste.push(sLength/2);
      
