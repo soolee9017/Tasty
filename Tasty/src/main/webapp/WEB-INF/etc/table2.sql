@@ -234,7 +234,6 @@ ALTER TABLE MISSION_MEMBER
        ;
       
 
- 
        
 ----------------------------------14.사진----------------------------
 ---- 사진
@@ -247,7 +246,7 @@ DROP TABLE PHOTO CASCADE CONSTRAINT;
 -- 사진
 CREATE TABLE PHOTO (
 	photo_num  NUMBER(20)   NOT NULL, -- 사진번호
-	photo_path VARCHAR2(30) NULL      -- 사진경로
+	photo_path VARCHAR2(100) NULL      -- 사진경로
 );
 
 -- 사진 기본키

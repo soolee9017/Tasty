@@ -5,12 +5,73 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link type="text/css" rel="stylesheet"
+	href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" media="all"
+	href="${initParam.rootPath}/resource/bootstrap/css/star-rating.css">
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"
+	src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${initParam.rootPath}/resource/bootstrap/js/star-rating.js"></script>
 <style type="text/css">
 body {
 	height: 700px;
 	margin: 0 auto;
+}
+
+.wrap {
+	width: 288px;
+	height: 80px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	width: 286px;
+	height: 120px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+	padding: 5px 0 0 10px;
+	height: 30px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.info .close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info .close:hover {
+	cursor: pointer;
 }
 
 .map_wrap, .map_wrap * {
@@ -28,7 +89,7 @@ body {
 .map_wrap {
 	position: relative;
 	width: 100%;
-	height: 100%;
+	height: 80%;
 }
 
 #menu_wrap {
@@ -45,26 +106,6 @@ body {
 
 .bg_white {
 	background: #fff;
-}
-
-#menu_wrap hr {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 2px solid #5F5F5F;
-	margin: 3px 0;
-}
-
-#menu_wrap .option {
-	text-align: center;
-}
-
-#menu_wrap .option p {
-	margin: 10px 0;
-}
-
-#menu_wrap .option button {
-	margin-left: 5px;
 }
 
 #placesList li {
@@ -185,58 +226,62 @@ body {
 	text-align: center;
 }
 
-#pagination a {
-	display: inline-block;
-	margin-right: 10px;
+#pagination button {
+	width: 35px;
+	height: 35px;
 }
 
 #pagination .on {
 	font-weight: bold;
 	cursor: default;
-	color: #777;
+	color: white;
+	background-color: skyblue;
+	border: 0px;
 }
 </style>
 </head>
 <body>
+
 	<div class="map_wrap">
 		<div id="map"
 			style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-
 		<div id="menu_wrap" class="bg_white">
-			<div class="option">
-				<div>
-					<form onsubmit="searchPlaces(); return false;">
-						가게 이름 : <input type="text" id="keyword" size="15" placeholder="맛집"
-							value="${requestScope.keyward}">
-						<button type="submit">검색하기</button>
-					</form>
-				</div>
-			</div>
-			<hr>
 			<ul id="placesList"></ul>
 			<div id="pagination"></div>
 		</div>
-		<p>
-			<em>지도를 확대 또는 축소 해주세요!</em>
-		</p>
-		<p id="result"></p>
+		<div id="search_wrap">
+			<form id="searchForm" onsubmit="searchPlaces(); return false;">
+				<label for="search">가게 이름 : &nbsp;</label><input type="text"
+					id="keyword" size="15" placeholder="가게 이름 혹은 키워드를(을) 입력해주세요."
+					value="${requestScope.keyward}">
+				<button onclick="imgSearch();" id="seachEater" type="submit">검색
+				</button>
+			</form>
+		</div>
 	</div>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c9a267072d7a505da79a5cc7df2f5ba7&libraries=services,clusterer,drawing"></script>
 	<script>
 		// 마커를 담는 배열.
 		var markers = [];
+		var eateryNames = [];
 		//map 이라는 아이디를 받아서 contatiner 변수에 넣음
 		var container = document.getElementById('map');
 		//현재 지도에서 중앙값으로 잡힐 좌표값과 지도 확대 레벨을 선택함
 		var options = {
 			center : new daum.maps.LatLng(33.450701, 126.570667),
-			level : 2
+			level : 10
 		};
-		
+
 		//지도 생성
 		var map = new daum.maps.Map(container, options);
 		//우측 옵션 (확대(줌))
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new daum.maps.MapTypeControl();
+
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
 		var zoomControl = new daum.maps.ZoomControl();
 		map.addControl(zoomControl, daum.maps.ControlPosition.TOPRIGHT);
 		// 마커 클러스터러를 생성합니다 
@@ -249,7 +294,7 @@ body {
 
 		// 장소 검색 객체를 생성합니다 
 		var ps = new daum.maps.services.Places();
-		
+
 		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 		var infowindow = new daum.maps.InfoWindow({
 			zIndex : 1
@@ -267,12 +312,12 @@ body {
 				alert('키워드를 입력해주세요!');
 				return false;
 			}
-			
+
 			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-			ps.keywordSearch(keyword, placesSearchCB,{
+			ps.keywordSearch(keyword, placesSearchCB, {
 				category_group_code : 'FD6,CE7'
 			});
-			
+
 		}
 
 		// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -298,7 +343,7 @@ body {
 
 			}
 		}
-
+		var indexs = [];
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
 
@@ -311,14 +356,12 @@ body {
 
 			// 지도에 표시되고 있는 마커를 제거합니다
 			removeMarker();
-
 			for (var i = 0; i < places.length; i++) {
-
+				indexs = [ i ];
 				// 마커를 생성하고 지도에 표시합니다
 				var placePosition = new daum.maps.LatLng(places[i].y,
 						places[i].x), marker = addMarker(placePosition, i), itemEl = getListItem(
 						i, places[i]); // 검색 결과 항목 Element를 생성합니다
-
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 				// LatLngBounds 객체에 좌표를 추가합니다
 				bounds.extend(placePosition);
@@ -326,22 +369,17 @@ body {
 				// 해당 장소에 인포윈도우에 장소명을 표시합니다
 				// mouseout 했을 때는 인포윈도우를 닫습니다
 				(function(marker, title) {
-					daum.maps.event.addListener(marker, 'mouseover',
-							function() {
-								displayInfowindow(marker, title);
-							});
-
-					daum.maps.event.addListener(marker, 'mouseout', function() {
-						infowindow.close();
+					daum.maps.event.addListener(marker, 'click', function() {
+						displayInfowindow(marker, title);
 					});
-
-					itemEl.onmouseover = function() {
+					daum.maps.event.addListener(map, 'click', function() {
+						closeOverlay(bounds);
+					});
+					itemEl.onclick = function() {
+						closeOverlay(bounds);
 						displayInfowindow(marker, title);
 					};
 
-					itemEl.onmouseout = function() {
-						infowindow.close();
-					};
 				})(marker, places[i].place_name);
 
 				fragment.appendChild(itemEl);
@@ -362,19 +400,20 @@ body {
 					+ (index + 1)
 					+ '"></span>'
 					+ '<div class="info">'
-					+ '<h5>'
+					+ '<h5 class="pls_name'
+					+ (index + 1)
+					+ '">'
 					+ places.place_name + '</h5>';
-
+			eateryNames.push(places.place_name);
 			if (places.road_address_name) {
 				itemStr += '    <span>' + places.road_address_name + '</span>'
-						+ '   <span class="jibun gray">' + places.address_name
-						+ '</span>';
+						+ '   <span class="jibun' + (index + 1) + ' gray">'
+						+ places.address_name + '</span>';
 			} else {
 				itemStr += '    <span>' + places.address_name + '</span>';
 			}
-
-			itemStr += '  <span class="tel">' + places.phone + '</span>'
-					+ '</div>';
+			itemStr += '  <span class="tel' + (index + 1) + '">' + places.phone
+					+ '</span>' + '</div>';
 
 			el.innerHTML = itemStr;
 			el.className = 'item';
@@ -394,9 +433,9 @@ body {
 			}, markerImage = new daum.maps.MarkerImage(imageSrc, imageSize,
 					imgOptions), marker = new daum.maps.Marker({
 				position : position, // 마커의 위치
-				image : markerImage
+				image : markerImage, // 마커 이미지
+				clickable : true
 			});
-
 			marker.setMap(map); // 지도 위에 마커를 표출합니다
 			markers.push(marker); // 배열에 생성된 마커를 추가합니다
 			clusterer.addMarkers(markers);
@@ -409,6 +448,7 @@ body {
 				markers[i].setMap(null);
 			}
 			markers = [];
+			eateryNames = [];
 		}
 
 		// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
@@ -422,8 +462,8 @@ body {
 			}
 
 			for (i = 1; i <= pagination.last; i++) {
-				var el = document.createElement('a');
-				el.href = "#";
+				var el = document.createElement('button');
+				el.className = 'btn btn-default';
 				el.innerHTML = i;
 
 				if (i === pagination.current) {
@@ -441,12 +481,58 @@ body {
 		}
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 		// 인포윈도우에 장소명을 표시합니다
-		function displayInfowindow(marker, title) {
-			var content = '<div style="padding:5px;z-index:1;">' + title
-					+ '</div>';
+		var content = "";
+		var level = map.getLevel() - 1;
 
+		function displayInfowindow(marker, title) {
+
+			content = '<div class="wrap">'
+					+ '<div class="info">'
+					+ '<div class="title">'
+					+ title
+					+ '<div class="close" onclick="closeOverlay2();" title="닫기"></div>'
+					+ '</div>'
+					+ '<form action="${initParam.rootPath}/review/setSession.do">'
+					+ '<div class="body">'
+					+ '<div style="float:left;">'
+					+ '<span class="places_jibun"></span>'
+					+ '<br>'
+					+ '<span class="places_tel"></span>'
+					+ '</div>'
+					+ '<input type="hidden" id="eateryJibun" name="eateryJibun" value="">' // 가게 지번
+					+ '<input type="hidden" id="eateryTel" name="eateryTel" value="">' //가게 번호
+					+ '<input type="hidden" id="eateryTitle" name="eateryTitle" value="">'//가게 이름
+					+ '<input type="hidden" id="lat" name="lat" value="">' //위도
+					+ '<input type="hidden" id="lng" name="lng" value="">' //경도
+					+ '<button type="submit" class="btn btn-info" style="float:right;height:50px;">리뷰보기</button></div>'
+					+ '</div>' + '</form>' + '</div>';
+			map.setLevel(4, {
+				anchor : new daum.maps.LatLng(marker.getPosition().getLat(),
+						marker.getPosition().getLng())
+			});
 			infowindow.setContent(content);
 			infowindow.open(map, marker);
+			$("#eateryTitle").val(title);
+			$("#lat").val(marker.getPosition().getLat());
+			$('#lng').val(marker.getPosition().getLng());
+			for (var i = 0; i < eateryNames.length; i++) {
+				if (title.toString() == eateryNames[i]) {
+					$(".places_jibun").html($(".jibun" + (i + 1) + "").html());
+					$(".places_tel").html($(".tel" + (i + 1) + "").html());
+					$("#eateryJibun").val($(".jibun" + (i + 1) + "").html());
+					$("#eateryTel").val($(".tel" + (i + 1) + "").html());
+					break;
+				}
+			}
+		}
+
+		function closeOverlay2() {
+			map.setLevel(14);
+			infowindow.close();
+		}
+		function closeOverlay(bounds) {
+			map.setBounds(bounds);
+			infowindow.close();
 		}
 		// 검색결과 목록의 자식 Element를 제거하는 함수입니다
 		function removeAllChildNods(el) {

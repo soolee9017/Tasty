@@ -27,14 +27,6 @@ from member, member_taste
 where MEMBER_TASTE.email = 'ccc@ccc.com'
 	and member_taste.email = member.email;
 
-	
-INSERT INTO member_taste
-SELECT '3' FROM taste
-WHERE condition;
-
-
-	
-
 
 /*ALTER TABLE MEMBER
    DROP CONSTRAINT PK_MEMBER; --회원 기본키*/
@@ -45,14 +37,15 @@ DROP TABLE MEMBER cascade constraint;
 -- 회원
 CREATE TABLE MEMBER (
    email       VARCHAR2(50) NOT NULL, -- 아이디
-   password    varchar2(20) NULL,     -- 비밀번호
+   password    varchar2(80) NULL,     -- 비밀번호
    nickname    varchar2(50) NULL,     -- 별명
    name        varchar2(50) NULL,     -- 실명
    phone_num   varchar2(13) NULL,     -- 전화번호
    gender      varchar2(10) NULL,     -- 성별
    
    total_ups   NUMBER(3)    NULL,     -- 총 추천수
-   total_downs NUMBER(3)    NULL      -- 총 비추천수
+   total_downs NUMBER(3)    NULL,      -- 총 비추천수
+   MEMBER_CERT NUMBER(1)   DEFAULT 1 NOT NULL
 );
 
 -- 회원 기본키
@@ -70,14 +63,14 @@ ALTER TABLE MEMBER
       );
       
  
-DROP TABLE AUTHORITIES;
+DROP TABLE AUTHORITY;
 /*권한 테이블 - ROLE_ADMIN, ROLE_MEMBER*/
-CREATE TABLE AUTHORITIES(
-	USER_ID VARCHAR2(20),
-	AUTHORITY VARCHAR2(20) NOT NULL,
-	CONSTRAINT PK_AUTHORITIES PRIMARY KEY(email, AUTHORITY),
-	CONSTRAINT FK_AUTHORITIES_USERS FOREIGN KEY(email) REFERENCES MEMBER
-);
+CREATE TABLE AUTHORITY(
+   EMAIL VARCHAR2(50),
+   AUTHORITY VARCHAR2(20) NOT NULL,
+   CONSTRAINT PK_AUTHORITY PRIMARY KEY(EMAIL, AUTHORITY),
+   CONSTRAINT FK_AUTHORITY_MEMBER FOREIGN KEY(EMAIL) REFERENCES MEMBER
+);    
 
 
 select * from users;
@@ -86,7 +79,35 @@ select * from AUTHORITIES;
 
 insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN')
       
+insert into AUTHORITY VALUES('z', 'ROLE_ADMIN')
      
+UPDATE 테이블이름
+SET 컬럼=변경할값 [, 컬럼=변경할값]
+[WHERE] 제약조건
+
+UPDATE AUTHORITY
+SET AUTHORITY = 'ROLE_NONE'
+WHERE EMAIL = 'b'
+
+UPDATE EMPLOYEE 
+SET HIREDATE = SYSDATE 
+
+UPDATE EMPLOYEE 
+SET SALARY = SALARY * 1.1 
+WHERE EMPLOYEE_ID = 120 
+
+UPDATE DEPARTMENT 
+SET LOCATION = ‘부산’ 
+WHERE DEPARTMENT_ID > 100
+
+
+
+
+
+
+
+
+
       
 --   ---------------------------- 2.입맛-------------------------------------------------------------
 
@@ -102,11 +123,6 @@ CREATE TABLE TASTE (
    taste_name VARCHAR2(20) NULL      -- 맛 이름
 );
 
--- 입맛 기본키
-CREATE UNIQUE INDEX PK_TASTE
-   ON TASTE ( -- 입맛
-      taste_num ASC -- 맛 번호
-   );
 
 -- 입맛
 ALTER TABLE TASTE
@@ -187,7 +203,7 @@ ALTER TABLE MEMBER_TASTE
       REFERENCES MEMBER ( -- 회원
          email -- 아이디
       )
-       
+       on delete cascade
        ;      
       
       
@@ -241,7 +257,7 @@ ALTER TABLE ALL_TASTE
       REFERENCES TASTE ( -- 입맛
          taste_num -- 맛 번호
       )
-       
+      ON DELETE CASCADE
        ;
 
 -- 맛 + 정도
@@ -254,7 +270,7 @@ ALTER TABLE ALL_TASTE
       REFERENCES DEGREE ( -- 맛의 정도
          degree_num -- 정도 번호
       )
-       
+      ON DELETE CASCADE
        ;
       
 
@@ -362,6 +378,7 @@ ALTER TABLE MENU
       REFERENCES REVIEW ( -- 리뷰
          review_num -- 리뷰번호
       )
+      ON DELETE CASCADE
        
        ;
       
@@ -413,7 +430,7 @@ ALTER TABLE MENU_TASTE
       REFERENCES MENU ( -- 메뉴
          menu_num -- 메뉴번호
       )
-       
+      ON DELETE CASCADE
        ;
       
       
@@ -452,5 +469,8 @@ INSERT INTO DEGREE VALUES (degree_seq.nextval,'2');
 INSERT INTO DEGREE VALUES (degree_seq.nextval,'3');
 
 
+create sequence review_num_seq;
+create sequence menu_num_seq;
+create sequence td_num_seq;
 
       

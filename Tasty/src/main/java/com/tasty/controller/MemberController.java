@@ -1,72 +1,100 @@
 package com.tasty.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.service.MemberService;
 import com.tasty.service.TasteService;
-import com.tasty.service.impl.MemberServiceImpl;
-import com.tasty.service.impl.TasteServiceImpl;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
+import com.tasty.vo.Taste;
 
 @Controller
 @RequestMapping("/member/")
-public class MemberController {
-
+public class MemberController{
+	
+	@Autowired
+	private MemberDAO dao;
+	
 	@Autowired
 	MemberService service;
 	
-	@RequestMapping("registerMember")
-	public ModelAndView registerMember(@ModelAttribute Member member) {
-		service.addMember(member);
-		System.out.println(member);
-		return new ModelAndView("member/registerMember.jsp", "email", member.getEmail());
-	}
+	@Autowired
+	TasteService tasteService;
 	
-	@RequestMapping("registerMemberTaste")
-	public ModelAndView registerMemberTaste(@RequestParam String email, @RequestParam String taste1, @RequestParam String taste2, @RequestParam String taste3) {
-		TasteService tasteService = new TasteServiceImpl();
-		//MemberService memberService = new MemberServiceImpl();
-		
-		List<String> tasteList = tasteService.selectAllTaste();
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 
-		//List를 한바퀴 돌면서 번호와 비교
-		for(int i=0; i<tasteList.size(); i++ ) { 
-			if(tasteList.get(i).equals(taste1)) {
-				int tasteNum1 = i+1;
-				service.addMemberTaste(new MemberTaste(email, tasteNum1));
-			}else if(tasteList.get(i).equals(taste2)) {
-				int tasteNum2 = i+1;
-				service.addMemberTaste(new MemberTaste(email, tasteNum2));
-			}else if(tasteList.get(i).equals(taste3)) {
-				int tasteNum3 = i+1;
-				service.addMemberTaste(new MemberTaste(email, tasteNum3));
+	@RequestMapping("update_member")
+	public ModelAndView updateMemberByEmail(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
+			@RequestParam String phoneNum, @RequestParam String gender, @RequestParam List<String> tastes) {
+		Member member = new Member(email, password, name, nickname, phoneNum, gender);
+		System.out.println("우엥");
+		System.out.println(tastes);
+		service.updateMemberByEmail(member);
+		service.removeMemberTasteByEmail(email);
+		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
+		System.out.println(tasteList);
+		for(int i=0; i<tastes.size(); i++) {
+			for(int j=0; j<tasteList.size(); j++) {
+				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
+					service.addMemberTaste(new MemberTaste(email, tasteList.get(j).getTasteNum()));
+					System.out.println(tasteList.get(j).getTasteNum());
+		
+	}
 			}
 		}
-		System.out.println(tasteList);
-		return new ModelAndView("member/registerMemberTaste.jsp", "tasteList", tasteList);
-	}
+		return new ModelAndView("member/mypage.jsp", "member", member);
+			}
 	
-	@RequestMapping("updateMemberByEmail")
-	public ModelAndView updateMemberByEmail(@ModelAttribute Member member, HttpServletRequest request) {
-		service.updateMemberByEmail(member);
-		return new ModelAndView("member/updateMemberByEmail.jsp", "member", member);
-	}
+	
 	
 	@RequestMapping("removeMemberByEmail")
 	public ModelAndView removeMemberByEmail(@RequestParam String email) {
+		System.out.println(email);
 		service.removeMemberByEmail(email);
-		return new ModelAndView("member/removeMemberByEmail.jsp", "result", email);
+		return new ModelAndView("redirect:index.do", "result", email);
 	}
+	
+	
+	@RequestMapping("withdrawMemberByEmail")
+	public String withdrawMemberByEmail(@RequestParam Authentication authentication) throws AuthenticationException{
+		System.out.println(authentication.getName());
+		dao.withdrawMemberByEmail(authentication.getName());
+		
+//		service.withdrawMemberByEmail(authentication.getName());
+		return "redirect:index.do";
+	}
+	
+/*	@RequestMapping("withdrawMemberByEmail")
+	public String withdrawMemberByEmail(@RequestParam String email) {
+		System.out.println(email);
+		dao.withdrawMemberByEmail(email);
+		return "redirect:index.do";
+	}
+	*/
+	
 	
 	@RequestMapping("getMemberByEmail")
 	public ModelAndView getMemberByEmail(@RequestParam String email) {
@@ -75,4 +103,12 @@ public class MemberController {
 		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
 		
 	}
+
+
 }
+
+
+
+
+
+

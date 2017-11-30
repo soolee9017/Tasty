@@ -33,15 +33,6 @@ section header h1 {
 	z-index: 4;
 	border:0px solid;
 }
-
-#keyward img {
-	position: relative;
-	z-index: 3;
-	width: 34px;
-	height: 34px;
-	cursor:pointer;
-}
-
 .back {
 	background-color: rgba(0, 0, 0, 0.3);
 	width: 100%;
@@ -63,19 +54,22 @@ section header h1 {
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
 <script type="text/javascript">	
-	function imgSearch() {
-		var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-		var search = document.getElementById('searchEater').value;
-		if (search.search(/\s/) != -1 || special_pattern.test(search) == true) {
-			swal("", "가게 이름 혹은 키워드에 공백, 특수문자가 존재합니다.", "error");
-			return false;
-		}else if(!search){
-			swal("", "가게 이름 혹은 키워드가 입력되지 않았습니다.", "error");
-			return false;
-		}else{
-			return true;
+	
+	$(document).ready(function(){
+		function imgSearch() {
+			var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+			var search = document.getElementById('searchEater').value;
+			if (search.search(/\s/) != -1 || special_pattern.test(search) == true) {
+				swal("", "가게 이름 혹은 키워드에 공백, 특수문자가 존재합니다.", "error");
+				return false;
+			}else if(!search){
+				swal("", "가게 이름 혹은 키워드가 입력되지 않았습니다.", "error");
+				return false;
+			}else{
+				return true;
+			}
 		}
-	}
+	});
 </script>
 </head>
 <body>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- Spring Security 관련 설정 파일 -->
+	<!-- Security Namespace 필요 → Library를 받아와야 하는 -->
+	<context:component-scan base-package="com.tasty.security"/>
+	<!-- Password 암호화 처리 bean -->
+	<beans:bean name="passwordEncoder" 
+					class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<!-- 
+		http태그 : 웹 인증/권한체크 처리를 위한 설정을 하는 태그.
+		  하위태그
+		  	<intecept-url> : 어떤 url 경로 요청은 어떤 권한이 있어야 하는 지 설정(경로-권한 매칭)
+		  						하위 url 경로 부터 잡아야 한다.
+		  						속성 : pattern - url 패턴 지정, access - 권한지정 (Spring 시큐리티 EL 표현식사용 - 681P)
+		  						EL 표현식 :  hasRole('권한명') - 하나의 권한지정
+	  						                hasAnyRole('권한', '권한' [, ...]) - 여러권한 지정.
+	  						                isAuthenticated() - 인증한(로그인한) 사용자.
+	  						                permitAll - 인증/권한이 필요없는 경우.
+	  						                표현식 앞에  ! - not
+
+			<form-login> : 로그인 관련 설정
+				속성 
+					- login-page="로그인폼 요청 url" 
+							- 로그인 안한사람이 isAuthenticated() 가 필요한 요청했을때 이동할 페이지.
+				    - login-processing-url="로그인처리요청하는 url경로"
+				    - username-parameter/password-parameter : 로그인 요청시 사용자 ID/PWD 요청파라미터 이름
+				    - 로그인 실패관련 처리 
+				    	+ authentication-failure-forward-url : 로그인 실패하면 호출 이동할 url (요청디스패치 방식으로 이동)
+				    	+ authentication-failure-handler-ref : 로그인 실패하면 호출될 handler 빈
+				    - 로그인 성공 처리
+				    	+ default-target-url : 로그인 성공시 이동할 url (요청디스패치 방식으로 이동)
+				    	+ authentication-success-handler-ref : 로그인 성공시 호출될 handler 빈
+				    
+			<logout> : 로그아웃 관련 설정
+					- logout-url="로그아웃처리 요청 url"
+					
+			<access-denied-handler> : 권한이 없는 사용자의 요청이 온 경우 처리
+			<authentication-manager> : 인증/권한 조회 처리 빈 등록
+	 -->
+	 
+	<http> <!-- ** → 전부 / * → 자원 -->
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/> <!-- /admin/경로로 들어왔을 경우 ROLE_ADMIN의 권한이 있어야 한다 -->
+		<intercept-url pattern="/member/**" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> 
+		<!-- /member/경로로 들어올 경우 MEMBER 혹은 ADMIN의 권한 둘 중 아무거나 필요 -->
+		<intercept-url pattern="/**" access="permitAll"/> <!-- 인증 or 권한 필요 없는 -->
+		<!-- 위에서부터 순서대로 하기 때문에 가장 안쪽에 있는? 가장 세부적인? 것부터? depth가 깊은 것부터 -->
+		
+		<form-login
+						login-page="/login_form.do"
+						login-processing-url="/login.do"
+						username-parameter="email"
+						password-parameter="password"
+						authentication-failure-handler-ref="loginFailHandler"
+						default-target-url="/main.do"/>
+		<logout logout-url="/logout.do" logout-success-url="/main.do"/>
+		<!-- DB를 조회해서 로그인하는 것은 해줄 수 없기 때문에  UserAuthenticationProvider를 생성해서 로그인 처리를 해준다 -->
+		
+		<!-- 사용자가 권한이 없는 요청을 한 경우 이동할 url 등록 , 등록하지 않으면 403 에러페이지.-->
+		<access-denied-handler error-page="/error/access_denied.do"/>
+	</http>
+	<!-- 인증(로그인) 처리를 담당할 bean 등록 => AuthenticationProvider -->
+	<authentication-manager>
+		<authentication-provider ref="memberAuthenticationProvider"/> <!-- UserAuthenticationProvider를 참조해서 로그인을 할 것? -->
+	</authentication-manager>
+	
+</beans:beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

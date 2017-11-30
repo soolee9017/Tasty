@@ -7,15 +7,19 @@ import com.tasty.vo.MemberTaste;
 
 public interface MemberService {
 
-	void addMember(Member member);
+	void addMember(Member member, String role);
 	
 	void addMemberTaste(MemberTaste memberTaste);
 	
-	//void addMemberTaste(int tasteNum);
-	
 	void updateMemberByEmail(Member member);
 	
+	void updateMemberTasteByEmail(MemberTaste memberTaste);
+	
 	void removeMemberByEmail(String email);
+	
+	void withdrawMemberByEmail(String email);
+	
+	void removeMemberTasteByEmail(String email);
 	
 	Member selectMemberByEmail(String email);
 
