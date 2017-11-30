@@ -3,6 +3,8 @@ package com.tasty.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,14 +34,13 @@ public class ReviewController {
    }
    
    @RequestMapping(value="registerReview", method={RequestMethod.POST,RequestMethod.GET})
-   public ModelAndView registerReview(@RequestParam String listOfMenu,@RequestParam String numOfTaste,
+   public ModelAndView registerReview(HttpServletRequest request,@RequestParam String listOfMenu,@RequestParam String numOfTaste,
 		   @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String title,
-		   @RequestParam List<MultipartFile> upImage) {
+		   @RequestParam List<MultipartFile> upImage) throws Exception {
 	
 	   
-	   System.out.println("컨트롤러 왔쟈낭");
 	 
-	   	reviewService.insertReview(listOfMenu, numOfTaste, listOfTaste, listOfDegree, title, upImage);
+	   	reviewService.insertReview(request,listOfMenu, numOfTaste, listOfTaste, listOfDegree, title, upImage);
 	   
 	   return null;
    

@@ -1,15 +1,19 @@
 package com.tasty.service.impl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tasty.dao.PhotoDAO;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.TasteDAO;
 import com.tasty.service.ReviewService;
@@ -23,6 +27,9 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Autowired
 	private TasteDAO tasteDao;
+	
+	@Autowired
+	private PhotoDAO photoDao;
 	
 	
 	@Override
@@ -42,7 +49,9 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	@Transactional
-	public int insertReview(String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title, List<MultipartFile> upImage) {
+	public int insertReview(HttpServletRequest request, String listOfMenu, String numOfTaste, 
+			String listOfTaste, String listOfDegree, String title, List<MultipartFile> upImage)
+			throws Exception{
 		
 		   String[] menu = listOfMenu.split(",");
 		   String[] numTaste = numOfTaste.split(",");
@@ -54,7 +63,14 @@ public class ReviewServiceImpl implements ReviewService{
 		   
 		   if(upImage != null & !upImage.isEmpty()) {
 			   for(MultipartFile photo : upImage) {
-				   String fileName = photo.getOriginalFilename()+UUID.randomUUID().toString();
+				   
+				   String fileName = UUID.randomUUID().toString().replace("-", "")+"+"+photo.getOriginalFilename();
+				   
+				   System.out.println(fileName);
+				   
+				   photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
+				   photoDao.insertPhoto(fileName);
+				   photoDao.insertReviewPhoto();
 			   }
 		   }
 		   
