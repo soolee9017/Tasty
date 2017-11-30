@@ -9,6 +9,8 @@ public interface PhotoDAO {
 	
 	int insertReviewPhoto();
 	
+	int insertMissionPhoto();
+	
 	
 }
 

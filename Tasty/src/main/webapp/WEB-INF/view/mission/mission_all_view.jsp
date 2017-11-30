@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -149,7 +150,8 @@ div {
 	
 	<p>
 	<h2>미션 등록하기</h2>
-	<form id="regForm" action="${initParam.rootPath }/mission/insertMission.do" method="post">
+	<form id="regForm" action="${initParam.rootPath }/mission/insertMission.do" method="get" enctype="multipart/form-data">
+	<sec:csrfInput/>
 		미션명 : <input type="text" name="missionName" id="missionName"><br>
 		미션 내용 :<br>
 			<textarea name="missionContent" cols="40" rows="8"></textarea><br>
@@ -157,7 +159,7 @@ div {
 		시작일 : <input type="date" name="startDate" id="startDate"><br>
 		종료일 : <input type="date" name="endDate" id="endDate"><br>
 		
-		<!-- 사진 등록 : 
+		사진 등록 : 
 		<table id="photoList">
 			<tr>
 				<td><input type="file" name="upImage"></td>
@@ -165,7 +167,7 @@ div {
 			</tr>
 		</table>
 		<button type="button" id="addPhoto">사진추가</button><br>
-		 -->
+		
 		
 		<button type="submit">미션 등록</button>
 	</form>
