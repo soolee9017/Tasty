@@ -51,14 +51,10 @@ $(document).ready(function(){
     
       
    $("#plusMenu").on("click",function(){
-     
-
-   
-   
    var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
       txt += "<td><input type='text' name='menu'></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
-      txt += "<td><span><select class='tasteSel' name='tastes' required><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select>";
-      txt += "<select id='degreeSel' name='degrees' required><option value=''>정도를 선택하세요</option></select></span></td></tr>";
+      txt += "<td><span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select>";
+      txt += "<select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select></span></td></tr>";
       $("#menu_layer > tbody").append(txt)
       
    });
@@ -67,36 +63,19 @@ $(document).ready(function(){
     
    
    $("#menu_layer").on("click",".plusTaste2",function(){
-      
       if($(this).parent().next().children().length == 3){
          alert('더이상 맛 추가 안됨');
          return;
       }
-      
-      
-        var txt = "<span><select class='tasteSel' name='tastes' required><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select><select id='degreeSel' name='degrees' required><option value=''>정도를 선택하세요</option></select><button type='button' class='deleteTaste'>X</button></span>";
+        var txt = "<span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select><select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select><button type='button' class='deleteTaste'>X</button></span>";
         $(this).parent().next().append(txt);
-        
-        
-   });
-   
-   
-  
-   
-   
-   $("#deleteTaste").on("click",function(){
-      
-     var txt = "";
-     $("#")
    });
 
+   
    $("#plusPhoto").on("click",function(){
-         
-       
-         var html = '<tr><td>' + '<input type="file" name="upImage">' + '</td>'; //tr, td를 열고 + 문자열로 바꾸고 +td 닫기
+       var html = '<tr><td>' + '<input type="file" name="upImage">' + '</td>'; //tr, td를 열고 + 문자열로 바꾸고 +td 닫기
        html += '<td><button type="button" class="deletePhoto">Del</button>'; //html변수에 삭제버튼을 대입
        html += '</td></tr>';
-       
        $("#photolist").append(html);
    });
 
@@ -106,11 +85,9 @@ $(document).ready(function(){
      });  
    
    
-   
    $("#menu_layer").on("click", ".deleteMenu", function() { //list안의 btnDel을 선택
        $(this).parent().parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
    });  
-   
    
    $("#menu_layer").on("click", ".deleteTaste", function() { //list안의 btnDel을 선택
        $(this).parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
@@ -118,51 +95,35 @@ $(document).ready(function(){
    
    
    $("#sendBtn").on("click", function() { 
-	  
-    
-   var totalTr = $('#tBody>tr').length;
-    
-
-  
+	  var totalTr = $('#tBody>tr').length;
 	  var menuName =[];
 	  var numOfTaste= [];
 	  var listOfTaste = [];
 	  var listOfDegree = [];
-	  
 	  var name;
 	  var sLength;
 	  var selVal;
-  
+	  var selectedTaste;
+	  
      for(var i = 0; i<totalTr ; i++){
-  
-    
-    
-      name= $('#tBody>tr:eq('+i+') input').val();
+       name= $('#tBody>tr:eq('+i+') input').val();
       sLength = $('#tBody>tr:eq('+i+') select').length;
+      selectedTaste = $('#tBody>tr:eq('+i+') select')[i].selectedIndex;
      
+      if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
+  		alert("완벽한 맛은 맛추가를 할 수 없습니다.");
+  		/* $('select').find('option:first').attr('selected', 'selected'); */
+  		return;
+  	}
+      else if(selectedTaste == $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex 
+				|| selectedTaste == $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex
+				|| $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex){
+			alert("맛이 중복되었습니다.");
+			$('select').find('option:first').attr('selected', 'selected');
+			return;
+	}
+	
 
-    
-     
-    /*  if(sLength == 2){
-    	 
-     }else if(sLength == 4){
-    	 if($('#tBody>tr:eq('+i+') select:eq(0)').val() == $('#tBody>tr:eq('+i+') select:eq(2)').val()){
-    		 alert('맛이 중복되었습니다');
-    		 return false;
-    	 }
-     }else if(sLength==6){
-    	 if($('#tBody>tr:eq('+i+') select:eq(0)').val() == $('#tBody>tr:eq('+i+') select:eq(2)').val()){
-    		 alert('맛이 중복되었습니다');
-    		 return false;
-    	 }else if($('#tBody>tr:eq('+i+') select:eq(0)').val() == $('#tBody>tr:eq('+i+') select:eq(4)').val()){
-    		 alert('맛이 중복되었습니다');
-    		 return false;
-    	 }else if($('#tBody>tr:eq('+i+') select:eq(2)').val() == $('#tBody>tr:eq('+i+') select:eq(4)').val()){
-    		 alert('맛이 중복되었습니다');
-    		 return false;
-    	 }
-     }
-      */
      menuName.push(name);
      numOfTaste.push(sLength/2);
      
@@ -219,8 +180,8 @@ $(document).ready(function(){
    <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm">
    <sec:csrfInput/>
    <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="">
-    제목 : <input type="text" name="title"><br>
-      내용: <textarea name="content" cols="40" rows="8"></textarea>
+    제목 : <input type="text" name="title" required="required"><br>
+      내용: <textarea name="content" cols="40" rows="8" required="required"></textarea>
       <br>
       <table id="menu_layer" border="1">
          <thead>
@@ -236,12 +197,12 @@ $(document).ready(function(){
                <td><button type="button" class="deleteMenu">메뉴삭제</button></td>
                <td><input type='text' name='menu'></td>
                <td><button type='button'class='plusTaste2'>맛 추가</button></td>
-               <td><span><select class='tasteSel' name="tastes" required>
+               <td><span><select class='tasteSel' name="tastes" required="required">
                      <option value="">맛을 선택하세요.</option>
                      <c:forEach items="${requestScope.tasteList }" var="taste" varStatus="cnt">
                         <option value="${cnt.count}">${taste.tasteName}</option>
                      </c:forEach>
-               </select> <select id="degreeSel" name="degrees" required>
+               </select> <select id="degreeSel" name="degrees" required="required">
                      <option value="">정도를 선택하세요</option>
                </select></span></td>
             </tr>
