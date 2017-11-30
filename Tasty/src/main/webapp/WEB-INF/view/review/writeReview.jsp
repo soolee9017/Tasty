@@ -112,7 +112,11 @@ $(document).ready(function(){
 	    	continue;
 	    }
 	    for(var j = 0; j < tasteSel.length; j++){
-	    	alert(tasteSel[j].value == tasteSel[j+1].value);
+	    	if(tasteSel[j].value == tasteSel[j+1].value){
+	    		 alert("맛이 중복되었습니다.");
+	             $('select').find('option:first').attr('selected', 'selected');
+	             return;
+	    	}
 	    }
      	
       if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
