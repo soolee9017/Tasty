@@ -57,8 +57,8 @@
 						username-parameter="email"
 						password-parameter="password"
 						authentication-failure-handler-ref="loginFailHandler"
-						default-target-url="/index.do"/>
-		<logout logout-url="/logout.do" logout-success-url="/index.do"/>
+						default-target-url="/main.do"/>
+		<logout logout-url="/logout.do" logout-success-url="/main.do"/>
 		<!-- DB를 조회해서 로그인하는 것은 해줄 수 없기 때문에  UserAuthenticationProvider를 생성해서 로그인 처리를 해준다 -->
 		
 		<!-- 사용자가 권한이 없는 요청을 한 경우 이동할 url 등록 , 등록하지 않으면 403 에러페이지.-->
