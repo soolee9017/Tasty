@@ -395,4 +395,14 @@ ALTER TABLE MISSION_CERT_PHOTO
       )
        
        ;
+       
+       
+       
+       
+ -----------------------------
+ 
+       
+       drop sequence photo_num_seq;
+       create sequence photo_num_seq;
+       
 

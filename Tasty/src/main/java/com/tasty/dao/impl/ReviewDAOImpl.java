@@ -39,15 +39,22 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return session.insert(makeSqlId("insertMenuTaste"));
 	}
 
-	@Override
+/*	@Override
 	public int insertReview(String title) {
 		return session.insert(makeSqlId("insertReview"),title);
+	}*/
+	@Override
+	public int insertReview(Review review) {
+		return session.insert(makeSqlId("insertReview"),review);
 	}
+	
 
 	@Override
 	public int deleteReview(String email) {
 		return session.delete(makeSqlId("deleteReview"), email);
 	}
+
+
 
 	@Override
 	public List<Review> selectReviewByEmail(String email) {
