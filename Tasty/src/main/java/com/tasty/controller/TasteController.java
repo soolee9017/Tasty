@@ -42,7 +42,7 @@ public class TasteController {
 	@RequestMapping("getAllTaste2") //회원가입페이지로 넘어감
 	public ModelAndView getAllTaste2() {
 		List tasteList = service.selectAllTaste();
-		System.out.println("taste가지러옴");
+		System.out.println("가입할 때 쓰려고 taste 가지러 왔멘");
 		tasteList.remove(tasteList.size()-1);
 		return new ModelAndView("member/join_member_form.tiles","tasteList", tasteList);
 	}
@@ -50,6 +50,7 @@ public class TasteController {
 	@RequestMapping("getAllTaste3") //회원수정페이지로 넘어감
 	public ModelAndView getAllTaste3() {
 		List tasteList = service.selectAllTaste();
+		System.out.println("수정할 때 쓰려고 taste 가지러 왔멘");
 		tasteList.remove(tasteList.size()-1);
 		return new ModelAndView("member/update_profile_form.tiles","tasteList", tasteList);
 	}

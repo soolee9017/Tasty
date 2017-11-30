@@ -7,7 +7,7 @@ $(document).ready(function(){
 	
 	$("#testBtn").on("click",function(){
 	 	if($('input:checkbox[name="tastes"]:checked').length > 3){
-			alert("맛추가안됨다");
+			alert("맛은 3개까지 선택할 수 있습니다.");
 			$('input:checkbox[name="tastes"]').prop("checked", false);
 			return;
 		}
@@ -34,7 +34,7 @@ $(document).ready(function(){
 	</div>
 	<div class="form-group">
 		<label for="password">변경할 패스워드</label>
-		<input type="password" name="newPassword" id="password" class="form-control" required="required">
+		<input type="password" name="password" id="password" class="form-control" required="required">
 	</div>
 	<div class="form-group">
 		<label for="name">이름</label>
@@ -62,7 +62,7 @@ $(document).ready(function(){
       <label for="tastes">맛</label><br>
       <span id="tastes">
       <c:forEach items="${requestScope.tasteList}" var='taste'>
-            <label><input type="checkbox" name="tastes" id="tastes">${taste.tasteName}</label>
+            <label><input type="checkbox" name="tastes" id="tastes" value="${taste.tasteName}">${taste.tasteName}</label>
       </c:forEach>
       </span>
    </div>

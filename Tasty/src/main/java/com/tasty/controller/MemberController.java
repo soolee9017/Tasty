@@ -13,7 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,13 +46,31 @@ public class MemberController{
 	
 
 	@RequestMapping("update_member")
-	public ModelAndView updateMemberByEmail(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
-			@RequestParam String phoneNum, @RequestParam String gender, @RequestParam List<String> tastes) {
-		Member member = new Member(email, password, name, nickname, phoneNum, gender);
-		System.out.println("우엥");
-		System.out.println(tastes);
+	public String updateMemberByEmail(@ModelAttribute Member member, @RequestParam String oldPassword, @RequestParam String email, 
+			@RequestParam List<String> tastes, HttpServletRequest request, ModelMap model) throws IllegalStateException, IOException{
+		
+		
+		//로그인 사용자의 정보 조회(password 비교를 위해)
+		
+		 //SecurityContext 는 인증 후 인증된 사용자의 정보를 저장하는 객체.
+		 
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+
+		//패스워드 체크
+		
+		if(!passwordEncoder.matches(oldPassword, ((Member)authentication.getPrincipal()).getPassword())){ //넣은 값, 암호화된 값
+			//로그인할 때 session 비슷한 곳에 비밀번호를 저장? 했으므로 그것을 가져다 사용하면 되는? //SecurityContext? //형변환.getUserPassword
+			//정보수정 폼으로 이동
+			model.addAttribute("errorMessage", "패스워드를 확인하세요");
+			return "member/update_profile_form.tiles";
+		}
+	
+		//Business Logic 호출
+		service.removeMemberTasteByEmail(member.getEmail());
+		System.out.println("여기까지 오니?");
+		member.setPassword(passwordEncoder.encode(member.getPassword())); //패스워드 변경
 		service.updateMemberByEmail(member);
-		service.removeMemberTasteByEmail(email);
 		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
 		System.out.println(tasteList);
 		for(int i=0; i<tastes.size(); i++) {
@@ -61,20 +78,30 @@ public class MemberController{
 				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
 					service.addMemberTaste(new MemberTaste(email, tasteList.get(j).getTasteNum()));
 					System.out.println(tasteList.get(j).getTasteNum());
-		
-	}
+					
+				}
 			}
 		}
-		return new ModelAndView("member/mypage.jsp", "member", member);
-			}
-	
+		
+		//권한(Authority) 변경 또는 추가 시
+		List<GrantedAuthority> list = new ArrayList<>(authentication.getAuthorities());
+		UsernamePasswordAuthenticationToken newAutentication = 
+				new UsernamePasswordAuthenticationToken(member, member.getPassword(), list);
+		
+		context.setAuthentication(newAutentication);
+		
+		return "member/mypage.tiles";
+	}
+
+
 	
 	
 	@RequestMapping("removeMemberByEmail")
-	public ModelAndView removeMemberByEmail(@RequestParam String email) {
-		System.out.println(email);
+	public String removeMemberByEmail(@RequestParam String email) {
+		System.out.println("삭제하러 왔니?");
 		service.removeMemberByEmail(email);
-		return new ModelAndView("redirect:index.do", "result", email);
+		System.out.println("삭제할거야?");
+		return "main.do";
 	}
 	
 	

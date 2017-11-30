@@ -32,6 +32,7 @@
 	<div class="row" style="margin-top:20px">
 		<div class="col-sm-12">
 			<a href="${initParam.rootPath }/review/getAllTaste3.do" class="btn btn-default">정보수정</a>
+			<a href="${initParam.rootPath }/member/removeMemberByEmail.do?email=<sec:authentication property="principal.email"/>" class="btn btn-default">삭제</a>
 		</div>
 	</div>
 </div>
