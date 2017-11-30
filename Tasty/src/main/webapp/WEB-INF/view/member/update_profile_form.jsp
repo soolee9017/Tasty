@@ -2,34 +2,19 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript"
-   src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	 $("#menu_layer").on("change",".tasteSel", function(){
-      $.ajax({
-         "url":"/Tasty/review/getAllTaste3.do",
-         "dataType":"json",
-         "success":function(list){
-            var txt="<option value=''>맛을 선택하세요</option>";
-            $.each(list, function(){
-               txt += "<option>"+this+"</option>"
-            });
-            $(".tasteSel").html(txt);
-         }
-      });      
-   });
-	 
-	 $("#menu_layer").on("click",".plusTaste",function(){
-	      
-	      if($(this).parent().next().children().length == 3){
-	         alert('더이상 맛 추가 안됨');
-	         return;
-	      }
-	        
-	  });
+	
+	$("#testBtn").on("click",function(){
+	 	if($('input:checkbox[name="tastes"]:checked').length > 3){
+			alert("맛추가안됨다");
+			$('input:checkbox[name="tastes"]').prop("checked", false);
+			return;
+		}
+	});
+
 });
-      
+
 </script>
 
 <h2>정보 수정 가입</h2>
@@ -82,7 +67,7 @@ $(document).ready(function(){
       </span>
    </div>
 	<sec:csrfInput/><%-- csrf 토큰 --%>
-	<button type="submit" class="btn btn-default">정보수정</button>
+	<button type="submit" id="testBtn" class="btn btn-default">정보수정</button>
 </form>
 
 
