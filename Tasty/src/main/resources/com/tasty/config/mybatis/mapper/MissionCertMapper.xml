@@ -15,7 +15,7 @@
 		SELECT <include refid="missionCert-column-sql"/>
 		FROM mission_cert_board
 	</sql>
-	<resultMap type="missonCert" id="missionCert-resultmap">
+	<resultMap type="missionCert" id="missionCert-resultmap">
 		<id column="mission_cert_num" property="missionCertNum"/>
 		<result column="email" property="email"/>
 		<result column="title" property="title"/>

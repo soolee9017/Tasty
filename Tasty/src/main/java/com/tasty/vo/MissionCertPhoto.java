@@ -8,5 +8,5 @@ public class MissionCertPhoto {
 	
 	private MissionCert missionCert;
 	private List<Photo> photoList;
-	
+	private List<MissionCertPhoto> missionCertPhotoList;
 }
