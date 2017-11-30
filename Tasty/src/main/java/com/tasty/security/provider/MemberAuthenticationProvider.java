@@ -40,6 +40,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 	      if(!encoder.matches(password, member.getPassword())){//틀린 패스워드
 	         throw new BadCredentialsException("패스워드를 확인하세요");
 	      }
+	  
 	      //인증 성공
 	      //권한 조회
 	      List<Authority> list = dao.selectAuthorityByEmail(id);
@@ -54,10 +55,10 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 	         authList.add(new SimpleGrantedAuthority(au.getAuthority()));
 	      }
 	      
-	      //인증한 사용자 정보(Principal), 패스워드, 인증된사용자의 권한들 을 넣어 Authentication객체 생성해 리턴
+	      //인증한 사용자 정보(Principal), 패스워드, 인증된 사용자의 권한들 을 넣어 Authentication객체 생성해 리턴
 	      return new UsernamePasswordAuthenticationToken(member, null, authList);
 	   }
-
+	
 	   @Override
 	   public boolean supports(Class<?> authentication) {
 	      return authentication.isAssignableFrom(UsernamePasswordAuthenticationToken.class);

@@ -4,6 +4,8 @@
  */
 
 
+select * from taste
+
 -------------------------------------1.회원------------------------------
 
 INSERT INTO MEMBER VALUES ('aaa@aaa.com', 'aaa', 'a1', 'aaa', '000-0000-0000', 'f', '11', '1');
@@ -79,7 +81,35 @@ select * from AUTHORITIES;
 
 insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN')
       
+insert into AUTHORITY VALUES('z', 'ROLE_ADMIN')
      
+UPDATE 테이블이름
+SET 컬럼=변경할값 [, 컬럼=변경할값]
+[WHERE] 제약조건
+
+UPDATE AUTHORITY
+SET AUTHORITY = 'ROLE_NONE'
+WHERE EMAIL = 'b'
+
+UPDATE EMPLOYEE 
+SET HIREDATE = SYSDATE 
+
+UPDATE EMPLOYEE 
+SET SALARY = SALARY * 1.1 
+WHERE EMPLOYEE_ID = 120 
+
+UPDATE DEPARTMENT 
+SET LOCATION = ‘부산’ 
+WHERE DEPARTMENT_ID > 100
+
+
+
+
+
+
+
+
+
       
 --   ---------------------------- 2.입맛-------------------------------------------------------------
 
@@ -175,7 +205,7 @@ ALTER TABLE MEMBER_TASTE
       REFERENCES MEMBER ( -- 회원
          email -- 아이디
       )
-       
+       on delete cascade
        ;      
       
       

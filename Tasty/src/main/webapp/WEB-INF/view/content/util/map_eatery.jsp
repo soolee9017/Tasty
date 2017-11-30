@@ -264,17 +264,24 @@ body {
 	<script>
 		// 마커를 담는 배열.
 		var markers = [];
+		var eateryNames = [];
 		//map 이라는 아이디를 받아서 contatiner 변수에 넣음
 		var container = document.getElementById('map');
 		//현재 지도에서 중앙값으로 잡힐 좌표값과 지도 확대 레벨을 선택함
 		var options = {
 			center : new daum.maps.LatLng(33.450701, 126.570667),
-			level : 2
+			level : 10
 		};
 
 		//지도 생성
 		var map = new daum.maps.Map(container, options);
 		//우측 옵션 (확대(줌))
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new daum.maps.MapTypeControl();
+
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
 		var zoomControl = new daum.maps.ZoomControl();
 		map.addControl(zoomControl, daum.maps.ControlPosition.TOPRIGHT);
 		// 마커 클러스터러를 생성합니다 
@@ -336,6 +343,7 @@ body {
 
 			}
 		}
+		var indexs = [];
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
 
@@ -349,9 +357,10 @@ body {
 			// 지도에 표시되고 있는 마커를 제거합니다
 			removeMarker();
 			for (var i = 0; i < places.length; i++) {
+				indexs = [ i ];
 				// 마커를 생성하고 지도에 표시합니다
 				var placePosition = new daum.maps.LatLng(places[i].y,
-						places[i].x), marker = addMarker(placePosition,i), itemEl = getListItem(
+						places[i].x), marker = addMarker(placePosition, i), itemEl = getListItem(
 						i, places[i]); // 검색 결과 항목 Element를 생성합니다
 				// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 				// LatLngBounds 객체에 좌표를 추가합니다
@@ -363,6 +372,14 @@ body {
 					daum.maps.event.addListener(marker, 'click', function() {
 						displayInfowindow(marker, title);
 					});
+					daum.maps.event.addListener(map, 'click', function() {
+						closeOverlay(bounds);
+					});
+					itemEl.onclick = function() {
+						closeOverlay(bounds);
+						displayInfowindow(marker, title);
+					};
+
 				})(marker, places[i].place_name);
 
 				fragment.appendChild(itemEl);
@@ -383,18 +400,20 @@ body {
 					+ (index + 1)
 					+ '"></span>'
 					+ '<div class="info">'
-					+ '<h5>'
+					+ '<h5 class="pls_name'
+					+ (index + 1)
+					+ '">'
 					+ places.place_name + '</h5>';
-
+			eateryNames.push(places.place_name);
 			if (places.road_address_name) {
 				itemStr += '    <span>' + places.road_address_name + '</span>'
-						+ '   <span class="jibun gray">' + places.address_name
-						+ '</span>';
+						+ '   <span class="jibun' + (index + 1) + ' gray">'
+						+ places.address_name + '</span>';
 			} else {
 				itemStr += '    <span>' + places.address_name + '</span>';
 			}
-			itemStr += '  <span class="tel">' + places.phone + '</span>'
-					+ '</div>';
+			itemStr += '  <span class="tel' + (index + 1) + '">' + places.phone
+					+ '</span>' + '</div>';
 
 			el.innerHTML = itemStr;
 			el.className = 'item';
@@ -429,6 +448,7 @@ body {
 				markers[i].setMap(null);
 			}
 			markers = [];
+			eateryNames = [];
 		}
 
 		// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
@@ -462,28 +482,56 @@ body {
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 		// 인포윈도우에 장소명을 표시합니다
 		var content = "";
+		var level = map.getLevel() - 1;
 
 		function displayInfowindow(marker, title) {
+
 			content = '<div class="wrap">'
 					+ '<div class="info">'
 					+ '<div class="title">'
 					+ title
-					+ '<div class="close" onclick="closeOverlay()" title="닫기"></div>'
+					+ '<div class="close" onclick="closeOverlay2();" title="닫기"></div>'
 					+ '</div>'
 					+ '<form action="${initParam.rootPath}/review/getAllTaste.do">'
 					+ '<div class="body">'
-					+ '<input type="hidden" id="eateryTitle" name="eateryTitle" value=""'
+					+ '<div style="float:left;">'
+					+ '<span class="places_jibun"></span>'
+					+ '<br>'
+					+ '<span class="places_tel"></span>'
+					+ '</div>'
+					+ '<input type="hidden" id="eateryJibun" name="eateryJibun" value="">' // 가게 지번
+					+ '<input type="hidden" id="eateryTel" name="eateryTel" value="">' //가게 번호
+					+ '<input type="hidden" id="eateryTitle" name="eateryTitle" value="">'//가게 이름
 					+ '<input type="hidden" id="lat" name="lat" value="">' //위도
-					+ '<input type="hidden" id="lng" name="lng" value="">'	//경도
+					+ '<input type="hidden" id="lng" name="lng" value="">' //경도
 					+ '<button type="submit" class="btn btn-info" style="float:right;height:50px;">리뷰 작성</button></div>'
 					+ '</div>' + '</form>' + '</div>';
+			map.setLevel(4, {
+				anchor : new daum.maps.LatLng(marker.getPosition().getLat(),
+						marker.getPosition().getLng())
+			});
 			infowindow.setContent(content);
 			infowindow.open(map, marker);
 			$("#eateryTitle").val(title);
 			$("#lat").val(marker.getPosition().getLat());
 			$('#lng').val(marker.getPosition().getLng());
+			for (var i = 0; i < eateryNames.length; i++) {
+				if (title.toString() == eateryNames[i]) {
+					$(".places_jibun").html($(".jibun" + (i + 1) + "").html());
+					$(".places_tel").html($(".tel" + (i + 1) + "").html());
+					$("#eateryJibun").val($(".jibun" + (i + 1) + "").html());
+					$("#eateryTel").val($(".tel" + (i + 1) + "").html());
+					break;
+				}
+			}
 		}
-		function closeOverlay() {
+
+		function closeOverlay2() {
+			map.setLevel(14);
+			infowindow.close();
+		}
+		function closeOverlay(bounds) {
+			map.setBounds(bounds);
 			infowindow.close();
 		}
 		// 검색결과 목록의 자식 Element를 제거하는 함수입니다
