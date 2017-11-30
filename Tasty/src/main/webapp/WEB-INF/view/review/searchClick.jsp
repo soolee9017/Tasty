@@ -39,7 +39,6 @@ $(document).ready(function(){
 <div class="reviewList">
 	
 </div>
-<a href="/Tasty/review/getAllTaste.do"><button >이 식당 리뷰 작성</button></a>
 
 <br><br>
 
