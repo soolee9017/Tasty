@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +22,7 @@ public interface ReviewService {
 
 //	int insertReview(String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title);
 
-	int insertReview(HttpServletRequest request,String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title,
+	int insertReview(HttpSession session, HttpServletRequest request,String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title,
 			List<MultipartFile> upImage) throws Exception;
 
 }

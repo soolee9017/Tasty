@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,18 +50,18 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	@Transactional
-	public int insertReview(HttpServletRequest request, String listOfMenu, String numOfTaste, 
+	public int insertReview(HttpSession session, HttpServletRequest request, String listOfMenu, String numOfTaste, 
 			String listOfTaste, String listOfDegree, String title, List<MultipartFile> upImage)
 			throws Exception{
-		
 		
 	
 		   String[] menu = listOfMenu.split(",");
 		   String[] numTaste = numOfTaste.split(",");
 		   String[] taste = listOfTaste.split(",");
 		   String[] degree = listOfDegree.split(",");
+		   String address = (String)session.getAttribute("eateryJibun");
 		   
-		   reviewDao.insertReview(title); 
+		   reviewDao.insertReview(title, address); 
 		   
 		   
 		   if(upImage != null && !upImage.isEmpty()) {

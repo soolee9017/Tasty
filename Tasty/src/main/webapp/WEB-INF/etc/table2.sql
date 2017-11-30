@@ -395,4 +395,6 @@ ALTER TABLE MISSION_CERT_PHOTO
       )
        
        ;
-
+       
+       create sequence photo_num_seq;
+select * from review
