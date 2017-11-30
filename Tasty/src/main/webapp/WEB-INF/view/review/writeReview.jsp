@@ -106,10 +106,15 @@ $(document).ready(function(){
      var selectedTaste;
      
      for(var i = 0; i<totalTr ; i++){
-       name= $('#tBody>tr:eq('+i+') input').val();
-      sLength = $('#tBody>tr:eq('+i+') select').length;
-      selectedTaste = $('#tBody>tr:eq('+i+') select')[i].selectedIndex;
-     
+		name= $('#tBody>tr:eq('+i+') input').val();
+	    var tasteSel = $('#tBody>tr:eq('+i+') .tasteSel');
+	    if(tasteSel.length == 1){//맛 select가 하나인 경우는 다음 tr로 이동
+	    	continue;
+	    }
+	    for(var j = 0; j < tasteSel.length; j++){
+	    	alert(tasteSel[j].value == tasteSel[j+1].value);
+	    }
+     	
       if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
         alert("완벽한 맛은 맛추가를 할 수 없습니다.");
         /* $('select').find('option:first').attr('selected', 'selected'); */
