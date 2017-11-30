@@ -95,49 +95,72 @@ $(document).ready(function(){
    
    
    $("#sendBtn").on("click", function() { 
-	  var totalTr = $('#tBody>tr').length;
-	  var menuName =[];
-	  var numOfTaste= [];
-	  var listOfTaste = [];
-	  var listOfDegree = [];
-	  var name;
-	  var sLength;
-	  var selVal;
-	  var selectedTaste;
-	  
-     for(var i = 0; i<totalTr ; i++){
-       name= $('#tBody>tr:eq('+i+') input').val();
-      sLength = $('#tBody>tr:eq('+i+') select').length;
-      selectedTaste = $('#tBody>tr:eq('+i+') select')[i].selectedIndex;
+     var totalTr = $('#tBody>tr').length;
+     var menuName =[];
+     var numOfTaste= [];
+     var listOfTaste = [];
+     var listOfDegree = [];
+     var name;
+     var sLength;
+     var selVal;
+     var selectedTaste;
      
-      if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
-  		alert("완벽한 맛은 맛추가를 할 수 없습니다.");
-  		/* $('select').find('option:first').attr('selected', 'selected'); */
-  		return;
-  	}
-      else if(selectedTaste == $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex 
-				|| selectedTaste == $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex
-				|| $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex){
-			alert("맛이 중복되었습니다.");
-			$('select').find('option:first').attr('selected', 'selected');
-			return;
-	}
-	
+     for(var i = 0; i<totalTr ; i++){
 
+      
+       var tasteSel = $('#tBody>tr:eq('+i+') .tasteSel');
+       
+	   if(tasteSel.length ==2){
+    	   if(tasteSel[0].value == tasteSel[1].value){
+    		   alert('중복된 맛');
+    		   return;
+    	   }
+    	   
+       }else if(tasteSel.length ==3){
+    	   if(tasteSel[0].value == tasteSel[1].value 
+    			   || tasteSel[0].value == tasteSel[2].value|| tasteSel[1].value==tasteSel[2].value ){
+    		   alert('중복된 맛');
+    		   return;
+    	   }
+       }
+      /*  for(var j = 0; j < tasteSel.length; j++){
+          if(tasteSel[j].value == tasteSel[j+1].value){
+              alert("맛이 중복되었습니다.");
+                $('select').find('option:first').attr('selected', 'selected');
+                return;
+          }
+       } */
+       
+        
+/*       if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
+        alert("완벽한 맛은 맛추가를 할 수 없습니다.");
+        /* $('select').find('option:first').attr('selected', 'selected'); 
+        return;
+     }
+      else if(selectedTaste == $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex 
+            || selectedTaste == $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex
+            || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex){
+         alert("맛이 중복되었습니다.");
+         $('select').find('option:first').attr('selected', 'selected');
+         return;
+   } */
+   
+    	name= $('#tBody>tr:eq('+i+') input').val();
+   	    sLength = $('#tBody>tr:eq('+i+') select').length;
      menuName.push(name);
      numOfTaste.push(sLength/2);
      
       for(var s=0; s<sLength ; s++){
         
-       	 selVal= $('#tBody>tr:eq('+i+') select:eq('+s+')').val();
-	       	if(s%2 == 0){
-	       		 listOfTaste.push(selVal);      
-	       	}else{
-	      		  listOfDegree.push(selVal);
-	     	}
+           selVal= $('#tBody>tr:eq('+i+') select:eq('+s+')').val();
+             if(s%2 == 0){
+                 listOfTaste.push(selVal);      
+             }else{
+                 listOfDegree.push(selVal);
+           }
        }
       
-     }
+    }
   
   
   

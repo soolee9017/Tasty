@@ -63,7 +63,7 @@ public class ReviewServiceImpl implements ReviewService{
 		   reviewDao.insertReview(title); 
 		   
 		   
-		   if(upImage != null & !upImage.isEmpty()) {
+		   if(upImage != null && !upImage.isEmpty()) {
 			   for(MultipartFile photo : upImage) {
 				   
 				   String fileName = UUID.randomUUID().toString().replace("-", "")+"+"+photo.getOriginalFilename();
@@ -75,6 +75,9 @@ public class ReviewServiceImpl implements ReviewService{
 				   photoDao.insertReviewPhoto();
 			   }
 		   }
+		   
+		   
+		   
 		   
 		   int num = 0;
 		   for(int i = 0; i<menu.length; i++) {
