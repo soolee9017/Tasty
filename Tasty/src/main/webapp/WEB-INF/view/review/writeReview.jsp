@@ -215,8 +215,10 @@ $(document).ready(function(){
 </head>
 <body>
 
-   <h2>${param.storeName}의리뷰작성 페이지</h2>
-   <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm">
+   
+   <h2>${sessionScope.eateryTitle} 리뷰작성 페이지!!</h2>
+   <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm"
+   enctype="multipart/form-data">
    <sec:csrfInput/>
    <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="">
     제목 : <input type="text" name="title"><br>
@@ -270,7 +272,7 @@ $(document).ready(function(){
 <input type="hidden" id="listOfDegree" name="listOfDegree" value="">
 
 ---------------리뷰 최종 전송 버튼 ---------------------<br>
-<button id="sendBtn">리뷰 전송</button>
+<button id="sendBtn" type="button">리뷰 전송</button>
    </form>
 </body>
 </html> 
