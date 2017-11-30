@@ -55,6 +55,8 @@ public class ReviewServiceImpl implements ReviewService{
 		   // .nextval 을 한 다음에 currval에 넣어야 하므로
 		   
 		   
+		   
+		   
 		   int num = 0;
 		   for(int i = 0; i<menu.length; i++) {
 			   reviewDao.insertMenu(menu[i]);
