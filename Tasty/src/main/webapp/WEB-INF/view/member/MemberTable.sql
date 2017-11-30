@@ -26,7 +26,7 @@ DROP TABLE AUTHORITY; -- AUTHORITIES
 
 drop table authority cascade constraint;
 
-delete from member_taste
+delete from member
 
 
 ------- CREATE + ALTER TABLE --------------------------

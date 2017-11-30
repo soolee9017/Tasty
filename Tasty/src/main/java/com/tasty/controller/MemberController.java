@@ -101,26 +101,17 @@ public class MemberController{
 		System.out.println("삭제하러 왔니?");
 		service.removeMemberByEmail(email);
 		System.out.println("삭제할거야?");
-		return "main.do";
+		return "index.tiles";
 	}
 	
 	
-	@RequestMapping("withdrawMemberByEmail")
-	public String withdrawMemberByEmail(@RequestParam Authentication authentication) throws AuthenticationException{
-		System.out.println(authentication.getName());
-		dao.withdrawMemberByEmail(authentication.getName());
-		
-//		service.withdrawMemberByEmail(authentication.getName());
-		return "redirect:index.do";
+	@RequestMapping("removeAuthorityByEmail")
+	public String removeAuthorityByEmail(@RequestParam String email){
+		System.out.println("어서와");
+		service.removeAuthorityByEmail(email);
+		System.out.println(email+" : 탈퇴 ㄱ?");
+		return "index.tiles";
 	}
-	
-/*	@RequestMapping("withdrawMemberByEmail")
-	public String withdrawMemberByEmail(@RequestParam String email) {
-		System.out.println(email);
-		dao.withdrawMemberByEmail(email);
-		return "redirect:index.do";
-	}
-	*/
 	
 	
 	@RequestMapping("getMemberByEmail")
