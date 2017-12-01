@@ -199,7 +199,6 @@ $(document).ready(function(){
 </head>
 <body>
 
-   
    <h2>${sessionScope.eateryTitle} 리뷰작성 페이지!!</h2>
    <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm"
    enctype="multipart/form-data">
@@ -220,7 +219,7 @@ $(document).ready(function(){
          <tbody id="tBody">
             <tr>
                <td><button type="button" class="deleteMenu">메뉴삭제</button></td>
-               <td><input type='text' name='menu'></td>
+               <td><input type='text' name='menu' required></td>
                <td><button type='button'class='plusTaste2'>맛 추가</button></td>
                <td><span><select class='tasteSel' name="tastes" required="required">
                      <option value="">맛을 선택하세요.</option>
@@ -254,6 +253,11 @@ $(document).ready(function(){
 <input type="hidden" id="numOfTaste" name="numOfTaste" value="">
 <input type="hidden" id="listOfTaste" name="listOfTaste" value="">
 <input type="hidden" id="listOfDegree" name="listOfDegree" value="">
+
+
+
+
+
 
 ---------------리뷰 최종 전송 버튼 ---------------------<br>
 <button id="sendBtn" type="button">리뷰 전송</button>

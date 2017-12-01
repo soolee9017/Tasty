@@ -73,8 +73,9 @@
 </select>
 
 
-<insert id="insertReview" parameterType="String">
-insert into review (review_num, title) values (review_num_seq.nextval, #{value})
+<insert id="insertReview" parameterType="review">
+insert into review values (review_num_seq.nextval, #{address},#{storeName},#{email},#{title},#{content},
+#{ratings},#{ups},#{downs},#{posX},#{posY})
 
 
 </insert>
@@ -90,19 +91,6 @@ insert into menu values (menu_num_seq.nextval, review_num_seq.currval,#{value})
 insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 </insert>
 
-<!-- <insert id="insertReview" parameterType="review">
-	INSERT INTO REVIEW VALUES  (#{reviewNum},
-									#{address},
-									#{storeName}, 
-									#{email},
-									#{title},
-									#{content},
-									#{ratings},
-									#{ups},
-									#{downs},
-									#{posX},
-									#{posY})
-</insert> -->
 
 <!-- 리뷰삭제 -->
 <delete id="deleteReview" parameterType="String">
