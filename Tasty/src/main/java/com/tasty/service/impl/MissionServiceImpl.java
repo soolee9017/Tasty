@@ -55,15 +55,16 @@ public class MissionServiceImpl implements MissionService{
 		Member member= (Member)authentication.getPrincipal();
 		*/
 		
-		missionDao.insertMission(mission);
-		   
+		int a = missionDao.insertMission(mission);
+		System.out.println(a);   
 		File file = new File(request.getServletContext().getRealPath("/photos/mission"));
         
         if(!file.exists()) {
            file.mkdirs();
         }
        
-           for(MultipartFile photo : upImage) {
+        System.out.println(mission);
+        for(MultipartFile photo : upImage) {
               if(photo != null && !photo.isEmpty()) {
               String fileName = UUID.randomUUID().toString().replace("-", "")+photo.getOriginalFilename();
               

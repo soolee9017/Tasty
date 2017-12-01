@@ -76,6 +76,7 @@
 	<select id="selectAllMission2" resultMap="mission-join-photo-resultmap">
 		select * from MISSION_ADMIN, MISSION_PHOTO
 		where MISSION_ADMIN.MISSION_NUM = MISSION_PHOTO.MISSION_NUM
+		order by MISSION_ADMIN.MISSION_NUM asc  
 	</select>
 	
 	<select id="selectAllMission" resultMap="mission-resultmap">
@@ -99,6 +100,10 @@
 				#{maxPeople},
 				#{startDate},
 				#{endDate})
+		<selectKey keyProperty="missionNum" resultType="Integer" order="AFTER">
+			 SELECT mission_admin_seq.currval FROM dual 
+		</selectKey>
+
 	</insert>
 	
 	<!-- 미션 수정 -->
@@ -149,7 +154,8 @@
 		select * 
 		from mission_admin ma, mission_photo mp, photo p
 		where ma.mission_num = #{value}
-		and mp.photo_num = p.photo_num
+		and mp.photo_num = p.photo_num(+)
+		and ma.mission_num = mp.mission_num(+)
 		order by p.photo_num asc  
 	</select>
 	
