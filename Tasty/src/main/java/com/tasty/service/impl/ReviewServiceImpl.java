@@ -131,8 +131,8 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public int updateReviewUpsDowns(int reviewNum) {
-		return reviewDao.updateReviewUpsDowns(reviewNum);
+	public int updateReviewUpsDowns(Review review) {
+		return reviewDao.updateReviewUpsDowns(review);
 
 	}
 	

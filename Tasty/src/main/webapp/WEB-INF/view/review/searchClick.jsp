@@ -29,20 +29,41 @@ $(document).ready(function(){
 				txt += "<tr><td>"+this.reviewNum+"</td>";
 				txt += "<td>"+this.title+"</td>";
 				txt += "<td><button class='plus'>추천</button></td>";
-				txt += "<td><button class='minus'>비추천</button></td></tr>";
+				txt += "<td><button class='minus'>비추천</button></td>";
+				txt += "<td>"+this.ups+"</td>";
+				txt += "<td>-"+this.downs+"</td></tr>";
 			});
 			//alert(txt);
-			$("#tBody > tr").append(txt); 
+			$("#tBody").append(txt); 
 		}
 	});
 	
-	$(".plus").on("click",function(){
+ 	$("table").on("click", ".plus", function(){
+ 		var evtSrc = this;
 		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
 			"url":"/Tasty/review/updateReviewUps.do",
-			
+			"data":"reviewNum="+$(evtSrc).parent().prev().prev().html(),
+			"dataType":"json",
+			"success":function(review){
+				var txt = review.ups;
+				$(evtSrc).parent().next().next().html(txt);
+			}
 		});
 	});
-	
+ 	
+ 	$("table").on("click", ".minus", function(){
+ 		var evtSrc = this;
+		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
+			"url":"/Tasty/review/updateReviewDowns.do",
+			"data":"reviewNum="+$(evtSrc).parent().prev().prev().prev().html(),
+			"dataType":"json",
+			"success":function(review){
+				var txt = review.downs;
+				$(evtSrc).parent().next().next().html("-"+txt);
+			}
+		});
+	});
+	 
 
 });
 </script>
@@ -62,15 +83,16 @@ $(document).ready(function(){
 <table border="1">
 	<thead>
 		<tr>
-			<td>목록</td>
-			<td>추천수</td>
-			<td>비추천수</td>
+			<td>번호</td>
+			<td>제목</td>
+			<td>추천</td>
+			<td>비추천</td>
+			<td>Total 추천수</td>
+			<td>Total 비추천수</td>
 		</tr>
 	</thead>
 	<tbody id="tBody">
-		<tr>
-			
-		</tr>
+		
 	</tbody>
 </table>
 
