@@ -149,6 +149,16 @@ order by m.menu_num, mt.td_num, p.photo_num asc
 
 
 </select>
+
+<select id="averageRatingByAddress" parameterType="String" resultType="float">
+
+SELECT AVG(ratings) FROM review where address=#{value}
+
+</select>
+
+<select id="selectReviewNumByEmail" parameterType="String" resultType="int">
+select review_num from review where email=#{value} order by review_num desc
+</select>
  
 
 </mapper>

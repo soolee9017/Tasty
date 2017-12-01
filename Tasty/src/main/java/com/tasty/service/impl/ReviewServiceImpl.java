@@ -59,18 +59,19 @@ public class ReviewServiceImpl implements ReviewService{
 			throws Exception{
 		
 			HttpSession session = request.getSession();
+			
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			Member member= (Member)authentication.getPrincipal();
 
 			//읭?
 			float ratingFloat = Float.parseFloat(rating);
-			
+			System.out.println(rating);
 			
 
 			Review review = new Review(1,(String)session.getAttribute("eateryJibun"),(String)session.getAttribute("eateryTitle"),
 					member.getEmail(),title,content,ratingFloat,0,0,(String)session.getAttribute("lng"),(String)session.getAttribute("lat"));
 			
-			
+		   System.out.println(review);
 		   String[] menu = listOfMenu.split(",");
 		   String[] numTaste = numOfTaste.split(",");
 		   String[] taste = listOfTaste.split(",");
@@ -100,18 +101,9 @@ public class ReviewServiceImpl implements ReviewService{
 				   }
 			   }
 			   
-			   
-			   
-		   
-		   
-		   
-		   
-		   
 		   int num = 0;
 		   for(int i = 0; i<menu.length; i++) {
 			   reviewDao.insertMenu(menu[i]);
-			   	
-			   	
 			   
 			   for(int j = num; j<num+Integer.parseInt(numTaste[i]) ; j++) {
 	
@@ -124,13 +116,11 @@ public class ReviewServiceImpl implements ReviewService{
 			   }
 			   
 			   num= num+Integer.parseInt(numTaste[i]);
-			   
-			   
 		   }
 		   
-		   
-		   
-		   return 0;
+		   List<Integer> list = reviewDao.selectReviewNumByEmail(member.getEmail());
+		   return list.get(0);
+		  
 	}
 
 	@Override
@@ -148,6 +138,11 @@ public class ReviewServiceImpl implements ReviewService{
 	public Review selectReviewByNum(int number) {
 		
 		return reviewDao.selectReviewByNum(number);
+	}
+
+	@Override
+	public float averageRating(String address) {
+		return reviewDao.averageRating(address);
 	}
 
 

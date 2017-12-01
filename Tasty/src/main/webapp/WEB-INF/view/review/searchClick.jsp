@@ -26,6 +26,7 @@ $(document).ready(function(){
 			$.each(list, function(){
 				txt += "<tr><td>"+this.reviewNum+"</td>";
 				txt += "<td>"+this.title+"</td>";
+				txt += "<td>"+this.ratings+"/5.0</td>";
 				txt += "<td><button class='plus'>추천</button></td>";
 				txt += "<td><button class='minus'>비추천</button></td>";
 				txt += "<td>"+this.ups+"</td>";
@@ -36,6 +37,24 @@ $(document).ready(function(){
 			$("#tBody").append(txt); 
 		}
 	});
+	
+	
+	
+	$.ajax({
+		"url":"/Tasty/review/getAverageRating.do",
+		"data":"address="+address,
+		"dataType":"json",
+		"error":function(a, b,c){
+			//alert(c);
+		},
+		"success":function(avg){
+			$("#ratings").append('평균 평점 : '+avg + '점 / 5점'); 
+		}
+	});
+	
+	
+	
+	
 	
 	
 	$("table").on("click", ".rvBtn", function(){
@@ -79,10 +98,11 @@ $(document).ready(function(){
 
 <body>
 
-
+<br><br><br>
 <h2> 식당명: ${sessionScope.eateryTitle}</h2>
 <h3>식당 주소: ${sessionScope.eateryJibun}</h3>
 <h3>식당 전화번호: ${sessionScope.eateryTel }</h3>
+<h4 id="ratings"></h4>
 
 <a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
 <p>
@@ -94,8 +114,9 @@ $(document).ready(function(){
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
-			<td>추천</td>
-			<td>비추천</td>
+			<td>평점</td>
+			<td>이 리뷰 도움 됨</td>
+			<td>이 리뷰 별로</td>
 			<td>Total 추천수</td>
 			<td>Total 비추천수</td>
 			<td>리뷰 상세보기</td>

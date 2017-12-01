@@ -23,4 +23,8 @@ public interface ReviewDAO {
 	int updateReviewUpsDowns(Review review);
 	
 	Review selectReviewByNum(int number);
+	
+	float averageRating(String address);
+	
+	List<Integer> selectReviewNumByEmail(String email);
 }
