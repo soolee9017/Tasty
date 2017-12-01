@@ -74,7 +74,6 @@ public class MemberDAOImpl implements MemberDAO{
 
 		@Override
 		public List<Member> selectAllMember() {
-			// TODO Auto-generated method stub
 			return session.selectList(makeSqlId("selectAllMember"));
 		}
 

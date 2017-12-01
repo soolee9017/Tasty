@@ -24,7 +24,6 @@
 		<tbody>
 			<c:choose>
 				<c:when test="${!empty requestScope.result }">
-					<c:forEach var="result" items="${requestScope.result }">
 
 						<tr>
 							<td>${result.email }</td>
@@ -35,10 +34,7 @@
 							<td>${result.totalUps }</td>
 							<td>${result.totalDowns }</td>
 							<td>${result.memberCert }</td>
-							<td></td>
-							<td></td>
 						</tr>
-					</c:forEach>
 				</c:when>
 			</c:choose>
 		</tbody>

@@ -17,13 +17,13 @@ ajax^.ㅠ,,,
 
 		회원 전체 조회&nbsp;&nbsp;<a href="${initParam.rootPath }/admin/get_member_all.do" class="btn btn-default">조회</a>
 		<p>
-		<%-- Email 조회&nbsp;&nbsp;<form action="${initParam.rootPath }/admin/get_member_email.do" method='post'> --%>
-		<input type="text" name="email" />&nbsp;&nbsp;
+		Email 조회&nbsp;&nbsp;<form action="${initParam.rootPath }/admin/get_member_email.do" method='get'> 
+		<input type="text" name="email" id="email"/>&nbsp;&nbsp;
 		<button type="submit" class="btn btn-default">조회</button>
 		<p>
 		</form>
-			회원 삭제&nbsp;&nbsp;<form action="${initParam.rootPath }/admin/remove_member.do" method="post">
-			<input type="text" name="email"/>&nbsp;&nbsp;
+			회원 삭제&nbsp;&nbsp;<form action="${initParam.rootPath }/admin/remove_member.do" method="get">
+			<input type="text" name="email" id="email"/>&nbsp;&nbsp;
 			<button type="submit" class="btn btn-default">삭제</button></form>
 			
 		<%-- 	<a href="${initParam.rootPath }/admin/remove_member.do" class="btn btn-default">삭제</a> --%>
