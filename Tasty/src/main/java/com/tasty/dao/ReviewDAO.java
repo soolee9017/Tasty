@@ -19,4 +19,6 @@ public interface ReviewDAO {
 	int insertMenuTaste();
 	
 	int deleteReview(String email);
+	
+	int updateReviewUpsDowns(int reviewNum);
 }

@@ -130,6 +130,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.deleteReview(email);
 	}
 
+	@Override
+	public int updateReviewUpsDowns(int reviewNum) {
+		return reviewDao.updateReviewUpsDowns(reviewNum);
+	}
+
 
 	
 	

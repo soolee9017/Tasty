@@ -6,45 +6,44 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<style>
-div {
-	font-weight: bold;
-}
-</style>
+
 <script type="text/javascript"
    src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
+	alert("실행");
 	var address = '<%=(String)session.getAttribute("eateryJibun") %>';
 	
-	 //alert(address);
 	$.ajax({
 		"url":"/Tasty/review/getReviewByAddress.do",
 		"data":"address="+address,
 		"dataType":"json",
 		"error":function(a, b,c){
-			//alert(c);
+			alert(c);
 		},
 		"success":function(list){
-			var txt="리뷰번호 : ";
+			alert("성공");
+			var txt = "";
 			$.each(list, function(){
-				txt += this.reviewNum+"<br>";
-				txt += this.title+"<br>";
-				txt += "<button class='plus'>추천</button>";
-				
-				
+				txt += "<tr><td>"+this.reviewNum+"</td>";
+				txt += "<td>"+this.title+"</td>";
+				txt += "<td><button class='plus'>추천</button></td>";
+				txt += "<td><button class='minus'>비추천</button></td></tr>";
 			});
 			//alert(txt);
-			$("#reviewList").append(txt); 
+			$("#tBody > tr").append(txt); 
 		}
 	});
 	
-		var cnt = 0;
-	$("div").on("click",".plus",function(){
-		cnt++;
-		alert(cnt);
+	$(".plus").on("click",function(){
+		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
+			"url":"/Tasty/review/updateReviewUps.do",
+			
+		});
 	});
+	
+
 });
 </script>
 
@@ -57,14 +56,25 @@ $(document).ready(function(){
 
 <a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
 <p>
+<p>
+<p>
 
-<div id="reviewList">
+<table border="1">
+	<thead>
+		<tr>
+			<td>목록</td>
+			<td>추천수</td>
+			<td>비추천수</td>
+		</tr>
+	</thead>
+	<tbody id="tBody">
+		<tr>
+			
+		</tr>
+	</tbody>
+</table>
 
-</div>
 
-<br><br>
-
-이 식당에 대한 리뷰들 나오고~ 루트 나오고~
 
 
 </body>

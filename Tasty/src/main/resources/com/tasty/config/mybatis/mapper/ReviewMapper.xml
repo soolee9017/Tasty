@@ -115,5 +115,12 @@ insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 		   pos_y = #{posY}
 </update>
 
+<!-- 리뷰 당 추천 수  -->
+<update id="updateReviewUpsDowns" parameterType="Review">
+	UPDATE review
+	SET	   ups = #{ups},
+		   downs = #{downs}
+	WHERE  review_num = #{reviewNum}
+</update>
 
 </mapper>

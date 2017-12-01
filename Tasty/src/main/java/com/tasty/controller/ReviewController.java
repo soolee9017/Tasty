@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,26 +28,23 @@ public class ReviewController {
    TasteService tasteService;
    
    @RequestMapping("getReviewByAddress")
-   public ModelAndView getReviewByAddress(@RequestParam String address){
+   @ResponseBody
+   public List<Review> getReviewByAddress(@RequestParam String address){
       List<Review> list = reviewService.selectReviewByAddress(address);
-      return new ModelAndView("review/searchClick.jsp","list",list);
+      return list;
    }
    
   @RequestMapping("registerReview")
    public ModelAndView registerReview(Principal principal,HttpServletRequest request, @RequestParam String listOfMenu, @RequestParam String numOfTaste,
          @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating, @RequestParam String title,
          @RequestParam String content,@RequestParam List<MultipartFile> upImage) throws Exception {
-   
-     
-        
-     
          reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage);
-      
       return null;
-   
    }
-   
-
-   
- 
+  
+  @RequestMapping("updateReviewUps")
+  public int updateReviewUps(@RequestParam int reviewNum) {
+	  
+	  return 0;
+  }
 }

@@ -26,6 +26,16 @@ public class Review implements Serializable{
 	public Review() {}
 	
 	
+	
+
+	public Review(int reviewNum, int ups, int downs) {
+		this.reviewNum = reviewNum;
+		this.ups = ups;
+		this.downs = downs;
+	}
+
+
+
 
 	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
 			float ratings, String posX, String posY, List<Menu> menuList) {
