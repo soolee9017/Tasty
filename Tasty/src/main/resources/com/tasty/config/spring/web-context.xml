@@ -23,6 +23,7 @@
 	<mvc:view-controller path="/template.do" view-name="template.tiles"/>
 	<mvc:view-controller path="/map_eatery.do" view-name="/WEB-INF/view/content/util/map_eatery.jsp"/>
 	<mvc:view-controller path="/content/util/information.do" view-name="content/util/information.tiles"/>
+	<mvc:view-controller path="/content/util/follow.do" view-name="content/util/follow.tiles"/>
 	
 	<!-- 링크 -->
 <!-- 비인증 관련 -->
