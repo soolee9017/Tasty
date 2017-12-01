@@ -2,14 +2,15 @@ package com.tasty.service.impl;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tasty.dao.MissionDAO;
@@ -46,21 +47,36 @@ public class MissionServiceImpl implements MissionService{
 	@Override
 	@Transactional
 	public int insertMission(Mission mission, HttpServletRequest request, List<MultipartFile> upImage) throws Exception{
+		HttpSession session = request.getSession();
+		
+		/*
+		 * 내 정보를 가지고 있어야 할 때 사용한다.
+		 * Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member= (Member)authentication.getPrincipal();
+		*/
 		
 		missionDao.insertMission(mission);
 		   
-		   if(upImage != null & !upImage.isEmpty()) {
-			   for(MultipartFile photo : upImage) {
-				   
-				   String fileName = UUID.randomUUID().toString().replace("-", "")+"+"+photo.getOriginalFilename();
-				   
-				   System.out.println(fileName);
-				   
-				   photo.transferTo(new File(request.getServletContext().getRealPath("/photos/mission"),fileName));
-				   photoDao.insertPhoto(fileName);
-				   photoDao.insertMissionPhoto();
-			   }
-		   }
+		File file = new File(request.getServletContext().getRealPath("/photos/mission"));
+        
+        if(!file.exists()) {
+           file.mkdirs();
+        }
+       
+           for(MultipartFile photo : upImage) {
+              if(photo != null && !photo.isEmpty()) {
+              String fileName = UUID.randomUUID().toString().replace("-", "")+photo.getOriginalFilename();
+              
+
+             photo.transferTo(new File(request.getServletContext().getRealPath("/photos/mission"),fileName));
+             FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/mission"),fileName),
+                   new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\mission",fileName));
+             
+             
+              photoDao.insertPhoto(fileName);
+              photoDao.insertMissionPhoto();
+              }
+           }
 		return 0;
 	}
 

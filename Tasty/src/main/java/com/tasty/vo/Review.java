@@ -24,8 +24,16 @@ public class Review implements Serializable{
 	private List<ReviewPhoto> reviewPhotoList; //생성자가 필요 없음 
 	
 	public Review() {}
-	
-	
+
+
+	public Review(int reviewNum, int ups, int downs) {
+		this.reviewNum = reviewNum;
+		this.ups = ups;
+		this.downs = downs;
+	}
+
+
+
 
 	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
 			float ratings, String posX, String posY, List<Menu> menuList) {
@@ -201,6 +209,30 @@ public class Review implements Serializable{
 
 	public void setMenuList(List<Menu> menuList) {
 		this.menuList = menuList;
+	}
+
+	
+
+	public List<ReviewPhoto> getReviewPhotoList() {
+		return reviewPhotoList;
+	}
+
+
+
+	public void setReviewPhotoList(List<ReviewPhoto> reviewPhotoList) {
+		this.reviewPhotoList = reviewPhotoList;
+	}
+
+
+	
+	public List<TempRoute> getTempRouteList() {
+		return tempRouteList;
+	}
+
+
+
+	public void setTempRouteList(List<TempRoute> tempRouteList) {
+		this.tempRouteList = tempRouteList;
 	}
 
 

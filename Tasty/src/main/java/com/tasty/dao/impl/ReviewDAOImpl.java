@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tasty.dao.ReviewDAO;
 import com.tasty.vo.Review;
+import com.tasty.vo.ReviewUpsDownsCheck;
 
 @Repository
 public class ReviewDAOImpl implements ReviewDAO{
@@ -58,6 +59,30 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public List<Review> selectReviewByEmail(String email) {
 		return session.selectList(makeSqlId("selectReviewByEmail"), email);
+	}
+
+	@Override
+	public int updateReviewUpsDowns(Review review) {
+		return session.update(makeSqlId("updateReviewUpsDowns"),review);
+	}
+	
+	@Override
+	public Review selectReviewByNum(int number) {
+		return session.selectOne(makeSqlId("selectReviewByNum"),number);
+	}
+
+	@Override
+	public int insertCheck(ReviewUpsDownsCheck review) {
+		return session.insert(makeSqlId("insertCheck"), review);
+	}
+
+	@Override
+	public ReviewUpsDownsCheck selectCheck(String email, int reviewNum) {
+		Map map = new HashMap<>();
+		map.put("email", email);
+		map.put("reviewNum",reviewNum);
+		
+		return session.selectOne(makeSqlId("selectCheck"), map);
 	}
 	
 	

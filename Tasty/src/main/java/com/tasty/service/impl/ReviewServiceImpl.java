@@ -1,6 +1,7 @@
 package com.tasty.service.impl;
 
 import java.io.File;
+import java.io.InputStream;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tasty.dao.PhotoDAO;
@@ -78,20 +80,26 @@ public class ReviewServiceImpl implements ReviewService{
 		   reviewDao.insertReview(review); 
 		   
 		   
-		   File file = new File("C:\\test\\review");
+		   
+		   File file = new File(request.getServletContext().getRealPath("/photos/review"));
+		   
 		   if(!file.exists()) {
 			   file.mkdirs();
 		   }
 		  
 			   for(MultipartFile photo : upImage) {
 				   if(photo != null && !photo.isEmpty()) {
-				   String fileName = UUID.randomUUID().toString().replace("-", "")+"+"+photo.getOriginalFilename();
+				   String fileName = UUID.randomUUID().toString().replace("-", "")+photo.getOriginalFilename();
 				   
-				   photo.transferTo(new File("C:\\test\\review",fileName));
+
+				  photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
+				 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+						  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
 				   photoDao.insertPhoto(fileName);
 				   photoDao.insertReviewPhoto();
 				   }
 			   }
+			   
 			   
 			   
 		   
@@ -128,6 +136,18 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public int deleteReview(String email) {
 		return reviewDao.deleteReview(email);
+	}
+
+	@Override
+	public int updateReviewUpsDowns(Review review) {
+		return reviewDao.updateReviewUpsDowns(review);
+
+	}
+	
+	@Override	
+	public Review selectReviewByNum(int number) {
+		
+		return reviewDao.selectReviewByNum(number);
 	}
 
 
