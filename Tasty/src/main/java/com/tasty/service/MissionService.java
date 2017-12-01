@@ -2,12 +2,16 @@ package com.tasty.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionMember;
 
 public interface MissionService {
 	
-	void insertMission(Mission mission);
+	int insertMission(Mission mission, HttpServletRequest request, List<MultipartFile> upImage) throws Exception;
 	
 	
 	List<Mission> selectAllMission();

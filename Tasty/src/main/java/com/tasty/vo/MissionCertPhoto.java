@@ -1,8 +1,9 @@
 package com.tasty.vo;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MissionCertPhoto {
+public class MissionCertPhoto implements Serializable {
    private int photoNum;
    private int missionCertNum;
    

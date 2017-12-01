@@ -49,8 +49,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void withdrawMemberByEmail(String email) {
-		memberDao.withdrawMemberByEmail(email);
+	public void removeAuthorityByEmail(String email) {
+		memberDao.deleteAuthorityByEmail(email);
 	}
 	
 	@Override

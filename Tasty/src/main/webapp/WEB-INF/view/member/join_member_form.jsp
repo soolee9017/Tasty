@@ -56,7 +56,7 @@ $(document).ready(function(){
       <label for="tastes">맛</label><br>
       <span id="tastes">
       <c:forEach items="${requestScope.tasteList}" var='taste'>
-            <label><input type="checkbox" name="tastes" id="tastes">${taste.tasteName}</label>
+            <label><input type="checkbox" name="tastes" id="tastes" value="${taste.tasteName}">${taste.tasteName}</label>
       </c:forEach>
       </span>
    </div>

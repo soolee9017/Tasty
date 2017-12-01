@@ -39,7 +39,7 @@ public class MainController {
 	public ModelAndView registerMember(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
 			@RequestParam String phoneNum, @RequestParam String gender, @RequestParam List<String> tastes) {
 		Member member = new Member(email, password, name, nickname, phoneNum, gender);
-		System.out.println("controller로 옸쟈나");
+		System.out.println("controller로 왔멘");
 		System.out.println(tastes);
 		service.addMember(member, "ROLE_MEMBER");
 		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
@@ -57,11 +57,11 @@ public class MainController {
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
 	
-	
+
 	   @RequestMapping("join_success")
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);
-	      System.out.println(member);
+	      System.out.println("로그인하러 왔멘 → " + member);
 	      return new ModelAndView("member/join_success.tiles", "member", member);
 	   }
 	

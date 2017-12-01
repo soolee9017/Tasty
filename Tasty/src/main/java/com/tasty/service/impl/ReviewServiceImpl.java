@@ -1,6 +1,7 @@
 package com.tasty.service.impl;
 
 import java.io.File;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +21,7 @@ import com.tasty.dao.PhotoDAO;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.TasteDAO;
 import com.tasty.service.ReviewService;
+import com.tasty.vo.Member;
 import com.tasty.vo.Review;
 
 @Service
@@ -43,39 +47,54 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReviewByEmail(email);
 	}
 	
-	
 
-	
-	
 
 	@Override
 	@Transactional
-	public int insertReview(HttpSession session, HttpServletRequest request, String listOfMenu, String numOfTaste, 
-			String listOfTaste, String listOfDegree, String title, List<MultipartFile> upImage)
+	public int insertReview(Principal principal,HttpServletRequest request, String listOfMenu, String numOfTaste, 
+			String listOfTaste, String listOfDegree, String rating, 
+			String title,String content, List<MultipartFile> upImage)
 			throws Exception{
 		
-	
+			HttpSession session = request.getSession();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Member member= (Member)authentication.getPrincipal();
+
+			//읭?
+			float ratingFloat = Float.parseFloat(rating);
+			
+			
+
+			Review review = new Review(1,(String)session.getAttribute("eateryJibun"),(String)session.getAttribute("eateryTitle"),
+					member.getEmail(),title,content,ratingFloat,0,0,(String)session.getAttribute("lng"),(String)session.getAttribute("lat"));
+			
+			
 		   String[] menu = listOfMenu.split(",");
 		   String[] numTaste = numOfTaste.split(",");
 		   String[] taste = listOfTaste.split(",");
 		   String[] degree = listOfDegree.split(",");
 		   String address = (String)session.getAttribute("eateryJibun");
 		   
-		   reviewDao.insertReview(title, address); 
+		   reviewDao.insertReview(review); 
 		   
 		   
-		   if(upImage != null && !upImage.isEmpty()) {
+		   File file = new File("C:\\test\\review");
+		   if(!file.exists()) {
+			   file.mkdirs();
+		   }
+		  
 			   for(MultipartFile photo : upImage) {
-				   
+				   if(photo != null && !photo.isEmpty()) {
 				   String fileName = UUID.randomUUID().toString().replace("-", "")+"+"+photo.getOriginalFilename();
 				   
-				   System.out.println(fileName);
-				   
-				   photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
+				   photo.transferTo(new File("C:\\test\\review",fileName));
 				   photoDao.insertPhoto(fileName);
 				   photoDao.insertReviewPhoto();
+				   }
 			   }
-		   }
+			   
+			   
+		   
 		   
 		   
 		   

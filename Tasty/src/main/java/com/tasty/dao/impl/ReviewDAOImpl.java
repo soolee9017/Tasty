@@ -26,11 +26,6 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return session.selectList(makeSqlId("selectReviewByAddress"), address);
 	}
 
-/*	@Override
-	public int insertReview(Review review) {
-		return session.insert(makeSqlId("insertReview"), review);
-	}*/
-
 	public int insertMenu(String name) {
 		return session.insert(makeSqlId("insertMenu"),name);
 	}
@@ -40,18 +35,25 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return session.insert(makeSqlId("insertMenuTaste"));
 	}
 
+//	@Override
+//	public int insertReview(String title, String address) {
+//		Map<String,String> map = new HashMap<>();
+//		map.put("title", title);
+//		map.put("address", address);
+//		return session.insert(makeSqlId("insertReview"),map);
+
 	@Override
-	public int insertReview(String title, String address) {
-		Map<String,String> map = new HashMap<>();
-		map.put("title", title);
-		map.put("address", address);
-		return session.insert(makeSqlId("insertReview"),map);
+	public int insertReview(Review review) {
+		return session.insert(makeSqlId("insertReview"),review);
 	}
+	
 
 	@Override
 	public int deleteReview(String email) {
 		return session.delete(makeSqlId("deleteReview"), email);
 	}
+
+
 
 	@Override
 	public List<Review> selectReviewByEmail(String email) {

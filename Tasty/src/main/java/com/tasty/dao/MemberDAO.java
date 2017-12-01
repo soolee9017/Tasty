@@ -28,7 +28,7 @@ public interface MemberDAO {
 	 * @param email
 	 * @return
 	 */
-	int withdrawMemberByEmail(String email);
+	int deleteAuthorityByEmail(String email);
 	
 	/**
 	 * 완전 삭제

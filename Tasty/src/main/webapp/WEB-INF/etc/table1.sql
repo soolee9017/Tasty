@@ -298,7 +298,7 @@ CREATE TABLE REVIEW (
    email      VARCHAR2(50)   NULL,     -- 이메일
    title      VARCHAR2(50)   NULL,     -- 제목
    content    VARCHAR2(600)  NULL,     -- 내용
-   ratings    NUMBER(2)      NULL,     -- 별점
+   ratings    NUMBER(5)      NULL,     -- 별점
    ups        NUMBER(5)      NULL,     -- 추천수
    downs      NUMBER(5)      NULL,     -- 비추천수
    pos_x      VARCHAR2(25)   NULL,     -- X좌표
@@ -467,6 +467,10 @@ INSERT INTO TASTE VALUES (taste_seq.nextval,'완벽한');
 INSERT INTO DEGREE VALUES (degree_seq.nextval,'1');
 INSERT INTO DEGREE VALUES (degree_seq.nextval,'2');   
 INSERT INTO DEGREE VALUES (degree_seq.nextval,'3');
+
+drop sequence review_num_seq;
+drop sequence menu_num_seq;
+drop sequence td_num_seq;
 
 
 create sequence review_num_seq;

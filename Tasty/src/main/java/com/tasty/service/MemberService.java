@@ -17,7 +17,7 @@ public interface MemberService {
 	
 	void removeMemberByEmail(String email);
 	
-	void withdrawMemberByEmail(String email);
+	void removeAuthorityByEmail(String email);
 	
 	void removeMemberTasteByEmail(String email);
 	
