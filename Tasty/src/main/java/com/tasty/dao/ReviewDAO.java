@@ -20,5 +20,7 @@ public interface ReviewDAO {
 	
 	int deleteReview(String email);
 	
+	int updateReviewUpsDowns(Review review);
+	
 	Review selectReviewByNum(int number);
 }

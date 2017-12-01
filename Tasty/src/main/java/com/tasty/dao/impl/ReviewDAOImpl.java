@@ -61,6 +61,11 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 
 	@Override
+	public int updateReviewUpsDowns(Review review) {
+		return session.update(makeSqlId("updateReviewUpsDowns"),review);
+	}
+	
+	@Override
 	public Review selectReviewByNum(int number) {
 		return session.selectOne(makeSqlId("selectReviewByNum"),number);
 	}

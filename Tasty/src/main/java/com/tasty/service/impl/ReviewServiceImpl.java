@@ -139,6 +139,12 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
+	public int updateReviewUpsDowns(Review review) {
+		return reviewDao.updateReviewUpsDowns(review);
+
+	}
+	
+	@Override	
 	public Review selectReviewByNum(int number) {
 		
 		return reviewDao.selectReviewByNum(number);

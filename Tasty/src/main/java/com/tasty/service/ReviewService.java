@@ -28,6 +28,8 @@ public interface ReviewService {
 			String listOfTaste, String listOfDegree, String rating, String title, String content,
 			List<MultipartFile> upImage) throws Exception;
 
+	int updateReviewUpsDowns(Review review);
+	
 	
 	Review selectReviewByNum(int number);
 
