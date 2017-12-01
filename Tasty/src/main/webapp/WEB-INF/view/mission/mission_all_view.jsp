@@ -11,23 +11,6 @@
 	src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-		/*사진추가 button*/
-		$("#addPhoto").on("click",function(){
-			var html = '<tr><td>'+ '<input type="file" name="upImage">'+'</td>';
-			html += '<td><button type="button" class="deletePhoto">사진삭제</button>';
-			html += '</td></tr>';
-			$("#photoList").append(html);
-		});//end of addPhoto
-		
-		$("#photoList").on("click",function(){
-			$(this).parent(),parent().remove();
-		});//end of photoList
-		
-		$("#misNBtn").on("click",function(){//결과를 가지고와서 뿌려주는 function
-			
-		});//end of misNBtn
-		
-		
 		$("#searchByMNBtn").on("click", function(){
 			$.ajax({
 				"url":"${initParam.rootPath}/mission/selectMissionName.do",//dispatcherServlet을 찾기위한 구분자이다.
@@ -83,7 +66,7 @@ div {
 					<div class="missions">
 						<div class="item_img_box">
 							이미지 들어갈자리
-							<!-- <img style="width:200px;" alt="mission_photo" src="사진파일의 경로"> -->
+							<img style="width:200px;" alt="mission_photo" src="${photo.photoPath }">
 							<!-- 상품이미지 경로 설정해야함 -->						
 						</div>
 						<div class="mission_spec">
@@ -143,21 +126,11 @@ div {
 	
 	
 	<h2>미션 삭제하기</h2>
-	<form id="deleteMissionByNumForm" action="${initParam.rootPath }/mission/removeMissionByMissionNum.do" method="post">
+	<form id="deleteMissionByNumForm" action="${initParam.rootPath }/mission/removeMissionByMissionNum.do" method="get">
 		삭제할 미션 번호 : <input type="number" name="missionNum" id="missionNum"><br>
 		<button id="deleteMissionByMN" type="submit">삭제</button>
-	
 	</form>
-	
 	<p>
-
-	
-	<h2>미션에 회원을 참여시키기</h2>
-	<form action="${initParam.rootPath }/mission/addMissionMember.do" method="post">
-		미션 번호 : <input type="number" id="missionNum" name="missionNum">
-		회원 이메일 : <input type="text" id="email" name="email">
-		<button type="submit">회원참여</button> 
-	</form>
 	<p>
 	<!-- 미션 수정하기 -->
 	<h2>미션 수정</h2>

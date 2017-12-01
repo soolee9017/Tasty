@@ -56,6 +56,21 @@
 	
 	
 	
+	<resultMap type="mission" id="mission-join-photo-resultmap" extends="mission-resultmap">
+
+	<collection property="missionPhotoList" ofType="missionPhoto">
+		<result column="photo_num" property="photoNum"/>
+		<result column="mission_num" property="missionNum"/>
+		<collection property="photoList" ofType="photo">
+				<id column="photo_num" property="photoNum"/>
+				<result column="photo_path" property="photoPath"/>
+		</collection>
+	</collection>
+
+</resultMap>
+	
+	
+	
 	
 	
 
@@ -87,6 +102,7 @@
 				#{startDate},
 				#{endDate})
 	</insert>
+	
 	<!-- 미션 수정 -->
 	<update id="updateMissionByMissionNum" parameterType="mission">
 		UPDATE MISSION_ADMIN
@@ -113,11 +129,6 @@
 	</select>
 	
 	
-	<select id="selectMissionByMissionNum" resultMap="mission-resultmap">
-		select * from mission_admin
-		where mission_num=#{value}
-	</select>
-	
 	 <!--   멤버가 미션 참여하기를 누르면 current_people 을 +1 하고, 
 	 		mission_member에 현재 로그인되어있는 아이디와, 현재 들어가있는 미션번호 값들을 삽입한다. -->
 	<update id="updateCurrentPeople" parameterType="mission">
@@ -130,6 +141,15 @@
 		insert into mission_member(mission_num,email)
 		values (#{missionNum},#{email})
 	</insert>
+	
+	<!-- 미션정보 조회 (+사진) -->
+	 <select id="selectMissionByMissionNum" parameterType="int" resultMap="mission-join-photo-resultmap">
+		select * 
+		from mission_admin ma, mission_photo mp, photo p
+		where ma.mission_num = #{value}
+		and mp.photo_num = p.photo_num
+		order by p.photo_num asc  
+	</select>
 	
 
 

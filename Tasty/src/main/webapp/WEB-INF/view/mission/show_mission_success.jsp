@@ -45,6 +45,30 @@ $(document).ready(function(){
 </head>
 <body>
 	<h1>조회된 미션</h1>
+		미션번호 : ${mission.missionNum }<br>
+		미션이름 : ${mission.missionName }<br>
+		미션 내용 :<br> 
+		${mission.missionContent }<br>
+		현재 인원 : ${mission.currentPeople }<br>
+		최대인원 : ${mission.maxPeople }<br>
+		미션 시작일 : ${mission.startDate }<br>
+		미션 종료일 : ${mission.endDate }<br>
+		<c:forEach items="${requestScope.review.reviewPhotoList}" var="missionPhoto">
+			<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photoList[0].photoPath}" width="500px">
+		</c:forEach>
+		
+	
+	<form action="${initParam.rootPath }/mission/moveToModifyMission" method="get">
+		<button type="submit">미션 수정하기</button>
+	</form>	
+	
+	<h2>해당 미션에 회원을 참여시키기</h2>
+	<form action="${initParam.rootPath }/mission/enterMissionMember.do" method="get">
+		<input type="hidden" id="missionNum" name="missionNum" value="${mission.missionNum }">
+		회원 이메일 : <input type="text" id="email" name="email">
+		<button type="submit">회원참여</button> 
+	</form>
+	
 	<form action="${initParam.rootPath }/mission/modifyMission.do" method="post">
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
 		미션이름 : <input type="text" name="missionName" value="${mission.missionName }" /><br>
@@ -65,14 +89,6 @@ $(document).ready(function(){
 		<button type="submit">미션 삭제하기</button>
 	</form>
 	
-	
-	<!-- 미션 수정하기 -->
-	<h2>해당 미션에 회원을 참여시키기</h2>
-	<form action="${initParam.rootPath }/mission/enterMissionMember.do" method="get">
-		<input type="hidden" id="missionNum" name="missionNum" value="${mission.missionNum }">
-		회원 이메일 : <input type="text" id="email" name="email">
-		<button type="submit">회원참여</button> 
-	</form>
 
 
 
