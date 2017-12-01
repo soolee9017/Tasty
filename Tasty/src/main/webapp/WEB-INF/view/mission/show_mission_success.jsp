@@ -53,7 +53,7 @@ $(document).ready(function(){
 		최대인원 : ${mission.maxPeople }<br>
 		미션 시작일 : ${mission.startDate }<br>
 		미션 종료일 : ${mission.endDate }<br>
-		<c:forEach items="${requestScope.review.reviewPhotoList}" var="missionPhoto">
+		<c:forEach items="${requestScope.mission.missionPhotoList}" var="missionPhoto">
 			<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photoList[0].photoPath}" width="500px">
 		</c:forEach>
 		
