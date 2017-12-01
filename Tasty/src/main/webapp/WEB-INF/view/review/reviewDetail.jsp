@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form action="${initParam.rootPath }/review/selectReview.do" method="post">
+<form action="${initParam.rootPath }/review/selectReviewByNum.do" method="post">
 <sec:csrfInput/>
 리뷰번호:<input type="text" name="reviewNum">
 <br><button>전송</button>

@@ -42,6 +42,13 @@ public class ReviewController {
       return null;
    }
   
+  @RequestMapping("selectReviewByNum")
+  public ModelAndView selectReview(@RequestParam String reviewNum) {
+	
+	 int number=Integer.parseInt(reviewNum);
+	  Review review = reviewService.selectReviewByNum(number);
+	  return new ModelAndView("review/reviewDetail2.jsp","review",review);
+}
   
   
   @RequestMapping("updateReviewUps")
@@ -49,7 +56,7 @@ public class ReviewController {
   public Review updateReviewUps(@RequestParam int reviewNum) {
 	  Review review = reviewService.selectReviewByNum(reviewNum); //해당 리뷰번호를 가진 Review를 업데이트 할 것이다.
 	  reviewService.updateReviewUpsDowns(new Review(reviewNum, review.getUps()+1 , review.getDowns())); //select해 온 review번호의 리뷰에 추천수/비추천수 update.
-	  
+
 	  return reviewService.selectReviewByNum(reviewNum); //업데이트한 리뷰를 searchClick.jsp에 return.
   }
   

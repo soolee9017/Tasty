@@ -40,11 +40,22 @@ $(document).ready(function(){
 				txt += "<td><button class='plus'>추천</button></td>";
 				txt += "<td><button class='minus'>비추천</button></td>";
 				txt += "<td>"+this.ups+"</td>";
-				txt += "<td>-"+this.downs+"</td></tr>";
+				txt += "<td>-"+this.downs+"</td>"
+				txt += "<td><button type='button' class='rvBtn'>리뷰 상세보기</button></td></tr>";
 			});
 			//alert(txt);
 			$("#tBody").append(txt); 
 		}
+	});
+	
+	
+	$("table").on("click", ".rvBtn", function(){
+		
+		var num = $(this).parent().parent().children().eq(0).html();
+		$('#num').val(num);
+		 $("#reviewDetail").submit(); 
+		
+		
 	});
 	
  	$("table").on("click", ".plus", function(){
@@ -98,6 +109,7 @@ $(document).ready(function(){
 			<td>비추천</td>
 			<td>Total 추천수</td>
 			<td>Total 비추천수</td>
+			<td>리뷰 상세보기</td>
 		</tr>
 	</thead>
 	<tbody id="tBody">
@@ -105,8 +117,10 @@ $(document).ready(function(){
 	</tbody>
 </table>
 
-
-
+<form action="${initParam.rootPath }/review/selectReviewByNum.do" id="reviewDetail" method="post">
+ <sec:csrfInput/>
+<input type="hidden" id="num" name="reviewNum" value="">
+</form>
 
 </body>
 </html>
