@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,15 +10,19 @@
 	href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" media="all"
 	href="${initParam.rootPath}/resource/bootstrap/css/star-rating.css">
+<link type="text/css" rel="stylesheet"
+	href="${initParam.rootPath}/resource/sweetalert/css/sweetalert2.css">
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/bootstrap/js/star-rating.js"></script>
+<script type="text/javascript"
+	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
 <style type="text/css">
-body {
-	height: 700px;
+html, body {
+	height: 96.5%;
 	margin: 0 auto;
 }
 
@@ -87,21 +92,22 @@ body {
 }
 
 .map_wrap {
+	margin-top:49.5px;
 	position: relative;
 	width: 100%;
-	height: 80%;
+	height: 100%;
 }
 
 #menu_wrap {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	width: 350px;
+	width: 25%;
+	height: 100%;
 	overflow-y: auto;
-	background: rgba(255, 255, 255, 0.7);
+	background: rgba(255, 255, 255);
 	z-index: 1;
 	font-size: 12px;
+	float: right;
+	overflow-y: auto;
+	
 }
 
 .bg_white {
@@ -238,27 +244,58 @@ body {
 	background-color: skyblue;
 	border: 0px;
 }
+
+#search_box {
+	display: none;
+	top:120px;
+	left:120px;
+	z-index:5;
+	position:absolute;
+	background-color:white;
+	width:400px;
+	height:50px;
+}
+#keyword {
+	z-index: 4;
+	border:#ffad33 2px solid;
+}
 </style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('body').on("click", '.searchKeyPlus', function(){
+			$("#search_box").css("display","block");
+			$(this).attr("class", "searchKeyMinus glyphicon glyphicon-minus");
+		});
+		$('body').on("click", '.searchKeyMinus', function(){
+			$("#search_box").css("display","none");
+			$(this).attr("class", "searchKeyPlus glyphicon glyphicon-plus");
+		});
+	});
+</script>
 </head>
 <body>
-
-	<div class="map_wrap">
-		<div id="map"
-			style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-		<div id="menu_wrap" class="bg_white">
-			<ul id="placesList"></ul>
-			<div id="pagination"></div>
-		</div>
-		<div id="search_wrap">
+	<tiles:insertAttribute name="headers"/>
+	<button class="searchKeyPlus glyphicon glyphicon-plus" style="width:35px;height:35px; position:absolute; left:100px; top:100px; z-index:6; border:0px; border-radius:5px; background-color: #ffad33;"></button>
+	<div id="search_box">
+		<div id="search_wrap" style="margin-left:30px; margin-top:12px;">
 			<form id="searchForm" onsubmit="searchPlaces(); return false;">
-				<label for="search">가게 이름 : &nbsp;</label><input type="text"
-					id="keyword" size="15" placeholder="가게 이름 혹은 키워드를(을) 입력해주세요."
-					value="${requestScope.keyward}">
-				<button onclick="imgSearch();" id="seachEater" type="submit">검색
+				<input type="text"
+					id="keyword" size="17" placeholder="가게 이름 혹은 키워드를(을) 입력해주세요."
+					value="${requestScope.keyword}" style="float:left;width:260px;">
+				<button onclick="imgSearch();" id="seachEater" type="submit" style="float:left;border:0px solid;height:26px; width:80px; background-color:#ffad33; color:white;">검색
 				</button>
 			</form>
 		</div>
 	</div>
+	<div class="map_wrap">
+		<div id="map"
+			style="float: left; width: 75%; height: 100%; position: relative; overflow: hidden;"></div>
+		<div id="menu_wrap" class="bg_white">
+			<ul id="placesList"></ul>
+			<div id="pagination"></div>
+		</div>
+	</div>
+
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c9a267072d7a505da79a5cc7df2f5ba7&libraries=services,clusterer,drawing"></script>
 	<script>
@@ -307,9 +344,8 @@ body {
 		function searchPlaces() {
 
 			var keyword = document.getElementById('keyword').value;
-
 			if (!keyword.replace(/^\s+|\s+$/g, '')) {
-				alert('키워드를 입력해주세요!');
+				swal('','키워드를 입력해주세요!','error');
 				return false;
 			}
 
@@ -421,7 +457,6 @@ body {
 			return el;
 		}
 
-		
 		// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 		function addMarker(position, idx, title) {
 			var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -524,7 +559,7 @@ body {
 					$("#eateryTel").val($(".tel" + (i + 1) + "").html());
 					break;
 				}
-				
+
 			}
 		}
 

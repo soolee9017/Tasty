@@ -3,6 +3,7 @@ package com.tasty.dao;
 import java.util.List;
 
 import com.tasty.vo.Review;
+import com.tasty.vo.ReviewUpsDownsCheck;
 
 public interface ReviewDAO {
 	
@@ -27,4 +28,8 @@ public interface ReviewDAO {
 	float averageRating(String address);
 	
 	List<Integer> selectReviewNumByEmail(String email);
+	
+	int insertCheck(ReviewUpsDownsCheck review);
+	
+	ReviewUpsDownsCheck selectCheck(String email, int reviewNum);
 }

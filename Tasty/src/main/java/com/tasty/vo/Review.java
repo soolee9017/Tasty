@@ -24,9 +24,7 @@ public class Review implements Serializable{
 	private List<ReviewPhoto> reviewPhotoList; //생성자가 필요 없음 
 	
 	public Review() {}
-	
-	
-	
+
 
 	public Review(int reviewNum, int ups, int downs) {
 		this.reviewNum = reviewNum;

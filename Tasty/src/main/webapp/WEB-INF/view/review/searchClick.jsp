@@ -6,6 +6,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+tbody tr td:nth-child(5) {
+	color: blue;
+	font-weight: bold; 
+}
+tbody tr td:nth-child(6){
+	color: red;
+	font-weight: bold;
+}
+
+</style>
 
 <script type="text/javascript"
    src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
@@ -73,8 +84,12 @@ $(document).ready(function(){
 			"data":"reviewNum="+$(evtSrc).parent().prev().prev().html(),
 			"dataType":"json",
 			"success":function(review){
-				var txt = review.ups;
+				if(review == -1){
+					alert("이미 선택하셨습니다.");
+				}else{
+				var txt = review;
 				$(evtSrc).parent().next().next().html(txt);
+				}
 			}
 		});
 	});
@@ -86,8 +101,12 @@ $(document).ready(function(){
 			"data":"reviewNum="+$(evtSrc).parent().prev().prev().prev().html(),
 			"dataType":"json",
 			"success":function(review){
-				var txt = review.downs;
+				if(review == -1){
+					alert("이미 선택하셨습니다.");
+				}else{
+				var txt = review;
 				$(evtSrc).parent().next().next().html("-"+txt);
+				}
 			}
 		});
 	});

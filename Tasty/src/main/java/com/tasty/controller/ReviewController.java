@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.ReviewDAO;
 import com.tasty.service.ReviewService;
 import com.tasty.service.TasteService;
+import com.tasty.vo.Member;
 import com.tasty.vo.Review;
+import com.tasty.vo.ReviewUpsDownsCheck;
 
 @Controller
 @RequestMapping("/review/")
@@ -27,6 +32,9 @@ public class ReviewController {
    
    @Autowired
    TasteService tasteService;
+   
+   @Autowired
+   ReviewDAO reviewDao;
    
    @RequestMapping("getReviewByAddress")
    @ResponseBody
@@ -57,20 +65,36 @@ public class ReviewController {
   
   @RequestMapping("updateReviewUps")
   @ResponseBody
-  public Review updateReviewUps(@RequestParam int reviewNum) {
+  public int updateReviewUps(Principal principal, @RequestParam int reviewNum) {
 	  Review review = reviewService.selectReviewByNum(reviewNum); //해당 리뷰번호를 가진 Review를 업데이트 할 것이다.
-	  reviewService.updateReviewUpsDowns(new Review(reviewNum, review.getUps()+1 , review.getDowns())); //select해 온 review번호의 리뷰에 추천수/비추천수 update.
-
-	  return reviewService.selectReviewByNum(reviewNum); //업데이트한 리뷰를 searchClick.jsp에 return.
+	  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	  Member member = (Member)authentication.getPrincipal();
+	  
+	  if(reviewDao.selectCheck(member.getEmail(), reviewNum)==null) {
+		  reviewService.updateReviewUpsDowns(new Review(reviewNum, review.getUps()+1 , review.getDowns())); //select해 온 review번호의 리뷰에 추천수/비추천수 update.
+		  reviewDao.insertCheck(new ReviewUpsDownsCheck(member.getEmail(), reviewNum));
+		
+		  return reviewService.selectReviewByNum(reviewNum).getUps(); //업데이트한 리뷰를 searchClick.jsp에 return.
+		  
+	  }
+	  return -1;
   }
   
   @RequestMapping("updateReviewDowns")
   @ResponseBody
-  public Review updateReviewDowns(@RequestParam int reviewNum) {
+  public int updateReviewDowns(Principal principal, @RequestParam int reviewNum) {
 	  Review review = reviewService.selectReviewByNum(reviewNum); //해당 리뷰번호를 가진 Review를 업데이트 할 것이다.
-	  reviewService.updateReviewUpsDowns(new Review(reviewNum, review.getUps() , review.getDowns()+1)); //select해 온 review번호의 리뷰에 추천수/비추천수 update.
+	  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	  Member member = (Member)authentication.getPrincipal();
 	  
-	  return reviewService.selectReviewByNum(reviewNum); //업데이트한 리뷰를 searchClick.jsp에 return.
+	  if(reviewDao.selectCheck(member.getEmail(), reviewNum)==null) {
+		  reviewService.updateReviewUpsDowns(new Review(reviewNum, review.getUps() , review.getDowns()+1)); //select해 온 review번호의 리뷰에 추천수/비추천수 update.
+		  reviewDao.insertCheck(new ReviewUpsDownsCheck(member.getEmail(), reviewNum));
+		  
+		  return reviewService.selectReviewByNum(reviewNum).getDowns();
+	  }
+	  
+	  return -1; //업데이트한 리뷰를 searchClick.jsp에 return.
   }
   
   

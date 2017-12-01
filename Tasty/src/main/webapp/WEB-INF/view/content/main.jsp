@@ -15,10 +15,10 @@
 	<header>
 		<h1>Yolty 50</h1>
 	</header>
-	<form id="keyward" action="${initParam.rootPath}/search/mapEatery.do" onsubmit="return imgSearch();">
-		<input type="text" name="keyward" id="searchEater" class="input-lg"
-			placeholder="가게 이름 혹은 키워드(예 : 햄버거)를(을) 입력해주세요." size="70">
-			<button onclick="imgSearch();" id="seachEater" type="submit" style="width:150px; height: 40px;border:0px solid; border-radius:0 15px 15px 0; color:white; background-color:#FF4800;">
+	<form id="keyword" action="${initParam.rootPath}/search/mapEatery.do" onsubmit="return imgSearch();">
+		<input type="text" name="keyword" id="searchEater" class="input-lg"
+			placeholder="가게 이름 혹은 키워드(예 : 햄버거)를(을) 입력해주세요." size="70" style="float:left;">
+			<button onclick="imgSearch();" id="seach" type="submit" style="float:left;width:150px; height: 40px;border:0px solid; border-radius:0 15px 15px 0; color:white; background-color:#FF4800;">
 			<span class="glyphicon glyphicon-search"></span> 검색</button>
 	</form>	
 </div>
