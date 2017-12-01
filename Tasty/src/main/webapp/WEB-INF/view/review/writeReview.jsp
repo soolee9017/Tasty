@@ -182,7 +182,7 @@ $(document).ready(function(){
    <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm"
    enctype="multipart/form-data">
    <sec:csrfInput/>
-   <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="">
+   <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="" required="required">
     제목 : <input type="text" name="title" required="required"><br>
       내용: <textarea name="content" cols="40" rows="8" required="required"></textarea>
       <br>

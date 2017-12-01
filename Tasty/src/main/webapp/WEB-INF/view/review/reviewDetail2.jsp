@@ -26,7 +26,7 @@
 <h2>가게 이름: ${requestScope.review.storeName }</h2>
 <h3>가게 주소:${requestScope.review.address } </h3>
 <br>
-<input id="s" name="rating" type="text" class="rating rating-loading" value="${requestScope.review.ratings}" data-size="sm" title="">
+<input id="s" name="rating" readonly="" type="text" class="rating rating-loading" value="${requestScope.review.ratings}" data-size="sm" title="">
 <h4>평점 : ${requestScope.review.ratings } /5.0</h4>
 <h4>제목: ${requestScope.review.title}</h4>
 <h4>내용: ${requestScope.review.content}</h4>
