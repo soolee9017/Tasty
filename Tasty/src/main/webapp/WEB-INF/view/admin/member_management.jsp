@@ -22,6 +22,9 @@ ajax^.ㅠ,,,
 		<button type="submit" class="btn btn-default">조회</button>
 		<p>
 		</form>
+		인증여부 조회&nbsp;&nbsp;<form action="${initParam.rootPath }/admin/get_memberCert.do" method='get'>
+		<input type="number" name="memberCert" id="memberCert"/>&nbsp;&nbsp;
+		<button type="submit" class="btn btn-default">조회</button><p></form>
 			회원 삭제&nbsp;&nbsp;<form action="${initParam.rootPath }/admin/remove_member.do" method="get">
 			<input type="text" name="email" id="email"/>&nbsp;&nbsp;
 			<button type="submit" class="btn btn-default">삭제</button></form>

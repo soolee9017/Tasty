@@ -61,10 +61,24 @@ public interface MemberDAO {
 	 */
 	Member selectMemberByEmail(String email);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	List<Member> selectAllMember();
 	
+	/**
+	 * 
+	 * @param email
+	 * @return
+	 */
 	List<MemberTaste> selectMemberTasteByEmail(String email);
 	
+	/**
+	 * 
+	 * @param memberCert
+	 * @return
+	 */
 	int updateMemberCertByEmail(int memberCert);
 	
 	/**
@@ -81,6 +95,9 @@ public interface MemberDAO {
 	 * @return
 	 */
 	List<Authority> selectAuthorityByEmail(String email);
+	
+	
+	List<Member> selectMemberByMemberCert(int memberCert);
 	
 	
 	

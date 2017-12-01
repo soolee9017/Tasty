@@ -86,6 +86,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.updateMemberCertByEmail(memberCert);
 	}
 
+	@Override
+	public List<Member> selectMemberByMemberCert(int memberCert) {
+		return memberDao.selectMemberByMemberCert(memberCert);
+	}
+
 
 
 

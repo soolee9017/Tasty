@@ -86,7 +86,13 @@ public class MemberDAOImpl implements MemberDAO{
 
 		@Override
 		public List<MemberTaste> selectMemberTasteByEmail(String email) {
-			return session.selectList(makeSqlId("selectMemberTasteByEmail"));
+			return session.selectList(makeSqlId("selectMemberTasteByEmail"), email);
+		}
+
+
+		@Override
+		public List<Member> selectMemberByMemberCert(int memberCert) {
+			return session.selectList(makeSqlId("selectMemberByMemberCert"), memberCert);
 		}
 
 

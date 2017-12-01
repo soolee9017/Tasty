@@ -2,6 +2,8 @@ package com.tasty.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,23 +37,55 @@ public class AdminManageController {
 	
 	//회원 조회 (전체)
 	@RequestMapping("get_member_all")
-	public ModelAndView getAllMember() {
+	public ModelAndView getAllMember(HttpServletRequest request) {
 		List<Member> list = service.selectAllMember();
+		List<MemberTaste> mt = null;
+		String email = null;
+		for(int i = 0; i<list.size(); i++) {
+			email = list.get(i).getEmail();
+		}
+		mt = service.selectMemberTasteByEmail(email);
+		request.setAttribute("tasteList", mt);
 		System.out.println("나오니?");
 		return new ModelAndView("/admin/getAllMember.jsp", "result", list);
 	}
 	
 	//회원 조회 (Email_admin)
 	@RequestMapping("get_member_email")
-	public ModelAndView getMemberByEmail(@RequestParam String email) {
+	public ModelAndView getMemberByEmail(HttpServletRequest request, @RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);
+		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
+		request.setAttribute("tasteList", mt);
+		System.out.println("왔니?");
 		System.out.println(member);
-		List<MemberTaste> memberTasteList = service.selectMemberTasteByEmail(email);
-		System.out.println(memberTasteList);
+		System.out.println(mt);
 		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
 		
 	}
 	
+	//인증여부
+	@RequestMapping("get_memberCert")
+	public ModelAndView getMemberByMemberCert(@RequestParam int memberCert, HttpServletRequest request) {
+		List<Member> list = service.selectMemberByMemberCert(memberCert);
+		List<MemberTaste> mt = null;
+		String email = null;
+		for(int i = 0; i<list.size(); i++) {
+			email = list.get(i).getEmail();
+		}
+		mt = service.selectMemberTasteByEmail(email);
+		request.setAttribute("tasteList", mt);
+		System.out.println("나와주라");
+		return new ModelAndView("/admin/get_memberCert.jsp", "result", list);
+	}
+	
+	/*//멤버테이스트두
+	@RequestMapping("get_memberTaste_email")
+	public List<MemberTaste> getMemberTasteByEmail(@RequestParam String email){
+		List<MemberTaste> memberTasteList = service.selectMemberTasteByEmail(email);
+		System.out.println("오셨나요?");
+		return memberTasteList;
+	}
+	*/
 	//회원 삭제
 	@RequestMapping("remove_member")
 	public String removeMemberByEmail(@RequestParam String email) {

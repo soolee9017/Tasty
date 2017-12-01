@@ -28,6 +28,7 @@ public interface MemberService {
 	
 	List<MemberTaste> selectMemberTasteByEmail(String email);
 
+	List<Member> selectMemberByMemberCert(int memberCert);
 
 
 

@@ -1,6 +1,9 @@
+<%@page import="com.tasty.vo.MemberTaste"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<% List<MemberTaste> tasteList = (List<MemberTaste>)request.getAttribute("tasteList"); %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -19,6 +22,7 @@
 				<th>총 추천 수</th>
 				<th>총 비추천 수</th>
 				<th>인증 여부</th>
+				<th>선호하는 맛</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,6 +38,11 @@
 							<td>${result.totalUps }</td>
 							<td>${result.totalDowns }</td>
 							<td>${result.memberCert }</td>
+							<td>
+							<%for(int i=0 ; i<tasteList.size(); i++){ %>
+							<%=tasteList.get(i).getTaste().getTasteName() %>
+							<%} %>
+							</td>
 						</tr>
 				</c:when>
 			</c:choose>
@@ -41,3 +50,13 @@
 	</table>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

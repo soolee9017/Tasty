@@ -10,7 +10,7 @@
 <title>YOLTY50:관리자:회원조회</title>
 </head>
 <body>
-	<h2>회원조회(전체)</h2>
+	<h2>회원조회(인증여부)</h2>
 	<table>
 		<thead>
 			<tr>
