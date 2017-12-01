@@ -11,3 +11,4 @@ select * from review_ups_downs_check where review_num=12
 
 delete from review_ups_downs_check where email='www'
 
+select * from all_taste
