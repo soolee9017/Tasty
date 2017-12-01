@@ -30,4 +30,7 @@ public interface ReviewService {
 
 	int updateReviewUpsDowns(int reviewNum);
 	
+	
+	Review selectReviewByNum(int number);
+
 }

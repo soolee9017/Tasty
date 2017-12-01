@@ -9,12 +9,15 @@
 </head>
 <body>
 
-<form action="${initParam.rootPath }/review/selectReview.do" method="post">
-<sec:csrfInput/>
-리뷰번호:<input type="text" name="reviewNum">
-<br><button>전송</button>
-</form>
+${requestScope.review } <br><br>
 
+${requestScope.review.address }<br>
+
+${requestScope.review.ratings }<br>
+
+${requestScope.review.menuList }<br><br>
+
+${requestScope.review.reviewPhotoList }<br>
 
 
 </body>

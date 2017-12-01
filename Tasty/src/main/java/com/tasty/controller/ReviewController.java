@@ -42,7 +42,7 @@ public class ReviewController {
       return null;
    }
   
-  @RequestMapping("updateReviewUps")
+  @RequestMapping("updateReviewUpsDowns")
   public int updateReviewUps(@RequestParam int reviewNum) {
 	  
 	  return 0;
