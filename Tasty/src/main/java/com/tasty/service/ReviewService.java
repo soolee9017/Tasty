@@ -32,5 +32,6 @@ public interface ReviewService {
 	
 	
 	Review selectReviewByNum(int number);
+	
 
 }

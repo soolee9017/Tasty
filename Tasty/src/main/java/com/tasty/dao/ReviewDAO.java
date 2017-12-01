@@ -3,6 +3,7 @@ package com.tasty.dao;
 import java.util.List;
 
 import com.tasty.vo.Review;
+import com.tasty.vo.ReviewUpsDownsCheck;
 
 public interface ReviewDAO {
 	
@@ -23,4 +24,8 @@ public interface ReviewDAO {
 	int updateReviewUpsDowns(Review review);
 	
 	Review selectReviewByNum(int number);
+	
+	int insertCheck(ReviewUpsDownsCheck review);
+	
+	ReviewUpsDownsCheck selectCheck(String email, int reviewNum);
 }
