@@ -6,13 +6,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+tbody tr td:nth-child(5) {
+	color: blue;
+	font-weight: bold; 
+}
+tbody tr td:nth-child(6){
+	color: red;
+	font-weight: bold;
+}
+
+</style>
 
 <script type="text/javascript"
    src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	alert("실행");
 	var address = '<%=(String)session.getAttribute("eateryJibun") %>';
 	
 	$.ajax({
@@ -23,7 +33,6 @@ $(document).ready(function(){
 			alert(c);
 		},
 		"success":function(list){
-			alert("성공");
 			var txt = "";
 			$.each(list, function(){
 				txt += "<tr><td>"+this.reviewNum+"</td>";
