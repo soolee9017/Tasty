@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SearchController {
 	
 	@RequestMapping("mapEatery")
-	public ModelAndView searchEatery(@RequestParam String keyward) {
-		return new ModelAndView("/content/util/map_eatery.jsp","keyward",keyward);
+	public ModelAndView searchEatery(@RequestParam String keyword) {
+		return new ModelAndView("map","keyword",keyword);
 	}
 }

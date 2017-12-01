@@ -8,6 +8,11 @@
 		<put-attribute name="header" value="/WEB-INF/view/layout/header.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/view/layout/footer.jsp" />
 	</definition>
+	
+	<definition name="map" template="/WEB-INF/view/content/util/map_eatery.jsp">
+		<put-attribute name="headers" value="/WEB-INF/view/layout/header.jsp" />
+	</definition>
+	
 	<definition name="*.tiles" extends="template">
 		<put-attribute name="content" value="/WEB-INF/view/{1}.jsp"/>
 	</definition>
