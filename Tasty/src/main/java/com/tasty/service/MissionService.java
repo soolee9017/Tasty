@@ -19,7 +19,7 @@ public interface MissionService {
 	
 	int updateMissionByMissionNum(Mission mission);
 	
-	void insertMissionMember(MissionMember missionMember);
+	public void enterMissionMember(MissionMember missionMember,int missionNum);
 	
 	int deleteMissionByMissionNum(int missionNum);
 	

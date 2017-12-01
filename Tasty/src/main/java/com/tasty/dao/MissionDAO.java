@@ -41,6 +41,9 @@ public interface MissionDAO {
 	int insertMissionMember(MissionMember missionMember);
 	
 	
+	int updateMissionCurrentPeoplePlus(int missionNum);
+	
+	
 	Mission selectMissionByMissionNum(int missionNum);
 	
 }

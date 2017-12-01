@@ -72,9 +72,10 @@ div {
 </style>
 </head>
 <body>
+	<h1>미션 등록하기 버튼</h1>
+	<button type=button onclick = "location.href='${initParam.rootPath }/mission/moveToRegister.do'">미션 등록페이지로 이동</button>
 	<h1>response 결과(전체미션)</h1>
 
-	
 	<div class="main_form"> 
 		<c:forEach items="${requestScope.result}" var="mission">
 			<div class="mission_box">
@@ -149,28 +150,7 @@ div {
 	</form>
 	
 	<p>
-	<h2>미션 등록하기</h2>
-	<form id="regForm" action="${initParam.rootPath }/mission/insertMission.do" method="get" enctype="multipart/form-data">
-	<sec:csrfInput/>
-		미션명 : <input type="text" name="missionName" id="missionName"><br>
-		미션 내용 :<br>
-			<textarea name="missionContent" cols="40" rows="8"></textarea><br>
-		최대인원 : <input type="number" name="maxPeople" id="maxPeople"><br>
-		시작일 : <input type="date" name="startDate" id="startDate"><br>
-		종료일 : <input type="date" name="endDate" id="endDate"><br>
-		
-		사진 등록 : 
-		<table id="photoList">
-			<tr>
-				<td><input type="file" name="upImage"></td>
-				<td><button type="button" class="deletePhoto">사진삭제</button></td>
-			</tr>
-		</table>
-		<button type="button" id="addPhoto">사진추가</button><br>
-		
-		
-		<button type="submit">미션 등록</button>
-	</form>
+
 	
 	<h2>미션에 회원을 참여시키기</h2>
 	<form action="${initParam.rootPath }/mission/addMissionMember.do" method="post">
