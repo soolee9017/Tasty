@@ -1,7 +1,8 @@
 package com.tasty.dao.impl;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,6 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return session.selectList(makeSqlId("selectReviewByAddress"), address);
 	}
 
-/*	@Override
-	public int insertReview(Review review) {
-		return session.insert(makeSqlId("insertReview"), review);
-	}*/
-
 	public int insertMenu(String name) {
 		return session.insert(makeSqlId("insertMenu"),name);
 	}
@@ -39,10 +35,13 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return session.insert(makeSqlId("insertMenuTaste"));
 	}
 
-/*	@Override
-	public int insertReview(String title) {
-		return session.insert(makeSqlId("insertReview"),title);
-	}*/
+//	@Override
+//	public int insertReview(String title, String address) {
+//		Map<String,String> map = new HashMap<>();
+//		map.put("title", title);
+//		map.put("address", address);
+//		return session.insert(makeSqlId("insertReview"),map);
+
 	@Override
 	public int insertReview(Review review) {
 		return session.insert(makeSqlId("insertReview"),review);

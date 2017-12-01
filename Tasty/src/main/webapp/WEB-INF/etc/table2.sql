@@ -395,8 +395,7 @@ ALTER TABLE MISSION_CERT_PHOTO
       )
        
        ;
-       
-       
+
        
        
  -----------------------------

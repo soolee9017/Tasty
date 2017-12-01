@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.service.MissionService;
@@ -52,31 +55,35 @@ public class MissionController {
 		return new ModelAndView("/mission/mission_update_success.jsp","mission",mission);
 	}
 	
-	@RequestMapping("addMissionMember")
-	public ModelAndView addMissionMember(@ModelAttribute MissionMember missionMember, HttpServletRequest request) {
-		service.insertMissionMember(missionMember);
+	@RequestMapping("enterMissionMember")
+	public ModelAndView enterMissionMember(@ModelAttribute MissionMember missionMember, HttpServletRequest request,@RequestParam int missionNum) {
+		service.enterMissionMember(missionMember,missionNum);
 		System.out.println(missionMember);
-		return new ModelAndView("/mission/register_mission_success.jsp","missionMember",missionMember);
+		return new ModelAndView("/mission/enter_mission_success.jsp");
 	}
 	
-	@RequestMapping("insertMission")
-	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request /*, ModelMap map*/) throws IllegalStateException, IOException {
+	
+	@RequestMapping("moveToRegister")
+	public String moveToRegisterMission() {
+		return "/mission/register_mission.jsp";
+	}
+	
+	/*@RequestMapping("insertMission")
+	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request , ModelMap map) throws IllegalStateException, IOException {
 		System.out.println(mission);
-		/*List<MultipartFile> fileList = mission.getUpImage();
-		ArrayList list = new ArrayList();
-		for(MultipartFile upImage : fileList) {
-			if(upImage != null && !upImage.isEmpty()) {
-				String fileName = upImage.getOriginalFilename();
-				list.add(fileName);
-				upImage.transferTo(new File(request.getServletContext().getRealPath("/img"),fileName));
-			}
-		}
-		//map.addAttribute("imageName",list);
-	*/  
-		//service.insertMission(mission);
+		//service.insertMission(mission); 
 		
 		return new ModelAndView("/mission/register_mission_success.jsp");
 	}
+	*/
+	@RequestMapping(value="insertMission", method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
+		System.out.println(mission);
+		service.insertMission(mission,request,upImage);
+		
+		return null;
+	}
+	
 	
 
 	@RequestMapping("selectMissionName")

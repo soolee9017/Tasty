@@ -73,6 +73,7 @@ public class ReviewServiceImpl implements ReviewService{
 		   String[] numTaste = numOfTaste.split(",");
 		   String[] taste = listOfTaste.split(",");
 		   String[] degree = listOfDegree.split(",");
+		   String address = (String)session.getAttribute("eateryJibun");
 		   
 		   reviewDao.insertReview(review); 
 		   

@@ -112,16 +112,24 @@
 
 	</select>
 	
-	<insert id="insertMissionMember" parameterType="missionMember">
-		insert into mission_member(mission_num,email)
-		values (#{missionNum},#{email})
-	</insert>
 	
 	<select id="selectMissionByMissionNum" resultMap="mission-resultmap">
 		select * from mission_admin
 		where mission_num=#{value}
 	</select>
 	
+	 <!--   멤버가 미션 참여하기를 누르면 current_people 을 +1 하고, 
+	 		mission_member에 현재 로그인되어있는 아이디와, 현재 들어가있는 미션번호 값들을 삽입한다. -->
+	<update id="updateCurrentPeople" parameterType="mission">
+		UPDATE mission_admin
+		SET current_people = current_people+1
+		WHERE MISSION_NUM = #{value}
+	</update>
+	
+	<insert id="insertMissionMember" parameterType="missionMember">
+		insert into mission_member(mission_num,email)
+		values (#{missionNum},#{email})
+	</insert>
 	
 
 
