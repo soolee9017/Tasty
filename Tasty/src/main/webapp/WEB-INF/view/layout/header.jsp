@@ -94,6 +94,7 @@
 <%--관리자 메뉴 /admin 으로 시작--%>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<li><a href="${initParam.rootPath }/admin/register_admin_form.do">관리자 등록</a></li>
+	<li><a href="${initParam.rootPath }/admin/member_management.do">회원 관리</a></li>
 </sec:authorize>
 
 

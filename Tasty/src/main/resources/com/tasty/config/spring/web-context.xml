@@ -46,6 +46,7 @@
 <!-- 관리자만 관련 /admin 으로 시작 -->
    <!-- 관리자 등록 폼 -->
    <mvc:view-controller path="/admin/register_admin_form.do" view-name="admin/register_admin_form.tiles"/>
+   <mvc:view-controller path="/admin/member_management.do" view-name="admin/member_management.tiles"/>
 	
 	<!-- ViewResolver -->
 	

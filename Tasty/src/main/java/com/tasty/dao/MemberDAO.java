@@ -52,12 +52,7 @@ public interface MemberDAO {
 	
 	int updateMemberByEmail(Member Member);
 	
-	/**
-	 * 맛 수정
-	 * @param memberTaste
-	 * @return
-	 */
-	int updateMemberTasteByEmail(MemberTaste memberTaste);
+
 	
 	/**
 	 * Email(ID)로 회원 조회
@@ -65,6 +60,12 @@ public interface MemberDAO {
 	 * @return
 	 */
 	Member selectMemberByEmail(String email);
+	
+	List<Member> selectAllMember();
+	
+	List<MemberTaste> selectMemberTasteByEmail(String email);
+	
+	int updateMemberCertByEmail(int memberCert);
 	
 	/**
 	 * 권한 추가
