@@ -1,6 +1,7 @@
 package com.tasty.controller;
 
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,8 +47,11 @@ public class ReviewController {
    public ModelAndView registerReview(Principal principal,HttpServletRequest request, @RequestParam String listOfMenu, @RequestParam String numOfTaste,
          @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating, @RequestParam String title,
          @RequestParam String content,@RequestParam List<MultipartFile> upImage) throws Exception {
-         reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage);
-      return null;
+         
+	  int num = reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage);
+         
+         Review review = reviewService.selectReviewByNum(num);
+         return new ModelAndView("review/reviewDetail.jsp","review",review);
    }
   
   @RequestMapping("selectReviewByNum")
@@ -55,7 +59,7 @@ public class ReviewController {
 	
 	 int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
-	  return new ModelAndView("review/reviewDetail2.jsp","review",review);
+	  return new ModelAndView("review/reviewDetail.jsp","review",review);
 }
   
   
@@ -92,4 +96,20 @@ public class ReviewController {
 	  
 	  return -1; //업데이트한 리뷰를 searchClick.jsp에 return.
   }
+  
+  
+  @RequestMapping("getAverageRating")
+  @ResponseBody
+  public String getAverageRating(@RequestParam String address){
+
+	  DecimalFormat df = new DecimalFormat("#######.##");
+	  String avg = df.format(reviewService.averageRating(address));
+	  
+	  float average = reviewService.averageRating(address);
+	  
+	  return avg;
+  }
+  
+  
+  
 }

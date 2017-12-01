@@ -25,6 +25,10 @@ public interface ReviewDAO {
 	
 	Review selectReviewByNum(int number);
 	
+	float averageRating(String address);
+	
+	List<Integer> selectReviewNumByEmail(String email);
+	
 	int insertCheck(ReviewUpsDownsCheck review);
 	
 	ReviewUpsDownsCheck selectCheck(String email, int reviewNum);
