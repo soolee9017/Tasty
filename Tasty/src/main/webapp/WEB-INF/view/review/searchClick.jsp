@@ -33,6 +33,7 @@ $(document).ready(function(){
 				txt += this.title+"<br>";
 				txt += "<button class='plus'>추천</button>";
 				
+				
 			});
 			//alert(txt);
 			$("#reviewList").append(txt); 
