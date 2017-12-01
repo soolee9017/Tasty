@@ -123,27 +123,6 @@ $(document).ready(function(){
     		   return;
     	   }
        }
-      /*  for(var j = 0; j < tasteSel.length; j++){
-          if(tasteSel[j].value == tasteSel[j+1].value){
-              alert("맛이 중복되었습니다.");
-                $('select').find('option:first').attr('selected', 'selected');
-                return;
-          }
-       } */
-       
-        
-/*       if(selectedTaste == 8 || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == 8 || $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex == 8){
-        alert("완벽한 맛은 맛추가를 할 수 없습니다.");
-        /* $('select').find('option:first').attr('selected', 'selected'); 
-        return;
-     }
-      else if(selectedTaste == $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex 
-            || selectedTaste == $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex
-            || $('#tBody>tr:eq('+i+') select')[i+2].selectedIndex == $('#tBody>tr:eq('+i+') select')[i+4].selectedIndex){
-         alert("맛이 중복되었습니다.");
-         $('select').find('option:first').attr('selected', 'selected');
-         return;
-   } */
    
     	name= $('#tBody>tr:eq('+i+') input').val();
    	    sLength = $('#tBody>tr:eq('+i+') select').length;
@@ -199,12 +178,11 @@ $(document).ready(function(){
 </head>
 <body>
 
-   
    <h2>${sessionScope.eateryTitle} 리뷰작성 페이지!!</h2>
    <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm"
    enctype="multipart/form-data">
    <sec:csrfInput/>
-   <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="">
+   <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="" required="required">
     제목 : <input type="text" name="title" required="required"><br>
       내용: <textarea name="content" cols="40" rows="8" required="required"></textarea>
       <br>
@@ -220,7 +198,7 @@ $(document).ready(function(){
          <tbody id="tBody">
             <tr>
                <td><button type="button" class="deleteMenu">메뉴삭제</button></td>
-               <td><input type='text' name='menu'></td>
+               <td><input type='text' name='menu' required></td>
                <td><button type='button'class='plusTaste2'>맛 추가</button></td>
                <td><span><select class='tasteSel' name="tastes" required="required">
                      <option value="">맛을 선택하세요.</option>
@@ -254,6 +232,11 @@ $(document).ready(function(){
 <input type="hidden" id="numOfTaste" name="numOfTaste" value="">
 <input type="hidden" id="listOfTaste" name="listOfTaste" value="">
 <input type="hidden" id="listOfDegree" name="listOfDegree" value="">
+
+
+
+
+
 
 ---------------리뷰 최종 전송 버튼 ---------------------<br>
 <button id="sendBtn" type="button">리뷰 전송</button>

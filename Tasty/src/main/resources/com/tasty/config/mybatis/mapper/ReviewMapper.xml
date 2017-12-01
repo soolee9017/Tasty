@@ -16,6 +16,7 @@
 	<result column = "pos_y" property="posY"/>
 </resultMap>
 
+
 <resultMap type="review" id="review-join-menu-resultmap" extends="review-resultmap">
 	<collection property="menuList" ofType="menu">
 		<id column="menu_num" property="menuNum"/>
@@ -39,10 +40,21 @@
 						
 				</association>
 			</collection>
-			
-			
-			
 	</collection>
+</resultMap>
+
+
+<resultMap type="review" id="review-join-menu-photo-resultmap" extends="review-join-menu-resultmap">
+
+	<collection property="reviewPhotoList" ofType="reviewPhoto">
+		<result column="photo_num" property="photoNum"/>
+		<result column="review_num" property="reviewNum"/>
+		<collection property="photoList" ofType="photo">
+				<id column="photo_num" property="photoNum"/>
+				<result column="photo_path" property="photoPath"/>
+		</collection>
+	</collection>
+
 </resultMap>
 
 
@@ -72,37 +84,25 @@
 	and at.degree_num=d.degree_num(+) 
 </select>
 
+<!-- 
+<insert id="insertReview" parameterType="map">
+insert into review (review_num, title, address) values (review_num_seq.nextval, #{title}, #{address})
+</insert> -->
 
-<insert id="insertReview" parameterType="String">
-insert into review (review_num, title) values (review_num_seq.nextval, #{value})
-
-
+<insert id="insertReview" parameterType="review">
+insert into review values (review_num_seq.nextval, #{address},#{storeName},#{email},#{title},#{content},
+#{ratings},#{ups},#{downs},#{posX},#{posY})
 </insert>
 
 
 <insert id="insertMenu" parameterType="string"> <!-- title말고 다른것들은?? -->
-
 insert into menu values (menu_num_seq.nextval, review_num_seq.currval,#{value})
 </insert>
 
 <insert id="insertMenuTaste">
-
 insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 </insert>
 
-<!-- <insert id="insertReview" parameterType="review">
-	INSERT INTO REVIEW VALUES  (#{reviewNum},
-									#{address},
-									#{storeName}, 
-									#{email},
-									#{title},
-									#{content},
-									#{ratings},
-									#{ups},
-									#{downs},
-									#{posX},
-									#{posY})
-</insert> -->
 
 <!-- 리뷰삭제 -->
 <delete id="deleteReview" parameterType="String">
@@ -125,5 +125,30 @@ insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 		   pos_y = #{posY}
 </update>
 
+<!-- 리뷰 당 추천 수  -->
+<update id="updateReviewUpsDowns" parameterType="Review">
+	UPDATE review
+	SET	   ups = #{ups},
+		   downs = #{downs}
+	WHERE  review_num = #{reviewNum}
+</update>
+
+ <select id="selectReviewByNum" parameterType="int" resultMap="review-join-menu-photo-resultmap">
+
+select * 
+from review r, menu m, menu_taste mt, all_taste at, taste t, degree d, review_photo rp, photo p 
+where r.review_num=#{value}
+and r.review_num=m.review_num(+)
+	and m.menu_num=mt.menu_num(+)
+	and mt.td_num=at.td_num(+)
+	and at.taste_num=t.taste_num(+)
+	and at.degree_num=d.degree_num(+) 
+	and r.review_num=rp.review_num(+)
+	and rp.photo_num=p.photo_num(+)
+order by m.menu_num, mt.td_num, p.photo_num asc
+
+
+</select>
+ 
 
 </mapper>

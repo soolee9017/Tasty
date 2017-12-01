@@ -1,13 +1,16 @@
 package com.tasty.service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tasty.vo.Review;
+import com.tasty.vo.ReviewBoard;
 
 public interface ReviewService {
 
@@ -19,9 +22,15 @@ public interface ReviewService {
 	
 	int deleteReview(String email);
 
-//	int insertReview(String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title);
 
-	int insertReview(HttpServletRequest request,String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree, String title,
+
+	int insertReview(Principal principal, HttpServletRequest request, String listOfMenu, String numOfTaste,
+			String listOfTaste, String listOfDegree, String rating, String title, String content,
 			List<MultipartFile> upImage) throws Exception;
+
+	int updateReviewUpsDowns(Review review);
+	
+	
+	Review selectReviewByNum(int number);
 
 }

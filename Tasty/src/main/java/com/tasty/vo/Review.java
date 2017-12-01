@@ -12,7 +12,7 @@ public class Review implements Serializable{
 	private String email;
 	private String title;
 	private String content;
-	private int ratings;
+	private float ratings;
 	private int ups;
 	private int downs;
 	private String posX;
@@ -26,9 +26,19 @@ public class Review implements Serializable{
 	public Review() {}
 	
 	
+	
+
+	public Review(int reviewNum, int ups, int downs) {
+		this.reviewNum = reviewNum;
+		this.ups = ups;
+		this.downs = downs;
+	}
+
+
+
 
 	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
-			int ratings, String posX, String posY, List<Menu> menuList) {
+			float ratings, String posX, String posY, List<Menu> menuList) {
 		this.reviewNum = reviewNum;
 		this.address = address;
 		this.storeName = storeName;
@@ -44,7 +54,7 @@ public class Review implements Serializable{
 
 
 	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
-			int ratings, int ups, int downs, String posX, String posY) {
+			float ratings, int ups, int downs, String posX, String posY) {
 		this.reviewNum = reviewNum;
 		this.address = address;
 		this.storeName = storeName;
@@ -59,7 +69,7 @@ public class Review implements Serializable{
 	}
 
 	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
-			int ratings, int ups, int downs, String posX, String posY, Member member) {
+			float ratings, int ups, int downs, String posX, String posY, Member member) {
 		this.reviewNum = reviewNum;
 		this.address = address;
 		this.storeName = storeName;
@@ -80,7 +90,7 @@ public class Review implements Serializable{
 
 
 	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
-			int ratings, int ups, int downs, String posX, String posY, Member member, List<Menu> menuList,
+			float ratings, int ups, int downs, String posX, String posY, Member member, List<Menu> menuList,
 			List<TempRoute> tempRouteList, List<ReviewPhoto> reviewPhotoList) {
 		this.reviewNum = reviewNum;
 		this.address = address;
@@ -147,11 +157,11 @@ public class Review implements Serializable{
 		this.content = content;
 	}
 
-	public int getRatings() {
+	public float getRatings() {
 		return ratings;
 	}
 
-	public void setRatings(int ratings) {
+	public void setRatings(float ratings) {
 		this.ratings = ratings;
 	}
 
@@ -203,13 +213,41 @@ public class Review implements Serializable{
 		this.menuList = menuList;
 	}
 
+	
+
+	public List<ReviewPhoto> getReviewPhotoList() {
+		return reviewPhotoList;
+	}
+
+
+
+	public void setReviewPhotoList(List<ReviewPhoto> reviewPhotoList) {
+		this.reviewPhotoList = reviewPhotoList;
+	}
+
+
+	
+	public List<TempRoute> getTempRouteList() {
+		return tempRouteList;
+	}
+
+
+
+	public void setTempRouteList(List<TempRoute> tempRouteList) {
+		this.tempRouteList = tempRouteList;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return String.format(
-				"Review [reviewNum=%s, address=%s, storeName=%s, email=%s, title=%s, content=%s, ratings=%s, ups=%s, downs=%s, posX=%s, posY=%s, member=%s, menuList=%s]",
-				reviewNum, address, storeName, email, title, content, ratings, ups, downs, posX, posY, member,
-				menuList);
+				"Review [reviewNum=%s, address=%s, storeName=%s, email=%s, title=%s, content=%s, ratings=%s, ups=%s, downs=%s, posX=%s, posY=%s, member=%s, menuList=%s, tempRouteList=%s, reviewPhotoList=%s]",
+				reviewNum, address, storeName, email, title, content, ratings, ups, downs, posX, posY, member, menuList,
+				tempRouteList, reviewPhotoList);
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -223,13 +261,17 @@ public class Review implements Serializable{
 		result = prime * result + ((menuList == null) ? 0 : menuList.hashCode());
 		result = prime * result + ((posX == null) ? 0 : posX.hashCode());
 		result = prime * result + ((posY == null) ? 0 : posY.hashCode());
-		result = prime * result + ratings;
+		result = prime * result + Float.floatToIntBits(ratings);
 		result = prime * result + reviewNum;
+		result = prime * result + ((reviewPhotoList == null) ? 0 : reviewPhotoList.hashCode());
 		result = prime * result + ((storeName == null) ? 0 : storeName.hashCode());
+		result = prime * result + ((tempRouteList == null) ? 0 : tempRouteList.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ups;
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -277,14 +319,24 @@ public class Review implements Serializable{
 				return false;
 		} else if (!posY.equals(other.posY))
 			return false;
-		if (ratings != other.ratings)
+		if (Float.floatToIntBits(ratings) != Float.floatToIntBits(other.ratings))
 			return false;
 		if (reviewNum != other.reviewNum)
+			return false;
+		if (reviewPhotoList == null) {
+			if (other.reviewPhotoList != null)
+				return false;
+		} else if (!reviewPhotoList.equals(other.reviewPhotoList))
 			return false;
 		if (storeName == null) {
 			if (other.storeName != null)
 				return false;
 		} else if (!storeName.equals(other.storeName))
+			return false;
+		if (tempRouteList == null) {
+			if (other.tempRouteList != null)
+				return false;
+		} else if (!tempRouteList.equals(other.tempRouteList))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -295,6 +347,8 @@ public class Review implements Serializable{
 			return false;
 		return true;
 	}
+
+	
 	
 	
 }

@@ -57,16 +57,26 @@ $(document).ready(function(){
 
 		<button type="submit">수정하기</button>
 	</form>
-
-
-
-
+	
 	<form
 		action="${initParam.rootPath }/mission/removeMissionByMissionNum.do"
 		method="get">
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
 		<button type="submit">미션 삭제하기</button>
 	</form>
+	
+	
+	<!-- 미션 수정하기 -->
+	<h2>해당 미션에 회원을 참여시키기</h2>
+	<form action="${initParam.rootPath }/mission/enterMissionMember.do" method="get">
+		<input type="hidden" id="missionNum" name="missionNum" value="${mission.missionNum }">
+		회원 이메일 : <input type="text" id="email" name="email">
+		<button type="submit">회원참여</button> 
+	</form>
+
+
+
+
 	<p>
 	<p>
 <h2>미션 인증글 보기</h2>
