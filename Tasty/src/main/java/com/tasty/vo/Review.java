@@ -203,6 +203,30 @@ public class Review implements Serializable{
 		this.menuList = menuList;
 	}
 
+	
+
+	public List<ReviewPhoto> getReviewPhotoList() {
+		return reviewPhotoList;
+	}
+
+
+
+	public void setReviewPhotoList(List<ReviewPhoto> reviewPhotoList) {
+		this.reviewPhotoList = reviewPhotoList;
+	}
+
+
+	
+	public List<TempRoute> getTempRouteList() {
+		return tempRouteList;
+	}
+
+
+
+	public void setTempRouteList(List<TempRoute> tempRouteList) {
+		this.tempRouteList = tempRouteList;
+	}
+
 
 
 	@Override

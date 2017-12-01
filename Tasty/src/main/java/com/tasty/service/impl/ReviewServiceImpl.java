@@ -129,6 +129,12 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.deleteReview(email);
 	}
 
+	@Override
+	public Review selectReviewByNum(int number) {
+		
+		return reviewDao.selectReviewByNum(number);
+	}
+
 
 	
 	

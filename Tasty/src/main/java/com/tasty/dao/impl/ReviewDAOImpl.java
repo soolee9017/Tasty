@@ -60,6 +60,11 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public List<Review> selectReviewByEmail(String email) {
 		return session.selectList(makeSqlId("selectReviewByEmail"), email);
 	}
+
+	@Override
+	public Review selectReviewByNum(int number) {
+		return session.selectOne(makeSqlId("selectReviewByNum"),number);
+	}
 	
 	
 	

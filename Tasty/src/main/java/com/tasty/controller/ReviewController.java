@@ -45,6 +45,15 @@ public class ReviewController {
 	   return null;
    
    }
+  
+  @RequestMapping("selectReview")
+  public ModelAndView selectReview(@RequestParam String reviewNum) {
+	  
+	  int number=Integer.parseInt(reviewNum);
+	  Review review = reviewService.selectReviewByNum(number);
+	  System.out.println(review);
+	  return new ModelAndView("review/reviewDetail2.jsp","review",review);
+  }
    
 
    
