@@ -56,7 +56,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button> -->
-      <a class="navbar-brand" href="${initParam.rootPath}/main.do">Logo</a>
+      <a class="navbar-brand" href="${initParam.rootPath}/main.do">Yolty 50</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-left">
@@ -71,7 +71,8 @@
           <ul class="dropdown-menu">
             <li><a href="${initParam.rootPath}/content/util/information.do">회사 소개</a></li>
             <li><a href="#">인사말</a></li>
-            <li><a href="#">연혁 소개</a></li> 
+            <li><a href="#">연혁 소개</a></li>
+            <li><a href="${initParam.rootPath}/content/util/follow.do">Follow</a></li> 
           </ul>
         </li>
       </ul>

@@ -36,7 +36,6 @@ public class MissionController {
 	@RequestMapping("getAllMission")
 	public ModelAndView getAllMission(){
 		List<Mission> list = service.selectAllMission();
-		System.out.println(list);
 		return new ModelAndView("/mission/mission_all_view.jsp","result",list);
 	}
 	
@@ -73,12 +72,13 @@ public class MissionController {
 		return new ModelAndView("/mission/register_mission_success.jsp");
 	}
 	*/
-	@RequestMapping(value="insertMission", method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping("insertMission")
 	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
 		System.out.println(mission);
+		System.out.println("안녕");
 		service.insertMission(mission,request,upImage);
 		
-		return null;
+		return new ModelAndView("/mission/mission_update_success.jsp");
 	}
 	
 	

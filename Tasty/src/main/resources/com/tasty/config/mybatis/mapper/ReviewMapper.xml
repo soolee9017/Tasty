@@ -103,6 +103,21 @@ insert into menu values (menu_num_seq.nextval, review_num_seq.currval,#{value})
 insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 </insert>
 
+<insert id="insertCheck" parameterType="map">
+insert into review_ups_downs_check values (#{email}, #{reviewNum})
+</insert>
+
+<resultMap type="ReviewUpsDownsCheck" id="review-upsdowns-check-resultmap">
+	<result column = "email" property="email"/>
+	<result column = "review_num" property="reviewNum"/>
+</resultMap>
+
+<select id="selectCheck" parameterType="map" resultMap="review-upsdowns-check-resultmap">
+select * 
+from review_ups_downs_check 
+where review_num=#{reviewNum}
+and email=#{email}
+</select>
 
 <!-- 리뷰삭제 -->
 <delete id="deleteReview" parameterType="String">
@@ -148,6 +163,16 @@ and r.review_num=m.review_num(+)
 order by m.menu_num, mt.td_num, p.photo_num asc
 
 
+</select>
+
+<select id="averageRatingByAddress" parameterType="String" resultType="float">
+
+SELECT AVG(ratings) FROM review where address=#{value}
+
+</select>
+
+<select id="selectReviewNumByEmail" parameterType="String" resultType="int">
+select review_num from review where email=#{value} order by review_num desc
 </select>
  
 
