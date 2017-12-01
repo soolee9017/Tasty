@@ -1,8 +1,6 @@
 package com.tasty.service.impl;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -58,20 +56,12 @@ public class MissionServiceImpl implements MissionService{
 				   
 				   System.out.println(fileName);
 				   
-				   photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
+				   photo.transferTo(new File(request.getServletContext().getRealPath("/photos/mission"),fileName));
 				   photoDao.insertPhoto(fileName);
-				   photoDao.insertReviewPhoto();
+				   photoDao.insertMissionPhoto();
 			   }
 		   }
-		   
-		  
-			   
-			   
-		   
-		   
-		   
-		   
-		   return 0;
+		return 0;
 	}
 
 	@Override
@@ -80,8 +70,9 @@ public class MissionServiceImpl implements MissionService{
 	}
 
 	@Override
-	public void insertMissionMember(MissionMember missionMember) {
+	public void enterMissionMember(MissionMember missionMember,int missionNum) {
 		missionDao.insertMissionMember(missionMember);
+		missionDao.updateMissionCurrentPeoplePlus(missionNum);
 	}
 
 	@Override
