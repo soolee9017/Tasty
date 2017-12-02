@@ -82,6 +82,10 @@ public interface MemberDAO {
 	List<Authority> selectAuthorityByEmail(String email);
 	
 	
+	int updateMemberUps(String email);
+	
+	int updateMemberDowns(String email);
+	
 	
 }
 

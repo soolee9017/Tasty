@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.service.ReviewService;
 import com.tasty.service.TasteService;
@@ -35,6 +36,9 @@ public class ReviewController {
    
    @Autowired
    ReviewDAO reviewDao;
+   
+   @Autowired
+   MemberDAO memberDao;
    
    @RequestMapping("getReviewByAddress")
    @ResponseBody
@@ -73,7 +77,9 @@ public class ReviewController {
 	  if(reviewDao.selectCheck(member.getEmail(), reviewNum)==null) {
 		  reviewService.updateReviewUpsDowns(new Review(reviewNum, review.getUps()+1 , review.getDowns())); //select해 온 review번호의 리뷰에 추천수/비추천수 update.
 		  reviewDao.insertCheck(new ReviewUpsDownsCheck(member.getEmail(), reviewNum));
-		
+		  
+		  memberDao.updateMemberUps(review.getEmail());// 해당 리뷰 작성자의 member 데이터의 total_ups를 업데이트 
+		  
 		  return reviewService.selectReviewByNum(reviewNum).getUps(); //업데이트한 리뷰를 searchClick.jsp에 return.
 		  
 	  }
@@ -90,6 +96,8 @@ public class ReviewController {
 	  if(reviewDao.selectCheck(member.getEmail(), reviewNum)==null) {
 		  reviewService.updateReviewUpsDowns(new Review(reviewNum, review.getUps() , review.getDowns()+1)); //select해 온 review번호의 리뷰에 추천수/비추천수 update.
 		  reviewDao.insertCheck(new ReviewUpsDownsCheck(member.getEmail(), reviewNum));
+		  
+		  memberDao.updateMemberDowns(review.getEmail()); //해당 리뷰 작성자의 member 데이터의 total_downs 를 업데이트
 		  
 		  return reviewService.selectReviewByNum(reviewNum).getDowns();
 	  }
