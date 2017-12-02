@@ -17,6 +17,11 @@
 	font-weight: bold;
 }
 
+.review{
+border: 1px solid black;
+width : 40%
+}
+
 </style>
 
 <script type="text/javascript"
@@ -36,17 +41,27 @@ $(document).ready(function(){
 		"success":function(list){
 			var txt = "";
 			$.each(list, function(){
-				txt += "<tr><td>"+this.reviewNum+"</td>";
+/* 				txt += "<tr><td>"+this.reviewNum+"</td>";
 				txt += "<td>"+this.title+"</td>";
 				txt += "<td>"+this.ratings+"/5.0</td>";
 				txt += "<td><button class='plus'>추천</button></td>";
 				txt += "<td><button class='minus'>비추천</button></td>";
 				txt += "<td>"+this.ups+"</td>";
 				txt += "<td>-"+this.downs+"</td>"
-				txt += "<td><button type='button' class='rvBtn'>리뷰 상세보기</button></td></tr>";
+				txt += "<td><button type='button' class='rvBtn'>리뷰 상세보기</button></td></tr>"; */
+				
+				txt += "<div class='review'>";
+				txt += "<span class='reviewNum'>" + this.reviewNum + "</span><br>";
+				txt += 	"제목 : " + this.title + "<br>";
+				txt += "별점 : " + this.ratings + "/5.0<br>";
+				txt += "<button class='plus'>추천</button>";
+				txt += "<button class='minus'>비추천</button><br>";
+				txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
+				txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
+				txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
+				txt += "</div><br>";
 			});
-			//alert(txt);
-			$("#tBody").append(txt); 
+			$("#reviews").append(txt); 
 		}
 	});
 	
@@ -69,18 +84,18 @@ $(document).ready(function(){
 	
 	
 	
-	$("table").on("click", ".rvBtn", function(){
+	$("body").on("click", ".rvBtn", function(){
 		
-		var num = $(this).parent().parent().children().eq(0).html();
-		$('#num').val(num);
+		var num = $(this).parent().children('.reviewNum').html();
+	
+		$('#reviewNumber').val(num);
 		 $("#reviewDetail").submit(); 
 		
 		
 	});
 	
 	
-	//$(evtSrc).parent().prev().prev().html(),
- 	$("table").on("click", ".plus", function(){
+ /* 	$("table").on("click", ".plus", function(){
  		var evtSrc = this;
 		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
 			"url":"/Tasty/review/updateReviewUps.do",
@@ -95,10 +110,32 @@ $(document).ready(function(){
 				}
 			}
 		});
-	});
- 	
- 	$("table").on("click", ".minus", function(){
+	}); */
+	
+	
+ 	$("body").on("click", ".plus", function(){
  		var evtSrc = this;
+ 		var num = $(this).parent().children('.reviewNum').html();
+ 		
+ 		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
+			"url":"/Tasty/review/updateReviewUps.do",
+			"data":"reviewNum="+num,
+			"dataType":"json",
+			"success":function(review){
+				if(review == -1){
+					alert("이미 선택하셨습니다.");
+				}else{
+				var txt = "추천수 : "+ review ;
+				$(evtSrc).parent().children('.ups').html(txt);
+				}
+			}
+		}); 
+	});
+	 
+/*  	
+ 	$("div").on("click", ".minus", function(){
+ 		var evtSrc = this;
+ 		
 		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
 			"url":"/Tasty/review/updateReviewDowns.do",
 			"data":"reviewNum="+$(evtSrc).parent().parent().children().eq(0).html(),
@@ -112,10 +149,31 @@ $(document).ready(function(){
 				}
 			}
 		});
-	});
+	}); */
+ 	
+ 	
+  	$("body").on("click", ".minus", function(){
+ 		var evtSrc = this;
+ 		var num = $(this).parent().children('.reviewNum').html();
+		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
+			"url":"/Tasty/review/updateReviewDowns.do",
+			"data":"reviewNum="+num,
+			"dataType":"json",
+			"success":function(review){
+				if(review == -1){
+					alert("이미 선택하셨습니다.");
+				}else{
+				var txt = "비추천수 : " + review + "<br>";
+				$(evtSrc).parent().children('.downs').html(txt);
+				}
+			}
+		});
+	}); 
 	 
 
+	
 });
+
 </script>
 
 <body>
@@ -131,7 +189,7 @@ $(document).ready(function(){
 <p>
 <p>
 
-<table border="1">
+<!-- <table border="1">
 	<thead>
 		<tr>
 			<td>번호</td>
@@ -147,11 +205,17 @@ $(document).ready(function(){
 	<tbody id="tBody">
 		
 	</tbody>
-</table>
+</table> -->
+
+
+<div id="reviews">
+
+
+</div>
 
 <form action="${initParam.rootPath }/review/selectReviewByNum.do" id="reviewDetail" method="post">
  <sec:csrfInput/>
-<input type="hidden" id="num" name="reviewNum" value="">
+<input type="hidden" id="reviewNumber" name="reviewNum" value="">
 </form>
 
 </body>
