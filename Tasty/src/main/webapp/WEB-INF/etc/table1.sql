@@ -449,7 +449,9 @@ create sequence taste_seq;
 
 drop sequence degree_seq;
 create sequence degree_seq;
-
+create sequence review_num_seq;
+create sequece mission_admin_seq;
+create sequence photo_num_seq
 delete from taste where taste_num=16;
 delete from degree;
 select * from TASTE;
