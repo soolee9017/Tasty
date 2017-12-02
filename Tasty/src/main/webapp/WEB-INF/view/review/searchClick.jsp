@@ -77,11 +77,13 @@ $(document).ready(function(){
 		
 	});
 	
+	
+	//$(evtSrc).parent().prev().prev().html(),
  	$("table").on("click", ".plus", function(){
  		var evtSrc = this;
 		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
 			"url":"/Tasty/review/updateReviewUps.do",
-			"data":"reviewNum="+$(evtSrc).parent().prev().prev().html(),
+			"data":"reviewNum="+$(evtSrc).parent().parent().children().eq(0).html(),
 			"dataType":"json",
 			"success":function(review){
 				if(review == -1){
@@ -98,7 +100,7 @@ $(document).ready(function(){
  		var evtSrc = this;
 		$.ajax({//추천수를 DB에 저장해서 Controller에 가져와서 뿌려주기
 			"url":"/Tasty/review/updateReviewDowns.do",
-			"data":"reviewNum="+$(evtSrc).parent().prev().prev().prev().html(),
+			"data":"reviewNum="+$(evtSrc).parent().parent().children().eq(0).html(),
 			"dataType":"json",
 			"success":function(review){
 				if(review == -1){
