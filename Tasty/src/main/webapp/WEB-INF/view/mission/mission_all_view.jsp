@@ -27,8 +27,6 @@ $(document).ready(function(){
 					$("#listTbody").html(txt);
 					
 					
-					//var txt = obj.missionNum+","+obj.missionName+","+obj.missionContent+","+obj.currentPeople","+obj.maxPeople+","+obj.startDate+","+obj.endDate;
-					//$("#result").append(txt);
 				},
 				"beforeSend":function(){
 					if(!$("#missionName").val()){
@@ -65,9 +63,12 @@ div {
 				<a href="${initParam.rootPath }/mission/selectMissionNum.do?missionNum=${mission.missionNum}">
 					<div class="missions">
 						<div class="item_img_box">
-							이미지 들어갈자리
-							<img style="width:200px;" alt="mission_photo" src="${photo.photoPath }">
-							<!-- 상품이미지 경로 설정해야함 -->						
+							<!-- 상품이미지 경로 설정해야함 -->
+							<c:forEach items="${requestScope.mission.missionPhotoList}" var="missionPhoto">
+								이미지
+								<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photoList[0].photoPath}" width="500px">
+							</c:forEach>
+													
 						</div>
 						<div class="mission_spec">
 							<div class="mission_name">
@@ -81,7 +82,6 @@ div {
 						</div>
 						<div class="mission_spec">
 							<div class="start_date">
-								시작일 : ${mission.startDate}
 							</div>
 						</div>
 						<div class="mission_spec">
@@ -89,7 +89,6 @@ div {
 								최종일 : ${mission.endDate}
 							</div>
 						</div>
-					</div>
 				</a>
 			</div>
 			<br>

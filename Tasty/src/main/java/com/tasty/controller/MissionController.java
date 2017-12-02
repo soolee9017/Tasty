@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -77,8 +78,6 @@ public class MissionController {
 	*/
 	@RequestMapping("insertMission")
 	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
-		System.out.println(mission);
-		System.out.println("안녕");
 		service.insertMission(mission,request,upImage);
 		
 		return new ModelAndView("/mission/mission_update_success.jsp");

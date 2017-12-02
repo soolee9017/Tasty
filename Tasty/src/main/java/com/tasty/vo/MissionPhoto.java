@@ -11,15 +11,38 @@ public class MissionPhoto {
 	private List<Photo> photoList;
 	
 	
+
 	
 	public MissionPhoto() {
 	}
+	
+	public MissionPhoto(int photoNum, int missionNum) {
+		this.photoNum = photoNum;
+		this.missionNum = missionNum;
+	}
+	
+
+	public MissionPhoto(int photoNum, int missionNum, Mission mission) {
+		this.photoNum = photoNum;
+		this.missionNum = missionNum;
+		this.mission = mission;
+	}
+	
+
+	public MissionPhoto(int photoNum, int missionNum, List<Photo> photoList) {
+		this.photoNum = photoNum;
+		this.missionNum = missionNum;
+		this.photoList = photoList;
+	}
+	
+
 	public MissionPhoto(int photoNum, int missionNum, Mission mission, List<Photo> photoList) {
 		this.photoNum = photoNum;
 		this.missionNum = missionNum;
 		this.mission = mission;
 		this.photoList = photoList;
 	}
+
 	public int getPhotoNum() {
 		return photoNum;
 	}

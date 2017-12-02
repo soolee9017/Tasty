@@ -1,12 +1,14 @@
 package com.tasty.vo;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.tasty.util.DateJsonSerializer;
 
 public class Mission implements Serializable{
 	private int missionNum;
@@ -14,16 +16,32 @@ public class Mission implements Serializable{
 	private String missionContent;
 	private int currentPeople;
 	private int maxPeople;
-	@DateTimeFormat(pattern="yyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date startDate;
-	@DateTimeFormat(pattern="yyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
 	private List<MissionPhoto> missionPhotoList;//생성자 만들었음
-	private List<MultipartFile> upImage;
+	
+	
+	
 	public Mission() {
 	}
+
+
 	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,
-			Date startDate, Date endDate, List<MissionPhoto> missionPhotoList, List<MultipartFile> upImage) {
+			Date startDate, Date endDate) {
+		this.missionNum = missionNum;
+		this.missionName = missionName;
+		this.missionContent = missionContent;
+		this.currentPeople = currentPeople;
+		this.maxPeople = maxPeople;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	
+	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,
+			Date startDate, Date endDate, List<MissionPhoto> missionPhotoList) {
 		this.missionNum = missionNum;
 		this.missionName = missionName;
 		this.missionContent = missionContent;
@@ -32,69 +50,97 @@ public class Mission implements Serializable{
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.missionPhotoList = missionPhotoList;
-		this.upImage = upImage;
 	}
+
+
 	public int getMissionNum() {
 		return missionNum;
 	}
+
+
 	public void setMissionNum(int missionNum) {
 		this.missionNum = missionNum;
 	}
+
+
 	public String getMissionName() {
 		return missionName;
 	}
+
+
 	public void setMissionName(String missionName) {
 		this.missionName = missionName;
 	}
+
+
 	public String getMissionContent() {
 		return missionContent;
 	}
+
+
 	public void setMissionContent(String missionContent) {
 		this.missionContent = missionContent;
 	}
+
+
 	public int getCurrentPeople() {
 		return currentPeople;
 	}
+
+
 	public void setCurrentPeople(int currentPeople) {
 		this.currentPeople = currentPeople;
 	}
+
+
 	public int getMaxPeople() {
 		return maxPeople;
 	}
+
+
 	public void setMaxPeople(int maxPeople) {
 		this.maxPeople = maxPeople;
 	}
+
+
 	public Date getStartDate() {
 		return startDate;
 	}
+
+
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+
+
 	public Date getEndDate() {
 		return endDate;
 	}
+
+
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+
+
 	public List<MissionPhoto> getMissionPhotoList() {
 		return missionPhotoList;
 	}
+
+
 	public void setMissionPhotoList(List<MissionPhoto> missionPhotoList) {
 		this.missionPhotoList = missionPhotoList;
 	}
-	public List<MultipartFile> getUpImage() {
-		return upImage;
-	}
-	public void setUpImage(List<MultipartFile> upImage) {
-		this.upImage = upImage;
-	}
+
+
 	@Override
 	public String toString() {
 		return "Mission [missionNum=" + missionNum + ", missionName=" + missionName + ", missionContent="
 				+ missionContent + ", currentPeople=" + currentPeople + ", maxPeople=" + maxPeople + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", missionPhotoList=" + missionPhotoList + ", upImage=" + upImage
-				+ "]";
+				+ startDate + ", endDate=" + endDate + ", missionPhotoList=" + missionPhotoList + "]";
 	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -107,9 +153,10 @@ public class Mission implements Serializable{
 		result = prime * result + missionNum;
 		result = prime * result + ((missionPhotoList == null) ? 0 : missionPhotoList.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		result = prime * result + ((upImage == null) ? 0 : upImage.hashCode());
 		return result;
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -150,13 +197,11 @@ public class Mission implements Serializable{
 				return false;
 		} else if (!startDate.equals(other.startDate))
 			return false;
-		if (upImage == null) {
-			if (other.upImage != null)
-				return false;
-		} else if (!upImage.equals(other.upImage))
-			return false;
 		return true;
 	}
+
+
+	
 
 	
 	

@@ -287,7 +287,6 @@ ALTER TABLE REVIEW
 -- 리뷰
 DROP TABLE REVIEW cascade constraint;
 
-insert into review values('1', '판교', '판교가게', 'bbb@bbb.com', '판교가게감', '내용내용', '4.5', '8', '5', '55', '44');
 
 -- 리뷰
 CREATE TABLE REVIEW (
@@ -297,7 +296,7 @@ CREATE TABLE REVIEW (
    email      VARCHAR2(50)   NULL,     -- 이메일
    title      VARCHAR2(50)   NULL,     -- 제목
    content    VARCHAR2(600)  NULL,     -- 내용
-   ratings    NUMBER(5)      NULL,     -- 별점
+   ratings    NUMBER(2,1)      NULL,     -- 별점
    ups        NUMBER(5)      NULL,     -- 추천수
    downs      NUMBER(5)      NULL,     -- 비추천수
    pos_x      VARCHAR2(25)   NULL,     -- X좌표

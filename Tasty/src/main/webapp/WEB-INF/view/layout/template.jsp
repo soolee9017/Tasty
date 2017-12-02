@@ -24,9 +24,13 @@ section header h1 {
 	position: static;
 	z-index: 5;
 }
-#keyword{
-	margin-left:360px;
+
+#keyword {
+	position: absolute;
+	top: 60%;
+	left: 23%;
 }
+
 #searchEater {
 	-webkit-border-radius: 15px 0 0 15px;
 	font-size: 17px;
@@ -38,16 +42,17 @@ section header h1 {
 .back {
 	background-color: rgba(0, 0, 0, 0.3);
 	width: 100%;
-	height: 570px;
-	margin-top: 49.5px;
-	z-index: 2;
+	height: 77.6%;
+	margin-top: 49.5px; z-index : 2;
 	position: absolute;
+	z-index: 2;
 }
 
 .foot {
-	bottom: 0; position : absolute;
+	bottom: 0;
+	position: absolute;
 	width: 100%;
-	height: 10%;
+	height: 12%;
 	position: absolute;
 }
 </style>
@@ -65,9 +70,11 @@ section header h1 {
 	function imgSearch() {
 		var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 		var search = document.getElementById('searchEater').value;
-		if (search.search(/\s/) != -1
-				|| special_pattern.test(search) == true) {
-			swal("", "가게 이름 혹은 키워드에 공백, 특수문자가 존재합니다.", "error");
+		if (special_pattern.test(search) == true) {
+			swal("", "특수문자나 공백이 존재합니다.", "error");
+			return false;
+		} else if (!search.replace(/^\s+|\s+$/g, '')) {
+			swal("", "특수문자나 공백이 존재합니다.", "error");
 			return false;
 		} else if (!search) {
 			swal("", "가게 이름 혹은 키워드가 입력되지 않았습니다.", "error");
@@ -82,7 +89,7 @@ section header h1 {
 			<tiles:insertAttribute name="header" />
 		</header>
 		<section>
-			<article>	
+			<article>
 				<tiles:insertAttribute name="content" />
 			</article>
 		</section>

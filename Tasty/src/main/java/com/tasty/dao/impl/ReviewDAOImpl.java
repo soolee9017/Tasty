@@ -72,6 +72,16 @@ public class ReviewDAOImpl implements ReviewDAO{
 	}
 
 	@Override
+	public float averageRating(String address) {
+		return session.selectOne(makeSqlId("averageRatingByAddress"), address);
+	}
+
+	@Override
+	public List<Integer> selectReviewNumByEmail(String email) {
+		return session.selectList(makeSqlId("selectReviewNumByEmail"),email);
+	}	
+	
+	@Override
 	public int insertCheck(ReviewUpsDownsCheck review) {
 		return session.insert(makeSqlId("insertCheck"), review);
 	}
@@ -84,9 +94,6 @@ public class ReviewDAOImpl implements ReviewDAO{
 		
 		return session.selectOne(makeSqlId("selectCheck"), map);
 	}
-	
-	
-	
 	
 	
 }
