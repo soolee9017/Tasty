@@ -52,12 +52,7 @@ public interface MemberDAO {
 	
 	int updateMemberByEmail(Member Member);
 	
-	/**
-	 * 맛 수정
-	 * @param memberTaste
-	 * @return
-	 */
-	int updateMemberTasteByEmail(MemberTaste memberTaste);
+
 	
 	/**
 	 * Email(ID)로 회원 조회
@@ -65,6 +60,26 @@ public interface MemberDAO {
 	 * @return
 	 */
 	Member selectMemberByEmail(String email);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	List<Member> selectAllMember();
+	
+	/**
+	 * 
+	 * @param email
+	 * @return
+	 */
+	List<MemberTaste> selectMemberTasteByEmail(String email);
+	
+	/**
+	 * 인증여부 변경 (탈퇴시)
+	 * @param memberCert
+	 * @return
+	 */
+	int updateMemberCertByEmail(String email);
 	
 	/**
 	 * 권한 추가
@@ -82,6 +97,10 @@ public interface MemberDAO {
 	List<Authority> selectAuthorityByEmail(String email);
 	
 	
+
+	List<Member> selectMemberByMemberCert(int memberCert);
+	
+
 	int updateMemberUps(String email);
 	
 	int updateMemberDowns(String email);
