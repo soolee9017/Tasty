@@ -7,25 +7,22 @@ public class MemberTaste implements Serializable{
 	
 	private String email;
 	private int tasteNum;
-	
-	private Member member;
-	private List<Taste> tasteList; 
+	private Taste taste; 
 	
 	public MemberTaste() {
 		
 	}
 
-	public MemberTaste(String email, int tasteNum, Member member, List<Taste> tasteList) {
+	public MemberTaste(String email, int tasteNum, Taste taste) {
 		this.email = email;
 		this.tasteNum = tasteNum;
-		this.member = member;
-		this.tasteList = tasteList;
+		this.taste = taste;
 	}
 
 
-	public MemberTaste(String email, List<Taste> tasteList) {
+	public MemberTaste(String email, Taste taste) {
 		this.email = email;
-		this.tasteList = tasteList;
+		this.taste = taste;
 	}
 
 	public MemberTaste(String email, int tasteNum) {
@@ -33,12 +30,15 @@ public class MemberTaste implements Serializable{
 		this.tasteNum = tasteNum;
 	}
 
-	public List<Taste> getTasteList() {
-		return tasteList;
+	
+	
+
+	public Taste getTaste() {
+		return taste;
 	}
 
-	public void setTasteList(List<Taste> tasteList) {
-		this.tasteList = tasteList;
+	public void setTaste(Taste taste) {
+		this.taste = taste;
 	}
 
 	public String getEmail() {
@@ -57,25 +57,21 @@ public class MemberTaste implements Serializable{
 		this.tasteNum = tasteNum;
 	}
 
-	public Member getMember() {
-		return member;
-	}
 
-	public void setMember(Member member) {
-		this.member = member;
-	}
-	
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((member == null) ? 0 : member.hashCode());
-		result = prime * result + ((tasteList == null) ? 0 : tasteList.hashCode());
+		result = prime * result + ((taste == null) ? 0 : taste.hashCode());
 		result = prime * result + tasteNum;
 		return result;
 	}
+
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -91,27 +87,24 @@ public class MemberTaste implements Serializable{
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (member == null) {
-			if (other.member != null)
+		if (taste == null) {
+			if (other.taste != null)
 				return false;
-		} else if (!member.equals(other.member))
-			return false;
-		if (tasteList == null) {
-			if (other.tasteList != null)
-				return false;
-		} else if (!tasteList.equals(other.tasteList))
+		} else if (!taste.equals(other.taste))
 			return false;
 		if (tasteNum != other.tasteNum)
 			return false;
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
-		return "MemberTaste [email=" + email + ", tasteNum=" + tasteNum + ", member=" + member + ", tasteList="
-				+ tasteList +  "]";
+		return "MemberTaste [email=" + email + ", tasteNum=" + tasteNum + ", taste=" + taste + "]";
 	}
 
+	
+	
 
 	
 

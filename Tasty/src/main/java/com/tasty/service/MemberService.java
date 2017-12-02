@@ -13,8 +13,6 @@ public interface MemberService {
 	
 	void updateMemberByEmail(Member member);
 	
-	void updateMemberTasteByEmail(MemberTaste memberTaste);
-	
 	void removeMemberByEmail(String email);
 	
 	void removeAuthorityByEmail(String email);
@@ -22,8 +20,15 @@ public interface MemberService {
 	void removeMemberTasteByEmail(String email);
 	
 	Member selectMemberByEmail(String email);
+	
+	List<Member> selectAllMember();
+	
+	//마저할것
+	int updateMemberCertByEmail(String email);
+	
+	List<MemberTaste> selectMemberTasteByEmail(String email);
 
-
+	List<Member> selectMemberByMemberCert(int memberCert);
 
 
 	

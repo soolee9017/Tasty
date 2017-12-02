@@ -44,7 +44,7 @@ $(document).ready(function(){
    </div>
    <div class="form-group">
       <label for="phoneNum">전화번호</label>
-      <input type="text" name="phoneNum" id="phoneNum" class="form-control">
+      <input type="text" name="phoneNum" id="phoneNum" class="form-control" required="required">
    </div>
       <div class="form-group">
       <label for="gender">성별</label>

@@ -89,6 +89,10 @@ div {
 								최종일 : ${mission.endDate}
 							</div>
 						</div>
+
+					
+					</div>
+
 				</a>
 			</div>
 			<br>

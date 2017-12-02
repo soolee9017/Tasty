@@ -1,6 +1,8 @@
 
 package com.tasty.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -64,16 +66,33 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public void updateMemberTasteByEmail(MemberTaste memberTaste) {
-		memberDao.updateMemberTasteByEmail(memberTaste);
-	}
-
-	@Override
 	public Member selectMemberByEmail(String email) {
 		return memberDao.selectMemberByEmail(email);
 	}
 
+	@Override
+	public List<MemberTaste> selectMemberTasteByEmail(String email) {
+		return memberDao.selectMemberTasteByEmail(email);
+	}
+
+	@Override
+	public List<Member> selectAllMember() {
+		return memberDao.selectAllMember();
+	}
+
+	//마저할것
+	@Override
+	public int updateMemberCertByEmail(String email) {
+		return memberDao.updateMemberCertByEmail(email);
+	}
+
+	@Override
+	public List<Member> selectMemberByMemberCert(int memberCert) {
+		return memberDao.selectMemberByMemberCert(memberCert);
+	}
 
 
+
+	
 	
 }
