@@ -65,13 +65,11 @@ public class ReviewServiceImpl implements ReviewService{
 
 			//읭?
 			float ratingFloat = Float.parseFloat(rating);
-			System.out.println(rating);
 			
 
 			Review review = new Review(1,(String)session.getAttribute("eateryJibun"),(String)session.getAttribute("eateryTitle"),
 					member.getEmail(),title,content,ratingFloat,0,0,(String)session.getAttribute("lng"),(String)session.getAttribute("lat"));
 			
-		   System.out.println(review);
 		   String[] menu = listOfMenu.split(",");
 		   String[] numTaste = numOfTaste.split(",");
 		   String[] taste = listOfTaste.split(",");
@@ -145,6 +143,12 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.averageRating(address);
 	}
 
+	@Override
+	public List<Review> getListAndMemberByAdd(String address) {
+		return reviewDao.selectReviewAndMemberByAddress(address);
+	}
+
+	
 
 	
 	
