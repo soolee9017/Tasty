@@ -40,10 +40,17 @@ public class ReviewController {
    @Autowired
    MemberDAO memberDao;
    
-   @RequestMapping("getReviewByAddress")
+/*   @RequestMapping("getReviewByAddress")
    @ResponseBody
    public List<Review> getReviewByAddress(@RequestParam String address){
       List<Review> list = reviewService.selectReviewByAddress(address);
+      return list;
+   }*/
+   
+    @RequestMapping("getReviewByAddress")
+   @ResponseBody
+   public List<Review> getReviewByAddress(@RequestParam String address){
+      List<Review> list = reviewService.getListAndMemberByAdd(address);
       return list;
    }
    
