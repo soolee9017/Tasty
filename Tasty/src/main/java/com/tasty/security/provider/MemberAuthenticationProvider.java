@@ -47,7 +47,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 	      if(list.size() ==  0){
 	         //모든 인증된 사용자는 권한이 있어야 하는 경우는 권한 개수 체크후 권한이 없으면 
 	         //  예외 발생시킨다. (권한이 없는 사용자도 있을 경우 생략한다.)
-	         throw new UsernameNotFoundException("권한이 없는 사용자 입니다.");
+	         throw new UsernameNotFoundException("로그인 권한이 없습니다.");
 	      }
 	      //SimpleGrantedAuthority - 권한정보를 문자열로 저장.
 	      List<SimpleGrantedAuthority> authList = new ArrayList<>();

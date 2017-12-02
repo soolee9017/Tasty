@@ -114,12 +114,18 @@ $(document).ready(function(){
     	   if(tasteSel[0].value == tasteSel[1].value){
     		   alert('중복된 맛');
     		   return;
+    	   } else if(tasteSel[0].value == '8' || tasteSel[1].value == '8'){
+    		   alert('완벽한 맛은 한가지 맛만 선택가능합니다.');
+    		   return;
     	   }
     	   
        }else if(tasteSel.length ==3){
     	   if(tasteSel[0].value == tasteSel[1].value 
     			   || tasteSel[0].value == tasteSel[2].value|| tasteSel[1].value==tasteSel[2].value ){
     		   alert('중복된 맛');
+    		   return;
+    	   }else if(tasteSel[0].value == '8' || tasteSel[1].value == '8' || tasteSel[2].value == '8'){
+    		   alert('완벽한 맛은 한가지 맛만 선택가능합니다.');
     		   return;
     	   }
        }

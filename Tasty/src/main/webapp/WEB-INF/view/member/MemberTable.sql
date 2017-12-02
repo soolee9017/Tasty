@@ -28,6 +28,12 @@ drop table authority cascade constraint;
 
 delete from member
 
+delete from authority
+
+INSERT INTO MEMBER VALUES ('admin', 'admin', '관리자', '관리자', null, null, null, null, 1);
+INSERT INTO AUTHORITY VALUES ('admin', 'ROLE_ADMIN');
+delete from member where email = admin
+delete from authority where email = admin
 
 ------- CREATE + ALTER TABLE --------------------------
 
@@ -217,7 +223,7 @@ select * from users;
 
 select * from AUTHORITIES;
 
-insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN')
+insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN')
 
 
 

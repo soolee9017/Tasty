@@ -64,7 +64,7 @@ $(document).ready(function(){
 					"data":"email="+ email,
 					"dataType":"json",
 					"error":function(a, b,c){
-						alert(c);
+						//alert(c);
 					},
 					"success":function(all){
 						alert(all);
