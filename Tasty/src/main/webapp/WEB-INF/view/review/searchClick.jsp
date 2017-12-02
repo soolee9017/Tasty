@@ -7,11 +7,12 @@
 <title>Insert title here</title>
 </head>
 <style>
-tbody tr td:nth-child(5) {
+
+.plus {
 	color: blue;
 	font-weight: bold; 
 }
-tbody tr td:nth-child(6){
+.minus{
 	color: red;
 	font-weight: bold;
 }
