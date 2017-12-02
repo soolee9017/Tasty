@@ -80,7 +80,7 @@ public class MissionController {
 	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
 		service.insertMission(mission,request,upImage);
 		
-		return new ModelAndView("/mission/mission_update_success.jsp");
+		return new ModelAndView("/mission/show_mission_success.jsp","mission",mission);
 	}
 	
 	
