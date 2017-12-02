@@ -18,8 +18,13 @@
 }
 
 .review{
+
 border: 1px solid black;
 width : 40%
+}
+
+.writer{
+float : left;
 }
 
 </style>
@@ -40,6 +45,8 @@ $(document).ready(function(){
 		},
 		"success":function(list){
 			var txt = "";
+			var memberPos  = 0;
+			
 			$.each(list, function(){
 /* 				txt += "<tr><td>"+this.reviewNum+"</td>";
 				txt += "<td>"+this.title+"</td>";
@@ -50,10 +57,28 @@ $(document).ready(function(){
 				txt += "<td>-"+this.downs+"</td>"
 				txt += "<td><button type='button' class='rvBtn'>리뷰 상세보기</button></td></tr>"; */
 				
+				var email = this.email;
+				
+		 		$.ajax({
+					"url":"/Tasty/member/getMemberPosAndTotal.do",
+					"data":"email="+ email,
+					"dataType":"json",
+					"error":function(a, b,c){
+						//alert(c);
+					},
+					"success":function(all){
+						alert(all);
+						//memberPos = all;
+					}
+				}); 
+				
+				
 				txt += "<div class='review'>";
-				txt += "<span class='reviewNum'>" + this.reviewNum + "</span><br>";
-				txt += 	"제목 : " + this.title + "<br>";
-				txt += "별점 : " + this.ratings + "/5.0<br>";
+				txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
+				txt += "<div class='writer'>글쓴이 : " + email + "<br>";
+				txt += "글쓴이 신뢰도 : " +memberPos + "</div>";
+				txt += 	"<div class='title'>제목 : " + this.title + "</div>";
+				txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
 				txt += "<button class='plus'>추천</button>";
 				txt += "<button class='minus'>비추천</button><br>";
 				txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 

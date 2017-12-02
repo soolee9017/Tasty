@@ -71,38 +71,25 @@
 	
 	<resultMap id="authority-resultmap" type="authority">
       <id column="email" property="email"/>
-      <result column="authority" property="authority"/>
+      <id column="authority" property="authority"/>
    </resultMap>
+   
 	
-	<resultMap type="memberTaste" id="memberTaste-join-member-resultmap" extends="memberTaste-resultmap">
-		<association property="member" javaType="member">
-			<id column="email" property="email"/>
-			<result column="password" property="password"/>
-			<result column="nickname" property="nickname"/>
-			<result column="name" property="name"/>
-			<result column="phone_num" property="phoneNum"/>
-			<result column="gender" property="gender"/>
-			<result column="total_ups" property="totalUps"/>
-			<result column="total_downs" property="totalDowns"/>
-			<result column="member_cert" property="memberCert"/>
-		</association>
-	</resultMap>
-	
-	<resultMap type="memberTaste" id="memberTaste-join-taste-resultmap" extends="memberTaste-resultmap">
-		<collection ofType="taste" property="tasteList">
-			<id column="taste_num" property="tasteNum"/>
-			<result column="taste_name" property="tasteName"/>
-		</collection>			
+	<resultMap type="memberTaste" id="memberTaste-join-taste-resultmap">
+			<result column="email" property="email"/>
+			<result column="taste_num" property="tasteNum"/>
+			<association property="taste" javaType="Taste">
+				<result column="taste_name" property="tasteName"/>
+			</association>
 	</resultMap>
 	
 	<resultMap type="member" id="member-join-memberTaste-resultmap" extends="member-resultmap">
 		<collection property="memberTasteList" ofType="MemberTaste">
 			<result column="email" property="email"/>
 			<result column="taste_num" property="tasteNum"/>
-			<collection property="tasteList" ofType="Taste">
-				<id column="taste_num" property="tasteNum"/>
+			<association property="taste" javaType="Taste">
 				<result column="taste_name" property="tasteName"/>
-			</collection>
+			</association>
 		</collection>
 </resultMap>
 
@@ -133,6 +120,12 @@
 		delete from authority where email = #{value}
 	</delete>
 
+	<update id="updateMemberCertByEmail" parameterType="string">
+		update	member
+		set		member_cert = 0
+		where email = #{email}
+	</update>
+	
 	<!-- 삭제 -->
 	<delete id="deleteMemberByEmail" parameterType="string" >
 		 delete from member where email = #{value} 
@@ -152,6 +145,7 @@
 		where	email = #{email}
 	</update>
 	
+	
 	<delete id="deleteMemberTasteByEmail" parameterType="string">
 		delete from member_taste where email = #{value}
 	</delete>
@@ -163,14 +157,35 @@
 	</update>
 
 	<!-- 조회 -->
+	<select id="selectAllMember" resultMap="member-join-memberTaste-resultmap">
+		select 	m.email, m.password, m.nickname, m.name, m.phone_num, m.gender, m.total_ups, m.total_downs, m.member_cert,
+ 				t.taste_num, t.taste_name
+	 	from 	member m, member_taste mt, taste t
+		where 	m.email = mt.email
+		and 	mt.taste_num = t.taste_num(+)
+	 	order by m.email
+	</select>
+	
+	<select id="selectMemberTasteByEmail" resultMap="memberTaste-join-taste-resultmap" parameterType="string">
+	 select * 
+	 from member_taste mt, taste t
+	 where email = #{email}
+	 and mt.taste_num = t.taste_num(+)
+	</select>
+	
+	
 	<select id="selectMemberByEmail" parameterType="string" resultMap="member-join-memberTaste-resultmap">
 		 		
 		<!-- <include refid="select-join-memberTaste-sql"/>
 		where email = #{value}  -->
 		
-		select * from member
-		where email = #{value}
-		and member_cert = 1
+		select 	m.email, m.password, m.nickname, m.name, m.phone_num, m.gender, m.total_ups, m.total_downs, m.member_cert,
+ 				t.taste_num, t.taste_name
+		from 	member m, member_taste mt, taste t
+		where 	m.email = mt.email(+)
+		and  	mt.taste_num = t.taste_num(+)
+		and		m.email = #{email}
+
 	</select>
 	
 	   <!-- 사용자 ID로 그 사용자의 권한 조회 -->
@@ -179,6 +194,17 @@
       WHERE email = #{value}
    </select>
    
+
+   <select id="selectMemberByMemberCert" parameterType="_int" resultMap="member-join-memberTaste-resultmap">
+   		select 	m.email, m.password, m.nickname, m.name, m.phone_num, m.gender, m.total_ups, m.total_downs, m.member_cert,
+ 				t.taste_num, t.taste_name
+		from 	member m, member_taste mt, taste t
+		where 	m.email = mt.email
+		and  	mt.taste_num = t.taste_num(+)
+   		and	m.member_cert = #{value}
+   	
+   </select>
+
    
    <update id="updateMemberUps" parameterType="string">
     UPDATE member 
@@ -191,6 +217,17 @@
     set total_downs = total_downs + 1 
     where email = #{value}
    </update>
+
+	
+	<select id="getTotalsOfMember" parameterType="string" resultType="int">
+	select total_ups + total_downs from member where email= #{value}
+	</select>
+	
+	<select id="getPosPercentage" parameterType="string" resultType="float">
+	
+	select round(total_ups/(total_ups + total_downs),4) * 100 from member where email= #{value}
+	</select>
+	
 	
 </mapper>
 

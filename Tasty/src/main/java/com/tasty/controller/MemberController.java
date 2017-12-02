@@ -1,15 +1,16 @@
 package com.tasty.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.dao.MemberDAO;
@@ -44,7 +46,7 @@ public class MemberController{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-
+	//회원 정보 수정
 	@RequestMapping("update_member")
 	public String updateMemberByEmail(@ModelAttribute Member member, @RequestParam String oldPassword, @RequestParam String email, 
 			@RequestParam List<String> tastes, HttpServletRequest request, ModelMap model) throws IllegalStateException, IOException{
@@ -90,37 +92,61 @@ public class MemberController{
 		
 		context.setAuthentication(newAutentication);
 		
-		return "member/mypage.tiles";
+		return "/member/mypage.tiles";
 	}
 
 
 	
-	
-	@RequestMapping("removeMemberByEmail")
-	public String removeMemberByEmail(@RequestParam String email) {
-		System.out.println("삭제하러 왔니?");
-		service.removeMemberByEmail(email);
-		System.out.println("삭제할거야?");
-		return "index.tiles";
-	}
-	
-	
-	@RequestMapping("removeAuthorityByEmail")
-	public String removeAuthorityByEmail(@RequestParam String email){
+	//회원 탈퇴 (권한 삭제)
+	@RequestMapping("withdraw_member")
+	public String removeAuthorityByEmail(@RequestParam String email, HttpSession session){
 		System.out.println("어서와");
 		service.removeAuthorityByEmail(email);
+		service.updateMemberCertByEmail(email);
 		System.out.println(email+" : 탈퇴 ㄱ?");
-		return "index.tiles";
+		session.invalidate();
+		return "redirect:/main.do";
 	}
 	
 	
+/*	//회원 조회 (Email_member_본인)
 	@RequestMapping("getMemberByEmail")
 	public ModelAndView getMemberByEmail(@RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);
 		System.out.println(member);
+		service.selectMemberTasteByEmail(email);
+		System.out.println("왔멘");
 		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
+		}*/
 		
-	}
+	
+	
+	
+	  @RequestMapping("getMemberPosAndTotal")
+	  @ResponseBody
+	  public String getAverageRating(@RequestParam String email){
+
+		  int total = dao.getTotalsOfMember(email);
+		  float pos = dao.getPosPercentage(email);
+		  
+		  String all = "전체평가수" + total + "긍정률" + pos ;
+		  System.out.println(all);
+		  return all;
+	  }
+	  
+	  
+/*	@RequestMapping("get_member_email")
+	public ModelAndView getMemberByEmail(@RequestParam String email) {
+		Member member = service.selectMemberByEmail(email);
+		System.out.println(member);
+		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
+		request.setAttribute("tasteList", mt);
+		System.out.println("왔니?");
+		System.out.println(mt);
+		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
+		}*/
+		
+	
 
 
 }

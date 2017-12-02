@@ -14,7 +14,6 @@ insert into photo values (photo_num_seq.nextval,#{value})
 
 <insert id="insertReviewPhoto">
 insert into review_photo values (photo_num_seq.currval,review_num_seq.currval)
-
 </insert>
 
 <insert id="insertMissionPhoto">

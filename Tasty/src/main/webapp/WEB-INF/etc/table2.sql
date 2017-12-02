@@ -401,7 +401,10 @@ ALTER TABLE MISSION_CERT_PHOTO
  -----------------------------
  
        
-       drop sequence photo_num_seq;
-       create sequence photo_num_seq;
+drop sequence photo_num_seq;
+create sequence photo_num_seq;
+
+drop sequence mission_admin_seq;
+create sequence mission_admin_seq;
        
 
