@@ -1,6 +1,7 @@
 package com.tasty.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.dao.MemberDAO;
@@ -121,6 +123,19 @@ public class MemberController{
 		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
 		
 	}
+	
+	
+	  @RequestMapping("getMemberPosAndTotal")
+	  @ResponseBody
+	  public String getAverageRating(@RequestParam String email){
+
+		  int total = dao.getTotalsOfMember(email);
+		  float pos = dao.getPosPercentage(email);
+		  
+		  String all = "전체평가수" + total + "긍정률" + pos ;
+		  System.out.println(all);
+		  return all;
+	  }
 
 
 }

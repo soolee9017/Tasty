@@ -87,6 +87,20 @@ public class MemberDAOImpl implements MemberDAO{
 			return session.update(makeSqlId("updateMemberDowns"),email);
 		}
 
+
+		@Override
+		public int getTotalsOfMember(String email) {
+			return session.selectOne(makeSqlId("getTotalsOfMember"), email);
+		}
+
+
+		@Override
+		public float getPosPercentage(String email) {
+			return session.selectOne(makeSqlId("getPosPercentage"),email);
+		}
+		
+		
+
 		
 	}
 

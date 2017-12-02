@@ -86,7 +86,9 @@ public interface MemberDAO {
 	
 	int updateMemberDowns(String email);
 	
+	int getTotalsOfMember(String email);
 	
+	float getPosPercentage(String email);
 }
 
 

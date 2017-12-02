@@ -192,6 +192,16 @@
     where email = #{value}
    </update>
 	
+	<select id="getTotalsOfMember" parameterType="string" resultType="int">
+	select total_ups + total_downs from member where email= #{value}
+	</select>
+	
+	<select id="getPosPercentage" parameterType="string" resultType="float">
+	
+	select round(total_ups/(total_ups + total_downs),4) * 100 from member where email= #{value}
+	</select>
+	
+	
 </mapper>
 
 
