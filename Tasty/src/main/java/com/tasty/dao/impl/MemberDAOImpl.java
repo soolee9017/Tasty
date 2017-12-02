@@ -73,6 +73,7 @@ public class MemberDAOImpl implements MemberDAO{
 
 
 		@Override
+
 		public List<Member> selectAllMember() {
 			return session.selectList(makeSqlId("selectAllMember"));
 		}
@@ -97,6 +98,16 @@ public class MemberDAOImpl implements MemberDAO{
 
 
 	
+		public int updateMemberUps(String email) {
+			return session.update(makeSqlId("updateMemberUps"),email);
+		}
+
+
+		@Override
+		public int updateMemberDowns(String email) {
+			return session.update(makeSqlId("updateMemberDowns"),email);
+		}
+
 		
 	}
 

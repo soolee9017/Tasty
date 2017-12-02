@@ -97,8 +97,13 @@ public interface MemberDAO {
 	List<Authority> selectAuthorityByEmail(String email);
 	
 	
+
 	List<Member> selectMemberByMemberCert(int memberCert);
 	
+
+	int updateMemberUps(String email);
+	
+	int updateMemberDowns(String email);
 	
 	
 }

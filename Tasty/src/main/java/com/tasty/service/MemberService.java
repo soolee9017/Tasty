@@ -31,6 +31,5 @@ public interface MemberService {
 	List<Member> selectMemberByMemberCert(int memberCert);
 
 
-
 	
 }
