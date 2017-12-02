@@ -90,7 +90,7 @@ public class MemberController{
 		
 		context.setAuthentication(newAutentication);
 		
-		return "member/mypage.tiles";
+		return "/member/mypage.tiles";
 	}
 
 
@@ -107,17 +107,18 @@ public class MemberController{
 	}
 	
 	
-	//회원 조회 (Email_member_본인)
-/*	@RequestMapping("getMemberByEmail")
+/*	//회원 조회 (Email_member_본인)
+	@RequestMapping("getMemberByEmail")
 	public ModelAndView getMemberByEmail(@RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);
 		System.out.println(member);
 		service.selectMemberTasteByEmail(email);
 		System.out.println("왔멘");
-		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);*/
+		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
+		}*/
 		
-	@RequestMapping("get_member_email")
-	public ModelAndView getMemberByEmail(HttpServletRequest request, @RequestParam String email) {
+/*	@RequestMapping("get_member_email")
+	public ModelAndView getMemberByEmail(@RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);
 		System.out.println(member);
 		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
@@ -125,8 +126,9 @@ public class MemberController{
 		System.out.println("왔니?");
 		System.out.println(mt);
 		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
+		}*/
 		
-	}
+	
 
 
 }

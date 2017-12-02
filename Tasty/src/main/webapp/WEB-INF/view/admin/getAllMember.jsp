@@ -10,9 +10,12 @@
 <script charset="UTF-8">
 function moveToRemove(email){
 	var address = "${initParam.rootPath }/admin/remove_member.do?email="+email;
-	location.reload();
-	alert(email + "삭제되었습니다.");
+	location.href=address;
+	//location.reload();
 }
+/* $("ang").on("click",function(){
+	
+}); */
 </script>
 <title>YOLTY50:관리자:회원조회</title>
 </head>
@@ -53,11 +56,16 @@ function moveToRemove(email){
 							<td>${result.totalDowns }</td>
 							<td>${result.memberCert }</td>
 							<td>
-							<%for(int i=0 ; i<tasteList.size(); i++){ %>
-							<%=tasteList.get(i).getTaste().getTasteName() %>
-							<%} %>
+							${requestScope.tasteList }
+							<c:forEach var="taste" items="${requestScope.result}">
+									${taste.memberTasteList.taste.tasteName}
+							</c:forEach>
+							
 							</td>
 							<td>
+								<form action="${initParam.rootPath }/admin/remove_member.do" method="POST">
+										<input type="hidden" name="email" value="${result.email }">									
+									</form>	
 								<button onclick="moveToRemove(${result.email})">삭제</button>
 							</td>
 						</tr>

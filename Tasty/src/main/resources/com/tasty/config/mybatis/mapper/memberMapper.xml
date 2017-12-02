@@ -74,19 +74,6 @@
       <id column="authority" property="authority"/>
    </resultMap>
    
-	<resultMap type="memberTaste" id="memberTaste-join-member-resultmap" extends="memberTaste-resultmap">
-		<association property="member" javaType="member">
-			<id column="email" property="email"/>
-			<result column="password" property="password"/>
-			<result column="nickname" property="nickname"/>
-			<result column="name" property="name"/>
-			<result column="phone_num" property="phoneNum"/>
-			<result column="gender" property="gender"/>
-			<result column="total_ups" property="totalUps"/>
-			<result column="total_downs" property="totalDowns"/>
-			<result column="member_cert" property="memberCert"/>
-		</association>
-	</resultMap>
 	
 	<resultMap type="memberTaste" id="memberTaste-join-taste-resultmap">
 			<result column="email" property="email"/>
@@ -101,7 +88,6 @@
 			<result column="email" property="email"/>
 			<result column="taste_num" property="tasteNum"/>
 			<association property="taste" javaType="Taste">
-				<id column="taste_num" property="tasteNum"/>
 				<result column="taste_name" property="tasteName"/>
 			</association>
 		</collection>
@@ -172,7 +158,12 @@
 
 	<!-- 조회 -->
 	<select id="selectAllMember" resultMap="member-join-memberTaste-resultmap">
-		select * from member
+		select 	m.email, m.password, m.nickname, m.name, m.phone_num, m.gender, m.total_ups, m.total_downs, m.member_cert,
+ 				t.taste_num, t.taste_name
+	 	from 	member m, member_taste mt, taste t
+		where 	m.email = mt.email
+		and 	mt.taste_num = t.taste_num(+)
+	 	order by m.email
 	</select>
 	
 	<select id="selectMemberTasteByEmail" resultMap="memberTaste-join-taste-resultmap" parameterType="string">
@@ -188,9 +179,13 @@
 		<!-- <include refid="select-join-memberTaste-sql"/>
 		where email = #{value}  -->
 		
-		select * from member
-		where email = #{value}
-		and member_cert = 1
+		select 	m.email, m.password, m.nickname, m.name, m.phone_num, m.gender, m.total_ups, m.total_downs, m.member_cert,
+ 				t.taste_num, t.taste_name
+		from 	member m, member_taste mt, taste t
+		where 	m.email = mt.email(+)
+		and  	mt.taste_num = t.taste_num(+)
+		and		m.email = #{email}
+
 	</select>
 	
 	   <!-- 사용자 ID로 그 사용자의 권한 조회 -->
@@ -200,8 +195,12 @@
    </select>
    
    <select id="selectMemberByMemberCert" parameterType="_int" resultMap="member-join-memberTaste-resultmap">
-   		select * from member
-   		where member_cert = #{value}
+   		select 	m.email, m.password, m.nickname, m.name, m.phone_num, m.gender, m.total_ups, m.total_downs, m.member_cert,
+ 				t.taste_num, t.taste_name
+		from 	member m, member_taste mt, taste t
+		where 	m.email = mt.email
+		and  	mt.taste_num = t.taste_num(+)
+   		and	m.member_cert = #{value}
    	
    </select>
 	

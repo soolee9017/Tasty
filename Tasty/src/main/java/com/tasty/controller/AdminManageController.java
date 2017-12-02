@@ -39,14 +39,7 @@ public class AdminManageController {
 	@RequestMapping("get_member_all")
 	public ModelAndView getAllMember(HttpServletRequest request) {
 		List<Member> list = service.selectAllMember();
-		List<MemberTaste> mt = null;
-		String email = null;
-		for(int i = 0; i<list.size(); i++) {
-			email = list.get(i).getEmail();
-		}
-		mt = service.selectMemberTasteByEmail(email);
-		request.setAttribute("tasteList", mt);
-		System.out.println("나오니?");
+
 		return new ModelAndView("/admin/getAllMember.jsp", "result", list);
 	}
 	
@@ -54,13 +47,11 @@ public class AdminManageController {
 	@RequestMapping("get_member_email")
 	public ModelAndView getMemberByEmail(HttpServletRequest request, @RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);
-		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
-		request.setAttribute("tasteList", mt);
-		System.out.println("왔니?");
-		System.out.println(member);
-		System.out.println(mt);
+//		request.setAttribute("tasteList", mt);
+//		System.out.println("왔니?");
+//		System.out.println(member);
+//		System.out.println(mt);
 		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
-		
 	}
 	
 	//인증여부
