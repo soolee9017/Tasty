@@ -79,8 +79,8 @@ public class MemberDAOImpl implements MemberDAO{
 
 
 		@Override
-		public int updateMemberCertByEmail(int memberCert) {
-			return session.update(makeSqlId("updateMemberCertByEmail"), memberCert);
+		public int updateMemberCertByEmail(String email) {
+			return session.update(makeSqlId("updateMemberCertByEmail"), email);
 		}
 
 

@@ -75,11 +75,11 @@ public interface MemberDAO {
 	List<MemberTaste> selectMemberTasteByEmail(String email);
 	
 	/**
-	 * 
+	 * 인증여부 변경 (탈퇴시)
 	 * @param memberCert
 	 * @return
 	 */
-	int updateMemberCertByEmail(int memberCert);
+	int updateMemberCertByEmail(String email);
 	
 	/**
 	 * 권한 추가

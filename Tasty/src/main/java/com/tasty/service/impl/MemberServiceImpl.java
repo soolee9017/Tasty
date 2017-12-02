@@ -82,8 +82,8 @@ public class MemberServiceImpl implements MemberService{
 
 	//마저할것
 	@Override
-	public int updateMemberCertByEmail(int memberCert) {
-		return memberDao.updateMemberCertByEmail(memberCert);
+	public int updateMemberCertByEmail(String email) {
+		return memberDao.updateMemberCertByEmail(email);
 	}
 
 	@Override

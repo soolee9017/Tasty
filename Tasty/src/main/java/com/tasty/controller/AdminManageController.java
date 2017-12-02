@@ -88,9 +88,14 @@ public class AdminManageController {
 	*/
 	//회원 삭제
 	@RequestMapping("remove_member")
-	public String removeMemberByEmail(@RequestParam String email) {
+	public String removeMemberByEmail(@RequestParam String email, HttpServletRequest request) {
 		System.out.println("삭제하러 왔니?");
+		service.removeAuthorityByEmail(email);
 		service.removeMemberByEmail(email);
+		if(email == null) {
+			String result = String.format("회원이 없습니다.");
+			request.setAttribute("result", result);
+		}
 		System.out.println("삭제할거야?");
 		return "redirect:/admin/member_management.do";
 	}

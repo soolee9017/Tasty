@@ -24,7 +24,7 @@ public interface MemberService {
 	List<Member> selectAllMember();
 	
 	//마저할것
-	int updateMemberCertByEmail(int memberCert);
+	int updateMemberCertByEmail(String email);
 	
 	List<MemberTaste> selectMemberTasteByEmail(String email);
 

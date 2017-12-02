@@ -100,6 +100,7 @@ public class MemberController{
 	public String removeAuthorityByEmail(@RequestParam String email, HttpSession session){
 		System.out.println("어서와");
 		service.removeAuthorityByEmail(email);
+		service.updateMemberCertByEmail(email);
 		System.out.println(email+" : 탈퇴 ㄱ?");
 		session.invalidate();
 		return "redirect:/main.do";
@@ -107,13 +108,23 @@ public class MemberController{
 	
 	
 	//회원 조회 (Email_member_본인)
-	@RequestMapping("getMemberByEmail")
+/*	@RequestMapping("getMemberByEmail")
 	public ModelAndView getMemberByEmail(@RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);
 		System.out.println(member);
 		service.selectMemberTasteByEmail(email);
 		System.out.println("왔멘");
-		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
+		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);*/
+		
+	@RequestMapping("get_member_email")
+	public ModelAndView getMemberByEmail(HttpServletRequest request, @RequestParam String email) {
+		Member member = service.selectMemberByEmail(email);
+		System.out.println(member);
+		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
+		request.setAttribute("tasteList", mt);
+		System.out.println("왔니?");
+		System.out.println(mt);
+		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
 		
 	}
 

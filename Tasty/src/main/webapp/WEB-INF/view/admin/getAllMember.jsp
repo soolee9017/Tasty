@@ -7,10 +7,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script charset="UTF-8">
+function moveToRemove(email){
+	var address = "${initParam.rootPath }/admin/remove_member.do?email="+email;
+	location.reload();
+	alert(email + "삭제되었습니다.");
+}
+</script>
 <title>YOLTY50:관리자:회원조회</title>
 </head>
 <body>
 	<h2>회원조회(전체)</h2>
+
+		<p>
 	<table>
 		<thead>
 			<tr>
@@ -23,6 +32,10 @@
 				<th>총 비추천 수</th>
 				<th>인증 여부</th>
 				<th>선호하는 맛</th>
+				<th><form action="${initParam.rootPath }/admin/member_management.do" method='get'>
+				<button type="submit" class="btn btn-default">돌아가기</button>
+				</form>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -44,11 +57,28 @@
 							<%=tasteList.get(i).getTaste().getTasteName() %>
 							<%} %>
 							</td>
+							<td>
+								<button onclick="moveToRemove(${result.email})">삭제</button>
+							</td>
 						</tr>
 					</c:forEach>
 				</c:when>
+				<c:otherwise>
+					<tr>
+					<td>조회된 회원이 없습니다.</td>
+					</tr>
+				</c:otherwise>
+				
 			</c:choose>
 		</tbody>
 	</table>
+
 </body>
 </html>
+
+
+
+
+
+
+

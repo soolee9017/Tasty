@@ -71,9 +71,9 @@
 	
 	<resultMap id="authority-resultmap" type="authority">
       <id column="email" property="email"/>
-      <result column="authority" property="authority"/>
+      <id column="authority" property="authority"/>
    </resultMap>
-	
+   
 	<resultMap type="memberTaste" id="memberTaste-join-member-resultmap" extends="memberTaste-resultmap">
 		<association property="member" javaType="member">
 			<id column="email" property="email"/>
@@ -134,6 +134,12 @@
 		delete from authority where email = #{value}
 	</delete>
 
+	<update id="updateMemberCertByEmail" parameterType="string">
+		update	member
+		set		member_cert = 0
+		where email = #{email}
+	</update>
+	
 	<!-- 삭제 -->
 	<delete id="deleteMemberByEmail" parameterType="string" >
 		 delete from member where email = #{value} 
@@ -153,11 +159,6 @@
 		where	email = #{email}
 	</update>
 	
-	<update id="updateMemberCertByEmail" parameterType="_int">
-		update	member
-		set		member_cert = 0
-		where	email = #{email}
-	</update>
 	
 	<delete id="deleteMemberTasteByEmail" parameterType="string">
 		delete from member_taste where email = #{value}
