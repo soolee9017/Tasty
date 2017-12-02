@@ -65,14 +65,7 @@ public class MissionController {
 		return "/mission/register_mission.jsp";
 	}
 	
-	/*@RequestMapping("insertMission")
-	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request , ModelMap map) throws IllegalStateException, IOException {
-		System.out.println(mission);
-		//service.insertMission(mission); 
-		
-		return new ModelAndView("/mission/register_mission_success.jsp");
-	}
-	*/
+
 	@RequestMapping("insertMission")
 	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
 		service.insertMission(mission,request,upImage);
@@ -97,6 +90,15 @@ public class MissionController {
 		return new ModelAndView("/mission/show_mission_success.jsp","mission",mission);
 	}
 	
+	@RequestMapping("selectMissionNum2")
+	public ModelAndView selectMissionByMissionNum2(@RequestParam int missionNum) {
+		Mission mission = service.selectMissionByMissionNum(missionNum);
+		System.out.println(mission);
+		return new ModelAndView("/mission/modify_mission.jsp","mission",mission);
+	}
+	
+	
+
 	
 	
 	

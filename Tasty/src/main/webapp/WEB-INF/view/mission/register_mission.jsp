@@ -31,8 +31,6 @@
 							$(this).parent(), parent().remove();
 						});//end of photoList
 						
-					
-						
 					});//end of document.ready
 </script>
 
