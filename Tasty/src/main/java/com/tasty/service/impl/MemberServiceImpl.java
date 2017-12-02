@@ -73,7 +73,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectMemberByEmail(email);
 	}
 
-
+	
 
 	
 }

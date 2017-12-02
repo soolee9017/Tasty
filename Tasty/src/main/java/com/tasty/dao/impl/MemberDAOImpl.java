@@ -76,7 +76,17 @@ public class MemberDAOImpl implements MemberDAO{
 		}
 
 
-	
+		@Override
+		public int updateMemberUps(String email) {
+			return session.update(makeSqlId("updateMemberUps"),email);
+		}
+
+
+		@Override
+		public int updateMemberDowns(String email) {
+			return session.update(makeSqlId("updateMemberDowns"),email);
+		}
+
 		
 	}
 

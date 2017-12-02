@@ -178,6 +178,19 @@
       <include refid="authority-select-sql"/>
       WHERE email = #{value}
    </select>
+   
+   
+   <update id="updateMemberUps" parameterType="string">
+    UPDATE member 
+    set total_ups = total_ups + 1 
+    where email= #{value}
+   </update>
+   
+   <update id="updateMemberDowns" parameterType="string">
+    update member 
+    set total_downs = total_downs + 1 
+    where email = #{value}
+   </update>
 	
 </mapper>
 
