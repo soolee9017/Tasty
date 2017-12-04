@@ -47,6 +47,7 @@
    </sql>
 	
 	
+	
 	<resultMap type="member" id="member-resultmap">
 		<id column="email" property="email"/>
 		<result column="password" property="password"/>
@@ -74,6 +75,20 @@
       <id column="authority" property="authority"/>
    </resultMap>
    
+	<resultMap type="review" id="review-resultmap">
+		<id column="review_num" property="reviewNum"/>
+		<result column = "address" property="address"/>
+		<result column = "store_name" property="storeName"/>
+		<result column = "email" property="email"/>
+		<result column = "title" property="title"/>
+		<result column = "content" property="content"/>
+		<result column = "ratings" property="ratings"/>
+		<result column = "ups" property="ups"/>
+		<result column = "downs" property="downs"/>
+		<result column = "pos_x" property="posX"/>
+		<result column = "pos_y" property="posY"/>
+	</resultMap>
+   
 	
 	<resultMap type="memberTaste" id="memberTaste-join-taste-resultmap">
 			<result column="email" property="email"/>
@@ -82,6 +97,9 @@
 				<result column="taste_name" property="tasteName"/>
 			</association>
 	</resultMap>
+	
+	
+	
 	
 	<resultMap type="member" id="member-join-memberTaste-resultmap" extends="member-resultmap">
 		<collection property="memberTasteList" ofType="MemberTaste">

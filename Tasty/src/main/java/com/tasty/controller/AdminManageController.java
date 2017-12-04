@@ -47,10 +47,12 @@ public class AdminManageController {
 	@RequestMapping("get_member_email")
 	public ModelAndView getMemberByEmail(HttpServletRequest request, @RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);
+		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
 //		request.setAttribute("tasteList", mt);
 //		System.out.println("왔니?");
 //		System.out.println(member);
 //		System.out.println(mt);
+		request.setAttribute("tasteList", mt);
 		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
 	}
 	

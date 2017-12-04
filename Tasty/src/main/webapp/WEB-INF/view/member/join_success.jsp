@@ -28,7 +28,9 @@
       <div class="col-sm-10">${requestScope.member.gender}</div>
    </div>
       <div class="row">
-      <div class="col-sm-2">선호하는 맛</div>
-      <div class="col-sm-10">${requestScope.memberTaste.taste.tasteName}</div>
+      <div class="col-sm-2">선호하는 맛</div><div class="col-sm-10">
+      <c:forEach var='tastes' items='${requestScope.member.memberTasteList}'>
+      ${tastes.taste.tasteName}
+      </c:forEach></div>
    </div>
 </div>

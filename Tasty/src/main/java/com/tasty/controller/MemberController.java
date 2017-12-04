@@ -82,7 +82,7 @@ public class MemberController{
 				}
 			}
 		}
-		
+		 
 		//권한(Authority) 변경 또는 추가 시
 		List<GrantedAuthority> list = new ArrayList<>(authentication.getAuthorities());
 		UsernamePasswordAuthenticationToken newAutentication = 
@@ -107,29 +107,6 @@ public class MemberController{
 	}
 	
 	
-/*	//회원 조회 (Email_member_본인)
-	@RequestMapping("getMemberByEmail")
-	public ModelAndView getMemberByEmail(@RequestParam String email) {
-		Member member = service.selectMemberByEmail(email);
-		System.out.println(member);
-		service.selectMemberTasteByEmail(email);
-		System.out.println("왔멘");
-		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
-		}*/
-		
-/*	@RequestMapping("get_member_email")
-	public ModelAndView getMemberByEmail(@RequestParam String email) {
-		Member member = service.selectMemberByEmail(email);
-		System.out.println(member);
-		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
-		request.setAttribute("tasteList", mt);
-		System.out.println("왔니?");
-		System.out.println(mt);
-		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
-		}*/
-		
-	
-
 
 }
 

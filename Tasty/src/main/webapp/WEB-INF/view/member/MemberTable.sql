@@ -193,7 +193,7 @@ ALTER TABLE AUTHORITY
 		
 		
 		
-		
+		select * from review where email = 'v'
 		
 		
 -- 입맛 기본키
@@ -216,9 +216,9 @@ ALTER TABLE TASTE
 	ON DELETE CASCADE
 	ON UPDATE CASCADE;
     
-    
-    
-
+ create sequence photo_num_seq;   
+create sequence mission_admin_seq;    
+create sequence review_num_seq;
 select * from users;
 
 select * from AUTHORITIES;

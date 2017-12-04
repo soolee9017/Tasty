@@ -10,6 +10,7 @@ import com.tasty.dao.MemberDAO;
 import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
+import com.tasty.vo.Review;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
@@ -106,6 +107,12 @@ public class MemberDAOImpl implements MemberDAO{
 		@Override
 		public int updateMemberDowns(String email) {
 			return session.update(makeSqlId("updateMemberDowns"),email);
+		}
+
+
+		@Override
+		public List<Review> selectReviewByEmail(String email) {
+			return session.selectList(makeSqlId("selectReviewByEmail"), email);
 		}
 
 		

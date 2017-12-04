@@ -13,6 +13,7 @@ import com.tasty.service.MemberService;
 import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
+import com.tasty.vo.Review;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -89,6 +90,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<Member> selectMemberByMemberCert(int memberCert) {
 		return memberDao.selectMemberByMemberCert(memberCert);
+	}
+
+	@Override
+	public List<Review> selectReviewByEmail(String email) {
+		return memberDao.selectReviewByEmail(email);
 	}
 
 

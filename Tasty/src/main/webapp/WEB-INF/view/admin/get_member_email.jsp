@@ -7,15 +7,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<script type="text/javascript"
+   src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
+
 <script charset="UTF-8">
 function remove(email){
-	var address = "${initParam.rootPath }/admin/remove_member.do?email="+email;
+	//var address = "${initParam.rootPath }/admin/remove_member.do?email="+email;
 	location.reload();
 	alert("삭제되었습니다.");
 }
-/* $("ang").on("click",function(){
-	
-}); */
+
 </script>
 <title>YOLTY50:관리자:회원조회</title>
 </head>
