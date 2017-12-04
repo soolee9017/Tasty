@@ -7,8 +7,7 @@
 		width:100%;
 	}
 </style>
-<div class="row">
-<div class="back">
+<div class="row back">
 	<header>
 		<h1>Yolty 50</h1>
 	</header>
@@ -19,7 +18,6 @@
 			<span class="glyphicon glyphicon-search"></span> 검색</button>
 	</form>	
 </div>
-
 <div id="myCarousel" class="row carousel slide" data-ride="carousel"
 	style="position: relative;">
 
@@ -60,7 +58,6 @@
 				alt="Yukhoi">
 		</div>
 	</div>
-</div>
 </div>
 
 

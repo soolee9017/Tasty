@@ -42,7 +42,7 @@ section header h1 {
 .back {
 	background-color: rgba(0, 0, 0, 0.3);
 	width: 100%;
-	height: 77.6%;
+	height: 78.6%;
 	margin-top: 49.5px;
 	z-index:2;
 	position:absolute;
