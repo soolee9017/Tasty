@@ -17,7 +17,6 @@
 </resultMap>
 
 
-
 <resultMap type="review" id="review-join-menu-resultmap" extends="review-resultmap">
 	<collection property="menuList" ofType="menu">
 		<id column="menu_num" property="menuNum"/>
@@ -60,7 +59,7 @@
 
 
 
-<resultMap type="review" id="review-join-member-resultmap" extends ="review-resultmap">
+<resultMap type="review" id="review-join-member-resultmap" extends ="review-join-menu-resultmap">
 	<association property="member" javaType="member">
 		<id column="email" property="email"/>
 		<result column="password" property="password"/>
@@ -190,14 +189,27 @@ select review_num from review where email=#{value} order by review_num desc
 </select>
 
 
-<select id="selectReviewAndMemberByAddress" parameterType="string" resultMap="review-join-member-resultmap">
+<!-- 리뷰+멤버+메뉴+메뉴테이스트+올테이스트 조인 -->
+<select id="selectReviewAndMemberByAddress" parameterType="map" resultMap="review-join-member-resultmap">
 
+select *
+from review r, member m, menu mn, menu_taste mt, all_taste at  
+where r.email = m.email
+and r.review_num = mn.review_num(+)
+and mn.menu_num = mt.menu_num(+)
+and mt.td_num = at.td_num(+)
+and at.taste_num = #{tasteNum}
+and r.address = #{address}
+order by r.ups desc
+
+</select>
+ 
+<select id="selectAllReviewAndMemberByAddress" parameterType="String" resultMap="review-join-member-resultmap">
 select *
 from review r, member m 
 where r.email = m.email 
 and r.address = #{value}
-
+order by r.ups desc
 </select>
- 
 
 </mapper>

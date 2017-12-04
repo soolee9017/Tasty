@@ -54,6 +54,7 @@ $(document).ready(function(){
       },
       "success":function(list){
          var txt = "";
+         txt += "<button id='moreBtn' type='button'>리뷰 더 보기</button>";
          var total;
          $.each(list, function(){
 /*             txt += "<tr><td>"+this.reviewNum+"</td>";
@@ -70,6 +71,7 @@ $(document).ready(function(){
              total = this.member.totalUps + this.member.totalDowns;
              pos = (this.member.totalUps / total) * 100;
             
+            
             txt += "<div class='review'>";
             txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
             txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
@@ -85,9 +87,11 @@ $(document).ready(function(){
             txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
             txt += "</div><br>";
          });
-         $("#reviews").append(txt); 
+         $("#reviews").html(txt); 
       }
    });
+   
+   
    
    
    
@@ -193,7 +197,81 @@ $(document).ready(function(){
          }
       });
    }); 
+   
+   $("body").on("click","#moreBtn",function(){
+	  $.ajax({
+	      "url":"/Tasty/review/getAllReviewByAddress.do",
+	      "data":"address="+address,
+	      "dataType":"json",
+	      "error":function(a, b,c){
+	         alert(c);
+	      },
+	      "success":function(list){
+	         var txt = "";
+	         txt += "<button id='mtTasteBtn' type='button'>입맛맞춰 보기</button>";
+	         var total;
+	         $.each(list, function(){
+	             total = this.member.totalUps + this.member.totalDowns;
+	             pos = (this.member.totalUps / total) * 100;
+	            
+	            txt += "<div class='review'>";
+	            txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
+	            txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
+	            txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
+	            txt += "긍정평가률 : " + pos.toFixed(2) + "%</div>";
+	            txt +=    "<div class='title'>제목 : " + this.title + "</div>";
+	            txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
+	            txt += "<div class='content'>내용 : " + this.content + "</div>";
+	            txt += "이 리뷰를 추천/비추천?<button class='plus'>추천</button>";
+	            txt += "<button class='minus'>비추천</button><br>";
+	            txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
+	            txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
+	            txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
+	            txt += "</div><br>";
+	         });
+	         $("#reviews").html(txt); 
+	      }
+	   });
+	  
+   });
     
+   $("body").on("click","#mtTasteBtn",function(){
+	   $.ajax({
+		      "url":"/Tasty/review/getReviewByAddress.do",
+		      "data":"address="+address,
+		      "dataType":"json",
+		      "error":function(a, b,c){
+		         alert(c);
+		      },
+		      "success":function(list){
+		         var txt = "";
+		         txt += "<button id='moreBtn' type='button'>리뷰 더 보기</button>";
+		         var total;
+		         $.each(list, function(){
+		       
+		             total = this.member.totalUps + this.member.totalDowns;
+		             pos = (this.member.totalUps / total) * 100;
+		            
+		            
+		            txt += "<div class='review'>";
+		            txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
+		            txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
+		            txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
+		            txt += "긍정평가률 : " + pos.toFixed(2) + "%</div>";
+		            txt +=    "<div class='title'>제목 : " + this.title + "</div>";
+		            txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
+		            txt += "<div class='content'>내용 : " + this.content + "</div>";
+		            txt += "이 리뷰를 추천/비추천?<button class='plus'>추천</button>";
+		            txt += "<button class='minus'>비추천</button><br>";
+		            txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
+		            txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
+		            txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
+		            txt += "</div><br>";
+		         });
+		         $("#reviews").html(txt); 
+		      }
+		   });
+   });
 
    
 });
@@ -207,6 +285,7 @@ $(document).ready(function(){
 <h3>식당 주소: ${sessionScope.eateryJibun}</h3>
 <h3>식당 전화번호: ${sessionScope.eateryTel }</h3>
 <h4 id="ratings"></h4>
+
 
 <a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
 <p>

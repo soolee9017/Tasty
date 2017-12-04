@@ -1,8 +1,8 @@
 package com.tasty.service.impl;
 
 import java.io.File;
-import java.io.InputStream;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,14 +16,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.dao.PhotoDAO;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.TasteDAO;
 import com.tasty.service.ReviewService;
 import com.tasty.vo.Member;
+import com.tasty.vo.MemberTaste;
 import com.tasty.vo.Review;
 
 @Service
@@ -37,6 +38,9 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Autowired
 	private PhotoDAO photoDao;
+	
+	@Autowired
+	private MemberDAO memberDao;
 	
 	
 	@Override
@@ -144,9 +148,29 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<Review> getListAndMemberByAdd(String address) {
-		return reviewDao.selectReviewAndMemberByAddress(address);
+	public List<Review> getListAndMemberByAdd(Principal principal, String address) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member= (Member)authentication.getPrincipal();
+		
+		List<MemberTaste> mtList = memberDao.selectMemberTasteByEmail(member.getEmail());
+		
+		List<Review> result = new ArrayList<>();
+		
+		for(int i=0; i<mtList.size(); i++) {
+			List<Review> reviewList = reviewDao.selectReviewAndMemberByAddress(address, mtList.get(i).getTasteNum());
+			result.addAll(reviewList);
+		}
+		System.out.println("service 실행: "+result);
+		
+		return result;
 	}
+
+	@Override
+	public List<Review> selectAllReviewAndMemberByAddress(String address) {
+		return reviewDao.selectAllReviewAndMemberByAddress(address);
+	}
+
 
 	
 
