@@ -58,10 +58,6 @@ $(document).ready(function(){
 		</c:forEach>
 		
 	
-	<form action="${initParam.rootPath }/mission/moveToModifyMission" method="get">
-		<button type="submit">미션 수정하기</button>
-	</form>	
-	
 	<h2>해당 미션에 회원을 참여시키기</h2>
 	<form action="${initParam.rootPath }/mission/enterMissionMember.do" method="get">
 		<input type="hidden" id="missionNum" name="missionNum" value="${mission.missionNum }">
@@ -69,17 +65,9 @@ $(document).ready(function(){
 		<button type="submit">회원참여</button> 
 	</form>
 	
-	<form action="${initParam.rootPath }/mission/modifyMission.do" method="post">
+	<form action="${initParam.rootPath }/mission/selectMissionNum2.do" method="get">
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
-		미션이름 : <input type="text" name="missionName" value="${mission.missionName }" /><br>
-		미션 내용 :<br> 
-		<textarea name="missionContent" cols="40" rows="8" >${mission.missionContent }</textarea><br>
-		<input type="hidden" name="currentPeople" value="${mission.currentPeople }" />
-		최대인원 : <input type="number" name="maxPeople" value="${mission.maxPeople }" /> <br>
-		미션 시작일 : <input type="date" name="startDate" id="startDate" value="${mission.startDate }" /> <br>
-		미션 종료일 : <input type="date" name="endDate" id="endDate" value="${mission.endDate }" /><br>
-
-		<button type="submit">수정하기</button>
+		<button type="submit">수정하러가기</button>
 	</form>
 	
 	<form
@@ -88,9 +76,6 @@ $(document).ready(function(){
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
 		<button type="submit">미션 삭제하기</button>
 	</form>
-	
-
-
 
 
 	<p>
@@ -101,11 +86,11 @@ $(document).ready(function(){
 		<div class="mission_cert_box">
 				<a href="${initParam.rootPath }/mission/selectMissionNum.do?missionNum=${missionCert.missionNum}">
 				<div class="mission_cert">
-					<div class="mission_cert_img_box">
+					 <div class="mission_cert_img_box">
 						인증사진들 들어갈 section
 						<img style="width: 200px;" alt="item_img" src=''>
-						<!-- 상품 이미지 -->
-					</div>
+						상품 이미지
+					</div> 
 					<div class="mission_cert_spec">
 						<div class="mission_cert_title">
 							인증글제목
