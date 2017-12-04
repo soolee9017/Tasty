@@ -29,6 +29,10 @@
    </div>
       <div class="row">
       <div class="col-sm-2">선호하는 맛</div>
-      <div class="col-sm-10">${requestScope.memberTaste.taste.tasteName}</div>
+      <div class="col-sm-10">
+      <c:forEach var="memberTaste" items="${requestScope.member.memberTasteList}">
+    	  ${memberTaste.taste.tasteName }&nbsp;
+      </c:forEach>
+      </div>
    </div>
 </div>

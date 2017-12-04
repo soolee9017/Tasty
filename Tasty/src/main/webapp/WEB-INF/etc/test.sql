@@ -13,3 +13,8 @@ select * from review_ups_downs_check where review_num=12
 delete from review_ups_downs_check where email='www'
 
 select * from all_taste
+
+select * 
+from member m, MEMBER_TASTE mt
+where m.email = mt.email
+and m.email = 'r'
