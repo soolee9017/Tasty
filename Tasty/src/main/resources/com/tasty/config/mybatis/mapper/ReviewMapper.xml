@@ -17,6 +17,7 @@
 </resultMap>
 
 
+
 <resultMap type="review" id="review-join-menu-resultmap" extends="review-resultmap">
 	<collection property="menuList" ofType="menu">
 		<id column="menu_num" property="menuNum"/>
@@ -59,6 +60,19 @@
 
 
 
+<resultMap type="review" id="review-join-member-resultmap" extends ="review-resultmap">
+	<association property="member" javaType="member">
+		<id column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="nickname" property="nickname"/>
+		<result column="name" property="name"/>
+		<result column="phone_num" property="phoneNum"/>
+		<result column="gender" property="gender"/>
+		<result column="total_ups" property="totalUps"/>
+		<result column="total_downs" property="totalDowns"/>
+		<result column="member_cert" property="memberCert"/>
+	</association>
+</resultMap>
 
 
 <select id="selectReviewByAddress" parameterType="String" resultMap="review-join-menu-resultmap">
@@ -173,6 +187,16 @@ SELECT AVG(ratings) FROM review where address=#{value}
 
 <select id="selectReviewNumByEmail" parameterType="String" resultType="int">
 select review_num from review where email=#{value} order by review_num desc
+</select>
+
+
+<select id="selectReviewAndMemberByAddress" parameterType="string" resultMap="review-join-member-resultmap">
+
+select *
+from review r, member m 
+where r.email = m.email 
+and r.address = #{value}
+
 </select>
  
 

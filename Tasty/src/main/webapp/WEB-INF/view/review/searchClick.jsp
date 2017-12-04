@@ -18,8 +18,22 @@
 }
 
 .review{
+
 border: 1px solid black;
 width : 40%
+}
+
+.writer{
+border: 1px solid red;
+
+}
+
+.writer{
+float : left;
+}
+
+.reviewNum{
+display:none;
 }
 
 </style>
@@ -40,6 +54,7 @@ $(document).ready(function(){
 		},
 		"success":function(list){
 			var txt = "";
+			var total;
 			$.each(list, function(){
 /* 				txt += "<tr><td>"+this.reviewNum+"</td>";
 				txt += "<td>"+this.title+"</td>";
@@ -50,11 +65,20 @@ $(document).ready(function(){
 				txt += "<td>-"+this.downs+"</td>"
 				txt += "<td><button type='button' class='rvBtn'>리뷰 상세보기</button></td></tr>"; */
 				
+			
+		 
+				 total = this.member.totalUps + this.member.totalDowns;
+				 pos = (this.member.totalUps / total) * 100;
+				
 				txt += "<div class='review'>";
-				txt += "<span class='reviewNum'>" + this.reviewNum + "</span><br>";
-				txt += 	"제목 : " + this.title + "<br>";
-				txt += "별점 : " + this.ratings + "/5.0<br>";
-				txt += "<button class='plus'>추천</button>";
+				txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
+				txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
+				txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
+				txt += "긍정평가률 : " + pos.toFixed(2) + "%</div>";
+				txt += 	"<div class='title'>제목 : " + this.title + "</div>";
+				txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
+				txt += "<div class='content'>내용 : " + this.content + "</div>";
+				txt += "이 리뷰를 추천/비추천?<button class='plus'>추천</button>";
 				txt += "<button class='minus'>비추천</button><br>";
 				txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
 				txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
@@ -163,7 +187,7 @@ $(document).ready(function(){
 				if(review == -1){
 					alert("이미 선택하셨습니다.");
 				}else{
-				var txt = "비추천수 : " + review + "<br>";
+				var txt = "비추천수 : " + review;
 				$(evtSrc).parent().children('.downs').html(txt);
 				}
 			}

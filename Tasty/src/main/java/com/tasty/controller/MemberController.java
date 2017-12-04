@@ -19,7 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tasty.dao.MemberDAO;
 import com.tasty.service.MemberService;
@@ -117,6 +117,20 @@ public class MemberController{
 		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
 		}*/
 		
+	
+	
+	
+	  @RequestMapping("getMemberPosAndTotal")
+	  @ResponseBody
+	  public int getPosAndTotal(@RequestParam String email){
+
+		  int total = dao.getTotalsOfMember(email);
+		  float pos = dao.getPosPercentage(email);
+		  
+		  return total;
+	  }
+	  
+	  
 /*	@RequestMapping("get_member_email")
 	public ModelAndView getMemberByEmail(@RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);

@@ -80,7 +80,7 @@
 	</select>
 	
 	<select id="selectAllMission" resultMap="mission-resultmap">
-		select * from MISSION_ADMIN
+		select * from MISSION_ADMIN order by mission_num desc
 	</select>
 
 	
