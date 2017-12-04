@@ -13,6 +13,7 @@ import com.tasty.vo.MemberTaste;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
+	
 
 		@Autowired
 		private SqlSessionTemplate session;
