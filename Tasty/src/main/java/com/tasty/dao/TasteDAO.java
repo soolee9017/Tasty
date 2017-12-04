@@ -7,4 +7,6 @@ public interface TasteDAO {
 	List selectAllTaste();
 	
 	int insertAllTaste(Map map);
+	
+	List selectAllDegree();
 }

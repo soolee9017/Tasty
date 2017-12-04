@@ -29,4 +29,11 @@ public class TasteDAOImpl implements TasteDAO{
 		return session.insert(makeSqlId("insertAllTaste"),map);
 	}
 
+	@Override
+	public List selectAllDegree() {
+		return session.selectList(makeSqlId("selectAllDegree"));
+	}
+	
+	
+
 }

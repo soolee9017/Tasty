@@ -26,6 +26,13 @@ public class TasteServiceImpl implements TasteService{
 		System.out.println("service");
 		return tasteDao.insertAllTaste(map);
 	}
+
+	@Override
+	public List selectAllDegree() {
+		return tasteDao.selectAllDegree();
+	}
+	
+	
 	
 
 }
