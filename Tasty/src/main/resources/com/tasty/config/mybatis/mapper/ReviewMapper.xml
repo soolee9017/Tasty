@@ -88,14 +88,17 @@
 
 
 <select id="selectReviewByEmail" parameterType="String" resultMap="review-join-menu-resultmap">
-	select *
-	from review r, menu m, menu_taste mt, all_taste at, taste t, degree d 
-	where email = #{value}
+select * 
+from review r, menu m, menu_taste mt, all_taste at, taste t, degree d, review_photo rp, photo p 
+where r.email = #{value}
 	and r.review_num=m.review_num(+)
 	and m.menu_num=mt.menu_num(+)
 	and mt.td_num=at.td_num(+)
 	and at.taste_num=t.taste_num(+)
 	and at.degree_num=d.degree_num(+) 
+	and r.review_num=rp.review_num(+)
+	and rp.photo_num=p.photo_num(+)
+order by r.review_num desc
 </select>
 
 <!-- 
