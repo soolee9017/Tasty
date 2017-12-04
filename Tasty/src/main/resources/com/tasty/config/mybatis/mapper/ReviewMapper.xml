@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ReviewMapper">
 
-<resultMap type="review" id="review-resultmap">
+<resultMap type="com.tasty.vo.Review" id="review-resultmap">
 	<id column="review_num" property="reviewNum"/>
 	<result column = "address" property="address"/>
 	<result column = "store_name" property="storeName"/>
@@ -15,6 +15,7 @@
 	<result column = "pos_x" property="posX"/>
 	<result column = "pos_y" property="posY"/>
 </resultMap>
+
 
 
 <resultMap type="review" id="review-join-menu-resultmap" extends="review-resultmap">

@@ -44,7 +44,6 @@ public class MainController {
 		System.out.println(tastes);
 		service.addMember(member, "ROLE_MEMBER");
 		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
-		System.out.println(tasteList);
 		for(int i=0; i<tastes.size(); i++) {
 			for(int j=0; j<tasteList.size(); j++) {
 				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
