@@ -57,14 +57,15 @@ $(document).ready(function(){
 				txt += "<td>-"+this.downs+"</td>"
 				txt += "<td><button type='button' class='rvBtn'>리뷰 상세보기</button></td></tr>"; */
 				
-				var email = this.email;
+				var email = null;
+					alert(email = this.email);
 				
 		 		$.ajax({
 					"url":"/Tasty/member/getMemberPosAndTotal.do",
 					"data":"email="+ email,
 					"dataType":"json",
 					"error":function(a, b,c){
-						//alert(c);
+						alert(c);
 					},
 					"success":function(all){
 						alert(all);
