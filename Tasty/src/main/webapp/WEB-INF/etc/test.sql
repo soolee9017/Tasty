@@ -1,9 +1,10 @@
 select * from member
 
+drop table review_ups_downs_check;
 create table review_ups_downs_check(
 	email varchar2(50),
 	review_num number(12)
-)
+);
 
 insert into review_ups_downs_check values ('aaa', '12')
 
