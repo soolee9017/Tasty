@@ -99,18 +99,45 @@ ${requestScope.review}
    <input id="s" name="rating" type="text" class="rating rating-loading" value="${requestScope.review.ratings}" data-size="sm" title="" required="required">
     제목 : <input type="text" name="title" required="required" value="${requestScope.review.title}"><br>
       내용: <textarea name="content" cols="40" rows="8" required="required">${requestScope.review.content}</textarea>
-     <br> 
-    현재 추가되어있는 메뉴 : 
+     <br><br> 
+   <h2>현재 추가되어있는 메뉴 </h2> 
     
-    <c:forEach items="${requestScope.review.menuList }" var="menu">
-	메뉴 ${menu.menuName } : 메뉴번호 : ${menu.menuNum}
-	<c:forEach items="${menu.mtList }" var="menuTaste">
-		${menuTaste.allTaste.taste.tasteName}맛 ${menuTaste.allTaste.degree.degree} 단계,
-	</c:forEach>
-	<br>
-	</c:forEach>  
+    <table class="table" style="width:50%">
+    <thead>
+    	<tr>
+    		<th>메뉴 이름</th>
+    		<th>메뉴의 맛과 정도</th>
+    		<th>해당 메뉴 삭제</th>
+    	</tr>
+    </thead>
+    
+    <tbody>
+    
+    	   <c:forEach items="${requestScope.review.menuList }" var="menu">
+				<tr>
+				
+					<td>이름 : ${menu.menuName } : ,,,,,,메뉴번호 : ${menu.menuNum}</td>
+					
+					<td>
+					<c:forEach items="${menu.mtList }" var="menuTaste">
+						${menuTaste.allTaste.taste.tasteName}맛 ${menuTaste.allTaste.degree.degree} 단계,
+					</c:forEach>
+					</td>
+
+					<td><button>메뉴 삭제</button></td>
+					
+				</tr>						
+		   </c:forEach> 
+    
+    
+    </tbody>
+    </table>
+    
+    
+
       
       <br>
+      <h2>새로 추가할 메뉴</h2>
       <table id="menu_layer" border="1">
          <thead>
             <tr>
