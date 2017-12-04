@@ -4,17 +4,7 @@
    <!-- 
       MissionCertBoard관련 mapper
     -->
-    
-    <sql id="missionCert-column-sql">
-       mission_cert_num, email, title, content, mission_num
-    </sql>
-    
    
-   
-   <sql id="missionCert-select-sql">
-      SELECT <include refid="missionCert-column-sql"/>
-      FROM mission_cert_board
-   </sql>
    <resultMap type="missionCert" id="missionCert-resultmap">
       <id column="mission_cert_num" property="missionCertNum"/>
       <result column="email" property="email"/>
@@ -39,6 +29,32 @@
    <!-- 미션 인증게시판에서 사용할 닉네임을 포함한 정보를 가지고있는 resultmap 만들기 -->
    
    
+   
+   <!-- 미션인증글의 개수를 조회 -->
+    <select id="selectMissionCertCoung" resultType="int">
+        SELECT COUNT(*)
+        FROM mission_cert_board
+    </select>
+    
+    
+    <select id="selectAllMissionCert">
+    	select *
+    	from mission_cert_board
+    </select>
+    
+     <insert id="insertMissionCert" parameterType="missionCert">
+        INSERT INTO
+        MISSION_CERT_BOARD(MISSION_CERT_NUM, EMAIL, TITLE, CONTENT, MISSION_NUM)
+        VALUES(mission_cert_board_seq.nextval,#{email},#{title},#{content},#{missionNum}) 
+    </insert>
+
+
+    
+    
+    
+    
+
+
    
    
    

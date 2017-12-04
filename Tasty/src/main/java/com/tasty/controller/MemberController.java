@@ -19,9 +19,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tasty.dao.MemberDAO;
+import com.tasty.dao.TasteDAO;
 import com.tasty.service.MemberService;
 import com.tasty.service.TasteService;
 import com.tasty.vo.Member;
@@ -78,23 +79,23 @@ public class MemberController{
 				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
 					service.addMemberTaste(new MemberTaste(email, tasteList.get(j).getTasteNum()));
 					System.out.println(tasteList.get(j).getTasteNum());
-					
 				}
 			}
 		}
-		 
+				
+		
 		//권한(Authority) 변경 또는 추가 시
 		List<GrantedAuthority> list = new ArrayList<>(authentication.getAuthorities());
 		UsernamePasswordAuthenticationToken newAutentication = 
 				new UsernamePasswordAuthenticationToken(member, member.getPassword(), list);
-		
 		context.setAuthentication(newAutentication);
 		
 		return "/member/mypage.tiles";
 	}
 
 
-	
+
+
 	//회원 탈퇴 (권한 삭제)
 	@RequestMapping("withdraw_member")
 	public String removeAuthorityByEmail(@RequestParam String email, HttpSession session){
@@ -107,6 +108,20 @@ public class MemberController{
 	}
 	
 	
+	
+	
+	  @RequestMapping("getMemberPosAndTotal")
+	  @ResponseBody
+	  public int getPosAndTotal(@RequestParam String email){
+
+		  int total = dao.getTotalsOfMember(email);
+		  float pos = dao.getPosPercentage(email);
+		  
+		  return total;
+	  }
+	  
+	  
+
 
 }
 

@@ -92,12 +92,6 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectMemberByMemberCert(memberCert);
 	}
 
-	@Override
-	public List<Review> selectReviewByEmail(String email) {
-		return memberDao.selectReviewByEmail(email);
-	}
-
-	
 }
 
 

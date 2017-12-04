@@ -43,8 +43,12 @@
 		</c:forEach> 
 		</div>
 	</div>
+	
+	<br><br>
 
-
+	
+	<a href="${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>" class="btn btn-default">내가 작성한 리뷰 보기</a>
+	
 	
 	<div class="row" style="margin-top:20px">
 		<div class="col-sm-12">

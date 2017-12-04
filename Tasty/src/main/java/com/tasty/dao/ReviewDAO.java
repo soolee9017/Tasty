@@ -9,6 +9,10 @@ public interface ReviewDAO {
 	
 	List<Review> selectReviewByAddress(String address);
 	
+	List<Review> selectReviewAndMemberByAddress(String address, int tasteNum);
+	
+	List<Review> selectAllReviewAndMemberByAddress(String address);
+	
 	List<Review> selectReviewByEmail(String email);
 	
 //	int insertReview(String title, String address);
@@ -32,4 +36,6 @@ public interface ReviewDAO {
 	int insertCheck(ReviewUpsDownsCheck review);
 	
 	ReviewUpsDownsCheck selectCheck(String email, int reviewNum);
+	
+	
 }

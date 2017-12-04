@@ -5,7 +5,6 @@ import java.util.List;
 import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
-import com.tasty.vo.Review;
 
 public interface MemberDAO {
 	
@@ -114,7 +113,10 @@ public interface MemberDAO {
 	 * @param email
 	 * @return
 	 */
-	List<Review> selectReviewByEmail(String email);
+
+	float getPosPercentage(String email);
+
+	int getTotalsOfMember(String email);
 }
 
 

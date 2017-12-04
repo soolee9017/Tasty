@@ -77,39 +77,11 @@ select * from users;
 
 select * from AUTHORITIES;
 
-insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN')
+insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN')
       
-insert into AUTHORITY VALUES('z', 'ROLE_ADMIN')
      
-UPDATE 테이블이름
-SET 컬럼=변경할값 [, 컬럼=변경할값]
-[WHERE] 제약조건
 
-UPDATE AUTHORITY
-SET AUTHORITY = 'ROLE_NONE'
-WHERE EMAIL = 'b'
-
-UPDATE EMPLOYEE 
-SET HIREDATE = SYSDATE 
-
-UPDATE EMPLOYEE 
-SET SALARY = SALARY * 1.1 
-WHERE EMPLOYEE_ID = 120 
-
-UPDATE DEPARTMENT 
-SET LOCATION = ‘부산’ 
-WHERE DEPARTMENT_ID > 100
-
-
-
-
-
-
-
-
-
-      
---   ---------------------------- 2.입맛-------------------------------------------------------------
+------------------------------ 2.입맛-------------------------------------------------------------
 
 /*ALTER TABLE TASTE
    DROP CONSTRAINT PK_TASTE; -- 입맛 기본키*/

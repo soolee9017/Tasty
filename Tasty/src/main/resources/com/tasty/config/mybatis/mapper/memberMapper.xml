@@ -75,35 +75,6 @@
       <id column="authority" property="authority"/>
    </resultMap>
    
-	<resultMap type="review" id="review-resultmap">
-		<id column="review_num" property="reviewNum"/>
-		<result column = "address" property="address"/>
-		<result column = "store_name" property="storeName"/>
-		<result column = "email" property="email"/>
-		<result column = "title" property="title"/>
-		<result column = "content" property="content"/>
-		<result column = "ratings" property="ratings"/>
-		<result column = "ups" property="ups"/>
-		<result column = "downs" property="downs"/>
-		<result column = "pos_x" property="posX"/>
-		<result column = "pos_y" property="posY"/>
-	</resultMap>
-	
-	<resultMap type="member" id="member-join-review-resultmap" extends="member-resultmap">
-		<collection property="reviewList" ofType="review">
-			<id column="review_num" property="reviewNum"/>
-			<result column="address" property="address"/>
-			<result column="store_name" property="storeName"/>
-			<result column="title" property="title"/>
-			<result column="content" property="content"/>
-			<result column="ratings" property="ratings"/>
-			<result column="ups" property="ups"/>
-			<result column="downs" property="downs"/>
-			<result column="pos_x" property="posX"/>
-			<result column="pos_y" property="posY"/>
-		</collection>
-	</resultMap>
-   
 	
 	<resultMap type="memberTaste" id="memberTaste-join-taste-resultmap">
 			<result column="email" property="email"/>
@@ -250,15 +221,16 @@
     set total_downs = total_downs + 1 
     where email = #{value}
    </update>
-
-	<select id="selectReviewByEmail" parameterType="string">
-		select	m.email, r.review_num, r.address, r.store_name, r.title, 
-				r.ratings, r.ups, r.downs, r.pos_x, r.pos_y
-		from	member m, review r
-		where	m.email = r.email
-		and		m.email = #{value}
-		
+	
+	<select id="getTotalsOfMember" parameterType="string" resultType="int">
+	select total_ups + total_downs from member where email= #{value}
 	</select>
+	
+	<select id="getPosPercentage" parameterType="string" resultType="float">
+	
+	select round(total_ups/(total_ups + total_downs),4) * 100 from member where email= #{value}
+	</select>
+	
 	
 </mapper>
 

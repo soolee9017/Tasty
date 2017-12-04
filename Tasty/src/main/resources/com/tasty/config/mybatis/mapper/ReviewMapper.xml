@@ -59,6 +59,19 @@
 
 
 
+<resultMap type="review" id="review-join-member-resultmap" extends ="review-join-menu-resultmap">
+	<association property="member" javaType="member">
+		<id column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="nickname" property="nickname"/>
+		<result column="name" property="name"/>
+		<result column="phone_num" property="phoneNum"/>
+		<result column="gender" property="gender"/>
+		<result column="total_ups" property="totalUps"/>
+		<result column="total_downs" property="totalDowns"/>
+		<result column="member_cert" property="memberCert"/>
+	</association>
+</resultMap>
 
 
 <select id="selectReviewByAddress" parameterType="String" resultMap="review-join-menu-resultmap">
@@ -74,14 +87,17 @@
 
 
 <select id="selectReviewByEmail" parameterType="String" resultMap="review-join-menu-resultmap">
-	select *
-	from review r, menu m, menu_taste mt, all_taste at, taste t, degree d 
-	where email = #{value}
+select * 
+from review r, menu m, menu_taste mt, all_taste at, taste t, degree d, review_photo rp, photo p 
+where r.email = #{value}
 	and r.review_num=m.review_num(+)
 	and m.menu_num=mt.menu_num(+)
 	and mt.td_num=at.td_num(+)
 	and at.taste_num=t.taste_num(+)
 	and at.degree_num=d.degree_num(+) 
+	and r.review_num=rp.review_num(+)
+	and rp.photo_num=p.photo_num(+)
+order by r.review_num desc
 </select>
 
 <!-- 
@@ -174,6 +190,29 @@ SELECT AVG(ratings) FROM review where address=#{value}
 <select id="selectReviewNumByEmail" parameterType="String" resultType="int">
 select review_num from review where email=#{value} order by review_num desc
 </select>
+
+
+<!-- 리뷰+멤버+메뉴+메뉴테이스트+올테이스트 조인 -->
+<select id="selectReviewAndMemberByAddress" parameterType="map" resultMap="review-join-member-resultmap">
+
+select *
+from review r, member m, menu mn, menu_taste mt, all_taste at  
+where r.email = m.email
+and r.review_num = mn.review_num(+)
+and mn.menu_num = mt.menu_num(+)
+and mt.td_num = at.td_num(+)
+and at.taste_num = #{tasteNum}
+and r.address = #{address}
+order by r.ups desc
+
+</select>
  
+<select id="selectAllReviewAndMemberByAddress" parameterType="String" resultMap="review-join-member-resultmap">
+select *
+from review r, member m 
+where r.email = m.email 
+and r.address = #{value}
+order by r.ups desc
+</select>
 
 </mapper>
