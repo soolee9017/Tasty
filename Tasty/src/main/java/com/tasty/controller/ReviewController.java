@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,7 @@ import com.tasty.service.TasteService;
 import com.tasty.vo.Member;
 import com.tasty.vo.Review;
 import com.tasty.vo.ReviewUpsDownsCheck;
+import com.tasty.vo.Taste;
 
 @Controller
 @RequestMapping("/review/")
@@ -125,6 +127,29 @@ public class ReviewController {
 	  
 	  return avg;
   }
+  
+  @RequestMapping("getReviewByEmail")
+  public ModelAndView getReviewByEmail(@RequestParam String email){
+
+	 List<Review> list = reviewService.selectReviewByEmail(email);
+	 return new ModelAndView("member/mypage_review.jsp","list",list);
+  }
+  
+  
+  @RequestMapping("changeReview")
+  public ModelAndView changeReview(@RequestParam String reviewNum, ModelMap model){
+
+	  int number=Integer.parseInt(reviewNum);
+	  Review review = reviewService.selectReviewByNum(number);
+	  
+	  List list = tasteService.selectAllTaste();
+	  model.addAttribute("review",review);
+	  model.addAttribute("tasteList",list);
+	  return new ModelAndView("review/changeReview.jsp");
+  }
+  
+  
+  
   
   
   
