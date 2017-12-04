@@ -35,5 +35,9 @@ public interface ReviewService {
 	
 	float averageRating(String address);
 	
-	List<Review> getListAndMemberByAdd(String address);
+
+	List<Review> getListAndMemberByAdd(Principal principal, String address);
+
+	
+	List<Review> selectAllReviewAndMemberByAddress(String address);
 }
