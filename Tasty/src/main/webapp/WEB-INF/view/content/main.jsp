@@ -3,15 +3,12 @@
 	.slides img{
 		margin-top: 50px;
 	}
-	.slides > div{
-		height:570px;
-	}
 	.slideImg{
-		width:1800px;
-		height:570px;
+		width:100%;
 	}
 </style>
-<div class="row back">
+<div class="row">
+<div class="back">
 	<header>
 		<h1>Yolty 50</h1>
 	</header>
@@ -63,6 +60,7 @@
 				alt="Yukhoi">
 		</div>
 	</div>
+</div>
 </div>
 
 

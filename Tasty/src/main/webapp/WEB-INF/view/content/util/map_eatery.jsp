@@ -282,7 +282,7 @@ html, body {
 				<input type="text"
 					id="keyword" size="17" placeholder="가게 이름 혹은 키워드를(을) 입력해주세요."
 					value="${requestScope.keyword}" style="float:left;width:260px;">
-				<button id="seachEater" type="submit" style="float:left;border:0px solid;height:26px; width:80px; background-color:#ffad33; color:white;">검색
+				<button id="seachEater" onclick="removeMarker();" type="submit" style="float:left;border:0px solid;height:26px; width:80px; background-color:#ffad33; color:white;">검색
 				</button>
 			</form>
 		</div>
@@ -301,7 +301,6 @@ html, body {
 	<script>
 		// 마커를 담는 배열.
 		var markers = [];
-		var eateryNames = [];
 		//map 이라는 아이디를 받아서 contatiner 변수에 넣음
 		var container = document.getElementById('map');
 		//현재 지도에서 중앙값으로 잡힐 좌표값과 지도 확대 레벨을 선택함
@@ -343,7 +342,7 @@ html, body {
 		// 키워드 검색을 요청하는 함수입니다
 		function searchPlaces() {
 			var keyword = document.getElementById('keyword').value;
-			
+			removeMarker();
 			if (!keyword.replace(/^\s+|\s+$/g, '')) {
 				swal('','키워드를 입력해주세요!','error');
 				return false;
@@ -353,13 +352,10 @@ html, body {
 			ps.keywordSearch(keyword, placesSearchCB, {
 				category_group_code : 'FD6,CE7'
 			});
-
 		}
-
 		// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 		function placesSearchCB(data, status, pagination) {
 			if (status === daum.maps.services.Status.OK) {
-				
 				// 정상적으로 검색이 완료됐으면
 				// 검색 목록과 마커를 표출합니다
 				displayPlaces(data);
@@ -379,7 +375,7 @@ html, body {
 
 			}
 		}
-		var indexs = [];
+		var eateryNames = [];
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
 
@@ -389,11 +385,11 @@ html, body {
 
 			// 검색 결과 목록에 추가된 항목들을 제거합니다
 			removeAllChildNods(listEl);
-
-			// 지도에 표시되고 있는 마커를 제거합니다
 			removeMarker();
+			clusterer.clear();
+			// 지도에 표시되고 있는 마커를 제거합니다
+			
 			for (var i = 0; i < places.length; i++) {
-				indexs = [ i ];
 				// 마커를 생성하고 지도에 표시합니다
 				var placePosition = new daum.maps.LatLng(places[i].y,
 						places[i].x), marker = addMarker(placePosition, i), itemEl = getListItem(
@@ -479,13 +475,7 @@ html, body {
 		}
 
 		// 지도 위에 표시되고 있는 마커를 모두 제거합니다
-		function removeMarker() {
-			for (var i = 0; i < markers.length; i++) {
-				markers[i].setMap(null);
-			}
-			markers = [];
-			eateryNames = [];
-		}
+
 
 		// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
 		function displayPagination(pagination) {
@@ -521,7 +511,6 @@ html, body {
 		var level = map.getLevel() - 1;
 
 		function displayInfowindow(marker, title) {
-
 			content = '<div class="wrap">'
 					+ '<div class="info">'
 					+ '<div class="title">'
@@ -576,6 +565,12 @@ html, body {
 			while (el.hasChildNodes()) {
 				el.removeChild(el.lastChild);
 			}
+		}
+		function removeMarker() {
+		    for ( var i = 0; i < markers.length; i++ ) {
+		        markers[i].setMap(null);
+		    }   
+		    markers = [];
 		}
 	</script>
 </body>
