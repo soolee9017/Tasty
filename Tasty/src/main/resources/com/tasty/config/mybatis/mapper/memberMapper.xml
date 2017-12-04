@@ -88,6 +88,21 @@
 		<result column = "pos_x" property="posX"/>
 		<result column = "pos_y" property="posY"/>
 	</resultMap>
+	
+	<resultMap type="member" id="member-join-review-resultmap" extends="member-resultmap">
+		<collection property="reviewList" ofType="review">
+			<id column="review_num" property="reviewNum"/>
+			<result column="address" property="address"/>
+			<result column="store_name" property="storeName"/>
+			<result column="title" property="title"/>
+			<result column="content" property="content"/>
+			<result column="ratings" property="ratings"/>
+			<result column="ups" property="ups"/>
+			<result column="downs" property="downs"/>
+			<result column="pos_x" property="posX"/>
+			<result column="pos_y" property="posY"/>
+		</collection>
+	</resultMap>
    
 	
 	<resultMap type="memberTaste" id="memberTaste-join-taste-resultmap">
@@ -219,7 +234,7 @@
 		from 	member m, member_taste mt, taste t
 		where 	m.email = mt.email
 		and  	mt.taste_num = t.taste_num(+)
-   		and	m.member_cert = #{value}
+   		and		m.member_cert = #{value}
    	
    </select>
 
@@ -236,6 +251,14 @@
     where email = #{value}
    </update>
 
+	<select id="selectReviewByEmail" parameterType="string">
+		select	m.email, r.review_num, r.address, r.store_name, r.title, 
+				r.ratings, r.ups, r.downs, r.pos_x, r.pos_y
+		from	member m, review r
+		where	m.email = r.email
+		and		m.email = #{value}
+		
+	</select>
 	
 </mapper>
 

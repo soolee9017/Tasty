@@ -97,8 +97,12 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectReviewByEmail(email);
 	}
 
-
-
-	
 	
 }
+
+
+
+
+
+
+
