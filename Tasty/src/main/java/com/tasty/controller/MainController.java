@@ -54,7 +54,7 @@ public class MainController {
 			}
 		}
 	
-		
+				
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
 	
