@@ -31,3 +31,10 @@ insert into MISSION_MEMBER values('1','q')
 	and m.email = mm.email(+)
 	order by mc.mission_cert_num desc
 	
+	
+	select * 
+		from MISSION_ADMIN ma, MISSION_PHOTO mp, photo p
+		where ma.MISSION_NUM =mp.MISSION_NUM
+		and mp.photo_num = p.photo_num
+		order by ma.MISSION_NUM asc  
+	

@@ -62,6 +62,11 @@ public class MissionDAOImpl implements MissionDAO{
 	public int updateMissionCurrentPeoplePlus(int missionNum) {
 		return session.update(makeSqlId("updateCurrentPeople"),missionNum);
 	}
+
+	@Override
+	public List<Mission> selectAllMissionList() {
+		return session.selectList(makeSqlId("selectAllMission2"));
+	}
 	
 	
 	

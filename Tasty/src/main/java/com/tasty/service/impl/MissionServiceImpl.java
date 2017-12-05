@@ -79,6 +79,7 @@ public class MissionServiceImpl implements MissionService{
              
              
               photoDao.insertPhoto(fileName);
+              request.setAttribute("photos", fileName);
               photoDao.insertMissionPhoto();
               }
            }
@@ -99,6 +100,11 @@ public class MissionServiceImpl implements MissionService{
 	@Override
 	public Mission selectMissionByMissionNum(int missionNum) {
 		return missionDao.selectMissionByMissionNum(missionNum);
+	}
+
+	@Override
+	public List<Mission> selectAllMissionList() {
+		return missionDao.selectAllMissionList();
 	}
 	
 	
