@@ -15,8 +15,8 @@
   
   
   
-     <!-- test -->
-   <resultMap type="missionCert" id="missionCert-resultmap2" extends="missionCert-resultmap">
+     <!-- 멤버를 포함한 resultmap -->
+   <resultMap type="missionCert" id="missionCert-member-resultmap" extends="missionCert-resultmap">
       <id column="mission_cert_num" property="missionCertNum"/>
       <result column="email" property="email"/>
       <result column="title" property="title"/>
