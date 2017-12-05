@@ -15,5 +15,7 @@ public interface MissionCertDAO {
 	int updateMissionCertByMissionCertNum(int missionCertNum);
 	
 	int deleteMissionCertByMissionNum(int missionCertNum);
+	
+	
 }
 

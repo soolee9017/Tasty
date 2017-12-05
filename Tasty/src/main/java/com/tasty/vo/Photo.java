@@ -9,10 +9,9 @@ public class Photo implements Serializable {
 	
 	private ReviewPhoto reviewPhoto;
 	
-	//private MissionCertPhoto
+
 	private MissionCertPhoto missionCertPhoto;
 	
-	//private MissionPhoto 해야함 
 	private MissionPhoto missionPhoto;
 
 	public Photo() {

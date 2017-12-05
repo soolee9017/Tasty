@@ -20,11 +20,15 @@ public class Mission implements Serializable{
 	private Date startDate;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
+	
+	private List<MissionCert> missionCertList;
 	private List<MissionPhoto> missionPhotoList;//생성자 만들었음
 	private List<MissionMember> missionMemberList;
 	
 	
-	
+	public Mission() {}
+
+
 	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,
 			Date startDate, Date endDate, List<MissionPhoto> missionPhotoList, List<MissionMember> missionMemberList) {
 		this.missionNum = missionNum;
@@ -39,12 +43,9 @@ public class Mission implements Serializable{
 	}
 
 
-	public Mission() {
-	}
-
-
 	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,
-			Date startDate, Date endDate) {
+			Date startDate, Date endDate, List<MissionCert> missionCertList, List<MissionPhoto> missionPhotoList,
+			List<MissionMember> missionMemberList) {
 		this.missionNum = missionNum;
 		this.missionName = missionName;
 		this.missionContent = missionContent;
@@ -52,19 +53,9 @@ public class Mission implements Serializable{
 		this.maxPeople = maxPeople;
 		this.startDate = startDate;
 		this.endDate = endDate;
-	}
-	
-	
-	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,
-			Date startDate, Date endDate, List<MissionPhoto> missionPhotoList) {
-		this.missionNum = missionNum;
-		this.missionName = missionName;
-		this.missionContent = missionContent;
-		this.currentPeople = currentPeople;
-		this.maxPeople = maxPeople;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.missionCertList = missionCertList;
 		this.missionPhotoList = missionPhotoList;
+		this.missionMemberList = missionMemberList;
 	}
 
 
@@ -118,16 +109,6 @@ public class Mission implements Serializable{
 	}
 
 
-	public List<MissionMember> getMissionMemberList() {
-		return missionMemberList;
-	}
-
-
-	public void setMissionMemberList(List<MissionMember> missionMemberList) {
-		this.missionMemberList = missionMemberList;
-	}
-
-
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -148,6 +129,16 @@ public class Mission implements Serializable{
 	}
 
 
+	public List<MissionCert> getMissionCertList() {
+		return missionCertList;
+	}
+
+
+	public void setMissionCertList(List<MissionCert> missionCertList) {
+		this.missionCertList = missionCertList;
+	}
+
+
 	public List<MissionPhoto> getMissionPhotoList() {
 		return missionPhotoList;
 	}
@@ -158,11 +149,22 @@ public class Mission implements Serializable{
 	}
 
 
+	public List<MissionMember> getMissionMemberList() {
+		return missionMemberList;
+	}
+
+
+	public void setMissionMemberList(List<MissionMember> missionMemberList) {
+		this.missionMemberList = missionMemberList;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Mission [missionNum=" + missionNum + ", missionName=" + missionName + ", missionContent="
 				+ missionContent + ", currentPeople=" + currentPeople + ", maxPeople=" + maxPeople + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", missionPhotoList=" + missionPhotoList + "]";
+				+ startDate + ", endDate=" + endDate + ", missionCertList=" + missionCertList + ", missionPhotoList="
+				+ missionPhotoList + ", missionMemberList=" + missionMemberList + "]";
 	}
 
 
@@ -173,7 +175,9 @@ public class Mission implements Serializable{
 		result = prime * result + currentPeople;
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 		result = prime * result + maxPeople;
+		result = prime * result + ((missionCertList == null) ? 0 : missionCertList.hashCode());
 		result = prime * result + ((missionContent == null) ? 0 : missionContent.hashCode());
+		result = prime * result + ((missionMemberList == null) ? 0 : missionMemberList.hashCode());
 		result = prime * result + ((missionName == null) ? 0 : missionName.hashCode());
 		result = prime * result + missionNum;
 		result = prime * result + ((missionPhotoList == null) ? 0 : missionPhotoList.hashCode());
@@ -200,10 +204,20 @@ public class Mission implements Serializable{
 			return false;
 		if (maxPeople != other.maxPeople)
 			return false;
+		if (missionCertList == null) {
+			if (other.missionCertList != null)
+				return false;
+		} else if (!missionCertList.equals(other.missionCertList))
+			return false;
 		if (missionContent == null) {
 			if (other.missionContent != null)
 				return false;
 		} else if (!missionContent.equals(other.missionContent))
+			return false;
+		if (missionMemberList == null) {
+			if (other.missionMemberList != null)
+				return false;
+		} else if (!missionMemberList.equals(other.missionMemberList))
 			return false;
 		if (missionName == null) {
 			if (other.missionName != null)
@@ -224,13 +238,6 @@ public class Mission implements Serializable{
 			return false;
 		return true;
 	}
-
-
-	
-
-	
-	
-	
 	
 	
 	
