@@ -19,6 +19,7 @@ import com.tasty.vo.Taste;
 
 @Controller
 public class MainController {
+	
 
 	@Autowired
 	private MemberService service;

@@ -69,20 +69,33 @@ public class MemberController{
 	
 		//Business Logic 호출
 		service.removeMemberTasteByEmail(member.getEmail());
-		System.out.println("여기까지 오니?");
 		member.setPassword(passwordEncoder.encode(member.getPassword())); //패스워드 변경
+		
 		service.updateMemberByEmail(member);
+		
 		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
-		System.out.println(tasteList);
+
+		List<MemberTaste> mtList = new ArrayList<>();
+		
 		for(int i=0; i<tastes.size(); i++) {
 			for(int j=0; j<tasteList.size(); j++) {
 				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
 					service.addMemberTaste(new MemberTaste(email, tasteList.get(j).getTasteNum()));
 					System.out.println(tasteList.get(j).getTasteNum());
+					Taste taste = new Taste(j,tasteList.get(j).getTasteName());
+					MemberTaste mt = new MemberTaste(email, tasteList.get(j).getTasteNum(),taste);
+					service.addMemberTaste(mt);
+					mtList.add(mt);
 				}
 			}
 		}
 				
+		
+		
+		
+		
+		member.setMemberTasteList(mtList);
+		
 		
 		//권한(Authority) 변경 또는 추가 시
 		List<GrantedAuthority> list = new ArrayList<>(authentication.getAuthorities());

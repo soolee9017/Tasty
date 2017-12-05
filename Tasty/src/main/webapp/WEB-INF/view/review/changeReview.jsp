@@ -22,7 +22,7 @@
 
 
 <script type="text/javascript">
-$(document).ready(function(){ $("#menu_layer").on("change",".tasteSel", function(){
+$(document).ready(function(){ $("table").on("change",".tasteSel", function(){
     var evtSrc = this;
 	    $.ajax({
 	       "url":"/Tasty/review/getAllDegree.do",
@@ -53,15 +53,16 @@ $(document).ready(function(){ $("#menu_layer").on("change",".tasteSel", function
 	    
 	$("#plusMenu").on("click",function(){
 	   var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
+	   	  txt += "<td>0</td>"
 	      txt += "<td><input type='text' name='menu'></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
 	      txt += "<td><span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select>";
 	      txt += "<select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select></span></td></tr>";
-	      $("#menu_layer > tbody").append(txt)
+	      $("#menuTable > tbody").append(txt)
 	      
 	   });
 	
 	
-	   $("#menu_layer").on("click",".plusTaste2",function(){
+	   $("table").on("click",".plusTaste2",function(){
 		      if($(this).parent().next().children().length == 3){
 		         alert('더이상 맛 추가 안됨');
 		         return;
@@ -71,11 +72,11 @@ $(document).ready(function(){ $("#menu_layer").on("change",".tasteSel", function
 		   });
 	   
 	   
-	   $("#menu_layer").on("click", ".deleteMenu", function() { //list안의 btnDel을 선택
+	   $("table").on("click", ".deleteMenu", function() { //list안의 btnDel을 선택
 	       $(this).parent().parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
 	   });  
 	   
-	   $("#menu_layer").on("click", ".deleteTaste", function() { //list안의 btnDel을 선택
+	   $("table").on("click", ".deleteTaste", function() { //list안의 btnDel을 선택
 	       $(this).parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
 	   }); 
 	   
@@ -84,6 +85,16 @@ $(document).ready(function(){ $("#menu_layer").on("change",".tasteSel", function
     
  });
 </script>
+
+
+<style type="text/css">
+
+ #menuTable tr > *:nth-child(2) {
+    display: none;
+}
+
+
+</style>
 
 
 </head>
@@ -102,41 +113,89 @@ ${requestScope.review}
      <br><br> 
    <h2>현재 추가되어있는 메뉴 </h2> 
     
-    <table class="table" style="width:50%">
+    <table border="1" id="menuTable">
     <thead>
     	<tr>
+    		<th>메뉴 삭제</th>
+    		<th class>메뉴 번호</th>
     		<th>메뉴 이름</th>
+    		<th>맛 추가</th>
     		<th>메뉴의 맛과 정도</th>
-    		<th>해당 메뉴 삭제</th>
+    		
     	</tr>
     </thead>
     
     <tbody>
-    
     	   <c:forEach items="${requestScope.review.menuList }" var="menu">
 				<tr>
-				
-					<td>이름 : ${menu.menuName } : ,,,,,,메뉴번호 : ${menu.menuNum}</td>
-					
+					<td><button type="button" class="delMenuBtn">메뉴 삭제</button></td>
+					<td>${menu.menuNum}</td>
+					<td><input type="text" value="${menu.menuName}"> </td>
+					<td><button type="button" class="plusTaste2">맛 추가</button></td>
 					<td>
 					<c:forEach items="${menu.mtList }" var="menuTaste">
-						${menuTaste.allTaste.taste.tasteName}맛 ${menuTaste.allTaste.degree.degree} 단계,
+					
+					
+						<span>
+							  <select class='tasteSel' name="tastes" required="required">
+                    				 <option value="">맛을 선택하세요.</option>
+                  					 <c:forEach items="${requestScope.tasteList }" var="taste" varStatus="cnt">
+                  					 	<c:choose>
+                  					 		<c:when test="${cnt.count == menuTaste.allTaste.taste.tasteNum}">
+                      					  		<option value="${cnt.count}" selected="selected">${taste.tasteName}</option>
+                      					  	</c:when>
+                      					  	<c:otherwise>
+                      					  		<option value="${cnt.count}">${taste.tasteName}</option>
+                      					  	</c:otherwise>
+                      					 </c:choose> 
+                   				     </c:forEach>
+            				   </select> 
+               
+               					
+               
+            				   <select id="degreeSel" name="degrees" required="required">
+            				   	
+            				   	<c:choose>
+            				   		<c:when test="${menuTaste.allTaste.degree.degree == 0}">
+            				   				<option value="">선택불가</option>
+            				   		</c:when>
+            				   		<c:otherwise>
+            				   		
+            				   		
+            				   		<c:forEach items="${requestScope.degreeList}" var="degree" varStatus="cnt">
+                  					 	<c:choose>
+                  					 		<c:when test="${cnt.count == menuTaste.allTaste.degree.degree}">
+                      					  		<option value="${cnt.count}" selected="selected">${degree.degree}</option>
+                      					  	</c:when>
+                      					  	<c:otherwise>
+                      					  		<option value="${cnt.count}">${degree.degree}</option>
+                      					  	</c:otherwise>
+                      					 </c:choose> 
+                   				     </c:forEach>
+            				   				
+            				   				
+            				   				
+            				   				
+            				   		</c:otherwise>
+            				   </c:choose>
+            				   
+           					   </select>
+           					   
+           					   <button type='button' class='deleteTaste'>X</button>
+           					   
+           				</span>
+			
 					</c:forEach>
 					</td>
-
-					<td><button>메뉴 삭제</button></td>
 					
 				</tr>						
 		   </c:forEach> 
-    
-    
     </tbody>
     </table>
+    <button type="button" id="plusMenu">메뉴추가</button>
     
     
-
-      
-      <br>
+     <%--  <br>
       <h2>새로 추가할 메뉴</h2>
       <table id="menu_layer" border="1">
          <thead>
@@ -163,12 +222,22 @@ ${requestScope.review}
             </tr>
          </tbody>
       </table>
-      <span id="menu"> </span>
-      <button id="plusMenu" type="button">메뉴추가</button>
-      &nbsp;
+      <button id="plusMenu" type="button">메뉴추가</button> --%>
       <br>
       <br>
-      <br> ----사진---<br>
+      <br><br>
+      
+      <h2>현재 추가되어있는 사진</h2> 
+ <c:forEach items="${requestScope.review.reviewPhotoList}" var="reviewPhoto">
+ 	<div class="reviewPhoto">
+	<img src="${initParam.rootPath }/photos/review/${reviewPhoto.photoList[0].photoPath}" width="300px">
+	<button type="button" class="deletePhotoBtn">이 사진 삭제</button>
+	</div>
+</c:forEach>
+    
+<h2>새로 추가할 사진</h2>
+      
+      
       <table id="photolist">
          <tr>
             <td><input type="file" name="upImage"></td>

@@ -7,5 +7,7 @@ public interface TasteService {
 	List selectAllTaste();
 
 	int insertAllTaste(Map map);
+	
+	List selectAllDegree();
 
 }

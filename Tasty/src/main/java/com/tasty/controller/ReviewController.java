@@ -142,9 +142,11 @@ public class ReviewController {
 	  int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
 	  
-	  List list = tasteService.selectAllTaste();
+	  List tasteList = tasteService.selectAllTaste();
+	  List degreeList= tasteService.selectAllDegree();
 	  model.addAttribute("review",review);
-	  model.addAttribute("tasteList",list);
+	  model.addAttribute("tasteList",tasteList);
+	  model.addAttribute("degreeList",degreeList);
 	  return new ModelAndView("review/changeReview.jsp");
   }
   

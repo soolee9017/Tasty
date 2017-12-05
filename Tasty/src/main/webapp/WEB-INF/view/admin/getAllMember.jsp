@@ -61,10 +61,10 @@ function moveToRemove(email){
 							</c:forEach>
 							</td>
 							<td>
-								<form action="${initParam.rootPath }/admin/remove_member.do" method="POST">
-										<input type="hidden" name="email" value="${result.email }">									
-									</form>	
-								<button onclick="moveToRemove(${result.email})">삭제</button>
+								<form action="${initParam.rootPath }/admin/remove_member.do">
+								<input type="hidden" name="email" value="${result.email }">
+ 							<button type="submit">삭제</button>
+ 							</form>
 							</td>
 						</tr>
 					</c:forEach>

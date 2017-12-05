@@ -14,6 +14,7 @@ import com.tasty.vo.Review;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
+	
 
 		@Autowired
 		private SqlSessionTemplate session;
