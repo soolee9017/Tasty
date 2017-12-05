@@ -22,8 +22,8 @@
 			$("#photoList").append(html);
 			});//end of addPhoto
 
-		$("#photoList").on("click", function() {
-			$(this).parent(), parent().remove();
+		$("#photoList").on("click","deletePhoto", function() {
+			$(this).parent().parent().remove();
 		});//end of photoList
 						
 	});//end of document.ready

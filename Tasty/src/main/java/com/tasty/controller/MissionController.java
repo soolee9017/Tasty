@@ -61,7 +61,7 @@ public class MissionController {
 	
 	@RequestMapping("moveToRegister")
 	public String moveToRegisterMission() {
-		return "/mission/register_mission.jsp";
+		return "/mission/register_mission.tiles";
 	}
 	
 
@@ -70,7 +70,7 @@ public class MissionController {
 		//service.insertMission(mission,request,upImage);
 		service.insertMission(principal, mission, request, upImage);
 		
-		return new ModelAndView("/mission/show_mission_success.jsp","mission",mission);
+		return new ModelAndView("/mission/register_mission_success.tiles","mission",mission);
 	}
 	
 	
@@ -89,6 +89,23 @@ public class MissionController {
 		System.out.println(mission);
 		return new ModelAndView("/mission/mission_detail_view.tiles","missions",mission);
 	}
+	
+	@RequestMapping("selectMissionNum2")
+	public ModelAndView selectMissionByMissionNum2(@RequestParam int missionNum) {
+		Mission mission = service.selectMissionByMissionNum(missionNum);
+		System.out.println(mission);
+		return new ModelAndView("/mission/modify_mission.jsp","mission",mission);
+	}
+	
+	@RequestMapping("moveToMissionAllView")
+	public ModelAndView moveToMissionAllView() {
+		return new ModelAndView("mission/getAllMission.do");
+	}
+	
+
+	
+	
+	
 	
 }
 

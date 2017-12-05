@@ -15,6 +15,8 @@ public interface PhotoDAO {
 	
 	int deleteReviewPhoto(int number);
 	
+	int insertReviewPhotoWithRn(int number);
+	
 }
 
 

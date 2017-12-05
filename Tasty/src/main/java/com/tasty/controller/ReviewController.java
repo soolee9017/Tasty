@@ -157,16 +157,17 @@ public class ReviewController {
   @RequestParam String listOfMenu, @RequestParam String numOfTaste,
   @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating,
   @RequestParam String title,
-  @RequestParam String content,@RequestParam List<MultipartFile> upImage) throws Exception{
+  @RequestParam String content,@RequestParam List<MultipartFile> upImage,
+  @RequestParam String listOfDelPhoto) throws Exception{
 	
 	
 	  
 	  
 	  reviewService.updateReview(principal, request, reviewNum, numOfOg, ogMenuNum, 
-			  listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage);
+			  listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage,listOfDelPhoto);
 	  
 	  Review review = reviewService.selectReviewByNum(Integer.parseInt(reviewNum));
-	  
+	  System.out.println(listOfDelPhoto);
 	  return new ModelAndView("review/reviewDetail.jsp","review",review);
   }
   
