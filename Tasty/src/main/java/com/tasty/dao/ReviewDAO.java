@@ -9,7 +9,9 @@ public interface ReviewDAO {
 	
 	List<Review> selectReviewByAddress(String address);
 	
-	List<Review> selectReviewAndMemberByAddress(String address);
+	List<Review> selectReviewAndMemberByAddress(String address, int tasteNum);
+	
+	List<Review> selectAllReviewAndMemberByAddress(String address);
 	
 	List<Review> selectReviewByEmail(String email);
 	
