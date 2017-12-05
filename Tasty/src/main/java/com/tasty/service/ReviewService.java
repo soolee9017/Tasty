@@ -49,4 +49,6 @@ public interface ReviewService {
 
 	
 	List<Review> selectAllReviewAndMemberByAddress(String address);
+	
+	void deletePhoto(int number);
 }

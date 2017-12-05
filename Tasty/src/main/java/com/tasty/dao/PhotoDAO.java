@@ -11,6 +11,9 @@ public interface PhotoDAO {
 	
 	int insertMissionPhoto();
 	
+	int deletePhoto(int number);
+	
+	int deleteReviewPhoto(int number);
 	
 }
 

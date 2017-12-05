@@ -237,6 +237,13 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectAllReviewAndMemberByAddress(address);
 	}
 
+	@Override
+	public void deletePhoto(int number) {
+		
+			photoDao.deleteReviewPhoto(number);
+			photoDao.deletePhoto(number);
+	}
+
 
 
 

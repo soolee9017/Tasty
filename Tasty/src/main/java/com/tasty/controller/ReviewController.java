@@ -171,8 +171,13 @@ public class ReviewController {
   }
   
   
-  
-  
+  @RequestMapping("deletePhoto")
+  @ResponseBody
+  public String deletePhoto(@RequestParam String photoNum){
+
+	 reviewService.deletePhoto(Integer.parseInt(photoNum));
+	 return "삭제됨";
+  }
   
   
 }

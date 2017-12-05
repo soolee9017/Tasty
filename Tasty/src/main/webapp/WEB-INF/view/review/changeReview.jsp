@@ -22,7 +22,10 @@
 
 
 <script type="text/javascript">
-$(document).ready(function(){ $("table").on("change",".tasteSel", function(){
+$(document).ready(function(){ 
+	
+	
+	$("table").on("change",".tasteSel", function(){
     var evtSrc = this;
 	    $.ajax({
 	       "url":"/Tasty/review/getAllDegree.do",
@@ -165,7 +168,38 @@ $(document).ready(function(){ $("table").on("change",".tasteSel", function(){
 		   });  
 		   
 	   
-	    
+	   $("#photolist").on("click", ".deletePhoto", function() { //list안의 btnDel을 선택
+	       $(this).parent().parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
+	     });  
+	   
+	   
+	   $("#plusPhoto").on("click",function(){
+	       var html = '<tr><td>' + '<input type="file" name="upImage">' + '</td>'; //tr, td를 열고 + 문자열로 바꾸고 +td 닫기
+	       html += '<td><button type="button" class="deletePhoto">Del</button>'; //html변수에 삭제버튼을 대입
+	       html += '</td></tr>';
+	       $("#photolist").append(html);
+	   });
+	   
+	   $("body").on("click", ".deleteOgPhotoBtn", function() { //기존에 등록된 사진을 삭제하는 함수
+		   
+		   var photoNum = $(this).parent().children(".photoNum").html();
+	   	
+	       			if(confirm("진짜 삭제하시겠습니까? 사진은 삭제하면 되돌릴 수 없습니다.")==true){
+			       	 		  $.ajax({
+			       		       "url":"/Tasty/review/deletePhoto.do",
+			       		       "data":"photoNum="+photoNum,
+			       		       "dataType":"json",
+			       		       "beforeSend":function(){
+			       		      
+			       		       },
+			       		       "success":function(result){
+			       		      			alert(result);
+			       		       }
+			       		    });        
+	       			}else{
+	       					return;
+	       			}
+	     });  
     
  });
 </script>
@@ -280,34 +314,7 @@ ${requestScope.review}
     <button type="button" id="plusMenu">메뉴추가</button>
     
     
-     <%--  <br>
-      <h2>새로 추가할 메뉴</h2>
-      <table id="menu_layer" border="1">
-         <thead>
-            <tr>
-               <td>메뉴삭제</td>
-               <td>메뉴 이름</td>
-               <td>맛 추가</td>
-               <td>맛+정도</td>
-            </tr>
-         </thead>
-         <tbody id="tBody">
-            <tr>
-               <td><button type="button" class="deleteMenu">메뉴삭제</button></td>
-               <td><input type='text' name='menu' required></td>
-               <td><button type='button'class='plusTaste2'>맛 추가</button></td>
-               <td><span><select class='tasteSel' name="tastes" required="required">
-                     <option value="">맛을 선택하세요.</option>
-                     <c:forEach items="${requestScope.tasteList }" var="taste" varStatus="cnt">
-                        <option value="${cnt.count}">${taste.tasteName}</option>
-                     </c:forEach>
-               </select> <select id="degreeSel" name="degrees" required="required">
-                     <option value="">정도를 선택하세요</option>
-               </select></span></td>
-            </tr>
-         </tbody>
-      </table>
-      <button id="plusMenu" type="button">메뉴추가</button> --%>
+     
       <br>
       <br>
       <br><br>
@@ -316,7 +323,8 @@ ${requestScope.review}
  <c:forEach items="${requestScope.review.reviewPhotoList}" var="reviewPhoto">
  	<div class="reviewPhoto">
 	<img src="${initParam.rootPath }/photos/review/${reviewPhoto.photoList[0].photoPath}" width="300px">
-	<button type="button" class="deletePhotoBtn">이 사진 삭제</button>
+	<span style="display:none;" class="photoNum">${reviewPhoto.photoList[0].photoNum}</span>
+	<button type="button" class="deleteOgPhotoBtn">이 사진 삭제</button>
 	</div>
 </c:forEach>
     
@@ -325,7 +333,7 @@ ${requestScope.review}
       
       <table id="photolist">
          <tr>
-            <td><input type="file" name="upImage"></td>
+            <td><input type="file" name="upImage" value="냠냠"></td>
             <td><button type="button" class="deletePhoto">Del</button></td>
          </tr>
       </table>
@@ -334,6 +342,8 @@ ${requestScope.review}
       <br>
       <br>
       <br>
+      
+      
       
 <input type="hidden" id="reviewNum" name="reviewNum" value="${requestScope.review.reviewNum}">      
 <input type="hidden" id="numOfOg" name="numOfOg" value="">
