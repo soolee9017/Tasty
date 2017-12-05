@@ -1,6 +1,7 @@
 package com.tasty.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tasty.vo.Review;
 import com.tasty.vo.ReviewUpsDownsCheck;
@@ -21,6 +22,8 @@ public interface ReviewDAO {
 
 	int insertMenu(String name);
 	
+	int insertMenuWithMn(Map map);
+	
 	int insertMenuTaste();
 	
 	int deleteReview(String email);
@@ -37,5 +40,6 @@ public interface ReviewDAO {
 	
 	ReviewUpsDownsCheck selectCheck(String email, int reviewNum);
 	
+	int updateReviewWithMap(Map map);
 	
 }

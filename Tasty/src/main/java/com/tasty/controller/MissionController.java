@@ -1,15 +1,14 @@
 package com.tasty.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,8 +66,9 @@ public class MissionController {
 	
 
 	@RequestMapping("insertMission")
-	public ModelAndView insertMisson(@ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
-		service.insertMission(mission,request,upImage);
+	public ModelAndView insertMisson(Principal principal, @ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
+		//service.insertMission(mission,request,upImage);
+		service.insertMission(principal, mission, request, upImage);
 		
 		return new ModelAndView("/mission/show_mission_success.jsp","mission",mission);
 	}

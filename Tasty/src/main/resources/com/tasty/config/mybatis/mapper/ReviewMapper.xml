@@ -116,6 +116,12 @@ insert into review values (review_num_seq.nextval, #{address},#{storeName},#{ema
 insert into menu values (menu_num_seq.nextval, review_num_seq.currval,#{value})
 </insert>
 
+
+<insert id="insertMenuWithMn" parameterType="map"> <!-- title말고 다른것들은?? -->
+insert into menu values (menu_num_seq.nextval, #{reviewNum},#{menuName})
+</insert>
+
+
 <insert id="insertMenuTaste">
 insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 </insert>
@@ -215,5 +221,20 @@ where r.email = m.email
 and r.address = #{value}
 order by r.ups desc
 </select>
+
+
+<update id="updateReviewWithMap" parameterType="map">
+
+UPDATE review
+SET   title = #{title},
+	  content = #{content},
+	  ratings = #{rating}
+		
+where review_num = #{reviewNum}
+
+
+</update>
+
+
 
 </mapper>

@@ -1,3 +1,5 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="com.tasty.vo.Member"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -53,14 +55,14 @@
 
 
 
-sec로 현재 로그인 id 조회 : <sec:authentication property="principal.email"/><br>
-el의 requestScope으로 리뷰의 글쓴이 조회 : ${requestScope.review.email}
-<br><br>
+<%
+	String email = ((Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
+	pageContext.setAttribute("email",email);
+
+%>
 
 
-<a href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button> 내용 수정</button></a>	
-
-<c:if test='${requestScope.review.email} == <sec:authentication property="principal.email"/>'>
+<c:if test="${requestScope.review.email==email}">
 		<a href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button>내용 수정</button></a>		
 </c:if> 
 

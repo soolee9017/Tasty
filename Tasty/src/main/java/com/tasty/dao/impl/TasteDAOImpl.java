@@ -33,6 +33,26 @@ public class TasteDAOImpl implements TasteDAO{
 	public List selectAllDegree() {
 		return session.selectList(makeSqlId("selectAllDegree"));
 	}
+
+	@Override
+	public int deleteAtByTd(int number) {
+		return session.delete(makeSqlId("deleteAtByTd"),number);
+	}
+
+	@Override
+	public List<Integer> selectTdByMn(int number) {
+		return session.selectList(makeSqlId("selectTdByMn"),number);
+	}
+
+	@Override
+	public int deleteMtByMn(int number) {
+		return session.delete(makeSqlId("deleteMtByMn"),number);
+	}
+
+	@Override
+	public int deleteMenuByMn(int number) {
+		return session.delete(makeSqlId("deleteMenuByMn"),number);
+	}
 	
 	
 

@@ -92,6 +92,10 @@ ALTER TABLE TEMP_ROUTE
    DROP CONSTRAINT PK_MISSION_ADMIN; -- 미션 기본키*/
 
 -- 미션
+ALTER TABLE MISSION_ADMIN
+   DROP CONSTRAINT PK_MISSION_ADMIN; -- 미션 기본키
+
+-- 미션
 DROP TABLE MISSION_ADMIN cascade constraint;
 
 -- 미션
@@ -118,9 +122,6 @@ ALTER TABLE MISSION_ADMIN
       PRIMARY KEY (
          mission_num -- 미션번호
       );
-      
-             
-       
        
        
        
@@ -135,14 +136,13 @@ ALTER TABLE MISSION_CERT_BOARD
 -- 미션 인증 게시판
 ALTER TABLE MISSION_CERT_BOARD
    DROP CONSTRAINT PK_MISSION_CERT_BOARD; -- 미션 인증 게시판 기본키*/
-
+ 
 -- 미션 인증 게시판
 DROP TABLE MISSION_CERT_BOARD cascade constraint;
 
 -- 미션 인증 게시판
 CREATE TABLE MISSION_CERT_BOARD (
    mission_cert_num NUMBER(20)    NOT NULL, -- 글 번호
-   email            VARCHAR2(50)  NULL,     -- 아이디
    title            VARCHAR2(100) NULL,     -- 제목
    content          VARCHAR2(300) NULL,     -- 내용
    mission_num      NUMBER(20)    NULL      -- 미션번호
@@ -165,28 +165,13 @@ ALTER TABLE MISSION_CERT_BOARD
 -- 미션 인증 게시판
 ALTER TABLE MISSION_CERT_BOARD
    ADD
-      CONSTRAINT FK_MEMBER_TO__CERT -- 회원 -> 미션 인증 게시판
-      FOREIGN KEY (
-         email -- 아이디
-      )
-      REFERENCES MEMBER ( -- 회원
-         email -- 아이디
-      )
-       
-       ;
-
--- 미션 인증 게시판
-ALTER TABLE MISSION_CERT_BOARD
-   ADD
-      CONSTRAINT FK_MISSION_ADMIN_TO_CERT -- 미션 -> 미션 인증 게시판
+      CONSTRAINT FK_MISSION_ADMIN_TO_MISSION_CERT_BOARD -- 미션 -> 미션 인증 게시판
       FOREIGN KEY (
          mission_num -- 미션번호
       )
       REFERENCES MISSION_ADMIN ( -- 미션
          mission_num -- 미션번호
-      )
-       
-       ;
+      );
       
       
 
@@ -210,28 +195,24 @@ CREATE TABLE MISSION_MEMBER (
 -- 미션에 참여한 회원
 ALTER TABLE MISSION_MEMBER
    ADD
-      CONSTRAINT FK_MISSION_TO_MEMBER -- 미션 -> 미션에 참여한 회원
+      CONSTRAINT FK_MA_TO_MM -- 미션 -> 미션에 참여한 회원
       FOREIGN KEY (
          mission_num -- 미션번호
       )
       REFERENCES MISSION_ADMIN ( -- 미션
          mission_num -- 미션번호
-      )
-       
-       ;
+	);
 
 -- 미션에 참여한 회원
 ALTER TABLE MISSION_MEMBER
    ADD
-      CONSTRAINT FK_MEMBER_TO_MISSION_MEMBER -- 회원 -> 미션에 참여한 회원
+      CONSTRAINT FK_MEMBER_TO_MM -- 회원 -> 미션에 참여한 회원
       FOREIGN KEY (
          email -- 아이디
       )
       REFERENCES MEMBER ( -- 회원
          email -- 아이디
-      )
-       
-       ;
+      );
       
 
        
@@ -317,6 +298,7 @@ ALTER TABLE REVIEW_PHOTO
 ALTER TABLE MISSION_PHOTO
    DROP CONSTRAINT FK_PHOTO_TO_MISSION_PHOTO; -- 사진 -> 미션 사진*/
 
+
 -- 미션 사진
 DROP TABLE MISSION_PHOTO cascade constraint;
 
@@ -329,29 +311,24 @@ CREATE TABLE MISSION_PHOTO (
 -- 미션 사진
 ALTER TABLE MISSION_PHOTO
    ADD
-      CONSTRAINT FK_MISSION_TO_MP -- 미션 -> 미션 사진
+      CONSTRAINT FK_MA_TO_MP -- 미션 -> 미션 사진
       FOREIGN KEY (
          mission_num -- 미션번호
       )
       REFERENCES MISSION_ADMIN ( -- 미션
          mission_num -- 미션번호
-      )
-       
-       ;
+      );
 
 -- 미션 사진
 ALTER TABLE MISSION_PHOTO
    ADD
-      CONSTRAINT FK_PHOTO_TO_MP -- 사진 -> 미션 사진
+      CONSTRAINT FK_PHOTO_TO_MISSION_PHOTO -- 사진 -> 미션 사진
       FOREIGN KEY (
          photo_num -- 사진번호
       )
       REFERENCES PHOTO ( -- 사진
          photo_num -- 사진번호
-      )
-       
-       ;
-      
+      );
       
 ------------------------------------------17. 미션 인증 사진----------------------------------------
 /*ALTER TABLE MISSION_CERT_PHOTO
@@ -373,29 +350,24 @@ CREATE TABLE MISSION_CERT_PHOTO (
 -- 미션 인증 사진
 ALTER TABLE MISSION_CERT_PHOTO
    ADD
-      CONSTRAINT FK_PHOTO_TO_CP -- 사진 -> 미션 인증 사진
+      CONSTRAINT FK_PHOTO_TO_MISSION_CERT_PHOTO -- 사진 -> 미션 인증 사진
       FOREIGN KEY (
          photo_num -- 사진번호
       )
       REFERENCES PHOTO ( -- 사진
          photo_num -- 사진번호
-      )
-       
-       ;
+      );
 
 -- 미션 인증 사진
 ALTER TABLE MISSION_CERT_PHOTO
    ADD
-      CONSTRAINT FK_CERT_BOARD_TO_CP -- 미션 인증 게시판 -> 미션 인증 사진
+      CONSTRAINT FK_MCB_TO_MCP -- 미션 인증 게시판 -> 미션 인증 사진
       FOREIGN KEY (
          mission_cert_num -- 글 번호
       )
       REFERENCES MISSION_CERT_BOARD ( -- 미션 인증 게시판
          mission_cert_num -- 글 번호
-      )
-       
-       ;
-
+      );
        
        
  -----------------------------
@@ -406,5 +378,8 @@ create sequence photo_num_seq;
 
 drop sequence mission_admin_seq;
 create sequence mission_admin_seq;
+
+create sequence mission_cert_board_seq;
        
+
 

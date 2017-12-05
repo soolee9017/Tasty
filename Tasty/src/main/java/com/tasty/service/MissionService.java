@@ -1,5 +1,6 @@
 package com.tasty.service;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ import com.tasty.vo.MissionMember;
 
 public interface MissionService {
 	
-	int insertMission(Mission mission, HttpServletRequest request, List<MultipartFile> upImage) throws Exception;
+	int insertMission(Principal principal,Mission mission, HttpServletRequest request, List<MultipartFile> upImage) throws Exception;
 	
 	
 	List<Mission> selectAllMission();
