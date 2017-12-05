@@ -16,6 +16,11 @@ insert into photo values (photo_num_seq.nextval,#{value})
 insert into review_photo values (photo_num_seq.currval,review_num_seq.currval)
 </insert>
 
+<insert id="insertReviewPhotoWithRn" parameterType="int">
+insert into review_photo values (photo_num_seq.currval, #{value})
+</insert>
+
+
 <insert id="insertMissionPhoto">
 	insert into mission_photo values(mission_admin_seq.currval,photo_num_seq.currval)
 </insert>

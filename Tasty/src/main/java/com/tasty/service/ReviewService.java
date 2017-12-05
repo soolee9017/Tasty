@@ -34,7 +34,7 @@ public interface ReviewService {
 		 String numOfOg,String ogMenuNum,
 			String listOfMenu, String numOfTaste,
 			String listOfTaste, String listOfDegree, String rating, String title, String content,
-			List<MultipartFile> upImage) throws Exception;
+			List<MultipartFile> upImage, String listOfDelPhoto) throws Exception;
 	
 	
 	int updateReviewUpsDowns(Review review);

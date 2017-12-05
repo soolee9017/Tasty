@@ -133,7 +133,7 @@ public class ReviewServiceImpl implements ReviewService{
 	@Transactional
 	public int updateReview(Principal principal, HttpServletRequest request, String reviewNum, String numOfOg,
 			String ogMenuNum, String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree,
-			String rating, String title, String content, List<MultipartFile> upImage) throws Exception {
+			String rating, String title, String content, List<MultipartFile> upImage, String listOfDelPhoto) throws Exception {
 
 		Map updateMap = new HashMap<>();
 		updateMap.put("reviewNum", Integer.parseInt(reviewNum));
@@ -143,14 +143,22 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		reviewDao.updateReviewWithMap(updateMap);
 		
-
+		String [] listOfDelP = listOfDelPhoto.split(",");
 		String[] menu = listOfMenu.split(",");
 		String[] numTaste = numOfTaste.split(",");
 		String[] taste = listOfTaste.split(",");
 		String[] degree = listOfDegree.split(",");
 		String [] ogMenuNumber = ogMenuNum.split(",");
 		
+		//삭제하겠다고 선택한 사진들 전부 삭제  
+		for(String a : listOfDelP) {
+			photoDao.deleteReviewPhoto(Integer.parseInt(a));
+			photoDao.deletePhoto(Integer.parseInt(a));
+		}
 		
+		
+		
+		// 옛날 메뉴들을 전부 삭제 
 		int ogNumber = Integer.parseInt(numOfOg);
 		
 		for(int i = 0; i<ogNumber; i++){
@@ -163,9 +171,11 @@ public class ReviewServiceImpl implements ReviewService{
 			tasteDao.deleteMenuByMn(menuNum);
 			for(int a : TdList) {
 				tasteDao.deleteAtByTd(a);
-			} // 기존의 메뉴들을 전부 삭제. 
+			} 
 		}
-			
+		
+		
+		//입력된 메뉴들을 새로 DB에 넣기 
 		int num = 0;
 		for(int i = 0; i<menu.length; i++) {
 			Map menuMap = new HashMap<>();
@@ -186,6 +196,25 @@ public class ReviewServiceImpl implements ReviewService{
 			num= num+Integer.parseInt(numTaste[i]);
 		}
 		
+		// 새로 추가한 사진들을 추가함 
+		File file = new File(request.getServletContext().getRealPath("/photos/review"));
+
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+
+		for(MultipartFile photo : upImage) {
+			if(photo != null && !photo.isEmpty()) {
+				String fileName = UUID.randomUUID().toString().replace("-", "")+photo.getOriginalFilename();
+
+
+				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
+				//				 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+				//					  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
+				photoDao.insertPhoto(fileName);
+				photoDao.insertReviewPhotoWithRn(Integer.parseInt(reviewNum));
+			}
+		}
 		
 		
 		return 0;
