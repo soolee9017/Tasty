@@ -7,6 +7,11 @@
 	<result column="taste_name" property="tasteName"/>
 </resultMap>
 
+<resultMap type="degree" id="degree-resultmap">
+	<id column="degree_num" property="degreeNum"/>
+	<result column="degree" property="degree"/>
+</resultMap>
+
 <select id="selectAllTaste" resultMap="taste-resultmap">
 	select *
 	from taste
@@ -18,4 +23,10 @@
 insert into all_taste values(td_num_seq.nextval, #{tasteNum},#{degreeNum})
 
 </insert>
+
+<select id="selectAllDegree" resultMap="degree-resultmap">
+select * from degree where degree_num != 0
+</select>
+
+
 </mapper>

@@ -31,6 +31,8 @@
 		<div class="col-sm-2">성별</div>
 		<div class="col-sm-10"><sec:authentication property="principal.gender"/></div>
 	</div>
+	
+	
 	<div class="row">
 		<div class="col-sm-2">선호하는 맛</div>
 		<div class="col-sm-10">
@@ -38,13 +40,17 @@
 			List list = ((Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMemberTasteList();
 			pageContext.setAttribute("mtList", list);
 		%>
-		<c:forEach var='memberTaste' items="${mtList }">
+		<c:forEach var='memberTaste' items="${mtList}">
 				${memberTaste.taste.tasteName}
 		</c:forEach> 
 		</div>
 	</div>
+	
+	<br><br>
 
-
+	
+	<a href="${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>" class="btn btn-default">내가 작성한 리뷰 보기</a>
+	
 	
 	<div class="row" style="margin-top:20px">
 		<div class="col-sm-12">
