@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@ section header h1 {
 }
 
 #keyword {
-	position: absolute;
+	position: static;
 	top: 60%;
 	left: 23%;
 }
@@ -44,9 +45,8 @@ section header h1 {
 	width: 100%;
 	height: 78.6%;
 	margin-top: 49.5px;
-	z-index:2;
-	position:absolute;
-	
+	z-index: 2;
+	position: absolute;
 }
 
 .foot {
@@ -59,6 +59,8 @@ section header h1 {
 	href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet"
 	href="${initParam.rootPath}/resource/sweetalert/css/sweetalert2.css">
+<link type="text/css" rel="stylesheet"
+	href="${initParam.rootPath}/resource/animate/animate.css">
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
@@ -66,20 +68,20 @@ section header h1 {
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
 <script type="text/javascript">
-	function imgSearch() {
-		var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-		var search = document.getElementById('searchEater').value;
-		if (special_pattern.test(search) == true) {
-			swal("", "특수문자나 공백이 존재합니다.", "error");
-			return false;
-		} else if (!search.replace(/^\s+|\s+$/g, '')) {
-			swal("", "특수문자나 공백이 존재합니다.", "error");
-			return false;
-		} else if (!search) {
-			swal("", "가게 이름 혹은 키워드가 입력되지 않았습니다.", "error");
-			return false;
-		}
+function imgSearch() {
+	var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+	var search = document.getElementById('searchEater').value;
+	if (special_pattern.test(search) == true) {
+		swal("", "특수문자가 존재합니다.", "error");
+		return false;
+	} else if (!search.replace(/^\s+|\s+$/g, '')) {
+		swal("", "공백만 존재합니다.", "error");
+		return false;
+	} else if (!search) {
+		swal("", "가게 이름 혹은 키워드가 입력되지 않았습니다.", "error");
+		return false;
 	}
+}
 </script>
 </head>
 <body>
