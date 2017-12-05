@@ -1,6 +1,7 @@
 package com.tasty.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class MissionCert implements Serializable{
 	private int missionCertNum;
@@ -12,6 +13,8 @@ public class MissionCert implements Serializable{
 	private Mission mission;
 	private Photo photo;
 	private Member member;
+	
+	private List<MissionCertPhoto> missionCertPhotoList;
 	public MissionCert() {
 	}
 	public MissionCert(int missionCertNum, String email, String title, String content, int missionNum) {

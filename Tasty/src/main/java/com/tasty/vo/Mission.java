@@ -21,9 +21,24 @@ public class Mission implements Serializable{
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
 	private List<MissionPhoto> missionPhotoList;//생성자 만들었음
+	private List<MissionMember> missionMemberList;
 	
 	
 	
+	public Mission(int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople,
+			Date startDate, Date endDate, List<MissionPhoto> missionPhotoList, List<MissionMember> missionMemberList) {
+		this.missionNum = missionNum;
+		this.missionName = missionName;
+		this.missionContent = missionContent;
+		this.currentPeople = currentPeople;
+		this.maxPeople = maxPeople;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.missionPhotoList = missionPhotoList;
+		this.missionMemberList = missionMemberList;
+	}
+
+
 	public Mission() {
 	}
 
@@ -100,6 +115,16 @@ public class Mission implements Serializable{
 
 	public void setMaxPeople(int maxPeople) {
 		this.maxPeople = maxPeople;
+	}
+
+
+	public List<MissionMember> getMissionMemberList() {
+		return missionMemberList;
+	}
+
+
+	public void setMissionMemberList(List<MissionMember> missionMemberList) {
+		this.missionMemberList = missionMemberList;
 	}
 
 
