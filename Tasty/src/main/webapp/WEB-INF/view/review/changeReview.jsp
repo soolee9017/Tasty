@@ -184,8 +184,8 @@ $(document).ready(function(){
 		   
 		   var photoNum = $(this).parent().children(".photoNum").html();
 	   	
-	       			if(confirm("진짜 삭제하시겠습니까? 사진은 삭제하면 되돌릴 수 없습니다.")==true){
-			       	 		  $.ajax({
+	       			if(confirm("진짜 삭제하시겠습니까? 사진은 삭제하면 되돌릴 수 없음 하모예~.")==true){
+			       	 		  /* $.ajax({
 			       		       "url":"/Tasty/review/deletePhoto.do",
 			       		       "data":"photoNum="+photoNum,
 			       		       "dataType":"json",
@@ -195,7 +195,7 @@ $(document).ready(function(){
 			       		       "success":function(result){
 			       		      			alert(result);
 			       		       }
-			       		    });        
+			       		    });         */
 	       			}else{
 	       					return;
 	       			}
@@ -218,7 +218,7 @@ $(document).ready(function(){
 </head>
 <body>
 
-${requestScope.review}
+
 
 
 <h2>${requestScope.review.storeName} 리뷰 수정 페이지!!</h2>
