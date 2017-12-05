@@ -23,7 +23,7 @@
 			});//end of addPhoto
 
 		$("#photoList").on("click", function() {
-			$(this).parent(), parent().remove();
+			$(this).parent(),parent().remove();
 		});//end of photoList
 						
 	});//end of document.ready

@@ -165,7 +165,7 @@ ALTER TABLE MISSION_CERT_BOARD
 -- 미션 인증 게시판
 ALTER TABLE MISSION_CERT_BOARD
    ADD
-      CONSTRAINT FK_MISSION_ADMIN_TO_MISSION_CERT_BOARD -- 미션 -> 미션 인증 게시판
+      CONSTRAINT FK_MA_TO_MCB -- 미션 -> 미션 인증 게시판
       FOREIGN KEY (
          mission_num -- 미션번호
       )
@@ -201,7 +201,7 @@ ALTER TABLE MISSION_MEMBER
       )
       REFERENCES MISSION_ADMIN ( -- 미션
          mission_num -- 미션번호
-	);
+   );
 
 -- 미션에 참여한 회원
 ALTER TABLE MISSION_MEMBER
@@ -219,30 +219,30 @@ ALTER TABLE MISSION_MEMBER
 ----------------------------------14.사진----------------------------
 ---- 사진
 --ALTER TABLE PHOTO
---	DROP CONSTRAINT PK_PHOTO; -- 사진 기본키
+--   DROP CONSTRAINT PK_PHOTO; -- 사진 기본키
 
 -- 사진
 DROP TABLE PHOTO CASCADE CONSTRAINT;
 
 -- 사진
 CREATE TABLE PHOTO (
-	photo_num  NUMBER(20)   NOT NULL, -- 사진번호
-	photo_path VARCHAR2(100) NULL      -- 사진경로
+   photo_num  NUMBER(20)   NOT NULL, -- 사진번호
+   photo_path VARCHAR2(100) NULL      -- 사진경로
 );
 
 -- 사진 기본키
 CREATE UNIQUE INDEX PK_PHOTO
-	ON PHOTO ( -- 사진
-		photo_num ASC -- 사진번호
-	);
+   ON PHOTO ( -- 사진
+      photo_num ASC -- 사진번호
+   );
 
 -- 사진
 ALTER TABLE PHOTO
-	ADD
-		CONSTRAINT PK_PHOTO -- 사진 기본키
-		PRIMARY KEY (
-			photo_num -- 사진번호
-		);
+   ADD
+      CONSTRAINT PK_PHOTO -- 사진 기본키
+      PRIMARY KEY (
+         photo_num -- 사진번호
+      );
 
 
 ------------------------------------------15. 리뷰사진----------------------------------------
@@ -381,5 +381,4 @@ create sequence mission_admin_seq;
 
 create sequence mission_cert_board_seq;
        
-
 
