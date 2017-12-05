@@ -22,8 +22,12 @@
 
 
 <script type="text/javascript">
+
+
+
 $(document).ready(function(){ 
 	
+	var listOfDelPhoto = [];
 	
 	$("table").on("change",".tasteSel", function(){
     var evtSrc = this;
@@ -162,6 +166,7 @@ $(document).ready(function(){
 		  $('#numOfTaste').val(numOfTaste);
 		  $('#listOfTaste').val(listOfTaste);
 		  $('#listOfDegree').val(listOfDegree);
+		  $('#listOfDelPhoto').val(listOfDelPhoto);
 		  
 		   $("#reviewForm").submit(); 
 		    
@@ -184,18 +189,9 @@ $(document).ready(function(){
 		   
 		   var photoNum = $(this).parent().children(".photoNum").html();
 	   	
-	       			if(confirm("진짜 삭제하시겠습니까? 사진은 삭제하면 되돌릴 수 없음 하모예~.")==true){
-			       	 		  /* $.ajax({
-			       		       "url":"/Tasty/review/deletePhoto.do",
-			       		       "data":"photoNum="+photoNum,
-			       		       "dataType":"json",
-			       		       "beforeSend":function(){
-			       		      
-			       		       },
-			       		       "success":function(result){
-			       		      			alert(result);
-			       		       }
-			       		    });         */
+	       			if(confirm("진짜 삭제하시겠습니까?")==true){
+	       				listOfDelPhoto.push(photoNum);
+	       				$(this).parent().remove();
 	       			}else{
 	       					return;
 	       			}
@@ -355,7 +351,7 @@ $(document).ready(function(){
 <input type="hidden" id="listOfDegree" name="listOfDegree" value="">
 
 
-
+<input type="hidden" id="listOfDelPhoto" name="listOfDelPhoto" value="">
 
 
    </form>
