@@ -1,5 +1,6 @@
 package com.tasty.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,24 +28,39 @@ public class MissionCertController {
 	@RequestMapping("getAllMissionCert")
 	@ResponseBody
 	public List<MissionCert> getAllMissionCert(){
-		List<MissionCert> list = service.selectAllMissionCert();
+		/*List<MissionCert> list = service.selectAllMissionCert();
 		System.out.println(list);
-		return list;
+		return list*/
+		
+		return service.selectAllMissionCert();
 	}
 	
 	@RequestMapping("getMissionCertByMN")
 	@ResponseBody
 	public List<MissionCert> getMissionCertByMissionNum(@RequestParam int missionNum,  HttpServletRequest request) {
-		List<MissionCert> list = service.selectMissionCertByMissionNum(missionNum);
-		return list;
+		/*List<MissionCert> list = service.selectMissionCertByMissionNum(missionNum);
+		return list*/
+		return service.selectMissionCertByMissionNum(missionNum);
 		
 	}
 	
 	
 	@RequestMapping("registerMissionCert")
-	public int registerMissionCert(@ModelAttribute MissionCert missionCert, HttpServletRequest request) {
-		int mCFlag = service.insertMissionCert(missionCert);
-		return mCFlag;
+	@ResponseBody
+	public int registerMissionCert(Principal principal,HttpServletRequest request,@ModelAttribute MissionCert missionCert) {
+		return service.insertMissionCert(principal, request, missionCert);//mCFlag가 1이면 입력성공--> 미션인증글등록 성공 페이지로 가지 않고 ajax처리할 예정
+	}
+	
+	@RequestMapping("removeMissionCertByMCN")
+	@ResponseBody
+	public int removeMissionCertByMissionCertNum(@RequestParam int missionCertNum, HttpServletRequest request) {
+		return service.deleteMissionCertByMissionCertNum(missionCertNum);
+	}
+	
+	@RequestMapping("modifyMissionCertByMCN")
+	@ResponseBody
+	public int modifyMisisonCertByMissionCertNum(@RequestParam int missionCertNum, HttpServletRequest request) {
+		return service.updateMissionCertByMissionCertNum(missionCertNum);
 	}
 	
 	
