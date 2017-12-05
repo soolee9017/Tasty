@@ -35,8 +35,8 @@ public class MissionController {
 	
 	@RequestMapping("getAllMission")
 	public ModelAndView getAllMission(){
-		List<Mission> list = service.selectAllMission();
-		return new ModelAndView("/mission/mission_all_view.jsp","result",list);
+		List<Mission> list = service.selectAllMissionList();
+		return new ModelAndView("mission/mission_all_view.tiles","result",list);
 	}
 	
 	@RequestMapping("removeMissionByMissionNum")
@@ -87,7 +87,7 @@ public class MissionController {
 	public ModelAndView selectMissionByMissionNum(@RequestParam int missionNum) {
 		Mission mission = service.selectMissionByMissionNum(missionNum);
 		System.out.println(mission);
-		return new ModelAndView("/mission/show_mission_success.jsp","mission",mission);
+		return new ModelAndView("/mission/mission_detail_view.tiles","missions",mission);
 	}
 	
 	@RequestMapping("selectMissionNum2")

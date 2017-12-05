@@ -62,7 +62,7 @@ public class MainController {
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);
 	      System.out.println("로그인하러 왔멘 → " + member);
-	      return new ModelAndView("member/join_success.tiles", "member", member);
+	      return new ModelAndView("content/main.tiles");
 	   }
 	
 	

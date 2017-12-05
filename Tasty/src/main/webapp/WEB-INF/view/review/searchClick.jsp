@@ -51,20 +51,14 @@ $(document).ready(function(){
       "dataType":"json",
       "error":function(a, b,c){
          alert(c);
+         alert("리뷰들 불러오는게 에러");
       },
       "success":function(list){
          var txt = "";
          txt += "<button id='moreBtn' type='button'>리뷰 더 보기</button>";
          var total;
          $.each(list, function(){
-/*             txt += "<tr><td>"+this.reviewNum+"</td>";
-            txt += "<td>"+this.title+"</td>";
-            txt += "<td>"+this.ratings+"/5.0</td>";
-            txt += "<td><button class='plus'>추천</button></td>";
-            txt += "<td><button class='minus'>비추천</button></td>";
-            txt += "<td>"+this.ups+"</td>";
-            txt += "<td>-"+this.downs+"</td>"
-            txt += "<td><button type='button' class='rvBtn'>리뷰 상세보기</button></td></tr>"; */
+
             
          
        
@@ -100,7 +94,7 @@ $(document).ready(function(){
       "data":"address="+address,
       "dataType":"json",
       "error":function(a, b,c){
-         //alert(c);
+         alert("평균평점 에러");
       },
       "success":function(avg){
          $("#ratings").append('평균 평점 : '+avg + '점 / 5점'); 

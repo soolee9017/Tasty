@@ -150,9 +150,34 @@ public class ReviewController {
 	  return new ModelAndView("review/changeReview.jsp");
   }
   
+  @RequestMapping("updateReview")
+  public ModelAndView updateReview(Principal principal,HttpServletRequest request,
+		  @RequestParam String reviewNum,
+  @RequestParam String numOfOg,@RequestParam String ogMenuNum,
+  @RequestParam String listOfMenu, @RequestParam String numOfTaste,
+  @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating,
+  @RequestParam String title,
+  @RequestParam String content,@RequestParam List<MultipartFile> upImage) throws Exception{
+	
+	
+	  
+	  
+	  reviewService.updateReview(principal, request, reviewNum, numOfOg, ogMenuNum, 
+			  listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage);
+	  
+	  Review review = reviewService.selectReviewByNum(Integer.parseInt(reviewNum));
+	  
+	  return new ModelAndView("review/reviewDetail.jsp","review",review);
+  }
   
   
-  
+  @RequestMapping("deletePhoto")
+  @ResponseBody
+  public String deletePhoto(@RequestParam String photoNum){
+
+	 reviewService.deletePhoto(Integer.parseInt(photoNum));
+	 return "삭제됨";
+  }
   
   
 }

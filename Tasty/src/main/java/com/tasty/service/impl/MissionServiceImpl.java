@@ -72,8 +72,8 @@ public class MissionServiceImpl implements MissionService{
               
 
              photo.transferTo(new File(request.getServletContext().getRealPath("/photos/mission"),fileName));
-             FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/mission"),fileName),
-                   new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\mission",fileName));
+//             FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/mission"),fileName),
+//                   new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\mission",fileName));
              
              
               photoDao.insertPhoto(fileName);
@@ -99,6 +99,11 @@ public class MissionServiceImpl implements MissionService{
 	@Override
 	public Mission selectMissionByMissionNum(int missionNum) {
 		return missionDao.selectMissionByMissionNum(missionNum);
+	}
+
+	@Override
+	public List<Mission> selectAllMissionList() {
+		return missionDao.selectAllMissionList();
 	}
 	
 	
