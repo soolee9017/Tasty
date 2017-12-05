@@ -28,5 +28,22 @@ insert into all_taste values(td_num_seq.nextval, #{tasteNum},#{degreeNum})
 select * from degree where degree_num != 0
 </select>
 
+<delete id="deleteAtByTd" parameterType="int">
+	delete from all_taste where td_num = #{value}
+</delete>
+
+<delete id="deleteMtByMn" parameterType="int">
+	delete from menu_taste where menu_num = #{value}
+</delete>
+
+
+<select id="selectTdByMn" parameterType="int" resultType="int">
+	select td_num from menu_taste where menu_num=#{value}
+</select>
+
+
+<delete id="deleteMenuByMn" parameterType="int">
+	delete from menu where menu_num=#{value}
+</delete>
 
 </mapper>
