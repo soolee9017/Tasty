@@ -9,4 +9,12 @@ public interface TasteDAO {
 	int insertAllTaste(Map map);
 	
 	List selectAllDegree();
+	
+	int deleteAtByTd(int number);
+	
+	List<Integer> selectTdByMn(int number);
+	
+	int deleteMtByMn(int number);
+	
+	int deleteMenuByMn(int number);
 }

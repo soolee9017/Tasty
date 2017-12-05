@@ -26,10 +26,19 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public List<Review> selectReviewByAddress(String address) {
 		return session.selectList(makeSqlId("selectReviewByAddress"), address);
 	}
-
+	
+	
+	@Override
+	public int insertMenuWithMn(Map map) {
+		return session.insert(makeSqlId("insertMenuWithMn"),map);
+	}
+	
+	@Override
 	public int insertMenu(String name) {
 		return session.insert(makeSqlId("insertMenu"),name);
 	}
+	
+	
 
 	@Override
 	public int insertMenuTaste() {
@@ -106,6 +115,11 @@ public class ReviewDAOImpl implements ReviewDAO{
 	@Override
 	public List<Review> selectAllReviewAndMemberByAddress(String address) {
 		return session.selectList(makeSqlId("selectAllReviewAndMemberByAddress"),address);
+	}
+
+	@Override
+	public int updateReviewWithMap(Map map) {
+		return session.update(makeSqlId("updateReviewWithMap"),map);
 	}
 	
 	
