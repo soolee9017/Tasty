@@ -10,14 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tasty.dao.MissionDAO;
 import com.tasty.dao.PhotoDAO;
 import com.tasty.service.MissionService;
+import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionMember;
 
@@ -53,8 +55,8 @@ public class MissionServiceImpl implements MissionService{
 		
 		
 		//로그인한 사람의 정보
-		/*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member member= (Member)authentication.getPrincipal();*/
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member= (Member)authentication.getPrincipal();
 	
 		
 		int a = missionDao.insertMission(mission);

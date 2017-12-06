@@ -73,14 +73,20 @@
     	select *
     	from mission_cert_board
     </select>
+<<<<<<< HEAD
      -->
 
     
     
       <!-- <update id="updateMissionCertByNum" parameterType="missionCert">
+=======
+    
+      <update id="updateMissionCertByNum" parameterType="missionCert">
+>>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
         UPDATE mission_cert_board
             SET
             CONTENT = #{content}
+<<<<<<< HEAD
         WHERE mission_cert_num = #{mission
         }
     </update> -->
@@ -101,9 +107,11 @@
    </select> -->
    
    <!-- 미션 인증글 등록  -->
-   <insert id="insertMissionCert" parameterType="missionCert">
+
+   <insert id="insertMissionCert" parameterType="missionCert"> 
       INSERT INTO mission_cert_board
-      VALUES (mission_cert_board_seq.nextval,
+      VALUES (
+     		mission_cert_board_seq.nextval,
             #{title},
             #{content},
             #{missionNum})

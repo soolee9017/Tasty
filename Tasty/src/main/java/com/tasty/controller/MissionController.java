@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.service.MissionService;
+import com.tasty.vo.Authority;
+import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionMember;
 
@@ -25,6 +30,9 @@ public class MissionController {
 	@Autowired
 	MissionService service;
 	
+	@Autowired
+	MemberDAO memberDao;
+	
 	
 	
 	@RequestMapping("getMissonByMissionNum")
@@ -34,9 +42,17 @@ public class MissionController {
 	}
 	
 	@RequestMapping("getAllMission")
-	public ModelAndView getAllMission(){
+	public ModelAndView getAllMission(Principal principal){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member)authentication.getPrincipal();
+		List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
 		List<Mission> list = service.selectAllMissionList();
-		return new ModelAndView("mission/mission_all_view.tiles","result",list);
+		if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
+			return new ModelAndView("admin/mission_all_view.tiles","result",list); 
+		}else {
+			return new ModelAndView("mission/mission_all_view.tiles","result",list);
+		}
+		
 	}
 	
 	@RequestMapping("removeMissionByMissionNum")
@@ -97,10 +113,7 @@ public class MissionController {
 		return new ModelAndView("/mission/modify_mission.jsp","mission",mission);
 	}
 	
-	@RequestMapping("moveToMissionAllView")
-	public ModelAndView moveToMissionAllView() {
-		return new ModelAndView("mission/getAllMission.do");
-	}
+
 	
 
 	
