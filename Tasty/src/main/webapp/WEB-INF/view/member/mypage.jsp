@@ -55,6 +55,7 @@
 
 	
 	<a href="${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>" class="btn btn-default">내가 작성한 리뷰 보기</a>
+	<a href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>' class="btn btn-default">루트 작성하기</a>
 	
 	
 	<div class="row" style="margin-top:20px">
