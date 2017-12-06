@@ -34,10 +34,10 @@ public class RouteController {
 		
 		
 		for(Review r: list) {
-			HashMap<String,String> map = new HashMap<>();
+			HashMap map = new HashMap<>();
 			map.put("storeName", r.getStoreName());
-			map.put("x",r.getPosX());
-			map.put("y",r.getPosY());
+			map.put("x",Float.parseFloat(r.getPosX()));
+			map.put("y",Float.parseFloat(r.getPosY()));
 				bigList.add(map);
 		}
 		
@@ -50,9 +50,6 @@ public class RouteController {
 				bigList2.add(smallList);
 		}
 		
-		
-		System.out.println(bigList);
-		System.out.println(bigList2);
 		
 		return new ModelAndView("route/route_select.jsp","list",bigList2);
 	}
