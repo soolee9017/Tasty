@@ -73,20 +73,12 @@
     	select *
     	from mission_cert_board
     </select>
-<<<<<<< HEAD
-     -->
 
     
-    
-      <!-- <update id="updateMissionCertByNum" parameterType="missionCert">
-=======
-    
       <update id="updateMissionCertByNum" parameterType="missionCert">
->>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
         UPDATE mission_cert_board
             SET
             CONTENT = #{content}
-<<<<<<< HEAD
         WHERE mission_cert_num = #{mission
         }
     </update> -->
