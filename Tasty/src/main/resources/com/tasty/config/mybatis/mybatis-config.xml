@@ -18,5 +18,6 @@
 		<mapper resource="com/tasty/config/mybatis/mapper/MissionMapper.xml"/>
 		<mapper resource="com/tasty/config/mybatis/mapper/RouteMapper.xml"/>
 		<mapper resource="com/tasty/config/mybatis/mapper/PhotoMapper.xml"/>
+  		<mapper resource="com/tasty/config/mybatis/mapper/MissionCertMapper.xml"/> 
 	</mappers>
 </configuration>

@@ -37,20 +37,16 @@ public class MissionCertController {
 	
 	@RequestMapping("getMissionCertByMN")
 	@ResponseBody
-	public List<MissionCert> getMissionCertByMissionNum(@RequestParam int missionNum, 
-			@RequestParam String title, @RequestParam String content) {
-		service.insertMissionCert(new MissionCert(1,title,content,missionNum));
+	public List<MissionCert> getMissionCertByMissionNum(@RequestParam int missionNum) {
 		List<MissionCert> list = service.selectMissionCertByMissionNum(missionNum);
 		return list;
 	}
 	
 	
 	@RequestMapping("registerMissionCert")
-	@ResponseBody
-	public String registerMissionCert(Principal principal,HttpServletRequest request,@ModelAttribute MissionCert missionCert
-			, @RequestParam int missionNum) {
-		request.setAttribute("missionNum", missionNum);
-		return "/missionCert/getMissionCertByMN.do";
+	public void registerMissionCert(@RequestParam String title, @RequestParam String content, 
+			@RequestParam int missionNum) {
+		service.insertMissionCert(new MissionCert(0,title,content,missionNum));
 	}
 	
 	@RequestMapping("removeMissionCertByMCN")

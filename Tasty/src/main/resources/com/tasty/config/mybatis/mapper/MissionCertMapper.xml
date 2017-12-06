@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tasty.config.mybatis.mapper.MissionMapper">
+<mapper namespace="com.tasty.config.mybatis.mapper.MissionCertMapper">
    <!-- 
       MissionCertBoard관련 mapper
     -->
@@ -63,35 +63,29 @@
    
    
    <!-- 미션인증글의 개수를 조회 -->
-    <select id="selectMissionCertCoung" resultType="int">
+    <!-- <select id="selectMissionCertCoung" resultType="int">
         SELECT COUNT(*)
         FROM mission_cert_board
-    </select>
+    </select> -->
     
     
-    <select id="selectAllMissionCert">
+    <!-- <select id="selectAllMissionCert">
     	select *
     	from mission_cert_board
     </select>
-    
-     <insert id="insertMissionCert" parameterType="missionCert">
-        INSERT INTO
-        MISSION_CERT_BOARD(MISSION_CERT_NUM, EMAIL, TITLE, CONTENT, MISSION_NUM)
-        VALUES(mission_cert_board_seq.nextval,#{email},#{title},#{content},#{missionNum}) 
-    </insert>
+     -->
+
     
     
-      <update id="updateMissionCertByNum" parameterType="missionCert">
+      <!-- <update id="updateMissionCertByNum" parameterType="missionCert">
         UPDATE mission_cert_board
             SET
             CONTENT = #{content}
         WHERE mission_cert_num = #{mission
         }
-    </update>
+    </update> -->
     
-    <delete id="commentDelete" parameterType="int">
-        DELETE FROM COMMENT WHERE CNO = #{cno}
-    </delete>
+    
    
    <!-- 미션에 있는 모든 미션인증글 조회 -->
    <select id="selectAllMissionCertPhoto" resultMap="missionCert-join-photo-resultmap"> 
@@ -102,42 +96,37 @@
    
 
 
-   <select id="selectAllMissionCert" resultMap="missionCert-resultmap">
+   <!-- <select id="selectAllMissionCert" resultMap="missionCert-resultmap">
       select * from mission_cert_board
-   </select>
+   </select> -->
    
    <!-- 미션 인증글 등록  -->
    <insert id="insertMissionCert" parameterType="missionCert">
-      INSERT INTO mission_cert_board (mission_cert_num, 
-                     email,
-                     title,
-                     content,
-                     mission_num)
-      VALUES (
-      mission_cert_board_seq.nextval,
-            #{email},
+      INSERT INTO mission_cert_board
+      VALUES (mission_cert_board_seq.nextval,
             #{title},
             #{content},
-            #{mission_num})
+            #{missionNum})
    </insert>
+   
    <!-- 미션인증글 미션인증글 번호로 회원이 작성한 작성글내용, 작성 제목 수정 -->
-   <update id="updateMissionByMissionCertNum" parameterType="missionCert">
+<!--    <update id="updateMissionByMissionCertNum" parameterType="missionCert">
       UPDATE MISSION_CERT_BOARD
       SET  title = #{title},
           content = #{content},
       WHERE mission_cert_num = #{missionCertNum}
-   </update>   
+   </update>    -->
    
    <!-- 미션번호로 해당 미션인증글 삭제 -->
-   <delete id="deleteMissionCertByMissionCertNum">
+<!--    <delete id="deleteMissionCertByMissionCertNum">
          delete from mission_cert_board where mission_cert_num = #{value}
    </delete>
-   
+    -->
       
-   <insert id="insertMissionMember" parameterType="missionMember">
+<!--    <insert id="insertMissionMember" parameterType="missionMember">
       insert into mission_member(mission_num,email)
       values (#{missionNum},#{email})
-   </insert>
+   </insert> -->
    
    
    
