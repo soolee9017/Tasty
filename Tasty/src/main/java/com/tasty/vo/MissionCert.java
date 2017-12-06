@@ -14,6 +14,17 @@ public class MissionCert implements Serializable{
 	private List<MissionCertPhoto> missionCertPhotoList;
 	
 	public MissionCert() {}
+	
+	
+
+	public MissionCert(int missionCertNum, String title, String content, int missionNum) {
+		this.missionCertNum = missionCertNum;
+		this.title = title;
+		this.content = content;
+		this.missionNum = missionNum;
+	}
+
+
 
 	public MissionCert(int missionCertNum, String title, String content, int missionNum,
 			List<MissionCertPhoto> missionCertPhotoList) {
