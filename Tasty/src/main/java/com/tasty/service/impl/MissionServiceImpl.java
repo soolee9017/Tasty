@@ -2,6 +2,7 @@ package com.tasty.service.impl;
 
 import java.io.File;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tasty.dao.MissionDAO;
@@ -66,7 +66,7 @@ public class MissionServiceImpl implements MissionService{
         if(!file.exists()) {
            file.mkdirs();
         }
-       
+        List<String> photoList = new ArrayList<>();
         System.out.println(mission);
         for(MultipartFile photo : upImage) {
               if(photo != null && !photo.isEmpty()) {
@@ -79,6 +79,8 @@ public class MissionServiceImpl implements MissionService{
              
              
               photoDao.insertPhoto(fileName);
+              photoList.add(fileName);
+              request.setAttribute("photos", photoList);
               photoDao.insertMissionPhoto();
               }
            }
@@ -99,6 +101,11 @@ public class MissionServiceImpl implements MissionService{
 	@Override
 	public Mission selectMissionByMissionNum(int missionNum) {
 		return missionDao.selectMissionByMissionNum(missionNum);
+	}
+
+	@Override
+	public List<Mission> selectAllMissionList() {
+		return missionDao.selectAllMissionList();
 	}
 	
 	

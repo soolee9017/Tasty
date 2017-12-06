@@ -7,24 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript"
 	src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
-<!-- <script type="text/javascript">
 
-$(document).ready(function() {
-	/*사진추가 button*/
-	$("#addPhoto").on("click",function() {
-		var html = '<tr><td>'+ '<input type="file" name="upImage">'+ '</td>';
-			html += '<td><button type="button" class="deletePhoto">사진삭제</button>';
-			html += '</td></tr>';
-		$("#photoList").append(html);
-	});//end of addPhoto
-
-	$("#photoList").on("click", function() {
-		$(this).parent(), parent().remove();
-	});//end of photoList
-					
-});//end of document.ready
-
-</script> -->
 </head>
 <body>
 	<h1>조회된 미션</h1>

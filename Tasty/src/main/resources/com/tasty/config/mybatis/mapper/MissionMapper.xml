@@ -74,9 +74,11 @@
 
 
 	<select id="selectAllMission2" resultMap="mission-join-photo-resultmap">
-		select * from MISSION_ADMIN, MISSION_PHOTO
-		where MISSION_ADMIN.MISSION_NUM = MISSION_PHOTO.MISSION_NUM
-		order by MISSION_ADMIN.MISSION_NUM asc  
+		select * 
+		from MISSION_ADMIN ma, MISSION_PHOTO mp, photo p
+		where ma.MISSION_NUM =mp.MISSION_NUM
+		and mp.photo_num = p.photo_num
+		order by ma.MISSION_NUM asc  
 	</select>
 	
 	<select id="selectAllMission" resultMap="mission-resultmap">

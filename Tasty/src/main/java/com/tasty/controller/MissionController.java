@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.service.MissionService;
+import com.tasty.vo.Authority;
+import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionMember;
 
@@ -25,6 +30,9 @@ public class MissionController {
 	@Autowired
 	MissionService service;
 	
+	@Autowired
+	MemberDAO memberDao;
+	
 	
 	
 	@RequestMapping("getMissonByMissionNum")
@@ -34,9 +42,17 @@ public class MissionController {
 	}
 	
 	@RequestMapping("getAllMission")
-	public ModelAndView getAllMission(){
-		List<Mission> list = service.selectAllMission();
-		return new ModelAndView("/mission/mission_all_view.jsp","result",list);
+	public ModelAndView getAllMission(Principal principal){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member)authentication.getPrincipal();
+		List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
+		List<Mission> list = service.selectAllMissionList();
+		if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
+			return new ModelAndView("admin/mission_all_view.tiles","result",list); 
+		}else {
+			return new ModelAndView("mission/mission_all_view.tiles","result",list);
+		}
+		
 	}
 	
 	@RequestMapping("removeMissionByMissionNum")
@@ -61,7 +77,7 @@ public class MissionController {
 	
 	@RequestMapping("moveToRegister")
 	public String moveToRegisterMission() {
-		return "/mission/register_mission.jsp";
+		return "/mission/register_mission.tiles";
 	}
 	
 
@@ -70,7 +86,7 @@ public class MissionController {
 		//service.insertMission(mission,request,upImage);
 		service.insertMission(principal, mission, request, upImage);
 		
-		return new ModelAndView("/mission/show_mission_success.jsp","mission",mission);
+		return new ModelAndView("/mission/register_mission_success.tiles","mission",mission);
 	}
 	
 	
@@ -87,7 +103,7 @@ public class MissionController {
 	public ModelAndView selectMissionByMissionNum(@RequestParam int missionNum) {
 		Mission mission = service.selectMissionByMissionNum(missionNum);
 		System.out.println(mission);
-		return new ModelAndView("/mission/show_mission_success.jsp","mission",mission);
+		return new ModelAndView("/mission/mission_detail_view.tiles","missions",mission);
 	}
 	
 	@RequestMapping("selectMissionNum2")
@@ -97,6 +113,7 @@ public class MissionController {
 		return new ModelAndView("/mission/modify_mission.jsp","mission",mission);
 	}
 	
+
 	
 
 	

@@ -28,4 +28,6 @@ public interface MissionService {
 	
 	Mission selectMissionByMissionNum(int missionNum);
 	
+	List<Mission> selectAllMissionList();
+	
 }

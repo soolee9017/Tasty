@@ -40,6 +40,11 @@ public class PhotoDAOImpl implements PhotoDAO{
 	public int deleteReviewPhoto(int number) {
 		return session.delete(makeSqlId("deleteReviewPhoto"),number);
 	}
+
+	@Override
+	public int insertReviewPhotoWithRn(int number) {
+		return session.insert(makeSqlId("insertReviewPhotoWithRn"),number);
+	}
 	
 	
 
