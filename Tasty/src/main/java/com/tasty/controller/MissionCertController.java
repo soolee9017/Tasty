@@ -25,15 +25,15 @@ public class MissionCertController {
 	
 	
 	
-	@RequestMapping("getAllMissionCert")
+	/*@RequestMapping("getAllMissionCert")
 	@ResponseBody
 	public List<MissionCert> getAllMissionCert(){
-		/*List<MissionCert> list = service.selectAllMissionCert();
+		List<MissionCert> list = service.selectAllMissionCert();
 		System.out.println(list);
-		return list*/
+		return list
 		
 		return service.selectAllMissionCert();
-	}
+	}*/
 	
 	@RequestMapping("getMissionCertByMN")
 	@ResponseBody

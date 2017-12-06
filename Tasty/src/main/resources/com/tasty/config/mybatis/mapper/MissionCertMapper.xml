@@ -120,6 +120,7 @@
             #{content},
             #{mission_num})
    </insert>
+   
    <!-- 미션인증글 미션인증글 번호로 회원이 작성한 작성글내용, 작성 제목 수정 -->
    <update id="updateMissionByMissionCertNum" parameterType="missionCert">
       UPDATE MISSION_CERT_BOARD

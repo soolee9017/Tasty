@@ -12,6 +12,7 @@
 <div style='margin-top: 70px;'>
 
 <h1>미션목록</h1>
+<button id="regBtn" type="submit" onclick="window.location.href='moveToRegister.do'">미션 등록</button>
 <c:forEach var="missions" items="${result }">
 
 미션번호 : ${missions.missionNum}<br>
