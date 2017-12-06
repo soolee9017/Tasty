@@ -16,7 +16,7 @@ html, body {
 	<div id="map" style="width: 100%; height: 350px;"></div>
 	<button onclick="getArrow();">확인</button>
 	${requestScope.list }
-	<script type="text/javascript"
+	<script type="text/ja vascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c9a267072d7a505da79a5cc7df2f5ba7&libraries=services,clusterer,drawing"></script>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
