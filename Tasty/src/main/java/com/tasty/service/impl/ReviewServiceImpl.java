@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tasty.dao.MemberDAO;
@@ -95,8 +96,8 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
-				//				 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
-				//					  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
+								 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+									  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
 				photoDao.insertPhoto(fileName);
 				photoDao.insertReviewPhoto();
 			}
@@ -202,6 +203,7 @@ public class ReviewServiceImpl implements ReviewService{
 		if(!file.exists()) {
 			file.mkdirs();
 		}
+		
 
 		for(MultipartFile photo : upImage) {
 			if(photo != null && !photo.isEmpty()) {
@@ -209,8 +211,8 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
-				//				 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
-				//					  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
+								 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+									  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
 				photoDao.insertPhoto(fileName);
 				photoDao.insertReviewPhotoWithRn(Integer.parseInt(reviewNum));
 			}
