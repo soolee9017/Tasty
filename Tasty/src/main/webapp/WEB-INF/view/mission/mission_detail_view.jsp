@@ -19,24 +19,37 @@ $(document).ready(function() {
 		$("#photoList").append(html);
 		});//end of addPhoto
 
-	$("#photoList").on("click", function() {
-		$(this).parent(), parent().remove();
+	$("#photoList").on("click",".deletePhoto", function() {
+		$(this).parent().parent().remove();
 	});//end of photoList
 	
 	$("form[name=content]").on("click","#missionCert",function(){
 		alert('클릭');
-		alert($("#title").val());
-		var num = ${missions.missionNum};
+		var insertData = $("form[name=content]").serialize();
+		$.ajax({
+			"url":"/Tasty/missionCert/registerMissionCert.do",
+			"method":"post",
+			"data":insertData,
+			"error":function(a,b,c){
+				alert(c);
+			},
+			"success":function(){
+				alert('insert 성공');
+			}
+		});
+		
+ 		var num = ${missions.missionNum};
+ 		alert(num);
 		$.ajax({
 			"url":"/Tasty/missionCert/getMissionCertByMN.do",
 			"data":"missionNum="+num,
-			"dataType":"json",
+			//"dataType":"json",
 			"error":function(a,b,c){
 			
 				alert(c);
 			},
 			"success":function(list){
-				alert('성공');
+				alert(list);
 				var txt="";
 				$.each(list,function(){
 					txt += this.title;
@@ -75,7 +88,7 @@ $(document).ready(function() {
 	<textarea name="content" rows="5" cols="20" placeholder="인증글을 입력해주세요."></textarea><br>
 	사진 등록 :
 		<table id="photoList">
-			<tr>
+			<tr>	
 				<td><input type="file"></td>
 				<td><button type="button" class="deletePhoto">사진삭제</button></td>
 			</tr>
@@ -83,8 +96,7 @@ $(document).ready(function() {
 		<button type="button" id="addPhoto">사진추가</button>
 		<br>
 
-
-		<button id="missionCert" type="submit">미션 인증</button>
+		<button id="missionCert" type="button">미션 인증</button>
 	</form>
 	
 	</div>
