@@ -6,7 +6,7 @@ import com.tasty.vo.Route;
 
 public interface RouteService {
 
-	void addRoute(String content, String routeName, List<String> storeName, List<String> posX, List<String> posY);
+	void addRoute(String email, String content, String routeName, List<String> storeName, List<String> posX, List<String> posY);
 	
 	void updateRoute(Route route);
 	

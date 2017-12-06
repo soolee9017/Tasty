@@ -44,7 +44,6 @@ public class MainController {
 		System.out.println(tastes);
 		service.addMember(member, "ROLE_MEMBER");
 		List<Taste> tasteList = (List<Taste>)tasteService.selectAllTaste();
-		System.out.println(tasteList);
 		for(int i=0; i<tastes.size(); i++) {
 			for(int j=0; j<tasteList.size(); j++) {
 				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
@@ -54,7 +53,7 @@ public class MainController {
 			}
 		}
 	
-		
+				
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
 	
@@ -63,7 +62,7 @@ public class MainController {
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);
 	      System.out.println("로그인하러 왔멘 → " + member);
-	      return new ModelAndView("member/join_success.tiles", "member", member);
+	      return new ModelAndView("content/main.tiles");
 	   }
 	
 	

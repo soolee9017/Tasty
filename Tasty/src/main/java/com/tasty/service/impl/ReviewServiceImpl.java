@@ -31,18 +31,18 @@ import com.tasty.vo.Review;
 public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	private ReviewDAO reviewDao;
-	
-	
+
+
 	@Autowired
 	private TasteDAO tasteDao;
-	
+
 	@Autowired
 	private PhotoDAO photoDao;
-	
+
 	@Autowired
 	private MemberDAO memberDao;
-	
-	
+
+
 	@Override
 	public List<Review> selectReviewByAddress(String address) {
 		return reviewDao.selectReviewByAddress(address);
@@ -52,7 +52,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public List<Review> selectReviewByEmail(String email) {
 		return reviewDao.selectReviewByEmail(email);
 	}
-	
+
 
 
 	@Override
@@ -60,69 +60,135 @@ public class ReviewServiceImpl implements ReviewService{
 	public int insertReview(Principal principal,HttpServletRequest request, String listOfMenu, String numOfTaste, 
 			String listOfTaste, String listOfDegree, String rating, 
 			String title,String content, List<MultipartFile> upImage)
-			throws Exception{
+					throws Exception{
+
+		HttpSession session = request.getSession();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member= (Member)authentication.getPrincipal();
+
+		float ratingFloat = Float.parseFloat(rating);
+
+
+		Review review = new Review(1,(String)session.getAttribute("eateryJibun"),(String)session.getAttribute("eateryTitle"),
+				member.getEmail(),title,content,ratingFloat,0,0,(String)session.getAttribute("lng"),(String)session.getAttribute("lat"));
+
+		String[] menu = listOfMenu.split(",");
+		String[] numTaste = numOfTaste.split(",");
+		String[] taste = listOfTaste.split(",");
+		String[] degree = listOfDegree.split(",");
+		String address = (String)session.getAttribute("eateryJibun");
+
+		reviewDao.insertReview(review); 
+
+
+
+		File file = new File(request.getServletContext().getRealPath("/photos/review"));
+
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+
+		for(MultipartFile photo : upImage) {
+			if(photo != null && !photo.isEmpty()) {
+				String fileName = UUID.randomUUID().toString().replace("-", "")+photo.getOriginalFilename();
+
+
+				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
+				//				 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+				//					  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
+				photoDao.insertPhoto(fileName);
+				photoDao.insertReviewPhoto();
+			}
+		}
+
+		int num = 0;
+		for(int i = 0; i<menu.length; i++) {
+			reviewDao.insertMenu(menu[i]);
+
+			for(int j = num; j<num+Integer.parseInt(numTaste[i]) ; j++) {
+
+				Map<String,Integer> map = new HashMap<>();
+				map.put("tasteNum", Integer.parseInt(taste[j]));
+				map.put("degreeNum", Integer.parseInt(degree[j]));
+				tasteDao.insertAllTaste(map);
+				reviewDao.insertMenuTaste();
+
+			}
+
+			num= num+Integer.parseInt(numTaste[i]);
+		}
+
+		List<Integer> list = reviewDao.selectReviewNumByEmail(member.getEmail());
+		return list.get(0);
+
+	}
+
+
+
+
+
+
+	@Override
+	@Transactional
+	public int updateReview(Principal principal, HttpServletRequest request, String reviewNum, String numOfOg,
+			String ogMenuNum, String listOfMenu, String numOfTaste, String listOfTaste, String listOfDegree,
+			String rating, String title, String content, List<MultipartFile> upImage) throws Exception {
+
+		Map updateMap = new HashMap<>();
+		updateMap.put("reviewNum", Integer.parseInt(reviewNum));
+		updateMap.put("rating", Float.parseFloat(rating));
+		updateMap.put("title",title);
+		updateMap.put("content", content);
 		
-			HttpSession session = request.getSession();
-			
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			Member member= (Member)authentication.getPrincipal();
+		reviewDao.updateReviewWithMap(updateMap);
+		
 
-			//읭?
-			float ratingFloat = Float.parseFloat(rating);
+		String[] menu = listOfMenu.split(",");
+		String[] numTaste = numOfTaste.split(",");
+		String[] taste = listOfTaste.split(",");
+		String[] degree = listOfDegree.split(",");
+		String [] ogMenuNumber = ogMenuNum.split(",");
+		
+		
+		int ogNumber = Integer.parseInt(numOfOg);
+		
+		for(int i = 0; i<ogNumber; i++){
 			
-
-			Review review = new Review(1,(String)session.getAttribute("eateryJibun"),(String)session.getAttribute("eateryTitle"),
-					member.getEmail(),title,content,ratingFloat,0,0,(String)session.getAttribute("lng"),(String)session.getAttribute("lat"));
+			int menuNum=Integer.parseInt(ogMenuNumber[i]);
+		
+			List<Integer> TdList = tasteDao.selectTdByMn(menuNum);
 			
-		   String[] menu = listOfMenu.split(",");
-		   String[] numTaste = numOfTaste.split(",");
-		   String[] taste = listOfTaste.split(",");
-		   String[] degree = listOfDegree.split(",");
-		   String address = (String)session.getAttribute("eateryJibun");
-		   
-		   reviewDao.insertReview(review); 
-		   
-		   
-		   
-		   File file = new File(request.getServletContext().getRealPath("/photos/review"));
-		   
-		   if(!file.exists()) {
-			   file.mkdirs();
-		   }
-		  
-			   for(MultipartFile photo : upImage) {
-				   if(photo != null && !photo.isEmpty()) {
-				   String fileName = UUID.randomUUID().toString().replace("-", "")+photo.getOriginalFilename();
-				   
+			tasteDao.deleteMtByMn(menuNum);
+			tasteDao.deleteMenuByMn(menuNum);
+			for(int a : TdList) {
+				tasteDao.deleteAtByTd(a);
+			} // 기존의 메뉴들을 전부 삭제. 
+		}
+			
+		int num = 0;
+		for(int i = 0; i<menu.length; i++) {
+			Map menuMap = new HashMap<>();
+			menuMap.put("reviewNum",  Integer.parseInt(reviewNum));
+			menuMap.put("menuName", menu[i]);
+			reviewDao.insertMenuWithMn(menuMap);
 
-				  photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
-//				 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
-	//					  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
-				   photoDao.insertPhoto(fileName);
-				   photoDao.insertReviewPhoto();
-				   }
-			   }
-			   
-		   int num = 0;
-		   for(int i = 0; i<menu.length; i++) {
-			   reviewDao.insertMenu(menu[i]);
-			   
-			   for(int j = num; j<num+Integer.parseInt(numTaste[i]) ; j++) {
-	
-				   Map<String,Integer> map = new HashMap<>();
-				   map.put("tasteNum", Integer.parseInt(taste[j]));
-				   map.put("degreeNum", Integer.parseInt(degree[j]));
-				   tasteDao.insertAllTaste(map);
-				   reviewDao.insertMenuTaste();
-				   
-			   }
-			   
-			   num= num+Integer.parseInt(numTaste[i]);
-		   }
-		   
-		   List<Integer> list = reviewDao.selectReviewNumByEmail(member.getEmail());
-		   return list.get(0);
-		  
+			for(int j = num; j<num+Integer.parseInt(numTaste[i]) ; j++) {
+
+				Map<String,Integer> map = new HashMap<>();
+				map.put("tasteNum", Integer.parseInt(taste[j]));
+				map.put("degreeNum", Integer.parseInt(degree[j]));
+				tasteDao.insertAllTaste(map);
+				reviewDao.insertMenuTaste();
+
+			}
+
+			num= num+Integer.parseInt(numTaste[i]);
+		}
+		
+		
+		
+		return 0;
 	}
 
 	@Override
@@ -135,10 +201,10 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.updateReviewUpsDowns(review);
 
 	}
-	
+
 	@Override	
 	public Review selectReviewByNum(int number) {
-		
+
 		return reviewDao.selectReviewByNum(number);
 	}
 
@@ -149,20 +215,20 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public List<Review> getListAndMemberByAdd(Principal principal, String address) {
-		
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member= (Member)authentication.getPrincipal();
-		
+
 		List<MemberTaste> mtList = memberDao.selectMemberTasteByEmail(member.getEmail());
-		
+
 		List<Review> result = new ArrayList<>();
-		
+
 		for(int i=0; i<mtList.size(); i++) {
 			List<Review> reviewList = reviewDao.selectReviewAndMemberByAddress(address, mtList.get(i).getTasteNum());
 			result.addAll(reviewList);
 		}
 		System.out.println("service 실행: "+result);
-		
+
 		return result;
 	}
 
@@ -171,12 +237,19 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectAllReviewAndMemberByAddress(address);
 	}
 
+	@Override
+	public void deletePhoto(int number) {
+		
+			photoDao.deleteReviewPhoto(number);
+			photoDao.deletePhoto(number);
+	}
 
-	
 
-	
-	
-	
+
+
+
+
+
 
 }
 

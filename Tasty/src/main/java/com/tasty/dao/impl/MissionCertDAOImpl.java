@@ -31,8 +31,20 @@ public class MissionCertDAOImpl implements MissionCertDAO{
 
 	@Override
 	public List<MissionCert> selectMissionCertByMissionNum(int missionNum) {
-		return session.selectList(makeSqlId("selectMissonCertByMissionNum"),missionNum);
+		return session.selectList(makeSqlId("selectMissionCertByMissionNum"),missionNum);
 	}
+
+	@Override
+	public int updateMissionCertByMissionCertNum(int missionCertNum) {
+		return session.update(makeSqlId("updateMissionByMisisonCertNum"),missionCertNum);
+	}
+
+	@Override
+	public int deleteMissionCertByMissionNum(int missionCertNum) {
+		return session.delete(makeSqlId("deleteMissionCertByMissionCertNum"),missionCertNum);
+	}
+	
+	
 	
 	
 	

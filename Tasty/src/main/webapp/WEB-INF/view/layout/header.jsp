@@ -1,10 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <style>
-/* Add a dark background color with a little bit see-through */
 .navbar {
 	background-color: #2d2d30;
-	margin-bottom: 0;
 	border: 0;
 	font-size: 11px !important;
 	letter-spacing: 4px;
@@ -60,7 +58,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="#home">추천맛집</a></li>
+        <li><a href="#home">공지사항</a></li>
         <li><a href="#band">추천루트</a></li>
         <li><a href="${initParam.rootPath }/mission/getAllMission.do">미션</a></li>
         <li><a href="#contact">커뮤니티</a></li>
@@ -104,7 +102,7 @@
 	<%-- <li><a href="${initParam.rootPath }/member/mypage.do">사용자 정보조회</a></li> --%>
 	
 	<li><a href="${initParam.rootPath }/member/mypage.do">
-	<span style="color:#d5d5d5;" class="glyphicon glyphicon-user"></span>사용자 정보조회</a></li>
+	<span style="color:#d5d5d5;" class="glyphicon glyphicon-user"></span>마이페이지</a></li>
 </sec:authorize>
       
 <!-- <li><a href="#"><span style="color:#d5d5d5;" class="glyphicon glyphicon-user"></span>내 정보</a></li> -->

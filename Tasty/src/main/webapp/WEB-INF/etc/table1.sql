@@ -72,13 +72,34 @@ CREATE TABLE AUTHORITY(
    CONSTRAINT FK_AUTHORITY_MEMBER FOREIGN KEY(EMAIL) REFERENCES MEMBER
 );    
 
+CREATE TABLE AUTHORITY(
+   EMAIL VARCHAR2(50),
+   AUTHORITY VARCHAR2(20) NOT NULL
+);
 
+
+ALTER TABLE AUTHORITY
+   ADD
+      CONSTRAINT PK_AUTHORITY PRIMARY KEY(EMAIL, AUTHORITY);
+      
+ALTER TABLE AUTHORITY
+   ADD
+      CONSTRAINT FK_AUTHORITY_MEMBER 
+      FOREIGN KEY(
+      EMAIL
+      ) REFERENCES MEMBER(
+      EMAIL
+      )
+      
+      ON DELETE CASCADE;
 select * from users;
 
-select * from AUTHORITIES;
+select * from AUTHORITy;
 
 insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN')
       
+insert into AUTHORITY VALUES('z', 'ROLE_ADMIN')
+
      
 
 ------------------------------ 2.입맛-------------------------------------------------------------
@@ -420,7 +441,9 @@ create sequence taste_seq;
 
 drop sequence degree_seq;
 create sequence degree_seq;
-
+create sequence review_num_seq;
+create sequence mission_admin_seq;
+create sequence photo_num_seq
 delete from taste where taste_num=16;
 delete from degree;
 select * from TASTE;

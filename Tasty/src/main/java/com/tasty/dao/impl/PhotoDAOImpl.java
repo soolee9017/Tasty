@@ -30,6 +30,16 @@ public class PhotoDAOImpl implements PhotoDAO{
 	public int insertMissionPhoto() {
 		return session.insert(makeSqlId("insertMissionPhoto"));
 	}
+
+	@Override
+	public int deletePhoto(int number) {
+		return session.delete(makeSqlId("deletePhoto"),number);
+	}
+
+	@Override
+	public int deleteReviewPhoto(int number) {
+		return session.delete(makeSqlId("deleteReviewPhoto"),number);
+	}
 	
 	
 

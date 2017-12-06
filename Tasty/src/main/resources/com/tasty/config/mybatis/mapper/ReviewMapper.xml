@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ReviewMapper">
 
-<resultMap type="review" id="review-resultmap">
+<resultMap type="com.tasty.vo.Review" id="review-resultmap">
 	<id column="review_num" property="reviewNum"/>
 	<result column = "address" property="address"/>
 	<result column = "store_name" property="storeName"/>
@@ -15,6 +15,7 @@
 	<result column = "pos_x" property="posX"/>
 	<result column = "pos_y" property="posY"/>
 </resultMap>
+
 
 
 <resultMap type="review" id="review-join-menu-resultmap" extends="review-resultmap">
@@ -115,6 +116,12 @@ insert into review values (review_num_seq.nextval, #{address},#{storeName},#{ema
 insert into menu values (menu_num_seq.nextval, review_num_seq.currval,#{value})
 </insert>
 
+
+<insert id="insertMenuWithMn" parameterType="map"> <!-- title말고 다른것들은?? -->
+insert into menu values (menu_num_seq.nextval, #{reviewNum},#{menuName})
+</insert>
+
+
 <insert id="insertMenuTaste">
 insert into menu_taste values (td_num_seq.currval, menu_num_seq.currval)
 </insert>
@@ -214,5 +221,20 @@ where r.email = m.email
 and r.address = #{value}
 order by r.ups desc
 </select>
+
+
+<update id="updateReviewWithMap" parameterType="map">
+
+UPDATE review
+SET   title = #{title},
+	  content = #{content},
+	  ratings = #{rating}
+		
+where review_num = #{reviewNum}
+
+
+</update>
+
+
 
 </mapper>
