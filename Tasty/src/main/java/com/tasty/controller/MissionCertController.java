@@ -37,18 +37,20 @@ public class MissionCertController {
 	
 	@RequestMapping("getMissionCertByMN")
 	@ResponseBody
-	public List<MissionCert> getMissionCertByMissionNum(@RequestParam int missionNum,  HttpServletRequest request) {
-		/*List<MissionCert> list = service.selectMissionCertByMissionNum(missionNum);
-		return list*/
-		return service.selectMissionCertByMissionNum(missionNum);
-		
+	public List<MissionCert> getMissionCertByMissionNum(@RequestParam int missionNum, 
+			@RequestParam String title, @RequestParam String content) {
+		service.insertMissionCert(new MissionCert(1,title,content,missionNum));
+		List<MissionCert> list = service.selectMissionCertByMissionNum(missionNum);
+		return list;
 	}
 	
 	
 	@RequestMapping("registerMissionCert")
 	@ResponseBody
-	public int registerMissionCert(Principal principal,HttpServletRequest request,@ModelAttribute MissionCert missionCert) {
-		return service.insertMissionCert(principal, request, missionCert);//mCFlag가 1이면 입력성공--> 미션인증글등록 성공 페이지로 가지 않고 ajax처리할 예정
+	public String registerMissionCert(Principal principal,HttpServletRequest request,@ModelAttribute MissionCert missionCert
+			, @RequestParam int missionNum) {
+		request.setAttribute("missionNum", missionNum);
+		return "/missionCert/getMissionCertByMN.do";
 	}
 	
 	@RequestMapping("removeMissionCertByMCN")
