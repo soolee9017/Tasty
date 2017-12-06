@@ -25,6 +25,11 @@ insert into review_photo values (photo_num_seq.currval, #{value})
 	insert into mission_photo values(mission_admin_seq.currval,photo_num_seq.currval)
 </insert>
 
+<insert id="insertMissionCertPhoto">
+	insert into mission_photo values(mission_cert_board_seq.currval,photo_num_seq.currval)
+</insert>
+
+
 <delete id="deletePhoto" parameterType="int">
 	delete from photo where photo_num = #{value}
 </delete>

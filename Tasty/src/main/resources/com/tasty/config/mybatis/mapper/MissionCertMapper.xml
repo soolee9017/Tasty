@@ -74,19 +74,11 @@
     	from mission_cert_board
     </select>
     
-     <insert id="insertMissionCert" parameterType="missionCert">
-        INSERT INTO
-        MISSION_CERT_BOARD(MISSION_CERT_NUM, EMAIL, TITLE, CONTENT, MISSION_NUM)
-        VALUES(mission_cert_board_seq.nextval,#{email},#{title},#{content},#{missionNum}) 
-    </insert>
-    
-    
       <update id="updateMissionCertByNum" parameterType="missionCert">
         UPDATE mission_cert_board
             SET
             CONTENT = #{content}
-        WHERE mission_cert_num = #{mission
-        }
+        WHERE mission_cert_num = #{missionCertNum}
     </update>
     
     <delete id="commentDelete" parameterType="int">
@@ -107,18 +99,16 @@
    </select>
    
    <!-- 미션 인증글 등록  -->
-   <insert id="insertMissionCert" parameterType="missionCert">
+   <insert id="insertMissionCert" parameterType="missionCert"> 
       INSERT INTO mission_cert_board (mission_cert_num, 
-                     email,
                      title,
                      content,
                      mission_num)
       VALUES (
-      mission_cert_board_seq.nextval,
-            #{email},
+     		mission_cert_board_seq.nextval,
             #{title},
             #{content},
-            #{mission_num})
+            #{missioNum})
    </insert>
    
    <!-- 미션인증글 미션인증글 번호로 회원이 작성한 작성글내용, 작성 제목 수정 -->
