@@ -87,18 +87,32 @@
 </select>
 
 
-<select id="selectReviewByEmail" parameterType="String" resultMap="review-join-menu-resultmap">
-select * 
-from review r, menu m, menu_taste mt, all_taste at, taste t, degree d, review_photo rp, photo p 
-where r.email = #{value}
-	and r.review_num=m.review_num(+)
-	and m.menu_num=mt.menu_num(+)
-	and mt.td_num=at.td_num(+)
-	and at.taste_num=t.taste_num(+)
-	and at.degree_num=d.degree_num(+) 
-	and r.review_num=rp.review_num(+)
-	and rp.photo_num=p.photo_num(+)
-order by r.review_num desc
+<select id="selectReviewByEmail" parameterType="map" resultMap="review-join-menu-resultmap">
+	<![CDATA[	
+	select review_num, title
+	from(
+		select rownum rn, review_num, title
+		from(	
+			select r.review_num, r.title
+			from review r, menu m, menu_taste mt, all_taste at, taste t, degree d, review_photo rp, photo p 
+			where r.email = #{email}
+			and r.review_num=m.review_num(+)
+			and m.menu_num=mt.menu_num(+)
+			and mt.td_num=at.td_num(+)
+			and at.taste_num=t.taste_num(+)
+			and at.degree_num=d.degree_num(+)
+			and r.review_num=rp.review_num(+)
+			and rp.photo_num=p.photo_num(+)
+			order by r.review_num desc
+			) 
+		where rownum <= #{end}
+		)
+	where rn >= #{begin}		
+	]]>
+</select>
+
+<select id="selectReviewCount" resultType="_int" parameterType="String">
+	select count(*) from review where email = #{value}
 </select>
 
 <!-- 
@@ -221,6 +235,7 @@ where r.email = m.email
 and r.address = #{value}
 order by r.ups desc
 </select>
+
 
 
 <update id="updateReviewWithMap" parameterType="map">

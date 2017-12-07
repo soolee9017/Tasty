@@ -3,11 +3,13 @@ package com.tasty.controller;
 import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +26,6 @@ import com.tasty.service.TasteService;
 import com.tasty.vo.Member;
 import com.tasty.vo.Review;
 import com.tasty.vo.ReviewUpsDownsCheck;
-import com.tasty.vo.Taste;
 
 @Controller
 @RequestMapping("/review/")
@@ -129,10 +130,20 @@ public class ReviewController {
   }
   
   @RequestMapping("getReviewByEmail")
-  public ModelAndView getReviewByEmail(@RequestParam String email){
+  public ModelAndView getReviewByEmail(HttpServletRequest request, @RequestParam String email){
 
-	 List<Review> list = reviewService.selectReviewByEmail(email);
-	 return new ModelAndView("member/mypage_review.jsp","list",list);
+	  int page = 1;
+	  try {
+		  page = Integer.parseInt(request.getParameter("page"));
+	  }catch(NumberFormatException e) {}
+	  Map<String, Object> map = reviewService.selectReviewByEmail(email,page);
+
+	  SecurityContext context = SecurityContextHolder.getContext();
+	  Authentication authentication = context.getAuthentication();
+	  String email2 = (String)((Member)authentication.getPrincipal()).getEmail();
+	  
+	  request.setAttribute("email", email2);
+	  return new ModelAndView("member/mypage_review.tiles","map",map);
   }
   
   
