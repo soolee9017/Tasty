@@ -24,7 +24,7 @@ public interface MemberDAO {
 	int insertMemberTaste(MemberTaste memberTaste);
 	
 	/**
-	 * 탈퇴 처리
+	 * 탈퇴 처리 (권한 삭제)
 	 * @param email
 	 * @return
 	 */
@@ -62,7 +62,7 @@ public interface MemberDAO {
 	Member selectMemberByEmail(String email);
 	
 	/**
-	 * 
+	 * 전체 회원 조회
 	 * @return
 	 */
 	List<Member> selectAllMember();
@@ -96,8 +96,11 @@ public interface MemberDAO {
 	 */
 	List<Authority> selectAuthorityByEmail(String email);
 	
-	
-
+	/**
+	 * 인증여부로 조회
+	 * @param memberCert
+	 * @return
+	 */
 	List<Member> selectMemberByMemberCert(int memberCert);
 	
 
@@ -105,9 +108,15 @@ public interface MemberDAO {
 	
 	int updateMemberDowns(String email);
 	
-	int getTotalsOfMember(String email);
-	
+	/**
+	 * 회원 email로 리뷰글 조회 (회원이 작성한 리뷰)
+	 * @param email
+	 * @return
+	 */
+
 	float getPosPercentage(String email);
+
+	int getTotalsOfMember(String email);
 }
 
 

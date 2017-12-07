@@ -66,7 +66,7 @@ public class ReviewController {
 	  int num = reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage);
          
          Review review = reviewService.selectReviewByNum(num);
-         return new ModelAndView("review/reviewDetail.jsp","review",review);
+         return new ModelAndView("review","review",review);
    }
   
   @RequestMapping("selectReviewByNum")
@@ -74,7 +74,7 @@ public class ReviewController {
 	
 	 int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
-	  return new ModelAndView("review/reviewDetail.jsp","review",review);
+	  return new ModelAndView("review","review",review);
 }
   
   

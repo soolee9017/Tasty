@@ -56,17 +56,15 @@ function moveToRemove(email){
 							<td>${result.totalDowns }</td>
 							<td>${result.memberCert }</td>
 							<td>
-							${requestScope.tasteList }
-							<c:forEach var="taste" items="${requestScope.result}">
-									${taste.memberTasteList.taste.tasteName}
+							<c:forEach var="tastes" items="${result.memberTasteList }">
+									${tastes.taste.tasteName}
 							</c:forEach>
-							
 							</td>
 							<td>
-								<form action="${initParam.rootPath }/admin/remove_member.do" method="POST">
-										<input type="hidden" name="email" value="${result.email }">									
-									</form>	
-								<button onclick="moveToRemove(${result.email})">삭제</button>
+								<form action="${initParam.rootPath }/admin/remove_member.do">
+								<input type="hidden" name="email" value="${result.email }">
+ 							<button type="submit">삭제</button>
+ 							</form>
 							</td>
 						</tr>
 					</c:forEach>
