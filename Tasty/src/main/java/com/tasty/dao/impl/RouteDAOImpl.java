@@ -1,6 +1,8 @@
 package com.tasty.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,12 @@ public class RouteDAOImpl implements RouteDAO{
 	}
 
 	@Override
-	public List<Route> getAllRoute() {
-		return session.selectList(makeSqlId("getAllRoute"));
+	public List<Route> getAllRoute(String storeName, String posX, String posY) {
+		Map map = new HashMap<>();
+		map.put("storeName",storeName);
+		map.put("posX", posX);
+		map.put("posY", posY);
+		return session.selectList(makeSqlId("getAllRoute"), map);
 	}
 
 	@Override

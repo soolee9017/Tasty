@@ -45,6 +45,9 @@
 	where r.route_num = tr.route_num(+)
 	and tr.review_num = rv.review_num(+)
 	and rv.email = m.email(+)
+	and rv.store_name = #{storeName}
+	and rv.pos_x = #{posX}
+	and rv.pos_y = #{posY}
 	order by r.route_num desc
 	
 	</select>

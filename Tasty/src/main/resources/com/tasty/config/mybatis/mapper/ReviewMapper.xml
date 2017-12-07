@@ -74,6 +74,13 @@
 	</association>
 </resultMap>
 
+<select id="selectReviewByStoreNameAndPosXY" parameterType="map" resultMap="review-resultmap">
+	select *
+	from review
+	where store_name = #{storeName}
+	and pos_x = #{posX}
+	and pos_y = #{posY}
+</select>
 
 <select id="selectReviewByAddress" parameterType="String" resultMap="review-join-menu-resultmap">
 	select *

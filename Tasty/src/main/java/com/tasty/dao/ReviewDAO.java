@@ -44,4 +44,6 @@ public interface ReviewDAO {
 
 	int selectReviewCount(String email);
 	
+	List<Review> selectReviewByStoreNameAndPosXY(String storeName, String posX, String posY);
+	
 }
