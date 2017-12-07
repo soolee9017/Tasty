@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tasty.dao.MemberDAO;
@@ -23,6 +24,7 @@ import com.tasty.dao.PhotoDAO;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.TasteDAO;
 import com.tasty.service.ReviewService;
+import com.tasty.util.PagingBean;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
 import com.tasty.vo.Review;
@@ -49,8 +51,15 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<Review> selectReviewByEmail(String email) {
-		return reviewDao.selectReviewByEmail(email);
+	public Map<String,Object> selectReviewByEmail(String email, int page) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		PagingBean pb = new PagingBean(reviewDao.selectReviewCount(email),page);
+		map.put("pageBean", pb);
+		List<Review> list = reviewDao.selectReviewByEmail(email, pb.getBeginItemInPage(), pb.getEndItemInPage());
+		map.put("list",list);
+		System.out.println(map.get("list"));
+		return map;
 	}
 
 
@@ -95,8 +104,8 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
-				//				 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
-				//					  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
+								 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+									  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
 				photoDao.insertPhoto(fileName);
 				photoDao.insertReviewPhoto();
 			}
@@ -202,6 +211,7 @@ public class ReviewServiceImpl implements ReviewService{
 		if(!file.exists()) {
 			file.mkdirs();
 		}
+		
 
 		for(MultipartFile photo : upImage) {
 			if(photo != null && !photo.isEmpty()) {
@@ -209,8 +219,8 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
-				//				 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
-				//					  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
+								 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+									  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
 				photoDao.insertPhoto(fileName);
 				photoDao.insertReviewPhotoWithRn(Integer.parseInt(reviewNum));
 			}
