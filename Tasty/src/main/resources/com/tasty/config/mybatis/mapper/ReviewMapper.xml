@@ -89,11 +89,11 @@
 
 <select id="selectReviewByEmail" parameterType="map" resultMap="review-join-menu-resultmap">
 	<![CDATA[	
-	select review_num, title
+	select review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y
 	from(
-		select rownum rn, review_num, title
+		select rownum rn, review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y
 		from(	
-			select r.review_num, r.title
+			select r.review_num, r.address, r.store_name, r.email, r.title, r.content, r.ratings, r.ups, r.downs, r.pos_x, r.pos_y 
 			from review r, menu m, menu_taste mt, all_taste at, taste t, degree d, review_photo rp, photo p 
 			where r.email = #{email}
 			and r.review_num=m.review_num(+)

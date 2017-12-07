@@ -56,5 +56,8 @@ public class RouteController {
 		
 		return new ModelAndView("route/route_select.jsp","list",bigList2);
 	}
+	
+/*	@RequestMapping("getRouteByNum")
+	public ModelAndView getRouteByNum(@RequestParam )*/
 
 }
