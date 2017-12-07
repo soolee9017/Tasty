@@ -30,8 +30,8 @@ delete from member
 
 delete from authority
 
-INSERT INTO MEMBER VALUES ('admin', 'admin', '관리자', '관리자', null, null, null, null, 1);
-INSERT INTO AUTHORITY VALUES ('admin', 'ROLE_ADMIN');
+INSERT INTO MEMBER VALUES ('admin7', 'admin7', '관리자', '관리자', null, null, null, null, 1);
+INSERT INTO AUTHORITY VALUES ('admin5', 'ROLE_ADMIN');
 delete from member where email = admin
 delete from authority where email = admin
 
@@ -193,7 +193,7 @@ ALTER TABLE AUTHORITY
 		
 		
 		
-		
+		select * from review where email = 'v'
 		
 		
 -- 입맛 기본키
@@ -216,9 +216,9 @@ ALTER TABLE TASTE
 	ON DELETE CASCADE
 	ON UPDATE CASCADE;
     
-    
-    
-
+ create sequence photo_num_seq;   
+create sequence mission_admin_seq;    
+create sequence review_num_seq;
 select * from users;
 
 select * from AUTHORITIES;
@@ -226,7 +226,32 @@ select * from AUTHORITIES;
 insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN')
 
 
+-- 리뷰 기본키
+CREATE UNIQUE INDEX PK_REVIEW
+   ON REVIEW ( -- 리뷰
+      review_num ASC -- 리뷰번호
+   );
 
+-- 리뷰
+ALTER TABLE REVIEW
+   ADD
+      CONSTRAINT PK_REVIEW -- 리뷰 기본키
+      PRIMARY KEY (
+         review_num -- 리뷰번호
+      );
+
+-- 리뷰
+ALTER TABLE REVIEW
+   ADD
+      CONSTRAINT FK_MEMBER_TO_REVIEW -- 회원 -> 리뷰
+      FOREIGN KEY (
+         email -- 이메일
+      )
+      REFERENCES MEMBER ( -- 회원
+         email -- 아이디
+      )
+       on delete cascade
+       ;
 
 
 

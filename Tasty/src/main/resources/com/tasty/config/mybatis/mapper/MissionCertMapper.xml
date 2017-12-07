@@ -73,20 +73,12 @@
     	select *
     	from mission_cert_board
     </select>
-<<<<<<< HEAD
-     -->
 
     
-    
-      <!-- <update id="updateMissionCertByNum" parameterType="missionCert">
-=======
-    
       <update id="updateMissionCertByNum" parameterType="missionCert">
->>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
         UPDATE mission_cert_board
             SET
             CONTENT = #{content}
-<<<<<<< HEAD
         WHERE mission_cert_num = #{mission
         }
     </update> -->
@@ -138,7 +130,7 @@
    
    
    
-   <select id="selectMissionCertByMissionNum" parameterType="_int" resultMap="mission-info-result-map">
+   <select id="selectMissionCertByMissionNum2" parameterType="_int" resultMap="mission-info-result-map">
    
 	select * 
 	from mission_member mm, 
@@ -159,6 +151,24 @@
 	order by mc.mission_cert_num desc
 	
    </select>
-    
-
+   
+   <resultMap type="MissionCert" id="mission-content-result-map">
+	   <id column="mission_cert_num" property="missionCertNum"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="mission_num" property="missionNum"/>
+		<association property="mission" javaType="Mission">
+			<id column="mission_num" property="missionNum"/>
+		</association>
+   </resultMap>
+   
+   <select id="selectMissionCertByMissionNum" parameterType="_int" resultMap="mission-content-result-map">
+    select * 
+	from mission_cert_board mc, 
+		 mission_admin ma
+	where mc.mission_num = #{value}
+	and mc.mission_num = ma.mission_num
+	order by mc.mission_cert_num desc
+	</select>
+	
 </mapper>

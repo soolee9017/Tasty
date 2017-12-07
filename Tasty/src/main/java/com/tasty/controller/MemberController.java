@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tasty.dao.MemberDAO;
+import com.tasty.dao.TasteDAO;
 import com.tasty.service.MemberService;
 import com.tasty.service.TasteService;
 import com.tasty.vo.Member;
@@ -79,6 +80,8 @@ public class MemberController{
 		for(int i=0; i<tastes.size(); i++) {
 			for(int j=0; j<tasteList.size(); j++) {
 				if(tastes.get(i).equals(tasteList.get(j).getTasteName())) {
+					service.addMemberTaste(new MemberTaste(email, tasteList.get(j).getTasteNum()));
+					System.out.println(tasteList.get(j).getTasteNum());
 					Taste taste = new Taste(j,tasteList.get(j).getTasteName());
 					MemberTaste mt = new MemberTaste(email, tasteList.get(j).getTasteNum(),taste);
 					service.addMemberTaste(mt);
@@ -86,6 +89,7 @@ public class MemberController{
 				}
 			}
 		}
+				
 		
 		
 		
@@ -97,14 +101,14 @@ public class MemberController{
 		List<GrantedAuthority> list = new ArrayList<>(authentication.getAuthorities());
 		UsernamePasswordAuthenticationToken newAutentication = 
 				new UsernamePasswordAuthenticationToken(member, member.getPassword(), list);
-		
 		context.setAuthentication(newAutentication);
 		
 		return "/member/mypage.tiles";
 	}
 
 
-	
+
+
 	//회원 탈퇴 (권한 삭제)
 	@RequestMapping("withdraw_member")
 	public String removeAuthorityByEmail(@RequestParam String email, HttpSession session){
@@ -116,17 +120,6 @@ public class MemberController{
 		return "redirect:/main.do";
 	}
 	
-	
-/*	//회원 조회 (Email_member_본인)
-	@RequestMapping("getMemberByEmail")
-	public ModelAndView getMemberByEmail(@RequestParam String email) {
-		Member member = service.selectMemberByEmail(email);
-		System.out.println(member);
-		service.selectMemberTasteByEmail(email);
-		System.out.println("왔멘");
-		return new ModelAndView("member/getMemberByEmail.jsp", "result", member);
-		}*/
-		
 	
 	
 	
@@ -141,18 +134,6 @@ public class MemberController{
 	  }
 	  
 	  
-/*	@RequestMapping("get_member_email")
-	public ModelAndView getMemberByEmail(@RequestParam String email) {
-		Member member = service.selectMemberByEmail(email);
-		System.out.println(member);
-		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
-		request.setAttribute("tasteList", mt);
-		System.out.println("왔니?");
-		System.out.println(mt);
-		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
-		}*/
-		
-	
 
 
 }

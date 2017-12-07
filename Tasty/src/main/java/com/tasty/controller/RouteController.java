@@ -3,6 +3,7 @@ package com.tasty.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,11 +26,13 @@ public class RouteController {
 
 	@Autowired
 	ReviewDAO reviewDao;
-
+	
 	@RequestMapping("getXYByEmail")
 	public ModelAndView getXYByEmail(@RequestParam String email){
 
-		List<Review> list = reviewService.selectReviewByEmail(email);
+		int page = 1;
+		Map m = reviewService.selectReviewByEmail(email,page);
+		List<Review> list = (List<Review>)m.get("list");
 		
 		List<HashMap> bigList = new ArrayList<>();
 		List<ArrayList> bigList2 = new ArrayList<>();

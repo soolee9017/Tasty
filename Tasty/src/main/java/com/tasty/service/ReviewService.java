@@ -17,7 +17,7 @@ public interface ReviewService {
 
 	List<Review> selectReviewByAddress(String address);
 	
-	List<Review> selectReviewByEmail(String email);
+	Map<String,Object> selectReviewByEmail(String email,int page);
 	
 //	int insertReview(String finalArr, String title);
 	

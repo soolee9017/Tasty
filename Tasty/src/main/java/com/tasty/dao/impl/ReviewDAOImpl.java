@@ -66,8 +66,17 @@ public class ReviewDAOImpl implements ReviewDAO{
 
 
 	@Override
-	public List<Review> selectReviewByEmail(String email) {
-		return session.selectList(makeSqlId("selectReviewByEmail"), email);
+	public List<Review> selectReviewByEmail(String email, int begin, int end) {
+		Map map = new HashMap<>();
+		map.put("email",email);
+		map.put("begin", begin);
+		map.put("end", end);
+		return session.selectList(makeSqlId("selectReviewByEmail"), map);
+	}
+	
+	@Override
+	public int selectReviewCount(String email) {
+		return session.selectOne(makeSqlId("selectReviewCount"),email);
 	}
 
 	@Override

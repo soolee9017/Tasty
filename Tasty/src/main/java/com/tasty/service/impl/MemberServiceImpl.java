@@ -91,8 +91,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectMemberByMemberCert(memberCert);
 	}
 
-
-
-	
-	
 }
+
+
+
+
+
+
+

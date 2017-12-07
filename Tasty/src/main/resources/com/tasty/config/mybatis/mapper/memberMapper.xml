@@ -47,6 +47,7 @@
    </sql>
 	
 	
+	
 	<resultMap type="member" id="member-resultmap">
 		<id column="email" property="email"/>
 		<result column="password" property="password"/>
@@ -82,6 +83,9 @@
 				<result column="taste_name" property="tasteName"/>
 			</association>
 	</resultMap>
+	
+	
+	
 	
 	<resultMap type="member" id="member-join-memberTaste-resultmap" extends="member-resultmap">
 		<collection property="memberTasteList" ofType="MemberTaste">
@@ -201,7 +205,7 @@
 		from 	member m, member_taste mt, taste t
 		where 	m.email = mt.email
 		and  	mt.taste_num = t.taste_num(+)
-   		and	m.member_cert = #{value}
+   		and		m.member_cert = #{value}
    	
    </select>
 
@@ -217,7 +221,6 @@
     set total_downs = total_downs + 1 
     where email = #{value}
    </update>
-
 	
 	<select id="getTotalsOfMember" parameterType="string" resultType="int">
 	select total_ups + total_downs from member where email= #{value}
