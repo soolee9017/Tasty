@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.service.ReviewService;
 import com.tasty.vo.Review;
@@ -34,27 +36,35 @@ public class RouteController {
 		
 		
 		for(Review r: list) {
-			HashMap<String,String> map = new HashMap<>();
+			HashMap map = new HashMap<>();
 			map.put("storeName", r.getStoreName());
-			map.put("x",r.getPosX());
-			map.put("y",r.getPosY());
+			map.put("x",Float.parseFloat(r.getPosX()));
+			map.put("y",Float.parseFloat(r.getPosY()));
 				bigList.add(map);
 		}
 		
 		
 		for(Review r: list) {
 			ArrayList smallList = new ArrayList<>();
+			smallList.add(r.getReviewNum());
 			smallList.add(r.getStoreName());
 			smallList.add(r.getPosX());
 			smallList.add(r.getPosY());
 				bigList2.add(smallList);
 		}
 		
+		ObjectMapper om = new ObjectMapper();
+		String str = null;
+		try {
+			str = om.writeValueAsString(bigList2);
+			System.out.println(str);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		System.out.println(bigList);
-		System.out.println(bigList2);
 		
-		return new ModelAndView("route/route_select.jsp","list",bigList2);
+		return new ModelAndView("route","list",str);
 	}
 
 }

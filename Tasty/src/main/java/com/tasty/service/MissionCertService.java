@@ -12,7 +12,7 @@ public interface MissionCertService {
 	
 	List<MissionCert> selectAllMissionCert();
 	
-	int insertMissionCert(Principal principal,HttpServletRequest request,MissionCert missionCert);
+	int insertMissionCert(MissionCert missionCert);
 	
 	List<MissionCert> selectMissionCertByMissionNum(int missionNum);
 	

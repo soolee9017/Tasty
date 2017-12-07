@@ -5,12 +5,53 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"
+	src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	/*사진추가 button*/
+	$("#addPhoto").on("click",function() {
+		var html = '<tr><td>'
+		+ '<input type="file" name="upImage">'
+		+ '</td>';
+		html += '<td><button type="button" class="deletePhoto">사진삭제</button>';
+		html += '</td></tr>';
+		$("#photoList").append(html);
+		});//end of addPhoto
 
+	$("#photoList").on("click", function() {
+		$(this).parent(), parent().remove();
+	});//end of photoList
+	
+	$("form[name=content]").on("click","#missionCert",function(){
+		alert('클릭');
+		alert($("#title").val());
+		var num = ${missions.missionNum};
+		$.ajax({
+			"url":"/Tasty/missionCert/getMissionCertByMN.do",
+			"data":"missionNum="+num,
+			"dataType":"json",
+			"error":function(a,b,c){
+			
+				alert(c);
+			},
+			"success":function(list){
+				alert('성공');
+				var txt="";
+				$.each(list,function(){
+					txt += this.title;
+				});
+				$(".contents").html(txt);
+			}
+		});
+	});
+					
+});//end of document.ready
 
 </script>
 </head>
 <body>
+<div style='margin-top: 70px;'>
 <h1>미션 상세페이지</h1>
 
 미션번호 : ${missions.missionNum}<br>
@@ -24,7 +65,33 @@
 		</c:forEach>
 	</c:forEach>
 	<br><br><p><p>
+	
+	<div style="width:30%; background-color: pink; text-align: left; margin-left: 10px;"> 
+	
+	<form name="content"> 
+	<input type="hidden" name="missionNum" value="${missions.missionNum }">
+ 	<input type="hidden" name="missionCertNum" value="0">
+	제목 : <input type="text" name="title"><br>
+	<textarea name="content" rows="5" cols="20" placeholder="인증글을 입력해주세요."></textarea><br>
+	사진 등록 :
+		<table id="photoList">
+			<tr>
+				<td><input type="file"></td>
+				<td><button type="button" class="deletePhoto">사진삭제</button></td>
+			</tr>
+		</table>
+		<button type="button" id="addPhoto">사진추가</button>
+		<br>
 
 
+		<button id="missionCert" type="submit">미션 인증</button>
+	</form>
+	
+	</div>
+</div>
+
+<div class="contents">
+
+</div>
 </body>
 </html>
