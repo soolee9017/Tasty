@@ -29,6 +29,7 @@ $(document).ready(function() {
 		$.ajax({
 			"url":"/Tasty/missionCert/registerMissionCert.do",
 			"method":"post",
+			"contentType": 'multipart/form-data', 
 			"data":insertData,
 			"error":function(a,b,c){
 				alert(c);
@@ -52,11 +53,35 @@ $(document).ready(function() {
 				alert(list);
 				var txt="";
 				$.each(list,function(){
-					txt += this.title;
+					txt += this.title+'<br>';
 				});
 				$(".contents").html(txt);
 			}
 		});
+		
+		//댓글 목록 
+		function commentList(){
+		    $.ajax({
+		        url : '/Tasty/missionCert/selectMissionCertByMN.do',
+		        type : 'get',
+		        data : {'missionNum':num},
+		        success : function(data){
+		            var a =''; 
+		            $.each(data, function(key, value){ 
+		                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+		                a += '<div class="commentInfo'+value.cno+'">'+'댓글번호 : '+value.cno+' / 작성자 : '+member.nickName;
+		                a += '<a onclick="commentUpdate('+value.cno+',\''+value.content+'\');"> 수정 </a>';
+		                a += '<a onclick="commentDelete('+value.cno+');"> 삭제 </a> </div>';
+		                a += '<div class="commentContent'+value.cno+'"> <p> 내용 : '+value.content +'</p>';
+		                a += '</div></div>';
+		            });
+		            
+		            $(".commentList").html(a);
+		        }
+		    });
+		}
+
+
 	});
 					
 });//end of document.ready
@@ -81,7 +106,7 @@ $(document).ready(function() {
 	
 	<div style="width:30%; background-color: pink; text-align: left; margin-left: 10px;"> 
 	
-	<form name="content"> 
+	<form name="content" method="post" enctype="multipart/form-data"> 
 	<input type="hidden" name="missionNum" value="${missions.missionNum }">
  	<input type="hidden" name="missionCertNum" value="0">
 	제목 : <input type="text" name="title"><br>
@@ -89,7 +114,7 @@ $(document).ready(function() {
 	사진 등록 :
 		<table id="photoList">
 			<tr>	
-				<td><input type="file"></td>
+				<td><input type="file" name="upImage"></td>
 				<td><button type="button" class="deletePhoto">사진삭제</button></td>
 			</tr>
 		</table>
@@ -103,6 +128,47 @@ $(document).ready(function() {
 </div>
 
 <div class="contents">
+<!-- 여기에는 등록된 미션들 missionNum으로 select된것 뿌려주기 -->
+	<div class="selectedMission">
+	<c:forEach items="${result }" var="missionCerts" >
+	<table>
+		<thead></thead>
+		<tbody>
+			<tr>
+				<td>
+					미션글 번호 : ${missionCerts.missionNum }
+				</td>
+			</tr>
+			<tr>
+				<td>
+					인증글 제목 : ${missionCerts.title }
+				</td>
+			</tr>
+			<tr>
+				<td>
+					인증글 내용 : ${missionCerts.content }
+				</td>
+			</tr>
+			<tr>
+				<td>
+					인증글 닉네임 : ${member.nickname }<!-- 인증글 닉네임 수정하기. -->
+				</td>
+			</tr>
+			<tr>
+				<td>
+					인증 사진<!-- 인증사진하기 -->
+				</td>
+			</tr>
+			
+		</tbody>
+		<tfoot></tfoot>
+	</table>
+	
+	
+	</c:forEach>
+	
+	</div>
+
 
 </div>
 </body>
