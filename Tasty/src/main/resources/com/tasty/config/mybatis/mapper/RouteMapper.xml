@@ -29,7 +29,7 @@
 				<result column="store_name" property="storeName"/>
 				<result column="title" property="title"/>
 				<result column="pos_x" property="posX"/>
-				<result column="pos_y"property="posY"/>
+				<result column="pos_y" property="posY"/>
 				<association property="member" javaType="Member">
 					<id column="email" property="email"/>
 					<result column="nickname" property="nickname"/>
