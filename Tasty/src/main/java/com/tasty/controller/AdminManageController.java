@@ -48,11 +48,8 @@ public class AdminManageController {
 	public ModelAndView getMemberByEmail(HttpServletRequest request, @RequestParam String email) {
 		Member member = service.selectMemberByEmail(email);
 		List<MemberTaste> mt = service.selectMemberTasteByEmail(email);
-//		request.setAttribute("tasteList", mt);
-//		System.out.println("왔니?");
-//		System.out.println(member);
-//		System.out.println(mt);
 		request.setAttribute("tasteList", mt);
+		System.out.println(member);
 		return new ModelAndView("/admin/get_member_email.jsp", "result", member);
 	}
 	
@@ -60,13 +57,6 @@ public class AdminManageController {
 	@RequestMapping("get_memberCert")
 	public ModelAndView getMemberByMemberCert(@RequestParam int memberCert, HttpServletRequest request) {
 		List<Member> list = service.selectMemberByMemberCert(memberCert);
-/*		List<MemberTaste> mt = null;
-		String email = null;
-		for(int i = 0; i<list.size(); i++) {
-			email = list.get(i).getEmail();
-		}
-		mt = service.selectMemberTasteByEmail(email);*/
-		/*request.setAttribute("tasteList", mt);*/
 		System.out.println("나와주라");
 		return new ModelAndView("/admin/get_memberCert.jsp", "result", list);
 	}
@@ -79,6 +69,7 @@ public class AdminManageController {
 		return memberTasteList;
 	}
 	*/
+	
 	//회원 삭제
 	@RequestMapping("remove_member")
 	public String removeMemberByEmail(@RequestParam String email, HttpServletRequest request) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.service.MemberService;
 import com.tasty.service.TasteService;
 import com.tasty.vo.Member;
@@ -19,7 +20,9 @@ import com.tasty.vo.Taste;
 
 @Controller
 public class MainController {
-	
+
+	@Autowired
+	private MemberDAO memberDao;
 
 	@Autowired
 	private MemberService service;
@@ -33,11 +36,12 @@ public class MainController {
 	 * 처리후 join_success.do를 이용해 응답 처리 - redirect방식 이동, 요청파라미터로 등록된 userId 전달
 	 * @param user
 	 * @return
+	 * @throws DuplicatedMemberException 
 	 * @throws IOException 
 	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("join_member")
-	public ModelAndView registerMember(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
+	public ModelAndView registerMember(HttpServletRequest request, @RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
 			@RequestParam String phoneNum, @RequestParam String gender, @RequestParam List<String> tastes) {
 		Member member = new Member(email, password, name, nickname, phoneNum, gender);
 		System.out.println("controller로 왔멘");
@@ -52,18 +56,29 @@ public class MainController {
 				}
 			}
 		}
-	
 				
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
 	
-
-	   @RequestMapping("join_success")
+	
+/*	@ExceptionHandler(DuplicateKeyException.class)
+	public String handleException() {
+		return "redirect:join_member.do";
+	}
+*/	
+	@RequestMapping("join_success")
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);
-	      System.out.println("로그인하러 왔멘 → " + member);
+	      System.out.println("가입했어욘 → " + member);
 	      return new ModelAndView("content/main.tiles");
 	   }
 	
+	
+	@RequestMapping("email_check")
+	public ModelAndView emailCheck(@RequestParam String email){
+		Member member = service.selectMemberByEmail(email);
+		return new ModelAndView("email_check_result.jsp", "result", member);
+		
+	}
 	
 }

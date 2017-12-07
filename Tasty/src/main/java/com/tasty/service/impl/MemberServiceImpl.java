@@ -13,7 +13,6 @@ import com.tasty.service.MemberService;
 import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
-import com.tasty.vo.Review;
 
 @Service
 public class MemberServiceImpl implements MemberService{

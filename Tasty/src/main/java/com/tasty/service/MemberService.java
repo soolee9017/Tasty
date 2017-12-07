@@ -2,9 +2,10 @@ package com.tasty.service;
 
 import java.util.List;
 
+import org.springframework.dao.DuplicateKeyException;
+
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
-import com.tasty.vo.Review;
 
 public interface MemberService {
 
