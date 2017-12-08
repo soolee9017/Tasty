@@ -44,14 +44,13 @@ display:none;
 <script type="text/javascript">
 $(document).ready(function(){
    var address = '<%=(String)session.getAttribute("eateryJibun") %>';
-   
+   var 
    $.ajax({
       "url":"/Tasty/review/getReviewByAddress.do",
       "data":"address="+address,
       "dataType":"json",
       "error":function(a, b,c){
          alert(c);
-         alert("리뷰들 불러오는게 에러");
       },
       "success":function(list){
          var txt = "";

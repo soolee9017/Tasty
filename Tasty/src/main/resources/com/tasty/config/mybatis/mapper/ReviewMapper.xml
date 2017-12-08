@@ -93,7 +93,7 @@
 	and at.degree_num=d.degree_num(+) 
 </select>
 
-
+<!-- 마이페이지에서 내가 쓴 리뷰조회할때 페이징처리하기 위함. -->
 <select id="selectReviewByEmail" parameterType="map" resultMap="review-join-menu-resultmap">
 	<![CDATA[	
 	select review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y
@@ -116,6 +116,13 @@
 		)
 	where rn >= #{begin}		
 	]]>
+</select>
+
+<!-- 루트 작성할때 내가쓴 리뷰들 가져오기 위함. -->
+<select id="selectAllReviewByEmail" parameterType="String" resultMap="review-resultmap">
+	select * 
+	from review 
+	where email = #{email}
 </select>
 
 <select id="selectReviewCount" resultType="_int" parameterType="String">

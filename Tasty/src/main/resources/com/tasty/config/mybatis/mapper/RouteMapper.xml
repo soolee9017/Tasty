@@ -15,6 +15,7 @@
 	
 	
 	
+	
 	<!-- resultMap -->
 	<resultMap type="Route" id="Route-Review-join-resultmap">
 		<id column="route_num" property="routeNum"/>
