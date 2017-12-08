@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.service.MemberService;
@@ -35,6 +36,23 @@ public class AdminManageController {
 		//return new ModelAndView("redirect:/mypage.do", "email", member.getEmail());
 		return new ModelAndView("redirect:/join_success.do", "email", member.getEmail());
 	}
+	
+	/**
+	 * 관리자 등록 중복 확인
+	 * @param email
+	 * @return
+	 */
+	@RequestMapping("duplicatedCheck")
+	@ResponseBody
+	public int duplicatedCheck(@RequestParam String email) {
+		System.out.println("확인할 email : "+email );
+		if(service.selectMemberByEmail(email) == null) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
 	
 	//회원 조회 (전체)
 	@RequestMapping("get_member_all")
