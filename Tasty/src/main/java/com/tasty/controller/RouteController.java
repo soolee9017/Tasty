@@ -33,9 +33,11 @@ public class RouteController {
    
    @RequestMapping("getXYByEmail")
    public ModelAndView getXYByEmail(@RequestParam String email){
-
+	  String errorMessage = "작성한 리뷰가 한개거나 없습니다.";
       List<Review> list = reviewDao.selectAllReviewByEmail(email);
-      
+      if(list.isEmpty() || list.size() == 1) {
+    	  return new ModelAndView("member/mypage.tiles","errorMessage",errorMessage);
+      }
       List<ArrayList> bigList2 = new ArrayList<>();
       
       ArrayList smallList = new ArrayList<>();

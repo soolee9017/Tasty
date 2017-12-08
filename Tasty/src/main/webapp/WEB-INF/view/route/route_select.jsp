@@ -20,6 +20,11 @@
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
 <style>
+* {
+	list-style: none;
+	text-decoration: none;
+}
+
 html, body {
 	height: 96.5%;
 	margin: 0 auto;
@@ -38,19 +43,19 @@ html, body {
 	<header class="row"> <tiles:insertAttribute name="headers" />
 	</header>
 	<div id="map"
-		style="width: 75%; height: 500px; margin-top: 50px; float: left;"></div>
+		style="width: 75%; height: 90%; margin-top: 50px; float: left;"></div>
 	<div id="list"
-		style="width: 25%; height: 500px; margin-top: 50px; background-color: #FACC2E; float: left; border: 5px #FF6600 solid;">
+		style="width: 25%; height: 90%; margin-top: 50px; background-color: #FFDC61; float: left; border: 5px #FF6600 solid;">
 		<div style="text-align: center; color: black;">
 			<div>
-				<h3>선택한 가게 목록</h3>
+				<h3 style="color:#000033;">선택한 가게 목록</h3>
 			</div>
 			<div>
-				<button onclick="makeRoute();">선택한 루트 보기</button>
-				<button onclick="delRoute();">선택 취소</button>
+				<button class="btn btn-default" onclick="makeRoute();">선택한 루트 선 이어주기</button>
+				<button class="btn btn-default" onclick="delRoute();">루트 선택 취소</button>
 			</div>
 		</div>
-		<p style="width: 100%; height: 1px; background-color: #000;"></p>
+		<p style="width: 100%; height: 5px; background-color: #FF6600;"></p>
 		<div style="width: 100%; overflow: hidden;">
 			<div>
 				<ul id="selectRoute">
@@ -60,9 +65,19 @@ html, body {
 		</div>
 	</div>
 	
-	<form action="${initParam.rootPath}/main.do" method="post" onsubmit="return listCheck();">
-		<button type="submit" id="글 등록하기">글 등록</button>
-	</form>
+	<div style="width:300px;float:right;margin-top:20px;">
+		<form style="float:left;width:45%;"
+			action="여기에다가 컨트롤러로 보낼 링크 써주시면 됩니다. (참고로 넘어가는 리뷰 번호랑 가게 이름은 각각 reviewNum, storeName 으로 넘어갑니다.)"
+			method="post" onsubmit="return listCheck();">
+			<button class="btn btn-default" type="submit" style="width:100%;">글 등록</button>
+		</form>
+
+		<form action="${initParam.rootPath}/main.do" method="post" style="width:45%;float:right;margin-right:20px;"
+		onsubmit="return confirm('작성을 취소하시겠습니까?');">
+			<button class="btn btn-danger" type='submit' style="width: 100%;">작성 취소</button>
+		</form>
+	</div>
+
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c9a267072d7a505da79a5cc7df2f5ba7&libraries=services,clusterer,drawing"></script>
@@ -146,14 +161,25 @@ html, body {
 						makeOverListener(map, marker, infowindow));
 				daum.maps.event.addListener(marker, 'mouseout',
 						makeOutListener(infowindow));
-				daum.maps.event.addListener(marker, 'click', function() {
-					if (path.indexOf(positions[num].latlng) == -1) {
-						path.push(positions[num].latlng);
-						$('#selectRoute').append("<li class='selRouteList'><div class='routeNum'>"+ index +"</div><div class='storeName'>"+ positions[num].title +"</div></li>");
-					} else {
-						swal('', '중복 선택 되었습니다.', 'error');
-					}
-				});
+				daum.maps.event
+						.addListener(
+								marker,
+								'click',
+								function() {
+									if (path.indexOf(positions[num].latlng) == -1) {
+										path.push(positions[num].latlng);
+										$('#selectRoute')
+												.append(
+														"<li class='selRouteList'><div class='routeNum'>"
+																+ index
+																+ "</div><div class='storeName'>"
+																+ positions[num].title
+																+ "</div><input type='hidden' name='reviewNum' value='"+ positions[num].reviewNum +"'><input type='hidden' name='storeName' value='"+ positions[num].title +"'></li>");
+										index++;
+									} else {
+										swal('', '중복 선택 되었습니다.', 'error');
+									}
+								});
 			})(idx)
 			bounds.extend(points[idx]);
 			markers.push(marker);
@@ -192,6 +218,8 @@ html, body {
 				overlays['polyline'].forEach(function(polyline) {
 					manager.remove(polyline);
 				});
+				$('.selRouteList').remove();
+				index = 1;
 				swal('', '선택이 해제되었습니다.', 'success');
 			} else {
 				swal('', '이미 선택을 해제하였습니다.', 'error');
@@ -210,11 +238,11 @@ html, body {
 				infowindow.close();
 			};
 		}
-		function listCheck(){
+		function listCheck() {
 			if (path == '' || path.length == 1) {
 				swal('', '선택하지 않았거나 한개만 선택하였습니다.', 'error');
 				return false;
-			}else{
+			} else {
 				return true;
 			}
 		}

@@ -49,10 +49,6 @@
 				id="id" class="form-control" required="required"
 				style="text-align: center;">
 		</div>
-				<form action="${initParam.rootPath }/member/email_check.jsp" method="POST">
-					<input type="hidden" name="email" value="email">
-				</form>
-			<button onclick="emailCheck()">중복 확인</button> <p>
 
 		<div class="form-group">
 			<label for="password">패스워드</label> <input type="password"

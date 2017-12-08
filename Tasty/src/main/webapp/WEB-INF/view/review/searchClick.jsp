@@ -64,7 +64,7 @@ $(document).ready(function(){
       },
       "success":function(list){
          var txt = "";
-         txt += "<button id='moreBtn' type='button'>리뷰 더 보기</button>";
+         txt += "<button id='moreBtn' type='button' style='position:absolute; z-index:3; left:50%;'>리뷰 더 보기</button>";
          var total;
          $.each(list, function(){
 
@@ -75,7 +75,7 @@ $(document).ready(function(){
              pos = (this.member.totalUps / total) * 100;
             
             
-            txt += "<div class='review'>";
+            txt += "<div class='review' style='position:relative;z-index:1;'>";
             txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
             txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
             txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
@@ -211,13 +211,13 @@ $(document).ready(function(){
          },
          "success":function(list){
             var txt = "";
-            txt += "<button id='mtTasteBtn' type='button'>입맛맞춰 보기</button>";
+            txt += "<button id='mtTasteBtn' type='button' style='position:absolute; z-index:3;  left:40%;'>입맛맞춰 보기</button>";
             var total;
             $.each(list, function(){
                 total = this.member.totalUps + this.member.totalDowns;
                 pos = (this.member.totalUps / total) * 100;
                
-               txt += "<div class='review'>";
+               txt += "<div class='review' style='position:relative;z-index:1;'>";
                txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
                txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
                txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
@@ -248,7 +248,7 @@ $(document).ready(function(){
             },
             "success":function(list){
                var txt = "";
-               txt += "<button id='moreBtn' type='button'>리뷰 더 보기</button>";
+               txt += "<button id='moreBtn' type='button' style='position:absolute; z-index:3; left:50%;'>리뷰 더 보기</button>";
                var total;
                $.each(list, function(){
              
@@ -256,7 +256,7 @@ $(document).ready(function(){
                    pos = (this.member.totalUps / total) * 100;
                   
                   
-                  txt += "<div class='review'>";
+                  txt += "<div class='review' style='position:relative;z-index:1;'>";
                   txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
                   txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
                   txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
@@ -282,15 +282,14 @@ $(document).ready(function(){
 </script>
 
 <body>
-
-<br><br><br>
+<div style="margin-top:55px;">
 <h2> 식당명: ${sessionScope.eateryTitle}</h2>
 <h3>식당 주소: ${sessionScope.eateryJibun}</h3>
 <h3>식당 전화번호: ${sessionScope.eateryTel }</h3>
 <h4 id="ratings"></h4>
 
 
-<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
+<a href="/Tasty/review/getAllTaste.do" ><button type="button">리뷰 작성하기</button></a>
 <p>
 <p>
 <p>
@@ -314,16 +313,16 @@ $(document).ready(function(){
 </table> -->
 
 
-<div id="reviews">
+<div id="reviews" style="margin-left:50px;">
 </div>
 
 
 
 <sec:authorize access="isAnonymous()">
-	<span class="loginCheck" style="display:hidden;">1</span>
+	<span class="loginCheck" style="display:none;">1</span>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
-	<span class="loginCheck" style="display:hidden;">0</span>
+	<span class="loginCheck" style="display:none;">0</span>
 </sec:authorize>
 
 
@@ -334,6 +333,6 @@ $(document).ready(function(){
  <sec:csrfInput/>
 <input type="hidden" id="reviewNumber" name="reviewNum" value="">
 </form>
-
+</div>
 </body>
 </html>
