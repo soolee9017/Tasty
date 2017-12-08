@@ -111,7 +111,6 @@
     </div>
 </div>
 
-<%@ include file="comment.jsp" %>
 
 <!-- 여기까지 test -->
 

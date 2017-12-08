@@ -96,10 +96,18 @@ select * from users;
 
 select * from AUTHORITy;
 
+<<<<<<< HEAD
+insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN');
+=======
 insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN')
+>>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
       
-insert into AUTHORITY VALUES('z', 'ROLE_ADMIN')
+insert into AUTHORITY VALUES('z', 'ROLE_ADMIN');
 
+<<<<<<< HEAD
+insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN');
+=======
+>>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
      
 
 ------------------------------ 2.입맛-------------------------------------------------------------

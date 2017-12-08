@@ -16,50 +16,97 @@
       <result column="photo_num" property="photoNum"/>
       <result column="mission_cert_num" property="missionCertNum"/>
       <collection property="photoList" ofType="Photo">
-      	<id column="photo_num" property="photoNum"/>
-      	<result column="photo_path" property="photoPath"/>
+         <id column="photo_num" property="photoNum"/>
+         <result column="photo_path" property="photoPath"/>
       </collection>
    </resultMap>
    
 
 <!-- 미션 상세페이지 result-map -->
-<resultMap type="MissionCert" id="mission-info-result-map" extends="missionCert-resultmap">
-	<association property="mission" javaType="Mission">
-		<id column="mission_num" property="missionNum"/>
-		<result column="mission_content" property="missionContent"/>
-		<result column="current_people" property="currentPeople"/>
-		<result column="max_people" property="maxPeople"/>
-		<result column="start_date" property="startDate"/>
-		<result column="end_date" property="endDate"/>
-		<result column="mission_name" property="missionName"/>
-		<collection property="missionMemberList" ofType="MissionMember">
-			<result column="mission_num" property="missionNum"/>
-			<result column="email" property="email"/>
-			<association property="member" javaType="Member">
-				<result column="nickname" property="nickname"/>
-			</association>
-		</collection>
-	</association>
-	<collection property="missionCertPhotoList" ofType="MissionCertPhoto">
-		<result column="photo_num" property="photoNum"/>
-		<result column="mission_cert_num" property="missionCertNum"/>
-		<collection property="photoList" ofType="Photo">
-			<id column="photo_num" property="photoNum"/>
-			<result column="photo_path" property="photoPath"/>
-			<association property="missionCertPhoto" javaType="MissionCertPhoto">
-				<result column="mission_cert_num" property="missionCertNum"/>
-				<result column="photo_num" property="photoNum"/>
-			</association>
-			<association property="missionPhoto" javaType="MissionPhoto">
-				<result column="mission_num" property="missionNum"/>
-				<result column="photo_num" property="photoNum"/>
-			</association>
-		</collection>
-	</collection>
-	
+<resultMap type="MissionCert" id="mission-info-resultmap" extends="missionCert-resultmap">
+   <association property="mission" javaType="Mission">
+      <id column="mission_num" property="missionNum"/>
+      <result column="mission_content" property="missionContent"/>
+      <result column="current_people" property="currentPeople"/>
+      <result column="max_people" property="maxPeople"/>
+      <result column="start_date" property="startDate"/>
+      <result column="end_date" property="endDate"/>
+      <result column="mission_name" property="missionName"/>
+      <collection property="missionMemberList" ofType="MissionMember">
+         <result column="mission_num" property="missionNum"/>
+         <result column="email" property="email"/>
+         <association property="member" javaType="Member">
+            <result column="nickname" property="nickname"/>
+         </association>
+      </collection>
+   </association>
+   <collection property="missionCertPhotoList" ofType="MissionCertPhoto">
+      <result column="photo_num" property="photoNum"/>
+      <result column="mission_cert_num" property="missionCertNum"/>
+      <collection property="photoList" ofType="Photo">
+         <id column="photo_num" property="photoNum"/>
+         <result column="photo_path" property="photoPath"/>
+         <association property="missionCertPhoto" javaType="MissionCertPhoto">
+            <result column="mission_cert_num" property="missionCertNum"/>
+            <result column="photo_num" property="photoNum"/>
+         </association>
+         <association property="missionPhoto" javaType="MissionPhoto">
+            <result column="mission_num" property="missionNum"/>
+            <result column="photo_num" property="photoNum"/>
+         </association>
+      </collection>
+   </collection>
+   
 </resultMap>
-	
-	
+
+<!-- 미션 resultmap가지고옴 -->
+<resultMap type="mission" id="mission-resultmap">
+      <id column="mission_num" property="missionNum"/>
+      <result column="mission_name" property="missionName"/>
+      <result column="mission_content" property="missionContent"/>
+      <result column="current_people" property="currentPeople"/>
+      <result column="max_people" property="maxPeople"/>
+      <result column="start_date" property="startDate"/>
+      <result column="end_date" property="endDate"/>
+   </resultMap>
+
+
+
+
+<!-- 미션상세페이지를 위한 resultmap2 -->
+ <resultMap type="Mission" id="mission-info2-resultmap" extends="mission-resultmap">
+   <collection property="missionCertList" ofType="MissionCert">
+      <id column="mission_cert_num" property="missionCertNum"/>
+      <result column="title" property="title"/>
+      <result column="content" property="content"/>
+      <result column="mission_num" property="missionNum"/>
+      <collection property="missionCertPhotoList" ofType="MissionCertPhoto">
+         <result column="photo_num" property="photoNum"/>
+         <result column="mission_cert_num" property="missionCertNum"/>
+         <collection property="photoList" ofType="Photo">
+            <id column="photo_num" property="photoNum"/>
+            <result column="photo_path" property="photoPath"/>
+         </collection>
+      </collection>
+   </collection>
+   <collection property="missionPhotoList" ofType="MissionPhoto">
+      <result column="photo_num" property="photoNum"/>
+      <result column="mission_num" property="missionNum"/>
+      <collection property="photoList" ofType="Photo">
+         <id column="photo_num" property="photoNum"/>
+         <result column="photo_path" property="photoPath"/>
+      </collection>
+   </collection>
+   <collection property="missionMemberList" ofType="MissionMember">
+      <result column="email" property="email"/>
+      <result column="mission_num" property="missionNum"/>
+      <association property="member" javaType="Member">
+            <result column="nickname" property="nickname"/>
+      </association>
+   </collection> 
+</resultMap>
+   
+   
    
    
    <!-- 미션인증글의 개수를 조회 -->
@@ -70,8 +117,8 @@
     
     
     <!-- <select id="selectAllMissionCert">
-    	select *
-    	from mission_cert_board
+       select *
+       from mission_cert_board
     </select>
 
     
@@ -103,11 +150,13 @@
    <insert id="insertMissionCert" parameterType="missionCert"> 
       INSERT INTO mission_cert_board
       VALUES (
-     		mission_cert_board_seq.nextval,
+           mission_cert_board_seq.nextval,
             #{title},
             #{content},
             #{missionNum})
    </insert>
+   
+   
    
    <!-- 미션인증글 미션인증글 번호로 회원이 작성한 작성글내용, 작성 제목 수정 -->
 <!--    <update id="updateMissionByMissionCertNum" parameterType="missionCert">
@@ -130,45 +179,43 @@
    
    
    
-   <select id="selectMissionCertByMissionNum2" parameterType="_int" resultMap="mission-info-result-map">
+   <select id="selectMissionCertByMissionNum" parameterType="_int" resultMap="mission-info2-resultmap">
+      
+   select * 
+   from mission_member mm, 
+       member m,
+       mission_cert_board mc,
+       mission_admin ma,
+       mission_cert_photo mcp,
+       photo p,
+       mission_photo mp
+   where ma.mission_num=#{value} 
+   and ma.mission_num = mc.mission_num(+)
+   and ma.mission_num=mm.mission_num(+)
+   and ma.mission_num=mp.mission_num(+)
+   and mc.mission_cert_num=mcp.mission_cert_num(+)
+   and mp.photo_num=p.photo_num
+   and m.email=mm.email
    
-	select * 
-	from mission_member mm, 
-		 mission_cert_board mc, 
-		 mission_admin ma, 
-		 member m,
-		 photo p,
-		 mission_cert_photo mcp,
-		 mission_photo mp
-	where mc.mission_num = #{value}
-	and ma.mission_num=mc.mission_num
-	and mcp.mission_cert_num=mc.mission_cert_num
-	and mcp.photo_num=p.photo_num
-	and p.photo_num = mp.photo_num
-	and mp.mission_num = ma.mission_num
-	and mm.mission_num = ma.mission_num
-	and m.email = mm.email(+)
-	order by mc.mission_cert_num desc
-	
    </select>
    
    <resultMap type="MissionCert" id="mission-content-result-map">
-	   <id column="mission_cert_num" property="missionCertNum"/>
-		<result column="title" property="title"/>
-		<result column="content" property="content"/>
-		<result column="mission_num" property="missionNum"/>
-		<association property="mission" javaType="Mission">
-			<id column="mission_num" property="missionNum"/>
-		</association>
+      <id column="mission_cert_num" property="missionCertNum"/>
+      <result column="title" property="title"/>
+      <result column="content" property="content"/>
+      <result column="mission_num" property="missionNum"/>
+      <association property="mission" javaType="Mission">
+         <id column="mission_num" property="missionNum"/>
+      </association>
    </resultMap>
    
-   <select id="selectMissionCertByMissionNum" parameterType="_int" resultMap="mission-content-result-map">
+   <select id="selectMissionCertByMissionNum2" parameterType="_int" resultMap="mission-content-result-map">
     select * 
-	from mission_cert_board mc, 
-		 mission_admin ma
-	where mc.mission_num = #{value}
-	and mc.mission_num = ma.mission_num
-	order by mc.mission_cert_num desc
-	</select>
-	
+   from mission_cert_board mc, 
+       mission_admin ma
+   where mc.mission_num = #{value}
+   and mc.mission_num = ma.mission_num
+   order by mc.mission_cert_num desc
+   </select>
+   
 </mapper>
