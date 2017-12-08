@@ -92,13 +92,13 @@ html, body {
 			var x, y;
 			for (var j = 0; j < t[i].length; j++) {
 				if (j == 0) {
-					obj.reviewNum = t[i][j];
-				} else if (j == 1) {
 					obj.title = t[i][j];
-				} else if (j == 2) {
+				} else if (j == 1) {
 					y = t[i][j];
-				} else {
+				} else if (j == 2) {
 					x = t[i][j];
+				} else {
+					
 				}
 			}
 			obj.latlng = new daum.maps.LatLng(x, y);
@@ -154,6 +154,7 @@ html, body {
 			bounds.extend(points[idx]);
 			markers.push(marker);
 		}
+		console.log(marker.getPosition());
 		clusterer.addMarkers(markers);
 		map.setBounds(bounds);
 
