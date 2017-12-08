@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.service.MemberService;
@@ -32,7 +33,7 @@ public class AdminManageController {
 	public ModelAndView registerAdmin(@ModelAttribute Member member){
 		service.addMember(member, "ROLE_ADMIN");
 		//redirect 방식이동시 model값은 요청파라미터로 전송된다.
-		return new ModelAndView("redirect:/mypage.do", "email", member.getEmail());
+		return new ModelAndView("redirect:/join_success.do", "email", member.getEmail());
 	}
 	
 	//회원 조회 (전체)
@@ -82,6 +83,17 @@ public class AdminManageController {
 		}*/
 		System.out.println("삭제할거야?");
 		return "redirect:/admin/member_management.do";
+	}
+	
+	@RequestMapping("duplicatedCheck")
+	@ResponseBody
+	public int duplicatedCheck(@RequestParam String email) {
+		System.out.println("확인할 email : "+email );
+		if(service.selectMemberByEmail(email) == null) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	
 }

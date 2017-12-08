@@ -48,10 +48,11 @@ $(document).ready(function(){
    
    alert($(".loginCheck").html()==1);
    
+	var atxt="";
    if($(".loginCheck").html()==1){
-	   ajaxCon = "getReviewByAddress2.do";
+	   ajaxCon = "getReviewByAddress2.do"; //로그인 안한 사람
    }else{
-	   ajaxCon = "getReviewByAddress.do";
+	   ajaxCon = "getAllReviewByAddress.do"; //로그인 한 사람
    }
    
    $.ajax({
@@ -64,7 +65,10 @@ $(document).ready(function(){
       },
       "success":function(list){
          var txt = "";
-         txt += "<button id='moreBtn' type='button'>리뷰 더 보기</button>";
+         //로그인 한 사람만 '입맛맞춰 보기'누를 수 있게 하기
+         if($(".loginCheck").html()==0){
+      	   txt += "<button id='mtTasteBtn' type='button'>입맛맞춰 보기</button>";
+         }
          var total;
          $.each(list, function(){
 
@@ -201,9 +205,10 @@ $(document).ready(function(){
       });
    }); 
    
-   $("body").on("click","#moreBtn",function(){
+   //로그인 후, 입맛맞춰보기.
+   $("body").on("click","#mtTasteBtn",function(){
      $.ajax({
-         "url":"/Tasty/review/getAllReviewByAddress.do",
+         "url":"/Tasty/review/getReviewByAddress.do",
          "data":"address="+address,
          "dataType":"json",
          "error":function(a, b,c){
@@ -211,7 +216,7 @@ $(document).ready(function(){
          },
          "success":function(list){
             var txt = "";
-            txt += "<button id='mtTasteBtn' type='button'>입맛맞춰 보기</button>";
+            txt += "<button id='moreBtn' type='button'>리뷰 더 보기</button>";
             var total;
             $.each(list, function(){
                 total = this.member.totalUps + this.member.totalDowns;
@@ -238,9 +243,10 @@ $(document).ready(function(){
      
    });
     
-   $("body").on("click","#mtTasteBtn",function(){
+   //로그인 후, 전체 리뷰보기
+   $("body").on("click","#moreBtn",function(){
       $.ajax({
-            "url":"/Tasty/review/getReviewByAddress.do",
+            "url":"/Tasty/review/getAllReviewByAddress.do",
             "data":"address="+address,
             "dataType":"json",
             "error":function(a, b,c){
@@ -248,7 +254,7 @@ $(document).ready(function(){
             },
             "success":function(list){
                var txt = "";
-               txt += "<button id='moreBtn' type='button'>리뷰 더 보기</button>";
+               txt += "<button id='mtTasteBtn' type='button'>입맛맞춰 보기</button>";
                var total;
                $.each(list, function(){
              
