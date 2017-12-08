@@ -43,6 +43,7 @@ public class ReviewController {
    @Autowired
    MemberDAO memberDao;
    
+   //로그인 한 사람, 리뷰 전체 보여주기
    @RequestMapping("getAllReviewByAddress")
    @ResponseBody
    public List<Review> getAllReviewByAddress(@RequestParam String address){
@@ -50,6 +51,7 @@ public class ReviewController {
       return list;
    }
    
+   //로그인 한 사람, 입맛 맞춰 보여주기
     @RequestMapping("getReviewByAddress")
    @ResponseBody
    public List<Review> getReviewByAddress(Principal principal, @RequestParam String address){
@@ -58,7 +60,7 @@ public class ReviewController {
       return list;
    }
     
-    
+    //로그인 안 한사람, 리뷰 전체 보여주기 
     @RequestMapping("getReviewByAddress2")
     @ResponseBody
     public List<Review> getReviewByAddress2(@RequestParam String address){
