@@ -9,6 +9,7 @@ public class MissionCert implements Serializable{
 	private String title;
 	private String content;
 	private int missionNum;
+	private String email;
 	
 	private Mission mission;
 	private List<MissionCertPhoto> missionCertPhotoList;
@@ -93,18 +94,35 @@ public class MissionCert implements Serializable{
 		this.missionCertPhotoList = missionCertPhotoList;
 	}
 
+	
+	
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "MissionCert [missionCertNum=" + missionCertNum + ", title=" + title + ", content=" + content
-				+ ", missionNum=" + missionNum + ", mission=" + mission + ", missionCertPhotoList="
-				+ missionCertPhotoList + "]";
+		return String.format(
+				"MissionCert [missionCertNum=%s, title=%s, content=%s, missionNum=%s, email=%s, mission=%s, missionCertPhotoList=%s]",
+				missionCertNum, title, content, missionNum, email, mission, missionCertPhotoList);
 	}
+
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((mission == null) ? 0 : mission.hashCode());
 		result = prime * result + missionCertNum;
 		result = prime * result + ((missionCertPhotoList == null) ? 0 : missionCertPhotoList.hashCode());
@@ -112,6 +130,8 @@ public class MissionCert implements Serializable{
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -126,6 +146,11 @@ public class MissionCert implements Serializable{
 			if (other.content != null)
 				return false;
 		} else if (!content.equals(other.content))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (mission == null) {
 			if (other.mission != null)
@@ -148,6 +173,8 @@ public class MissionCert implements Serializable{
 			return false;
 		return true;
 	}
+
+
 	
 	
 	
