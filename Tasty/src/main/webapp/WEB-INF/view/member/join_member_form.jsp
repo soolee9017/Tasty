@@ -119,7 +119,6 @@ $(document).ready(function() {
 		</div>
 		<div>
 			<button type="submit" id="testBtn" class="btn btn-default">가입</button>
-			<button type="submit" id="testBtnn" class="btn btn-default">테스트</button>
 		</div>
 		<sec:csrfInput />
 		<%-- csrf 토큰 --%>

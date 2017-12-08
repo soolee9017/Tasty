@@ -15,7 +15,16 @@
 			}
 		});
 
+		$("#testBtn").on("click",function(){
+			check2 = 1;
+			 if($("input[type='checkbox']:checked").length == 0){
+				alert('맛 1개 이상 고르세요.');
+				return false;
+			 }
+			});
+		
 	});
+	
 </script>
 <style>
 	input{
