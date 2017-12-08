@@ -120,8 +120,6 @@ html, body {
 
          // 마커 이미지를 생성합니다    
          var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
-
-         // 마커를 생성합니다
          var marker = new daum.maps.Marker({
             map : map, // 마커를 표시할 지도
             position : positions[idx].latlng, // 마커를 표시할 위치
