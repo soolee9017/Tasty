@@ -58,11 +58,14 @@ public class ReviewController {
    }
    
   @RequestMapping("registerReview")
-   public ModelAndView registerReview(Principal principal,HttpServletRequest request, @RequestParam String listOfMenu, @RequestParam String numOfTaste,
-         @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating, @RequestParam String title,
+   public ModelAndView registerReview(Principal principal,HttpServletRequest request, 
+		   @RequestParam String listOfMenu, @RequestParam String numOfTaste,
+         @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating,
+         @RequestParam String title,
          @RequestParam String content,@RequestParam List<MultipartFile> upImage) throws Exception {
          
-	  int num = reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage);
+	  int num = reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, 
+			  listOfDegree, rating, title, content, upImage);
          
          Review review = reviewService.selectReviewByNum(num);
          return new ModelAndView("review/reviewDetail.jsp","review",review);
@@ -179,6 +182,7 @@ public class ReviewController {
 	 reviewService.deletePhoto(Integer.parseInt(photoNum));
 	 return "삭제됨";
   }
+  
   
   
 }

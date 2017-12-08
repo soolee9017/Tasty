@@ -51,7 +51,6 @@ $(document).ready(function(){
       "dataType":"json",
       "error":function(a, b,c){
          alert(c);
-         alert("리뷰들 불러오는게 에러");
       },
       "success":function(list){
          var txt = "";

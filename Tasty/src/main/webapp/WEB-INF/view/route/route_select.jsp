@@ -41,7 +41,8 @@ html, body {
 
 	   		$("#btn").on("click",function(){
 	   			 
-	   			alert($(".stores").length)
+	   			alert($(".stores").length);
+	   			alert('${requestScope.list[0][0]}');
 	   		});
 	    
    });
@@ -57,12 +58,7 @@ html, body {
       // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
       var map = new daum.maps.Map(mapContainer, mapOption);
       
-      var txt;
-      
-	  for(var a=0; a<$(".stores").length ; a++){
-		  
 
-	  }
       
       
       var positions = [
