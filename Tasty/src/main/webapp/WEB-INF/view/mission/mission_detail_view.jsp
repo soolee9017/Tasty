@@ -26,7 +26,7 @@ $(document).ready(function() {
 		$(this).parent().parent().remove();
 	});//end of photoList
 	
-	
+	  
 	$("#regmisBtn").on("click", function(){
 		alert("미션에 참여하셨습니다.");
 	});//end of regmisBtn
