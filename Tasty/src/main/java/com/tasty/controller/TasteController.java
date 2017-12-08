@@ -58,7 +58,7 @@ public class TasteController {
 	@RequestMapping("getAllTaste2") //회원가입페이지로 넘어감
 	public ModelAndView getAllTaste2() {
 		List tasteList = service.selectAllTaste();
-		System.out.println("가입할 때 쓰려고 taste 가지러 왔멘");
+		System.out.println("join_taste");
 		tasteList.remove(tasteList.size()-1);
 		return new ModelAndView("member/join_member_form.tiles","tasteList", tasteList);
 	}

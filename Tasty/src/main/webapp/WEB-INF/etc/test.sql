@@ -6,6 +6,8 @@ create table review_ups_downs_check(
 	review_num number(12)
 );
 
+select * from MISSION_CERT_BOARD
+
 insert into MISSION_ADMIN(mission_num, mission_name) values(mission_admin_seq.nextval,'미션1')
 insert into MISSION_CERT_BOARD(mission_cert_num, mission_num) values(mission_cert_board_seq.nextval, '1')
 insert into PHOTO values(photo_num_seq.nextval, 'ggg')
@@ -37,4 +39,10 @@ insert into MISSION_MEMBER values('1','q')
 		where ma.MISSION_NUM =mp.MISSION_NUM
 		and mp.photo_num = p.photo_num
 		order by ma.MISSION_NUM asc  
+		
+	INSERT INTO mission_cert_board
+      VALUES (mission_cert_board_seq.nextval,
+            '제목',
+            '내용',
+            '1')
 	

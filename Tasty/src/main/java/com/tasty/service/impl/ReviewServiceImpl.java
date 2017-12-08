@@ -24,6 +24,7 @@ import com.tasty.dao.PhotoDAO;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.TasteDAO;
 import com.tasty.service.ReviewService;
+import com.tasty.util.PagingBean;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
 import com.tasty.vo.Review;
@@ -50,8 +51,15 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<Review> selectReviewByEmail(String email) {
-		return reviewDao.selectReviewByEmail(email);
+	public Map<String,Object> selectReviewByEmail(String email, int page) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		PagingBean pb = new PagingBean(reviewDao.selectReviewCount(email),page);
+		map.put("pageBean", pb);
+		List<Review> list = reviewDao.selectReviewByEmail(email, pb.getBeginItemInPage(), pb.getEndItemInPage());
+		map.put("list",list);
+		System.out.println(map.get("list"));
+		return map;
 	}
 
 

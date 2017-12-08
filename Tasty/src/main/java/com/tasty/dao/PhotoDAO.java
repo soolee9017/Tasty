@@ -17,6 +17,8 @@ public interface PhotoDAO {
 	
 	int insertReviewPhotoWithRn(int number);
 	
+	int insertMissionCertPhoto();
+	
 }
 
 
