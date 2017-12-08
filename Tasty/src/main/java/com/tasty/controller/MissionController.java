@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.dao.MemberDAO;
+import com.tasty.service.MissionCertService;
 import com.tasty.service.MissionService;
 import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
@@ -32,6 +33,10 @@ public class MissionController {
 	
 	@Autowired
 	MemberDAO memberDao;
+	
+	
+	@Autowired
+	MissionCertService mcService;
 	
 	
 	
@@ -71,7 +76,7 @@ public class MissionController {
 	public ModelAndView enterMissionMember(@ModelAttribute MissionMember missionMember, HttpServletRequest request,@RequestParam int missionNum) {
 		service.enterMissionMember(missionMember,missionNum);
 		System.out.println(missionMember);
-		return new ModelAndView("/mission/enter_mission_success.jsp");
+		return new ModelAndView("redirect:/missionCert/getMissionCertByMN.do","missionNum",missionNum);
 	}
 	
 	
@@ -99,19 +104,19 @@ public class MissionController {
 	}
 	
 	
-	@RequestMapping("selectMissionNum")
+	/*@RequestMapping("selectMissionNum")
 	public ModelAndView selectMissionByMissionNum(@RequestParam int missionNum) {
 		Mission mission = service.selectMissionByMissionNum(missionNum);
 		System.out.println(mission);
 		return new ModelAndView("/mission/mission_detail_view.tiles","missions",mission);
-	}
+	}*/
 	
-	@RequestMapping("selectMissionNum2")
+/*	@RequestMapping("selectMissionNum2")
 	public ModelAndView selectMissionByMissionNum2(@RequestParam int missionNum) {
 		Mission mission = service.selectMissionByMissionNum(missionNum);
 		System.out.println(mission);
 		return new ModelAndView("/mission/modify_mission.jsp","mission",mission);
-	}
+	}*/
 	
 
 	

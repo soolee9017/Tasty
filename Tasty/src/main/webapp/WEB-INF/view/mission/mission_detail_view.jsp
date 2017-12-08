@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +26,12 @@ $(document).ready(function() {
 		$(this).parent().parent().remove();
 	});//end of photoList
 	
-	$("form[name=content]").on("click","#missionCert",function(){
+	
+	$("#regmisBtn").on("click", function(){
+		alert("미션에 참여하셨습니다.");
+	});//end of regmisBtn
+	
+	/* $("form[name=content]").on("click","#missionCert",function(){
 		alert('클릭');
 		var insertData = $("form[name=content]").serialize();
 		$.ajax({
@@ -39,7 +47,7 @@ $(document).ready(function() {
 			}
 		});
 		
- 		var num = ${missions.missionNum};
+ 		
  		alert(num);
 		$.ajax({
 			"url":"/Tasty/missionCert/getMissionCertByMN.do",
@@ -79,10 +87,10 @@ $(document).ready(function() {
 		            $(".commentList").html(a);
 		        }
 		    });
-		}
+		} 
 
 
-	});
+	}); */
 					
 });//end of document.ready
 
@@ -92,22 +100,35 @@ $(document).ready(function() {
 <div style='margin-top: 70px;'>
 <h1>미션 상세페이지</h1>
 
-미션번호 : ${missions.missionNum}<br>
-미션이름 : ${missions.missionName }<br>
-참여인원 : ${missions.currentPeople }/${missions.maxPeople }<br>
-기간 : ${missions.startDate } ~ ${missions.endDate }<br>
+${result.get(0).missionNum }
+
+미션번호 : ${result.get(0).missionNum}<br>
+ 
+미션이름 : ${result.get(0).missionName }<br>
+ 
+참여인원 : ${result.get(0).currentPeople }/${result.get(0).maxPeople }<br>
+기간 : ${result.get(0).startDate } ~ ${result.get(0).endDate }<br>
+
 사진 : 
-	<c:forEach var="missionPhotoList" items="${missions.missionPhotoList}">
-		<c:forEach var="photoList" items="${missionPhotoList.photoList }">
+	<c:forEach var="missionPhotoList" items="${result.get(0).missionPhotoList}">
+		<c:forEach var="photoList" items="${photoList }">
 			<img src="${initParam.rootPath }/photos/mission/${photoList.photoPath }" width="300px">
-		</c:forEach>
-	</c:forEach>
-	<br><br><p><p>
+		</c:forEach> 
+	</c:forEach> 
 	
+	<form action="${initParam.rootPath }/mission/enterMissionMember.do" method="get">
+		<input type="hidden" name="missionNum" value="${result.get(0).missionNum }">
+		<input type="text" name="email" placeholder="현재 로그인된 사용자의 이메일 입력">
+		<button type="submit" id="regmisBtn">미션에 참여하기</button>
+	</form>
+	
+	<br><br><p><p>
+	<!-- 미션인증글 작성란 -->
 	<div style="width:30%; background-color: pink; text-align: left; margin-left: 10px;"> 
 	
-	<form name="content" method="post" enctype="multipart/form-data"> 
-	<input type="hidden" name="missionNum" value="${missions.missionNum }">
+	<form action="${initParam.rootPath }/missionCert/registerMissionCert.do" id="content" method="post" enctype="multipart/form-data">
+	<sec:csrfInput /> 
+	<input type="text" name="missionNum" value="${result.get(0).missionNum }">
  	<input type="hidden" name="missionCertNum" value="0">
 	제목 : <input type="text" name="title"><br>
 	<textarea name="content" rows="5" cols="20" placeholder="인증글을 입력해주세요."></textarea><br>
@@ -121,19 +142,72 @@ $(document).ready(function() {
 		<button type="button" id="addPhoto">사진추가</button>
 		<br>
 
-		<button id="missionCert" type="button">미션 인증</button>
+		<button id="missionCert" type="submit">미션 인증</button>
 	</form>
 	
 	</div>
 </div>
-
+${result.get(0).missionCertList}
+ 
 <div class="contents">
 <!-- 여기에는 등록된 미션들 missionNum으로 select된것 뿌려주기 -->
+
+<br>
+<%-- <c:forEach var="i" begin="1" end="5" step="1">
+	${result.get(0).missionCertList.get(i)}<br>
+</c:forEach> --%>
+
+
+<%-- <c:forEach items="${result.get(0).missionCertList}" var="missionCert">
+	${missionCertList.missionCert}<br>
+</c:forEach> --%>
+
+
+<c:forEach var="i" begin="1" end="5" step="1">
+	${result.get(0).missionCertList.get(i)}<br>
+</c:forEach>
+
+<%-- 
+<c:forEach items="${result.get(0).missionCertList.get(2)}" var="missionCert">
 	<div class="selectedMission">
-	<c:forEach items="${result }" var="missionCerts" >
+		<div>
+			<div>미션번호</div>
+			<div></div>
+		</div>
+		<div>
+			<div>제목</div>
+			<div>${missionCert.title}</div>
+		</div>
+		<div>
+			<div>내용</div>
+			<div>${missionCert.content}</div>
+		</div>
+		<div>
+			<div>닉네임</div>
+			<div>${missionCert.nickname}</div><!-- 멤버 테이블에서 조인해서 가지고와야함. -->
+		</div>
+		<div>
+			<div>사진</div>
+			<div>
+			<c:forEach var="missionPhotoList" items="${missionCert.missionPhotoList}">
+				<c:forEach var="photoList" items="${missionCertPhotoList.photoList }">
+					<img src="${initParam.rootPath }/photos/missionCert/${photoList.photoPath }" width="300px">
+				</c:forEach>
+			</c:forEach>
+			</div>
+		</div>
+	</div>
+</c:forEach> --%>	
+	
+<%--	
+	
+</c:forEach>
+	
+	
 	<table>
 		<thead></thead>
 		<tbody>
+	<c:forEach items="${result }" var="missionCerts" >
 			<tr>
 				<td>
 					미션글 번호 : ${missionCerts.missionNum }
@@ -162,12 +236,11 @@ $(document).ready(function() {
 			
 		</tbody>
 		<tfoot></tfoot>
+	</c:forEach>
 	</table>
 	
+	   --%>
 	
-	</c:forEach>
-	
-	</div>
 
 
 </div>

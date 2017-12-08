@@ -26,7 +26,7 @@ insert into review_photo values (photo_num_seq.currval, #{value})
 </insert>
 
 <insert id="insertMissionCertPhoto">
-	insert into mission_photo values(mission_cert_board_seq.currval,photo_num_seq.currval)
+	insert into mission_cert_photo values(photo_num_seq.currval,mission_cert_board_seq.currval)
 </insert>
 
 

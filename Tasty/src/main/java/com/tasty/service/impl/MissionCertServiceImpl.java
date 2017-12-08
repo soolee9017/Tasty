@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tasty.dao.MissionCertDAO;
 import com.tasty.dao.PhotoDAO;
 import com.tasty.service.MissionCertService;
-import com.tasty.vo.Member;
+import com.tasty.vo.Mission;
 import com.tasty.vo.MissionCert;
 
 @Service
@@ -38,14 +36,13 @@ public class MissionCertServiceImpl implements MissionCertService {
 	}
 
 	@Override
-	public int insertMissionCert(MissionCert missionCert, HttpServletRequest request, List<MultipartFile> upImage)
+	public int insertMissionCert(Principal principal, MissionCert missionCert, HttpServletRequest request, List<MultipartFile> upImage)
 			throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
 
 		// 로그인한 사람의 정보(닉네임을 저장할 때 필요)
-		// Authentication authentication =
-		// SecurityContextHolder.getContext().getAuthentication();
-		// Member member = (Member) authentication.getPrincipal();
+		// Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//Member member = (Member) authentication.getPrincipal();
 
 		int a = missionCertDao.insertMissionCert(missionCert);
 		System.out.println(a);
@@ -61,10 +58,9 @@ public class MissionCertServiceImpl implements MissionCertService {
 				String fileName = UUID.randomUUID().toString().replace("-", "") + photo.getOriginalFilename();
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName));
-				/*FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
+				FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
 						new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\missionCert",
 								fileName));
-*/
 				photoDao.insertPhoto(fileName);
 				photoList.add(fileName);
 				System.out.println(fileName);

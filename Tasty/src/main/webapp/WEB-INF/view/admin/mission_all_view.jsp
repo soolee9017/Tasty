@@ -25,7 +25,7 @@
 			<img src="${initParam.rootPath }/photos/mission/${photoList.photoPath }" width="300px">
 		</c:forEach>
 	</c:forEach>
-	<a href="${initParam.rootPath }/mission/selectMissionNum.do?missionNum=${missions.missionNum}"><button class="btn" type="button">상세보기</button></a>
+	<a href="${initParam.rootPath }/missionCert/getMissionCertByMN.do?missionNum=${missions.missionNum}"><button class="btn" type="button">상세보기</button></a>
 	<br><br><p><p>
 </c:forEach>
 

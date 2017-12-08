@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tasty.vo.Mission;
 import com.tasty.vo.MissionCert;
 
 public interface MissionCertService {
@@ -15,7 +16,7 @@ public interface MissionCertService {
 	
 	List<MissionCert> selectAllMissionCert();
 	
-	int insertMissionCert(MissionCert missionCert, HttpServletRequest request, List<MultipartFile> upImage) throws IllegalStateException, IOException;
+	int insertMissionCert(Principal principal, MissionCert missionCert, HttpServletRequest request, List<MultipartFile> upImage) throws IllegalStateException, IOException;
 	
 	List<MissionCert> selectMissionCertByMissionNum(int missionNum);
 	
