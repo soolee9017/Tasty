@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<body>
+<body> 
 <div style='margin-top: 70px;'>
 
 <h1>미션목록</h1>

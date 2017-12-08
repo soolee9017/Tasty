@@ -96,11 +96,11 @@ select * from users;
 
 select * from AUTHORITy;
 
-insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN')
+insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN');
       
-insert into AUTHORITY VALUES('z', 'ROLE_ADMIN')
+insert into AUTHORITY VALUES('z', 'ROLE_ADMIN');
 
-insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN')
+insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN');
      
 UPDATE 테이블이름
 SET 컬럼=변경할값 [, 컬럼=변경할값]
