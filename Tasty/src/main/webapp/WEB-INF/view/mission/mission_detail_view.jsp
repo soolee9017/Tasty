@@ -48,6 +48,7 @@ $(document).ready(function() {
 		});
 		
  		
+		
  		alert(num);
 		$.ajax({
 			"url":"/Tasty/missionCert/getMissionCertByMN.do",
