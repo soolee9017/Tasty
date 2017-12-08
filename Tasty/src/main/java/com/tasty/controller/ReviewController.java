@@ -54,6 +54,7 @@ public class ReviewController {
    @ResponseBody
    public List<Review> getReviewByAddress(Principal principal, @RequestParam String address){
     	
+      System.out.println(principal);
       List<Review> list = reviewService.getListAndMemberByAdd(principal, address);
       return list;
    }
@@ -174,15 +175,14 @@ public class ReviewController {
   @RequestParam String content,@RequestParam List<MultipartFile> upImage,
   @RequestParam String listOfDelPhoto) throws Exception{
 	
-	
-	  
-	  
+
 	  reviewService.updateReview(principal, request, reviewNum, numOfOg, ogMenuNum, 
 			  listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage,listOfDelPhoto);
 	  
 	  Review review = reviewService.selectReviewByNum(Integer.parseInt(reviewNum));
-	  System.out.println(listOfDelPhoto);
-	  return new ModelAndView("review/reviewDetail.jsp","review",review);
+	  
+	  return new ModelAndView("review","review",review);
+
   }
   
   
