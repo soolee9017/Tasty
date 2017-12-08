@@ -3,11 +3,13 @@ package com.tasty.controller;
 import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +26,6 @@ import com.tasty.service.TasteService;
 import com.tasty.vo.Member;
 import com.tasty.vo.Review;
 import com.tasty.vo.ReviewUpsDownsCheck;
-import com.tasty.vo.Taste;
 
 @Controller
 @RequestMapping("/review/")
@@ -56,16 +57,30 @@ public class ReviewController {
       List<Review> list = reviewService.getListAndMemberByAdd(principal, address);
       return list;
    }
+    
+    
+    @RequestMapping("getReviewByAddress2")
+    @ResponseBody
+    public List<Review> getReviewByAddress2(@RequestParam String address){
+     	
+       List<Review> list = reviewService.selectAllReviewAndMemberByAddress(address);
+       return list;
+    }
+    
+    
    
   @RequestMapping("registerReview")
-   public ModelAndView registerReview(Principal principal,HttpServletRequest request, @RequestParam String listOfMenu, @RequestParam String numOfTaste,
-         @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating, @RequestParam String title,
+   public ModelAndView registerReview(Principal principal,HttpServletRequest request, 
+		   @RequestParam String listOfMenu, @RequestParam String numOfTaste,
+         @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating,
+         @RequestParam String title,
          @RequestParam String content,@RequestParam List<MultipartFile> upImage) throws Exception {
          
-	  int num = reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage);
+	  int num = reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, 
+			  listOfDegree, rating, title, content, upImage);
          
          Review review = reviewService.selectReviewByNum(num);
-         return new ModelAndView("review/reviewDetail.jsp","review",review);
+         return new ModelAndView("review","review",review);
    }
   
   @RequestMapping("selectReviewByNum")
@@ -73,7 +88,7 @@ public class ReviewController {
 	
 	 int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
-	  return new ModelAndView("review/reviewDetail.jsp","review",review);
+	  return new ModelAndView("review","review",review);
 }
   
   
@@ -129,10 +144,20 @@ public class ReviewController {
   }
   
   @RequestMapping("getReviewByEmail")
-  public ModelAndView getReviewByEmail(@RequestParam String email){
+  public ModelAndView getReviewByEmail(HttpServletRequest request, @RequestParam String email){
 
-	 List<Review> list = reviewService.selectReviewByEmail(email);
-	 return new ModelAndView("member/mypage_review.jsp","list",list);
+	  int page = 1;
+	  try {
+		  page = Integer.parseInt(request.getParameter("page"));
+	  }catch(NumberFormatException e) {}
+	  Map<String, Object> map = reviewService.selectReviewByEmail(email,page);
+
+	  SecurityContext context = SecurityContextHolder.getContext();
+	  Authentication authentication = context.getAuthentication();
+	  String email2 = (String)((Member)authentication.getPrincipal()).getEmail();
+	  
+	  request.setAttribute("email", email2);
+	  return new ModelAndView("member/mypage_review.tiles","map",map);
   }
   
   
@@ -160,15 +185,14 @@ public class ReviewController {
   @RequestParam String content,@RequestParam List<MultipartFile> upImage,
   @RequestParam String listOfDelPhoto) throws Exception{
 	
-	
-	  
-	  
+
 	  reviewService.updateReview(principal, request, reviewNum, numOfOg, ogMenuNum, 
 			  listOfMenu, numOfTaste, listOfTaste, listOfDegree, rating, title, content, upImage,listOfDelPhoto);
 	  
 	  Review review = reviewService.selectReviewByNum(Integer.parseInt(reviewNum));
-	  System.out.println(listOfDelPhoto);
-	  return new ModelAndView("review/reviewDetail.jsp","review",review);
+	  
+	  return new ModelAndView("review","review",review);
+
   }
   
   
@@ -179,6 +203,7 @@ public class ReviewController {
 	 reviewService.deletePhoto(Integer.parseInt(photoNum));
 	 return "삭제됨";
   }
+  
   
   
 }

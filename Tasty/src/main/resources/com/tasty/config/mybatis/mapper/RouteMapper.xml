@@ -1,4 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tasty.config.mybatis.mapper.RouteMapper">
+<mapper namespace="RouteMapper">
+	<!-- insert -->
+	<insert id="insertRoute" parameterType="Route">
+	insert into route values (route_num_seq.nextval,
+								#{routeName},
+								#{content})
+	</insert>
+	
+	<insert id="insertTempRoute" parameterType="TempRoute">
+	insert into temp_route values (route_num_seq.currval,
+									#{reviewNum})
+	</insert>
+	
+	
+	
+	
+	<!-- resultMap -->
+	<resultMap type="Route" id="Route-Review-join-resultmap">
+		<id column="route_num" property="routeNum"/>
+		<result column="route_name" property="routeName"/>
+		<result column="content" property="content"/>
+		<collection property="tempRouteList" ofType="TempRoute">
+			<result column="route_num" property="routeNum"/>
+			<result column="review_num" property="reviewNum"/>
+			<association property="review" javaType="Review">
+				<id column="review_num" property="reviewNum"/>
+				<result column="address" property="address"/>
+				<result column="store_name" property="storeName"/>
+				<result column="title" property="title"/>
+				<result column="pos_x" property="posX"/>
+				<result column="pos_y" property="posY"/>
+				<association property="member" javaType="Member">
+					<id column="email" property="email"/>
+					<result column="nickname" property="nickname"/>
+				</association>
+			</association>
+		</collection>
+	</resultMap>
+	
+	<!-- select -->
+	<select id="getAllRoute" resultMap="Route-Review-join-resultmap">
+	select *
+	from route r, temp_route tr, review rv, member m
+	where r.route_num = tr.route_num(+)
+	and tr.review_num = rv.review_num(+)
+	and rv.email = m.email(+)
+	and rv.store_name = #{storeName}
+	and rv.pos_x = #{posX}
+	and rv.pos_y = #{posY}
+	order by r.route_num desc
+	
+	</select>
+	
+	
+	<select id="selectRouteByNum" parameterType="_int" resultMap="Route-Review-join-resultmap">
+	select *
+	from route r, temp_route tr, review rv, member m
+	where r.route_num = tr.route_num(+)
+	and tr.review_num = rv.review_num(+)
+	and rv.email = m.email(+)
+	and r.route_num = #{value}
+	order by r.route_num desc
+	
+	</select>
+	
+	<select id="selectRouteByEmail" parameterType="string" resultMap = "Route-Review-join-resultmap">
+	
+	select *
+	from route r, temp_route tr, review rv, member m
+	where r.route_num = tr.route_num(+)
+	and tr.review_num = rv.review_num(+)
+	and rv.email = m.email(+)
+	and m.email=#{value}
+	order by r.route_num desc
+	
+	</select>
+	
+
 </mapper>

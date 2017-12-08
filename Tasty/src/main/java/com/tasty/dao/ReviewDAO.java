@@ -14,7 +14,7 @@ public interface ReviewDAO {
 	
 	List<Review> selectAllReviewAndMemberByAddress(String address);
 	
-	List<Review> selectReviewByEmail(String email);
+	List<Review> selectReviewByEmail(String email, int begin, int end);
 	
 //	int insertReview(String title, String address);
 	
@@ -41,5 +41,11 @@ public interface ReviewDAO {
 	ReviewUpsDownsCheck selectCheck(String email, int reviewNum);
 	
 	int updateReviewWithMap(Map map);
+
+	int selectReviewCount(String email);
+	
+	List<Review> selectReviewByStoreNameAndPosXY(String storeName, String posX, String posY);
+	
+	List<Review> selectAllReviewByEmail(String email);
 	
 }

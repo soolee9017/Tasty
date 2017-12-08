@@ -24,6 +24,7 @@ import com.tasty.dao.PhotoDAO;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.TasteDAO;
 import com.tasty.service.ReviewService;
+import com.tasty.util.PagingBean;
 import com.tasty.vo.Member;
 import com.tasty.vo.MemberTaste;
 import com.tasty.vo.Review;
@@ -50,8 +51,14 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<Review> selectReviewByEmail(String email) {
-		return reviewDao.selectReviewByEmail(email);
+	public Map<String,Object> selectReviewByEmail(String email, int page) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		PagingBean pb = new PagingBean(reviewDao.selectReviewCount(email),page);
+		map.put("pageBean", pb);
+		List<Review> list = reviewDao.selectReviewByEmail(email, pb.getBeginItemInPage(), pb.getEndItemInPage());
+		map.put("list",list);
+		return map;
 	}
 
 
@@ -144,7 +151,7 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		reviewDao.updateReviewWithMap(updateMap);
 		
-		String [] listOfDelP = listOfDelPhoto.split(",");
+		
 		String[] menu = listOfMenu.split(",");
 		String[] numTaste = numOfTaste.split(",");
 		String[] taste = listOfTaste.split(",");
@@ -152,11 +159,14 @@ public class ReviewServiceImpl implements ReviewService{
 		String [] ogMenuNumber = ogMenuNum.split(",");
 		
 		//삭제하겠다고 선택한 사진들 전부 삭제  
-		for(String a : listOfDelP) {
-			photoDao.deleteReviewPhoto(Integer.parseInt(a));
-			photoDao.deletePhoto(Integer.parseInt(a));
-		}
 		
+		if (listOfDelPhoto.length() != 0) {
+			String [] listOfDelP = listOfDelPhoto.split(",");
+			for(String a : listOfDelP) {
+				photoDao.deleteReviewPhoto(Integer.parseInt(a));
+				photoDao.deletePhoto(Integer.parseInt(a));
+			}
+		}
 		
 		
 		// 옛날 메뉴들을 전부 삭제 
@@ -258,7 +268,6 @@ public class ReviewServiceImpl implements ReviewService{
 			List<Review> reviewList = reviewDao.selectReviewAndMemberByAddress(address, mtList.get(i).getTasteNum());
 			result.addAll(reviewList);
 		}
-		System.out.println("service 실행: "+result);
 
 		return result;
 	}

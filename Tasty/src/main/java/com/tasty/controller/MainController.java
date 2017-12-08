@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.service.MemberService;
 import com.tasty.service.TasteService;
 import com.tasty.vo.Member;
@@ -19,7 +22,9 @@ import com.tasty.vo.Taste;
 
 @Controller
 public class MainController {
-	
+
+	@Autowired
+	private MemberDAO memberDao;
 
 	@Autowired
 	private MemberService service;
@@ -33,11 +38,12 @@ public class MainController {
 	 * 처리후 join_success.do를 이용해 응답 처리 - redirect방식 이동, 요청파라미터로 등록된 userId 전달
 	 * @param user
 	 * @return
+	 * @throws DuplicatedMemberException 
 	 * @throws IOException 
 	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("join_member")
-	public ModelAndView registerMember(@RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
+	public ModelAndView registerMember(HttpServletRequest request, @RequestParam String email, @RequestParam String password, @RequestParam String name, @RequestParam String nickname,
 			@RequestParam String phoneNum, @RequestParam String gender, @RequestParam List<String> tastes) {
 		Member member = new Member(email, password, name, nickname, phoneNum, gender);
 		System.out.println("controller로 왔멘");
@@ -52,18 +58,54 @@ public class MainController {
 				}
 			}
 		}
-	
 				
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
 	
-
-	   @RequestMapping("join_success")
+	
+/*	@ExceptionHandler(DuplicateKeyException.class)
+	public String handleException() {
+		return "redirect:join_member.do";
+	}
+*/	
+	@RequestMapping("join_success")
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);
-	      System.out.println("로그인하러 왔멘 → " + member);
+	      System.out.println("가입했어욘 → " + member);
 	      return new ModelAndView("content/main.tiles");
 	   }
 	
 	
+	@RequestMapping("emailCheck")
+	public String emailCheck(HttpServletRequest request, @RequestParam String email){
+		System.out.println("이메일 : "+email);
+		request.setAttribute("email", email);
+		return "redirect:email_check.jsp";
+	}
+	
+	@RequestMapping("duplicatedCheck")
+	@ResponseBody
+	public String duplicatedCheck(HttpServletRequest request, @RequestParam String email) {
+		System.out.println("확인할 email : "+email );
+		if(service.selectMemberByEmail(email) == null) {
+			request.setAttribute("result", 1);
+			return "You can use this email.";
+		}else {
+			request.setAttribute("result", 0);
+			return "This email is already used. Please rename email.";
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+

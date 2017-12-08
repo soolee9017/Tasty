@@ -23,6 +23,10 @@
 				<th>총 비추천 수</th>
 				<th>인증 여부</th>
 				<th>선호하는 맛</th>
+				<th><form action="${initParam.rootPath }/admin/member_management.do" method='get'>
+				<button type="submit" class="btn btn-default">돌아가기</button>
+				</form>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -40,9 +44,16 @@
 							<td>${result.totalDowns }</td>
 							<td>${result.memberCert }</td>
 							<td>
-							<%for(int i=0 ; i<tasteList.size(); i++){ %>
-							<%=tasteList.get(i).getTaste().getTasteName() %>
-							<%} %>
+
+							<c:forEach var="tastes" items="${result.memberTasteList }">
+									${tastes.taste.tasteName}
+							</c:forEach>
+							</td>
+							<td>
+							<form action="${initParam.rootPath }/admin/remove_member.do">
+								<input type="hidden" name="email" value="${result.email }">
+ 							<button type="submit">삭제</button>
+ 							</form>
 							</td>
 						</tr>
 					</c:forEach>
