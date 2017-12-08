@@ -150,8 +150,6 @@ ${result.get(0).missionNum }
    
    </div>
 </div>
-
-<br><br> 
 ${result.get(0).missionCertList}
  
 <div class="contents">

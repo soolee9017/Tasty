@@ -21,13 +21,27 @@
 		var flag = confirm("회원가입을 완료 하시겠습니까?");
 	}
 	
-	 function emailCheck(){
-		//var address = "${initParam.rootPath }/email_check.jsp?email"+email;
-		var address = "${initParam.rootPath }/member/email_check.jsp";
-		location.reload();
-		window.open(address, "newWin","width=450, height=215");
-	} 
+	function checkPop(){
+		var email = $("input[name='email']").val();
+		$("#duplcheckBtn").on("click", function(){
+			$.ajax({
+				"url":"/Tasty/duplicatedCheck.do",
+				"data":"name="+$("input[name='email']").val(),
+				"success":function(data){
+					window.open("", "newWin", "width=450, height=215");
+				}
+			})
+		})
+	}
 	
+
+			
+		$.ajax(
+			"url":"/tasty/duplicatedCheck.do",
+			"data":"email="+
+		window.open("${initParam.rootPath}/emailCheck.do?email="+email, "newWin","width=450, height=215");
+	} 
+	 
 	
 </script>
 <style>
@@ -49,10 +63,12 @@
 				id="id" class="form-control" required="required"
 				style="text-align: center;">
 		</div>
-				<form action="${initParam.rootPath }/member/email_check.jsp" method="POST">
-					<input type="hidden" name="email" value="email">
-				</form>
-			<button onclick="emailCheck()">중복 확인</button> <p>
+				 <%-- <form action="${initParam.rootPath }/WEB-INF/view/member/email_check.jsp" method="POST">
+					<input type="hidden" name="email" value="email"> --%>
+		<button id="testBtn" class="btn btn-default" onclick="checkPop()">중복 확인</button><p> 
+			<!-- 	</form>  -->
+				
+			
 
 		<div class="form-group">
 			<label for="password">패스워드</label> <input type="password"

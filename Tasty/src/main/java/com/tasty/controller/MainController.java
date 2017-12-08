@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.dao.MemberDAO;
@@ -74,11 +76,36 @@ public class MainController {
 	   }
 	
 	
-	@RequestMapping("email_check")
-	public ModelAndView emailCheck(@RequestParam String email){
-		Member member = service.selectMemberByEmail(email);
-		return new ModelAndView("email_check_result.jsp", "result", member);
-		
+	@RequestMapping("emailCheck")
+	public String emailCheck(HttpServletRequest request, @RequestParam String email){
+		System.out.println("이메일 : "+email);
+		request.setAttribute("email", email);
+		return "redirect:email_check.jsp";
+	}
+	
+	@RequestMapping("duplicatedCheck")
+	@ResponseBody
+	public String duplicatedCheck(HttpServletRequest request, @RequestParam String email) {
+		System.out.println("확인할 email : "+email );
+		if(service.selectMemberByEmail(email) == null) {
+			request.setAttribute("result", 1);
+			return "You can use this email.";
+		}else {
+			request.setAttribute("result", 0);
+			return "This email is already used. Please rename email.";
+		}
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
