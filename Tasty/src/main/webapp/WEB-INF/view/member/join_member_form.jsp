@@ -4,45 +4,60 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		
-		$(".tastes").on("click", function() {
-			if ($('input:checkbox[name="tastes"]:checked').length >= 3) {
-				$('input:checkbox[name="tastes"]').attr("disabled",true);
-				$('input:checkbox[name="tastes"]:checked').attr("disabled",false);
-				return;
-			}else{
-				$('input:checkbox[name="tastes"]').attr("disabled",false);
+$(document).ready(function() {
+	
+	$(".tastes").on("click", function() {
+		if ($('input:checkbox[name="tastes"]:checked').length >= 3) {
+			$('input:checkbox[name="tastes"]').attr("disabled",true);
+			$('input:checkbox[name="tastes"]:checked').attr("disabled",false);
+			return;
+		}else{
+			$('input:checkbox[name="tastes"]').attr("disabled",false);
+		}
+	});
+	var check = 0;
+	var check2 =0;
+	$("#duplBtn").on("click",function(){
+		check = 1;
+		var email = $("input[name='email']").val();
+		$.ajax({
+			"url":"/Tasty/duplicatedCheck.do",
+			"data":"email="+email,
+			"success":function(result){
+				var txt = "";
+				if(result == 1){
+					$("input[name='email']").val(email);
+					alert("사용가능한 email 입니다.");
+				}else{
+					alert("이미 등록된 email 입니다.");
+					$("input[name='email']").val(txt);
+					$("input[name='email']").focus();
+				}
 			}
 		});
+		if(check2 == 1){
+			check2 = 0;
+			return false;
+		}
+	});
+
+	
+	$("#testBtn").on("click",function(){
+		check2 = 1;
+		if(check == 0){
+			alert("email 중복확인 먼저 해주세요.");
+			return false;
+		}else if($("input[type='checkbox']:checked").length == 0){
+			alert('맛 1개 이상 고르세요.');
+			return false;
+		}
+		/* else($("input[type='checkbox']:checked").length == 0){
+			alert("맛을 1개 이상 고르세요.");
+			return false;
+		} */
 	});
 	
-	function joinSuccess() {
-		var flag = confirm("회원가입을 완료 하시겠습니까?");
-	}
-	
-	function checkPop(){
-		var email = $("input[name='email']").val();
-		$("#duplcheckBtn").on("click", function(){
-			$.ajax({
-				"url":"/Tasty/duplicatedCheck.do",
-				"data":"name="+$("input[name='email']").val(),
-				"success":function(data){
-					window.open("", "newWin", "width=450, height=215");
-				}
-			})
-		})
-	}
-	
-
-			
-		$.ajax(
-			"url":"/tasty/duplicatedCheck.do",
-			"data":"email="+
-		window.open("${initParam.rootPath}/emailCheck.do?email="+email, "newWin","width=450, height=215");
-	} 
-	 
-	
+});
 </script>
 <style>
 	.form-group{
@@ -63,10 +78,8 @@
 				id="id" class="form-control" required="required"
 				style="text-align: center;">
 		</div>
-				 <%-- <form action="${initParam.rootPath }/WEB-INF/view/member/email_check.jsp" method="POST">
-					<input type="hidden" name="email" value="email"> --%>
-		<button id="testBtn" class="btn btn-default" onclick="checkPop()">중복 확인</button><p> 
-			<!-- 	</form>  -->
+		<button id="duplBtn" class="btn btn-default">중복 확인</button><p> 
+
 				
 			
 
@@ -108,6 +121,7 @@
 		</div>
 		<div>
 			<button type="submit" id="testBtn" class="btn btn-default">가입</button>
+			<button type="submit" id="testBtnn" class="btn btn-default">테스트</button>
 		</div>
 		<sec:csrfInput />
 		<%-- csrf 토큰 --%>

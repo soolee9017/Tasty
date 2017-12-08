@@ -85,14 +85,12 @@ public class MainController {
 	
 	@RequestMapping("duplicatedCheck")
 	@ResponseBody
-	public String duplicatedCheck(HttpServletRequest request, @RequestParam String email) {
+	public int duplicatedCheck(@RequestParam String email) {
 		System.out.println("확인할 email : "+email );
 		if(service.selectMemberByEmail(email) == null) {
-			request.setAttribute("result", 1);
-			return "You can use this email.";
+			return 1;
 		}else {
-			request.setAttribute("result", 0);
-			return "This email is already used. Please rename email.";
+			return 0;
 		}
 	}
 	
