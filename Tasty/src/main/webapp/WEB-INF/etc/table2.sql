@@ -384,5 +384,9 @@ create sequence mission_cert_board_seq;
 
 drop sequence route_num_seq;
 create sequence route_num_seq;
-       
+
+drop sequence route_num_seq;
+create sequence route_num_seq;
+
+
 
