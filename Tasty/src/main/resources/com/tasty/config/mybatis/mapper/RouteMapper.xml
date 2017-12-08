@@ -65,5 +65,17 @@
 	
 	</select>
 	
+	<select id="selectRouteByEmail" parameterType="string" resultMap = "Route-Review-join-resultmap">
+	
+	select *
+	from route r, temp_route tr, review rv, member m
+	where r.route_num = tr.route_num(+)
+	and tr.review_num = rv.review_num(+)
+	and rv.email = m.email(+)
+	and m.email=#{value}
+	order by r.route_num desc
+	
+	</select>
+	
 
 </mapper>
