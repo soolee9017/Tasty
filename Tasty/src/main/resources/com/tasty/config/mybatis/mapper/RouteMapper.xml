@@ -15,6 +15,7 @@
 	
 	
 	
+	
 	<!-- resultMap -->
 	<resultMap type="Route" id="Route-Review-join-resultmap">
 		<id column="route_num" property="routeNum"/>
@@ -45,6 +46,9 @@
 	where r.route_num = tr.route_num(+)
 	and tr.review_num = rv.review_num(+)
 	and rv.email = m.email(+)
+	and rv.store_name = #{storeName}
+	and rv.pos_x = #{posX}
+	and rv.pos_y = #{posY}
 	order by r.route_num desc
 	
 	</select>
@@ -57,6 +61,18 @@
 	and tr.review_num = rv.review_num(+)
 	and rv.email = m.email(+)
 	and r.route_num = #{value}
+	order by r.route_num desc
+	
+	</select>
+	
+	<select id="selectRouteByEmail" parameterType="string" resultMap = "Route-Review-join-resultmap">
+	
+	select *
+	from route r, temp_route tr, review rv, member m
+	where r.route_num = tr.route_num(+)
+	and tr.review_num = rv.review_num(+)
+	and rv.email = m.email(+)
+	and m.email=#{value}
 	order by r.route_num desc
 	
 	</select>

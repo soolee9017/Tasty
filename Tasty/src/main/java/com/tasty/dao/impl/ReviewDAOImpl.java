@@ -130,6 +130,20 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public int updateReviewWithMap(Map map) {
 		return session.update(makeSqlId("updateReviewWithMap"),map);
 	}
+
+	@Override
+	public List<Review> selectReviewByStoreNameAndPosXY(String storeName, String posX, String posY) {
+		Map map = new HashMap<>();
+		map.put("storeName", storeName);
+		map.put("posX", posX);
+		map.put("posY", posY);
+		return session.selectList(makeSqlId("selectReviewByStoreNameAndPosXY"), map);
+	}
+
+	@Override
+	public List<Review> selectAllReviewByEmail(String email) {
+		return session.selectList(makeSqlId("selectAllReviewByEmail"), email);
+	}
 	
 	
 	

@@ -130,6 +130,7 @@
    
    
    
+   
    <select id="selectMissionCertByMissionNum2" parameterType="_int" resultMap="mission-info-result-map">
    
 	select * 

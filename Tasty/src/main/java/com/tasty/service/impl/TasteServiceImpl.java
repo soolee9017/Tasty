@@ -23,7 +23,6 @@ public class TasteServiceImpl implements TasteService{
 	
 	@Override
 	public int insertAllTaste(Map map) {
-		System.out.println("service");
 		return tasteDao.insertAllTaste(map);
 	}
 
