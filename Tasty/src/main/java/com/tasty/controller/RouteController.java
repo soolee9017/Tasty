@@ -71,12 +71,7 @@ public class RouteController {
 
       }
 
-      
-      for(ArrayList a : bigList2) {
-         System.out.println("list 중복 체크");
-         System.out.println(a);
-      }
-         
+
       ObjectMapper om = new ObjectMapper();
       String str = null;
       try {
