@@ -66,7 +66,6 @@
 				 <%-- <form action="${initParam.rootPath }/WEB-INF/view/member/email_check.jsp" method="POST">
 					<input type="hidden" name="email" value="email"> --%>
 		<button id="testBtn" class="btn btn-default" onclick="checkPop()">중복 확인</button><p> 
-			<!-- 	</form>  -->
 				
 			
 

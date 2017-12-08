@@ -32,7 +32,8 @@ public class AdminManageController {
 	public ModelAndView registerAdmin(@ModelAttribute Member member){
 		service.addMember(member, "ROLE_ADMIN");
 		//redirect 방식이동시 model값은 요청파라미터로 전송된다.
-		return new ModelAndView("redirect:/mypage.do", "email", member.getEmail());
+		//return new ModelAndView("redirect:/mypage.do", "email", member.getEmail());
+		return new ModelAndView("redirect:/join_success.do", "email", member.getEmail());
 	}
 	
 	//회원 조회 (전체)
@@ -80,7 +81,7 @@ public class AdminManageController {
 			String result = String.format("회원이 없습니다.");
 			request.setAttribute("result", result);
 		}*/
-		System.out.println("삭제할거야?");
+		System.out.println("삭제할거야? "+email);
 		return "redirect:/admin/member_management.do";
 	}
 	
