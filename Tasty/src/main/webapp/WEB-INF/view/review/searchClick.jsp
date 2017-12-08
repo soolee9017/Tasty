@@ -320,10 +320,10 @@ $(document).ready(function(){
 
 
 <sec:authorize access="isAnonymous()">
-	<span class="loginCheck" style="display:hidden;">1</span>
+	<span class="loginCheck" style="display:none;">1</span>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
-	<span class="loginCheck" style="display:hidden;">0</span>
+	<span class="loginCheck" style="display:none;">0</span>
 </sec:authorize>
 
 
