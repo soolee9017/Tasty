@@ -54,10 +54,20 @@ public class ReviewController {
    @ResponseBody
    public List<Review> getReviewByAddress(Principal principal, @RequestParam String address){
     	
-      System.out.println(principal);
       List<Review> list = reviewService.getListAndMemberByAdd(principal, address);
       return list;
    }
+    
+    
+    @RequestMapping("getReviewByAddress2")
+    @ResponseBody
+    public List<Review> getReviewByAddress2(@RequestParam String address){
+     	
+       List<Review> list = reviewService.selectAllReviewAndMemberByAddress(address);
+       return list;
+    }
+    
+    
    
   @RequestMapping("registerReview")
    public ModelAndView registerReview(Principal principal,HttpServletRequest request, 

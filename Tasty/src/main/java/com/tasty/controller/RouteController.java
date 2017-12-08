@@ -46,24 +46,31 @@ public class RouteController {
       smallList.add(list.get(0).getPosY());
       bigList2.add(smallList);
       
-
-      for(int i=1; i<list.size(); i++) {
-         if(smallList.indexOf(list.get(i).getPosX()) == -1 || smallList.indexOf(list.get(i).getPosY())==-1) {
-         
-        ArrayList newList = new ArrayList<>();
-   
-         newList.add(list.get(i).getReviewNum());
-         newList.add(list.get(i).getStoreName());
-         newList.add(list.get(i).getPosX());
-         newList.add(list.get(i).getPosY());
-         bigList2.add(newList);   
-
-         }
-      }
-      System.out.println("bigList2 출력---------");
-      System.out.println(bigList2);
       
-      System.out.println();
+      for(int i=1; i<list.size(); i++) {
+    	  
+    	  int flag = 0;
+    	  for(int j = 0; j<bigList2.size(); j++) {
+    		  
+    		  if((bigList2.get(j).get(2)).equals(list.get(i).getPosX()) && (bigList2.get(j).get(3)).equals(list.get(i).getPosY())) {
+    			 flag = 1;
+    		  }
+    		  
+    	  }
+    	  
+    	  if(flag ==0) {
+    		  ArrayList newList = new ArrayList<>();
+    		  newList.add(list.get(i).getReviewNum());
+    	         newList.add(list.get(i).getStoreName());
+    	         newList.add(list.get(i).getPosX());
+    	         newList.add(list.get(i).getPosY());
+    	         
+    	         bigList2.add(newList);
+    	  }
+    	  
+
+      }
+
       
       for(ArrayList a : bigList2) {
          System.out.println("list 중복 체크");
