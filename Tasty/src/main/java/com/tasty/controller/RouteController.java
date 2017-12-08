@@ -35,32 +35,40 @@ public class RouteController {
 	@RequestMapping("getXYByEmail")
 	public ModelAndView getXYByEmail(@RequestParam String email){
 
-		int page = 1;
-		Map m = reviewService.selectReviewByEmail(email,page);
-		List<Review> list = (List<Review>)m.get("list");
+		List<Review> list = reviewDao.selectAllReviewByEmail(email);
 		
 		List<ArrayList> bigList2 = new ArrayList<>();
 		
 		ArrayList smallList = new ArrayList<>();
-		String posXf = list.get(0).getPosX();
-		String posYf = list.get(0).getPosY();
 		
 		smallList.add(list.get(0).getReviewNum());
 		smallList.add(list.get(0).getStoreName());
 		smallList.add(list.get(0).getPosX());
 		smallList.add(list.get(0).getPosY());
+		bigList2.add(smallList);
 		
+
 		for(int i=1; i<list.size(); i++) {
-			if(!posXf.equals(list.get(i).getPosX()) && !posYf.equals(list.get(i).getPosY())) {
+			if(smallList.indexOf(list.get(i).getPosX()) == -1 || smallList.indexOf(list.get(i).getPosY())==-1) {
 			
 			smallList.add(list.get(i).getReviewNum());
 			smallList.add(list.get(i).getStoreName());
 			smallList.add(list.get(i).getPosX());
 			smallList.add(list.get(i).getPosY());
-				bigList2.add(smallList);
+			bigList2.add(smallList);	
+
 			}
 		}
+		System.out.println("bigList2 출력---------");
+		System.out.println(bigList2);
 		
+		System.out.println();
+		
+		for(ArrayList a : bigList2) {
+			System.out.println("list 중복 체크");
+			System.out.println(a);
+		}
+			
 		ObjectMapper om = new ObjectMapper();
 		String str = null;
 		try {

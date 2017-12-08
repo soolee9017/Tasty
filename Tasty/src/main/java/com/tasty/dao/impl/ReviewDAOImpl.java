@@ -139,6 +139,11 @@ public class ReviewDAOImpl implements ReviewDAO{
 		map.put("posY", posY);
 		return session.selectList(makeSqlId("selectReviewByStoreNameAndPosXY"), map);
 	}
+
+	@Override
+	public List<Review> selectAllReviewByEmail(String email) {
+		return session.selectList(makeSqlId("selectAllReviewByEmail"), email);
+	}
 	
 	
 	
