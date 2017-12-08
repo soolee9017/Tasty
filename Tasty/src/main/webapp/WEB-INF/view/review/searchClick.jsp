@@ -44,7 +44,7 @@ display:none;
 <script type="text/javascript">
 $(document).ready(function(){
    var address = '<%=(String)session.getAttribute("eateryJibun") %>';
-   
+   var 
    $.ajax({
       "url":"/Tasty/review/getReviewByAddress.do",
       "data":"address="+address,
