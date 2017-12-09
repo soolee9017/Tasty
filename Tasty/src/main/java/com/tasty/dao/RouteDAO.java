@@ -11,7 +11,7 @@ public interface RouteDAO {
 	
 	int insertTempRoute(TempRoute tempRoute);
 	
-	List<Route> getAllRoute(String storeName, String posX, String posY);
+	List<Integer> getAllRouteNum(String storeName, String posX, String posY);
 	
 	Route selectRouteByNum(int routeNum);
 
