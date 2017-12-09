@@ -6,34 +6,39 @@ public class TempRoute implements Serializable{
 
 	private int routeNum;
 	private int reviewNum;
+	private int orderOfStore;
 	
 	private Review review;
 	private Route route;
 	
 	public TempRoute() {}
 
-	public TempRoute(int routeNum, int reviewNum) {
+	public TempRoute(int routeNum, int reviewNum, int orderOfStore) {
 		this.routeNum = routeNum;
 		this.reviewNum = reviewNum;
+		this.orderOfStore = orderOfStore;
 	}
 
-	public TempRoute(int routeNum, int reviewNum, Review review) {
+	public TempRoute(int routeNum, int reviewNum, int orderOfStore, Review review) {
 		this.routeNum = routeNum;
 		this.reviewNum = reviewNum;
+		this.orderOfStore = orderOfStore;
 		this.review = review;
 	}
 
-	public TempRoute(int routeNum, int reviewNum, Route route) {
+	public TempRoute(int routeNum, int reviewNum, int orderOfStore, Route route) {
 		this.routeNum = routeNum;
 		this.reviewNum = reviewNum;
+		this.orderOfStore = orderOfStore;
 		this.route = route;
 	}
 
-	public TempRoute(int routeNum, int reviewNum, Review review, Route route) {
+	public TempRoute(int routeNum, int reviewNum,int orderOfStore, Review review, Route route) {
 		this.routeNum = routeNum;
 		this.reviewNum = reviewNum;
 		this.review = review;
 		this.route = route;
+		this.orderOfStore = orderOfStore;
 	}
 
 	public int getRouteNum() {
@@ -50,6 +55,16 @@ public class TempRoute implements Serializable{
 
 	public void setReviewNum(int reviewNum) {
 		this.reviewNum = reviewNum;
+	}
+	
+	
+
+	public int getOrderOfStore() {
+		return orderOfStore;
+	}
+
+	public void setOrderOfStore(int orderOfStore) {
+		this.orderOfStore = orderOfStore;
 	}
 
 	public Review getReview() {
@@ -70,14 +85,15 @@ public class TempRoute implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("TempRoute [routeNum=%s, reviewNum=%s, review=%s, route=%s]", routeNum, reviewNum, review,
-				route);
+		return String.format("TempRoute [routeNum=%s, reviewNum=%s, orderOfStore=%s, review=%s, route=%s]", routeNum,
+				reviewNum, orderOfStore, review, route);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + orderOfStore;
 		result = prime * result + ((review == null) ? 0 : review.hashCode());
 		result = prime * result + reviewNum;
 		result = prime * result + ((route == null) ? 0 : route.hashCode());
@@ -94,6 +110,8 @@ public class TempRoute implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		TempRoute other = (TempRoute) obj;
+		if (orderOfStore != other.orderOfStore)
+			return false;
 		if (review == null) {
 			if (other.review != null)
 				return false;
@@ -110,6 +128,8 @@ public class TempRoute implements Serializable{
 			return false;
 		return true;
 	}
+
+	
 	
 	
 	
