@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +37,7 @@ public class MissionCertServiceImpl implements MissionCertService {
 	}
 
 	@Override
+	@Transactional
 	public int insertMissionCert(Principal principal, MissionCert missionCert, HttpServletRequest request, List<MultipartFile> upImage)
 			throws IllegalStateException, IOException {
 		HttpSession session = request.getSession();
@@ -58,9 +60,9 @@ public class MissionCertServiceImpl implements MissionCertService {
 				String fileName = UUID.randomUUID().toString().replace("-", "") + photo.getOriginalFilename();
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName));
-				FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
+/*				FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
 						new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\missionCert",
-								fileName));
+								fileName));*/
 				photoDao.insertPhoto(fileName);
 				photoList.add(fileName);
 				System.out.println(fileName);
@@ -74,6 +76,19 @@ public class MissionCertServiceImpl implements MissionCertService {
 	@Override
 	public List<MissionCert> selectMissionCertByMissionNum(int missionNum) {
 		return missionCertDao.selectMissionCertByMissionNum(missionNum);
+	}
+
+	
+
+
+	@Override
+	public List<MissionCert> selectMissionCertByMissionNum2(int missionNum) {
+		return missionCertDao.selectAllMissionCert2(missionNum);
+	}
+
+	@Override
+	public Mission selectMissionByMissionNum(int missionNum) {
+		return missionCertDao.selectMissionCertByMissionNum2(missionNum);
 	}
 
 	@Override

@@ -11,7 +11,7 @@
 
 	<c:if test="${not empty param.errorMessage}">
 		<div class="alert alert-danger text-danger animated shake">
-			<Strong>경고 !</Strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 아이디 또는 ${param.errorMessage }
+			<Strong>경고 !</Strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${param.errorMessage }
 		</div>
 	</c:if>
 	<form action="${initParam.rootPath}/login.do" method="post">
