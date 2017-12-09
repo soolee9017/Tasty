@@ -58,6 +58,11 @@
 						</tr>
 					</c:forEach>
 				</c:when>
+				<c:otherwise>
+					<tr>
+					<td>조회된 회원이 없습니다.</td>
+					</tr>
+				</c:otherwise>
 			</c:choose>
 		</tbody>
 	</table>
