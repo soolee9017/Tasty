@@ -96,21 +96,20 @@ public class RouteController {
       List<Review> list = reviewDao.selectReviewByStoreNameAndPosXY(storeName, posX, posY);
       return list;
    }
-   
+/*   
    //작성된 루트들 중에서 하나의 루트를 선택하면 루트상세보기 페이지로 넘어감.
    @RequestMapping("getRouteByNum")
    public ModelAndView getRouteByNum(@RequestParam int routeNum) {
       Route route = routeDao.selectRouteByNum(routeNum);
       return new ModelAndView("route_view.tiles","route",route);
-   }
+   }*/
    
    //메인검색창에서 음식점을 검색해서 들어오면 그 음식점에 대해 쓰여진 루트를 보여줄 컨트롤러.(searchClick.jsp에서)
    //Ajax 처리되어 값을 넘겨줄 것이라서 ResponseBody를 붙였다.. 언니 넘 힘들다 (feat.태은이 잔소리)
    @RequestMapping("getAllRoute")
    @ResponseBody
    public List<Route> getAllRoute(@RequestParam String storeName, @RequestParam String posX, @RequestParam String posY ){
-      List<Route> list = routeDao.getAllRoute(storeName, posX, posY);
-      return list;
+      return null;
    }
    
    

@@ -24,6 +24,7 @@
 		<collection property="tempRouteList" ofType="TempRoute">
 			<result column="route_num" property="routeNum"/>
 			<result column="review_num" property="reviewNum"/>
+			<result column="order_of_store" property="orderOfStore"/>
 			<association property="review" javaType="Review">
 				<id column="review_num" property="reviewNum"/>
 				<result column="address" property="address"/>
@@ -40,18 +41,19 @@
 	</resultMap>
 	
 	<!-- select -->
-	<select id="getAllRoute" resultMap="Route-Review-join-resultmap">
-	select *
-	from route r, temp_route tr, review rv, member m
+	<select id="getAllRouteNum" resultType="_int" parameterType="map">
+	select r.route_num
+	
+	from route r, temp_route tr, review rv
 	where r.route_num = tr.route_num(+)
 	and tr.review_num = rv.review_num(+)
-	and rv.email = m.email(+)
+	
 	and rv.store_name = #{storeName}
 	and rv.pos_x = #{posX}
 	and rv.pos_y = #{posY}
-	order by tr.order_of_store asc
-	
+	order by r.route_num asc
 	</select>
+	
 	
 	
 	<select id="selectRouteByNum" parameterType="_int" resultMap="Route-Review-join-resultmap">

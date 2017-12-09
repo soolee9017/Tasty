@@ -1,5 +1,8 @@
 package com.tasty.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,21 @@ public class RouteServiceImpl implements RouteService{
 //		routeDao.insertTempRoute(route.getRouteNum(),)
 		
 	}
+
+	@Override
+	public List getAllRouteByXYName(String storeName, String posX, String posY) {
+		List<Integer> listOfNum = routeDao.getAllRouteNum(storeName, posX, posY);
+		System.out.println(listOfNum);
+		List bigList = new ArrayList();
+			for(int a : listOfNum) {
+				Route route = routeDao.selectRouteByNum(a);
+				bigList.add(route);
+			}
+		
+		return bigList;
+	}
+	
+	
 
 	
 }

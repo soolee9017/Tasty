@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,9 +49,8 @@ display:none;
 <script type="text/javascript">
 $(document).ready(function(){
    var address = '<%=(String)session.getAttribute("eateryJibun") %>';
-   var ajaxCon;
    
-   alert($(".loginCheck").html()==1);
+   var ajaxCon;
    
    var atxt="";
    if($(".loginCheck").html()==1){
@@ -300,6 +300,27 @@ $(document).ready(function(){
 
 
 <a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
+
+<br><br>
+<c:forEach items="${requestScope.listOfRoute}" var="Route">
+	<div style="border: 1px solid black;width:50%">
+	루트 이름 : ${Route.routeName}<br>
+	루트 설명 : ${Route.content}<br> 
+	
+		<c:forEach items="${Route.tempRouteList}" var="tempRoute" varStatus="cnt">
+				<c:choose>
+                <c:when test="${cnt.count == 1}">
+                ${tempRoute.orderOfStore}.${tempRoute.review.storeName}
+                </c:when>
+                <c:otherwise>
+                ------>${tempRoute.orderOfStore}.${tempRoute.review.storeName}
+                </c:otherwise>
+                 </c:choose> 
+		</c:forEach>
+	<br><a href="#"><button>루트 상세보기</button></a>
+	</div>
+</c:forEach>
+
 <p>
 <p>
 <p>
