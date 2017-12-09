@@ -6,18 +6,21 @@ $(document).ready(function() {
 	
 	var check = 0;
 	var check2 = 0;
+	var checkemail = null;
+	var email = null; 
 	$("#duplBtn").on("click",function(){
-		
-		var email = $("input[name='email']").val();
+		check = 1;
+		email = $("input[name='email']").val();
 		$.ajax({
 			"url":"/Tasty/admin/duplicatedCheck.do",
 			"data":"email="+email,
 			"success":function(result){
 				var txt = "";
 				if(result == 1){
+					checkemail = $("input[name='email']").val(); //중복확인 눌렀을때 email
 					check = 1;
-					$("input[name='email']").val(email);
-					alert("사용가능한 email 입니다.");
+					$("input[name='email']").val(checkemail);
+					alert("사용가능한 email입니다.");
 				}else if(result == 0){
 					alert("이미 등록된 email 입니다.");
 					$("input[name='email']").val(txt);
@@ -35,7 +38,8 @@ $(document).ready(function() {
 
 	
 	$("#testBtn").on("click",function(){
-		if(check == 0){
+		email = $("input[name='email']").val(); //현재 적힌 email
+		if(email != checkemail || check == 0){
 			alert("email 중복확인 먼저 해주세요.");
 			check2 = 1;
 			return false;
