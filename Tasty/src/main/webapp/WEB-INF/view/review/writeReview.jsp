@@ -52,7 +52,7 @@ $(document).ready(function(){
       
    $("#plusMenu").on("click",function(){
    var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
-      txt += "<td><input type='text' name='menu'></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
+      txt += "<td><input type='text' name='menu' required></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
       txt += "<td><span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select>";
       txt += "<select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select></span></td></tr>";
       $("#menu_layer > tbody").append(txt)
@@ -93,8 +93,9 @@ $(document).ready(function(){
        $(this).parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
    }); 
    
-   
+
    $("#sendBtn").on("click", function() { 
+	   
      var totalTr = $('#tBody>tr').length;
      var menuName =[];
      var numOfTaste= [];
@@ -164,8 +165,8 @@ $(document).ready(function(){
   
    $("#reviewForm").submit(); 
     
-   }); 
-   
+  }); 
+
   
    
 });

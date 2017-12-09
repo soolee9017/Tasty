@@ -79,7 +79,6 @@ public class RouteController {
       String str = null;
       try {
          str = om.writeValueAsString(bigList2);
-         System.out.println(str);
       } catch (JsonProcessingException e) {
          e.printStackTrace();
       }
@@ -116,7 +115,6 @@ public class RouteController {
 	      String str = null;
 	      try {
 	         str = om.writeValueAsString(bigList);
-	         System.out.println(str);
 	      } catch (JsonProcessingException e) {
 	         e.printStackTrace();
 	      }
@@ -125,6 +123,36 @@ public class RouteController {
 	   model.addAttribute("list",str);
 	   return new ModelAndView("route/route_detail.tiles");
    }
+   
+   @RequestMapping("getRouteByNum")
+   public ModelAndView getRouteByNum(@RequestParam int number, ModelMap model) {
+	   
+	   Route route = routeService.selectRouteByNum(number);
+	   
+	   List bigList = new ArrayList<>();
+	   
+	   for(TempRoute tr : route.getTempRouteList()) {
+		   List smallList = new ArrayList<>();
+		   smallList.add(tr.getReviewNum());
+		   smallList.add(tr.getReview().getStoreName());
+		   smallList.add(tr.getReview().getPosX());
+		   smallList.add(tr.getReview().getPosY());
+		   bigList.add(smallList);
+	   }
+	   
+	   ObjectMapper om = new ObjectMapper();
+	      String str = null;
+	      try {
+	         str = om.writeValueAsString(bigList);
+	      } catch (JsonProcessingException e) {
+	         e.printStackTrace();
+	      }
+	      model.addAttribute("route",route);
+		  model.addAttribute("list",str);
+	   return new ModelAndView("route/route_detail.tiles");
+	   
+   }
+   
    
    //작성된 루트에서 하나의 마커를 클릭했을 때, 리뷰 상세보기가 보일것이다. 그걸 클릭하면 여태까지 쓰여진 리뷰들이 보여질 것이다.
    //그것을 처리해줄 컨트롤러 이며, Ajax 처리되어 값을 넘겨줄 것이기 때문에 ResponseBody를 붙였음.

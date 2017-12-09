@@ -65,8 +65,6 @@ $(document).ready(function(){
       "data":"address="+address,
       "dataType":"json",
       "error":function(a, b,c){
-         alert(c);
-         alert("리뷰들 불러오는게 에러");
       },
       "success":function(list){
          var txt = "";
@@ -112,7 +110,6 @@ $(document).ready(function(){
       "data":"address="+address,
       "dataType":"json",
       "error":function(a, b,c){
-         alert("평균평점 에러");
       },
       "success":function(avg){
          $("#ratings").append('평균 평점 : '+avg + '점 / 5점'); 
@@ -217,7 +214,6 @@ $(document).ready(function(){
          "data":"address="+address,
          "dataType":"json",
          "error":function(a, b,c){
-            alert(c);
          },
          "success":function(list){
             var txt = "";
@@ -255,7 +251,6 @@ $(document).ready(function(){
             "data":"address="+address,
             "dataType":"json",
             "error":function(a, b,c){
-               alert(c);
             },
             "success":function(list){
                var txt = "";
@@ -264,8 +259,11 @@ $(document).ready(function(){
                $.each(list, function(){
              
                    total = this.member.totalUps + this.member.totalDowns;
+                   if(total!=0){
                    pos = (this.member.totalUps / total) * 100;
-                  
+                   }else{
+                	   pos=0;
+                   }
                   
                   txt += "<div class='review'>";
                   txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
@@ -328,7 +326,7 @@ $(document).ready(function(){
                 </c:otherwise>
                  </c:choose> 
 		</c:forEach>
-	<br><a href="#"><button>루트 상세보기</button></a>
+	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button>루트 상세보기</button></a>
 	</div>
 </c:forEach>
 
