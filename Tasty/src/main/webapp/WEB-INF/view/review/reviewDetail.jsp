@@ -27,7 +27,7 @@
 <body>
 
 	<header class="row">
-		<tiles:insertAttribute name="headers" />
+		<tiles:insertAttribute name="headers" ignore="true"/>
 	</header>
 <div style="margin-top:80px; width:1000px; height:500px; left:17%;position:relative; text-align: center;">
 	<h2>${requestScope.review.storeName }</h2>
@@ -66,6 +66,8 @@
 	<br>
 	<br>
 
+
+<sec:authorize access="isAuthenticated()">
 	<%
 		String email = ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
 		pageContext.setAttribute("email", email);
@@ -77,6 +79,9 @@
 			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button>내용
 				수정</button></a>
 	</c:if>
+</sec:authorize>
 </div>
+
+
 </body>
 </html>

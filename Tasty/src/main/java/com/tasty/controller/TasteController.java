@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.service.RouteService;
 import com.tasty.service.TasteService;
+import com.tasty.vo.Route;
 
 @Controller
 @RequestMapping("/review/")
@@ -22,6 +24,9 @@ public class TasteController {
 	int index = 0;
 	@Autowired
 	TasteService service;
+	
+	@Autowired
+	RouteService rService;
 	
 	@RequestMapping("insertAllTaste")
 	public String insertAllTaste() {
@@ -43,7 +48,7 @@ public class TasteController {
 	}
 	
 	@RequestMapping("setSession")//리뷰작성 페이지로
-	public String setSession(HttpSession session, @RequestParam String eateryTitle,
+	public ModelAndView setSession(HttpSession session, @RequestParam String eateryTitle,
 			@RequestParam String eateryTel, @RequestParam String eateryJibun,
 			@RequestParam String lat, @RequestParam String lng) {
 		List tasteList = service.selectAllTaste();
@@ -52,7 +57,10 @@ public class TasteController {
 		session.setAttribute("eateryJibun", eateryJibun);
 		session.setAttribute("lat", lat);
 		session.setAttribute("lng", lng);
-		return "review/searchClick.tiles";
+		
+		List listOfRoute = rService.getAllRouteByXYName(eateryTitle, lng, lat);
+		System.out.println(listOfRoute);
+		return new ModelAndView("review/searchClick.tiles","listOfRoute",listOfRoute);
 	}
 	
 	@RequestMapping("getAllTaste2") //회원가입페이지로 넘어감

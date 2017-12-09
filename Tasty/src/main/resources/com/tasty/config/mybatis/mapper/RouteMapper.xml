@@ -10,7 +10,8 @@
 	
 	<insert id="insertTempRoute" parameterType="TempRoute">
 	insert into temp_route values (route_num_seq.currval,
-									#{reviewNum})
+									#{reviewNum},
+									#{orderOfStore})
 	</insert>
 	
 	
@@ -24,6 +25,7 @@
 		<collection property="tempRouteList" ofType="TempRoute">
 			<result column="route_num" property="routeNum"/>
 			<result column="review_num" property="reviewNum"/>
+			<result column="order_of_store" property="orderOfStore"/>
 			<association property="review" javaType="Review">
 				<id column="review_num" property="reviewNum"/>
 				<result column="address" property="address"/>
@@ -40,18 +42,36 @@
 	</resultMap>
 	
 	<!-- select -->
-	<select id="getAllRoute" resultMap="Route-Review-join-resultmap">
+	<select id="getAllRouteNum" resultType="_int" parameterType="map">
+	select r.route_num
+	
+	from route r, temp_route tr, review rv
+	where r.route_num = tr.route_num(+)
+	and tr.review_num = rv.review_num(+)
+	and rv.store_name = #{storeName}
+	and rv.pos_x = #{posX}
+	and rv.pos_y = #{posY}
+	order by r.route_num asc
+
+	</select>
+	<select id="selectRouteNum" resultType="int">
+		select route_num 
+		from route 
+		order by route_num desc
+	</select>
+	
+	<select id="getAllRoute" resultMap="Route-Review-join-resultmap" parameterType="map">
 	select *
 	from route r, temp_route tr, review rv, member m
 	where r.route_num = tr.route_num(+)
 	and tr.review_num = rv.review_num(+)
-	and rv.email = m.email(+)
+	
 	and rv.store_name = #{storeName}
 	and rv.pos_x = #{posX}
 	and rv.pos_y = #{posY}
-	order by tr.order_of_store asc
-	
+	order by r.route_num asc
 	</select>
+	
 	
 	
 	<select id="selectRouteByNum" parameterType="_int" resultMap="Route-Review-join-resultmap">
