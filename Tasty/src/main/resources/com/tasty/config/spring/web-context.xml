@@ -23,7 +23,7 @@
 	<mvc:view-controller path="/content/util/information.do" view-name="content/util/information.tiles"/>
 	<mvc:view-controller path="/content/util/follow.do" view-name="content/util/follow.tiles"/>
 	<mvc:view-controller path="/getReview.do" view-name="review/reviewDetail.jsp"/>
-	<mvc:view-controller path="/route.do" view-name="route/route_select.jsp"/>
+	<mvc:view-controller path="/member/mypage.do" view-name=""/>
 	<!-- 링크 -->
 <!-- 비인증 관련 -->
    <!-- 메인페이지 -->

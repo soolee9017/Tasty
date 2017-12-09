@@ -8,72 +8,120 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div style="font-size: 20px; margin-top: 70px; width: 800px; float:right;" >
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+body{
+	background-color:rgb(235,235,235);
+}
+.leftTile {
+	float: left;
+	padding-left: 40px;
+	width: 40%;
+}
+
+.rightTile {
+	width: 60%;
+	margin-left: 320px;
+}
+.leftMenuList > div > ul{
+	width:100%;
+}
+.leftMenuList > div > ul > li{
+	width:100%;
+	height:50px;
+	border-bottom:1px #000 solid;
+}
+.leftMenuList > div > ul > li:hover{
+	background-color:rgb(245,245,245);
+}
+.leftMenuList > div > ul > li > a{
+	line-height:50px;
+	color:#000;
+	text-decoration:none;
+	-webkit-transition:1s;
+	font-size:20px;
+}
+.row > div > div{
+	border-bottom:1px #000 solid;
+	height:80px;
+}
+.row > div > div > div{
+	line-height:80px;
+}
+</style>
+<div class="row"
+	style="font-size: 20px; margin-top: 70px; width: 800px; left: 30%; position: relative;">
 	<div>
 		<div>
 			<div>
 				<h1>마이페이지</h1>
 			</div>
 		</div>
-		<p style="height: 1px; width: 800px; background-color: #000;"></p>
 		<div>
-			<div>사용자 ID</div>
-			<div>
+			<div class="leftTile">사용자 ID</div>
+			<div class="rightTile">
 				<sec:authentication property="principal.email" />
 			</div>
 		</div>
-		<p style="height: 1px; width: 800px; background-color: #000;"></p>
 		<div>
-			<div>이름</div>
-			<div>
+			<div class="leftTile">이름</div>
+			<div class="rightTile">
 				<sec:authentication property="principal.name" />
 			</div>
 		</div>
-		<p style="height: 1px; width: 800px; background-color: #000;"></p>
 		<div>
-			<div>닉네임</div>
-			<div>
+			<div class="leftTile">닉네임</div>
+			<div class="rightTile">
 				<sec:authentication property="principal.nickname" />
 			</div>
 		</div>
-		<p style="height: 1px; width: 800px; background-color: #000;"></p>
 		<div>
-			<div>연락처</div>
-			<div>
+			<div class="leftTile">연락처</div>
+			<div class="rightTile">
 				<sec:authentication property="principal.phoneNum" />
 			</div>
 		</div>
-		<p style="height: 1px; width: 800px; background-color: #000;"></p>
 		<div>
-			<div>성별</div>
-			<div>
+			<div class="leftTile">성별</div>
+			<div class="rightTile">
 				<sec:authentication property="principal.gender" />
 			</div>
 		</div>
-		<p style="height: 1px; width: 800px; background-color: #000;"></p>
 		<div>
-			<div>선호하는 맛</div>
-			<div>
+			<div class="leftTile">선호하는 맛</div>
+			<div class="rightTile">
 				<%
 					List list = ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 							.getMemberTasteList();
 					pageContext.setAttribute("mtList", list);
 				%>
-				<c:forEach var='memberTaste' items="${mtList}">
-				${memberTaste.taste.tasteName}
-		</c:forEach>
+				<c:forEach var='memberTaste' items="${mtList}" varStatus="cnt">
+					${memberTaste.taste.tasteName}
+					<c:choose>
+						<c:when test="${cnt.count == fn:length(mtList)}">
+							맛
+						</c:when>
+						<c:otherwise>
+							맛 |
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 			</div>
 		</div>
-		<p style="height: 1px; width: 800px; background-color: #000;"></p>
 	</div>
 </div>
-<div style="margin-top: 50px; float: left;">
+<div class="leftMenuList" style="margin-top: 50px; float: left; width: 350px; position:absolute; left:3%; top:12%;">
 	<div>
 		<ul>
-			<li><a href="${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>" class="btn btn-default">내가 작성한 리뷰 보기</a></li>
-			<li><a href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>' class="btn btn-default">루트 작성하기</a></li>
-			<li><a href="${initParam.rootPath }/review/getAllTaste3.do" class="btn btn-default">정보수정</a></li>
-			<li><a href="${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>" class="btn btn-default">탈퇴</a></li>
+			<li><a
+				href="${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>">내가
+					작성한 리뷰 보기</a></li>
+			<li><a
+				href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'>루트
+					작성하기</a></li>
+			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
+			<li><a
+				href="${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>">탈퇴</a></li>
 		</ul>
 	</div>
 </div>

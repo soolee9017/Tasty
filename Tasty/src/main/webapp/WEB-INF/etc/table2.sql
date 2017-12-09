@@ -126,17 +126,19 @@ ALTER TABLE MISSION_ADMIN
        
        
     ------------------------------------------ 12.미션 인증 게시판----------------------------------------
-/*ALTER TABLE MISSION_CERT_BOARD
-   DROP CONSTRAINT FK_MEMBER_TO_MISSION_CERT_BOARD; -- 회원 -> 미션 인증 게시판
-
+   /* 
 -- 미션 인증 게시판
 ALTER TABLE MISSION_CERT_BOARD
    DROP CONSTRAINT FK_MISSION_ADMIN_TO_MISSION_CERT_BOARD; -- 미션 -> 미션 인증 게시판
 
 -- 미션 인증 게시판
 ALTER TABLE MISSION_CERT_BOARD
-   DROP CONSTRAINT PK_MISSION_CERT_BOARD; -- 미션 인증 게시판 기본키*/
- 
+   DROP CONSTRAINT FK_MEMBER_TO_MISSION_CERT_BOARD; -- 회원 -> 미션 인증 게시판
+
+-- 미션 인증 게시판
+ALTER TABLE MISSION_CERT_BOARD
+   DROP CONSTRAINT PK_MISSION_CERT_BOARD; -- 미션 인증 게시판 기본키
+*/
 -- 미션 인증 게시판
 DROP TABLE MISSION_CERT_BOARD cascade constraint;
 
@@ -145,7 +147,8 @@ CREATE TABLE MISSION_CERT_BOARD (
    mission_cert_num NUMBER(20)    NOT NULL, -- 글 번호
    title            VARCHAR2(100) NULL,     -- 제목
    content          VARCHAR2(300) NULL,     -- 내용
-   mission_num      NUMBER(20)    NULL      -- 미션번호
+   mission_num      NUMBER(20)    NULL,     -- 미션번호
+   email            VARCHAR2(50)  NULL      -- 아이디
 );
 
 -- 미션 인증 게시판 기본키
@@ -165,15 +168,25 @@ ALTER TABLE MISSION_CERT_BOARD
 -- 미션 인증 게시판
 ALTER TABLE MISSION_CERT_BOARD
    ADD
-      CONSTRAINT FK_MA_TO_MCB -- 미션 -> 미션 인증 게시판
+      CONSTRAINT FK_ma_TO_mcb -- 미션 -> 미션 인증 게시판
       FOREIGN KEY (
          mission_num -- 미션번호
       )
       REFERENCES MISSION_ADMIN ( -- 미션
          mission_num -- 미션번호
-      );
-      
-      
+      )
+
+
+-- 미션 인증 게시판
+ALTER TABLE MISSION_CERT_BOARD
+   ADD
+      CONSTRAINT FK_m_TO_mcb-- 회원 -> 미션 인증 게시판
+      FOREIGN KEY (
+         email -- 아이디
+      )
+      REFERENCES MEMBER ( -- 회원
+         email -- 아이디
+      )
 
 ------------------------------------------ 13. 미션에 참여한 회원----------------------------------------
 /*ALTER TABLE MISSION_MEMBER
@@ -387,6 +400,4 @@ create sequence route_num_seq;
 
 drop sequence route_num_seq;
 create sequence route_num_seq;
-
-
 
