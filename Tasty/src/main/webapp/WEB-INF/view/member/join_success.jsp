@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="container" style="font-size: 20px;">
+<div class="container" style="font-size: 20px; margin-top:50px;">
    <div class="row">
       <div class="col-sm-12">
          <h2>가입된 정보</h2>

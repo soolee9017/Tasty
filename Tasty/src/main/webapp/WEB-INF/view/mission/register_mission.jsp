@@ -32,6 +32,7 @@
 
 </head>
 <body>
+<div style="margin-top:60px;">
 	<h2>미션 등록하기</h2>
 	<form id="regForm"
 		action="${initParam.rootPath }/mission/insertMission.do" method="post" enctype="multipart/form-data" id="missionForm">
@@ -56,5 +57,6 @@
 
 		<button type="submit">미션 등록</button>
 	</form>
+	</div>
 </body>
 </html>

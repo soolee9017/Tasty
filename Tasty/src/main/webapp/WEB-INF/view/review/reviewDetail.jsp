@@ -29,27 +29,30 @@
 	<header class="row">
 		<tiles:insertAttribute name="headers" />
 	</header>
-
-	<h2>가게 이름: ${requestScope.review.storeName }</h2>
-	<h3>가게 주소:${requestScope.review.address }</h3>
+<div style="margin-top:80px; width:1000px; height:500px; left:17%;position:relative; text-align: center;">
+	<h2>${requestScope.review.storeName }</h2>
+	<h3>${requestScope.review.address }</h3>
 	<br>
 	<input id="s" name="rating" readonly="" type="text"
 		class="rating rating-loading" value="${requestScope.review.ratings}"
 		data-size="sm" title="">
 	<h4>평점 : ${requestScope.review.ratings } /5.0</h4>
+	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
 	<h4>제목: ${requestScope.review.title}</h4>
+	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
 	<h4>내용: ${requestScope.review.content}</h4>
-
+	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
 
 
 	<c:forEach items="${requestScope.review.menuList }" var="menu">
-	메뉴 ${menu.menuName } : 
+	${menu.menuName } : 
+	
 	<c:forEach items="${menu.mtList }" var="menuTaste">
 		${menuTaste.allTaste.taste.tasteName}맛 ${menuTaste.allTaste.degree.degree} 단계,
 	</c:forEach>
 		<br>
 	</c:forEach>
-
+	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
 
 
 	<c:forEach items="${requestScope.review.reviewPhotoList}"
@@ -59,12 +62,9 @@
 			width="300px">
 
 	</c:forEach>
-
+	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
 	<br>
 	<br>
-
-
-
 
 	<%
 		String email = ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
@@ -77,6 +77,6 @@
 			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button>내용
 				수정</button></a>
 	</c:if>
-
+</div>
 </body>
 </html>

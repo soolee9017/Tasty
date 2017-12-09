@@ -10,6 +10,7 @@
 
 </head>
 <body>
+<div style="margin-top:60px;">
 	<h1>조회된 미션</h1>
 		미션번호 : ${mission.missionNum }<br>
 		미션이름 : ${mission.missionName }<br>
@@ -116,6 +117,6 @@
 
 
 
-
+</div>
 </body>
 </html>

@@ -268,9 +268,9 @@ html, body {
 			if (path == '' || path.length == 1) {
 				swal('', '선택하지 않았거나 한개만 선택하였습니다.', 'error');
 				return;
-			} else if(document.getElementById('routeName') && document.getElementById('content')){
-				
-				
+			} else if(document.getElementById('routeName').value == "" || document.getElementById('content').value == ""){
+				swal('', '루트 제목과 내용을 입력해주세요','error');
+				return;
 			}else{
 				document.getElementById('list_form').submit();
 			}
