@@ -49,6 +49,11 @@ public class MissionDAOImpl implements MissionDAO{
 	}
 
 	@Override
+	public int deleteMissionMember(MissionMember missionMember) {
+		return session.delete(makeSqlId("deleteMissionMember"),missionMember);
+	}
+
+	@Override
 	public List<Mission> selectAllMission() {
 		return session.selectList(makeSqlId("selectAllMission"));
 	}
@@ -59,8 +64,19 @@ public class MissionDAOImpl implements MissionDAO{
 	}
 
 	@Override
-	public int updateMissionCurrentPeoplePlus(int missionNum) {
-		return session.update(makeSqlId("updateCurrentPeople"),missionNum);
+	public int plusMissionCurrentPeoplePlus(int missionNum) {
+		return session.update(makeSqlId("plusCurrentPeople"),missionNum);
+	}
+	
+	@Override
+	public int minusMissionCurrentPeoplePlus(int missionNum) {
+		return session.update(makeSqlId("minusCurrentPeople"),missionNum);
+	}
+	
+	
+	@Override
+	public List<MissionMember> selectMissionMemberByMissionMember(MissionMember missionMember) {
+		return session.selectList(makeSqlId("selectMissionMemberByMissionMember"),missionMember);
 	}
 
 	@Override

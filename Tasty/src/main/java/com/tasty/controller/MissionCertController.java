@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,8 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.dao.MissionCertDAO;
 import com.tasty.service.MissionCertService;
+import com.tasty.vo.Authority;
+import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionCert;
 
@@ -26,46 +31,84 @@ import com.tasty.vo.MissionCert;
 @RequestMapping("/missionCert/")
 public class MissionCertController {
 
-   @Autowired
-   MissionCertService service;
-   
-   @Autowired
-   MissionCertDAO dao;
-   
-   /*@RequestMapping("getAllMissionCert")
-   @ResponseBody
-   public List<MissionCert> getAllMissionCert(){
-      List<MissionCert> list = service.selectAllMissionCert();
-      System.out.println(list);
-      return list
-      
-      return service.selectAllMissionCert();
-   }*/
-   
-/*   @RequestMapping("getMissionCertByMN2")
-   @ResponseBody
-   public List<MissionCert> getMissionCertByMissionNum2(@RequestParam int missionNum) {
-      List<MissionCert> list = service.selectMissionCertByMissionNum(missionNum);
-      System.out.println(list);
-      return list;
-   }*/
-   
+	@Autowired
+	MissionCertService service;
+	
+	
+	@Autowired
+	MemberDAO memberDao;
+	
+	
+	@Autowired
+	MissionCertDAO missionCertDao;
+	
+	
+	
+	/*@RequestMapping("getAllMissionCert")
+	@ResponseBody
+	public List<MissionCert> getAllMissionCert(){
+		List<MissionCert> list = service.selectAllMissionCert();
+		System.out.println(list);
+		return list
+		
+		return service.selectAllMissionCert();
+	}*/
+	
+/*	@RequestMapping("getMissionCertByMN2")
+	@ResponseBody
+	public List<MissionCert> getMissionCertByMissionNum2(@RequestParam int missionNum) {
+		List<MissionCert> list = service.selectMissionCertByMissionNum(missionNum);
+		System.out.println(list);
+		return list;
+	}*/
+	
+	/*@RequestMapping("getMissionCertByMN")
+	public ModelAndView selectMissionCertByMN(Principal principal, @RequestParam String missionNum) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member)authentication.getPrincipal();
+		int num = Integer.parseInt(missionNum);
+		List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
+		List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
+		System.out.println(missionCert);
+		if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
+			return new ModelAndView("admin/mission_detail_view.tiles","result",missionCert); 
+		}else {
+			return new ModelAndView("/mission/mission_detail_view.tiles","result",missionCert);
+		}
+	}*/
+	
+	
+	/*@RequestMapping("getMissionCertByMN")
+	public ModelAndView selectMissionCertByMN(@RequestParam String missionNum) {
+		int num = Integer.parseInt(missionNum);
+		List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
+		System.out.println(missionCert);
+		return new ModelAndView("mission/mission_detail_view.tiles","result",missionCert );
+	}*/
+	
    @RequestMapping("getMissionCertByMN")
    public ModelAndView selectMissionCertByMN(@RequestParam String missionNum, ModelMap model) {
       int num = Integer.parseInt(missionNum);
       
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      Member member = (Member)authentication.getPrincipal();
+      
       Mission mission = service.selectMissionByMissionNum(num);
       List<MissionCert> list = service.selectMissionCertByMissionNum2(num);
+      
+      List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
+      List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
       
       model.addAttribute("result", mission);
       model.addAttribute("certList",list);
 //      List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
     
-      return new ModelAndView("mission/mission_detail_view.tiles");
+      if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
+			return new ModelAndView("admin/mission_detail_view.tiles","result",missionCert); 
+		}else {
+			return new ModelAndView("/mission/mission_detail_view.tiles","result",missionCert);
+		}
    }
-   
-   
-   
    
    @RequestMapping(value="registerMissionCert", method = RequestMethod.POST)
    public ModelAndView registerMissionCert(Principal principal, @ModelAttribute MissionCert missionCert, HttpServletRequest request, @RequestParam List<MultipartFile> upImage,
@@ -91,7 +134,7 @@ public class MissionCertController {
    
    @RequestMapping("getMissionCertByNum")
    public ModelAndView getMissionCertByNum(@RequestParam int missionCertNum) {
-	  MissionCert mc = dao.selectMissionCertByMCN(missionCertNum);
+	  MissionCert mc = missionCertDao.selectMissionCertByMCN(missionCertNum);
 	  System.out.println(mc);
 	  return new ModelAndView("mission/mission_cert_detail.tiles","missionCert",mc);
    }

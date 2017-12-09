@@ -40,9 +40,13 @@ public interface MissionDAO {
 	
 	int insertMissionMember(MissionMember missionMember);
 	
+	int deleteMissionMember(MissionMember missionMember);
 	
-	int updateMissionCurrentPeoplePlus(int missionNum);
+	int plusMissionCurrentPeoplePlus(int missionNum);
 	
+	int minusMissionCurrentPeoplePlus(int missionNum);
+	
+	List<MissionMember> selectMissionMemberByMissionMember(MissionMember missionMember);//있으면 1없으면 0 return
 	
 	Mission selectMissionByMissionNum(int missionNum);
 	
