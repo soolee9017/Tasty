@@ -48,7 +48,8 @@ DROP TABLE TEMP_ROUTE cascade constraint;
 -- 루트+리뷰 참조
 CREATE TABLE TEMP_ROUTE (
    route_num  NUMBER(20) NULL, -- 루트번호
-   review_num NUMBER(12) NULL  -- 리뷰번호
+   review_num NUMBER(12) NULL,  -- 리뷰번호
+   order_of_store number(3) null
 );
 
 -- 루트+리뷰 참조
@@ -398,6 +399,5 @@ create sequence mission_cert_board_seq;
 drop sequence route_num_seq;
 create sequence route_num_seq;
 
-drop sequence route_num_seq;
-create sequence route_num_seq;
+
 
