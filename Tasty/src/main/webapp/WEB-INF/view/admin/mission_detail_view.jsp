@@ -51,7 +51,7 @@ $(document).ready(function() {
 </head>
 <body>
 <div style='margin-top: 70px;'>
-<h1>미션 상세페이지</h1>
+<h1>관리자의 미션 상세페이지</h1>
 
 ${result.get(0).missionNum }
 
@@ -69,16 +69,16 @@ ${result.get(0).missionNum }
 		</c:forEach> 
 	</c:forEach> 
 	
-	<form action="${initParam.rootPath }/mission/enterMissionMember.do" method="get">
-		<input type="hidden" name="missionNum" value="${result.get(0).missionNum }">
-		<input type="hidden" name="email" value="<sec:authentication property="principal.email"/>">
-		<button type="submit" id="regmisBtn">미션에 참여하기</button>
+	<h2>미션 삭제하기</h2>
+	<form id="delMisForm" action="${initParam.rootPath }/mission/removeMissionByMissionNum" method="get">
+		<input type="hidden" name="missionNum" value="${result.get(0).missionNum}">
+		<button type="submit">${result.get(0).missionNum}번 미션 삭제하기</button>
 	</form>
-	이거 --> ${requestScope.outcome }
-	<form action="${initParam.rootPath }/mission/cancelMissionMember.do" method="get">
-		<input type="hidden" name="missionNum" value="${result.get(0).missionNum }">
-		<input type="hidden" name="email" value="<sec:authentication property="principal.email"/>">
-		<button type="submit" id="cancelmisBtn">참여한 미션 취소하기</button>
+	
+	<h2>미션 수정하러가기</h2>
+	<form action="${initParam.rootPath }/mission/selectMissionNum2.do">
+		<input type="hidden" name="missionNum" value="${result.get(0).missionNum}">
+		<button type="submit" id="modMisBtn">해당미션 수정하러가기</button>
 	</form>
 	
 	<br><br><p><p>

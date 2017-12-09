@@ -94,9 +94,31 @@ public class MissionServiceImpl implements MissionService{
 	}
 
 	@Override
-	public void enterMissionMember(MissionMember missionMember,int missionNum) {
-		missionDao.insertMissionMember(missionMember);
-		missionDao.updateMissionCurrentPeoplePlus(missionNum);
+	public int enterMissionMember(MissionMember missionMember,int missionNum) {
+		
+		int num = missionDao.selectMissionMemberByMissionMember(missionMember).size();
+		System.out.println("여기봐봐"+num);
+		if(num==0) {
+			missionDao.insertMissionMember(missionMember);
+			missionDao.plusMissionCurrentPeoplePlus(missionNum);
+			return 1;//1이면 미션 참가 성공
+		}else {
+			System.err.println("이미 참가한 미션입니다.");
+			return 0;//0이면 미션 참가안됨
+		}
+	}
+	
+	@Override
+	public int cancelMissionMember(MissionMember missionMember,int missionNum) {
+		int num = missionDao.selectMissionMemberByMissionMember(missionMember).size();
+		System.out.println("여기봐봐"+num);
+		if(num==1) {
+			missionDao.deleteMissionMember(missionMember);
+			missionDao.minusMissionCurrentPeoplePlus(missionNum);
+			return 1;//1이면 미션참여 취소 성공
+		}else {
+			return 0;//0이면 미션참여취소 실패
+		}
 	}
 
 	@Override

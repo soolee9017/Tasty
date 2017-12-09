@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tasty.dao.MemberDAO;
 import com.tasty.service.MissionCertService;
+import com.tasty.vo.Authority;
+import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionCert;
 
@@ -26,6 +31,10 @@ public class MissionCertController {
 
 	@Autowired
 	MissionCertService service;
+	
+	
+	@Autowired
+	MemberDAO memberDao;
 	
 	
 	
@@ -48,13 +57,28 @@ public class MissionCertController {
 	}*/
 	
 	@RequestMapping("getMissionCertByMN")
+	public ModelAndView selectMissionCertByMN(Principal principal, @RequestParam String missionNum) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member)authentication.getPrincipal();
+		int num = Integer.parseInt(missionNum);
+		List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
+		List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
+		System.out.println(missionCert);
+		if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
+			return new ModelAndView("admin/mission_detail_view.tiles","result",missionCert); 
+		}else {
+			return new ModelAndView("/mission/mission_detail_view.tiles","result",missionCert);
+		}
+	}
+	
+	
+	/*@RequestMapping("getMissionCertByMN")
 	public ModelAndView selectMissionCertByMN(@RequestParam String missionNum) {
 		int num = Integer.parseInt(missionNum);
 		List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
 		System.out.println(missionCert);
 		return new ModelAndView("mission/mission_detail_view.tiles","result",missionCert );
-	}
-	
+	}*/
 	
 	
 	
