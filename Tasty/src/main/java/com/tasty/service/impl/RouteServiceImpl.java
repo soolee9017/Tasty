@@ -14,19 +14,19 @@ public class RouteServiceImpl implements RouteService{
 
 	@Autowired
 	private RouteDAO routeDao;
-	
-	@Autowired
-	private ReviewService reviewService;
-	
+
 	@Override
-	public void insertRoute(Route route, TempRoute tempRoute) {
-		//route 먼저 넣고
-		routeDao.insertRoute(route);
-		
-		//route_temp 넣고(선택한 review들의 reviewNum을 넣으면 됨..
-//		routeDao.insertTempRoute(route.getRouteNum(),)
-		
+	public Route selectRouteByNum(int routeNum) {
+		return routeDao.selectRouteByNum(routeNum);
 	}
 
+	@Override
+	public int insertRoute(String routeName, String content) {
+		
+		routeDao.insertRoute(new Route(0, routeName, content));
+		
+		
+		return routeDao.selectRouteNum().get(0);
+	}
 	
 }

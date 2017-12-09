@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <!DOCTYPE html>
 <html>
@@ -50,7 +51,6 @@ $(document).ready(function(){
    var address = '<%=(String)session.getAttribute("eateryJibun") %>';
    var ajaxCon;
    
-   alert($(".loginCheck").html()==1);
    
    var atxt="";
    if($(".loginCheck").html()==1){
@@ -292,6 +292,16 @@ $(document).ready(function(){
 </script>
 
 <body>
+
+<sec:authorize access="isAnonymous()">
+	<span class="loginCheck" style="display:none;">1</span>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+	<span class="loginCheck" style="display:none;">0</span>
+	<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
+</sec:authorize>
+
+<br><br><br>
 <div style="margin-top:55px;">
 <h2> 식당명: ${sessionScope.eateryTitle}</h2>
 <h3>식당 주소: ${sessionScope.eateryJibun}</h3>
@@ -299,7 +309,6 @@ $(document).ready(function(){
 <h4 id="ratings"></h4>
 
 
-<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
 <p>
 <p>
 <p>
@@ -328,17 +337,6 @@ $(document).ready(function(){
 <div id="routeReviews" style="overflow-x:hidden;overflow-y:auto;width:45%;">
 
 </div>
-
-
-<sec:authorize access="isAnonymous()">
-	<span class="loginCheck" style="display:none;">1</span>
-</sec:authorize>
-<sec:authorize access="isAuthenticated()">
-	<span class="loginCheck" style="display:none;">0</span>
-</sec:authorize>
-
-
-
 
 
 <form action="${initParam.rootPath }/review/selectReviewByNum.do" id="reviewDetail" method="post">

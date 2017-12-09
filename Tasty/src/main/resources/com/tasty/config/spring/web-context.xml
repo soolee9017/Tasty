@@ -24,6 +24,7 @@
 	<mvc:view-controller path="/content/util/follow.do" view-name="content/util/follow.tiles"/>
 	<mvc:view-controller path="/getReview.do" view-name="review/reviewDetail.jsp"/>
 	<mvc:view-controller path="/member/mypage.do" view-name=""/>
+	
 	<!-- 링크 -->
 <!-- 비인증 관련 -->
    <!-- 메인페이지 -->
