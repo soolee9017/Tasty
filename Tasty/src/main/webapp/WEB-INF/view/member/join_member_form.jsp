@@ -82,9 +82,6 @@ $(document).ready(function() {
 		</div>
 		<button id="duplBtn" class="btn btn-default">중복 확인</button><p> 
 
-				
-			
-
 		<div class="form-group">
 			<label for="password">패스워드</label> <input type="password"
 				name="password" id="password" class="form-control"

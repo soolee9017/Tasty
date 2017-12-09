@@ -20,6 +20,10 @@ public interface MissionCertService {
    
    List<MissionCert> selectMissionCertByMissionNum(int missionNum);
    
+   List<MissionCert> selectMissionCertByMissionNum2(int missionNum);
+   
+   Mission selectMissionByMissionNum(int missionNum);
+   
    int updateMissionCertByMissionCertNum(int missionCertNum);
    
    int deleteMissionCertByMissionCertNum(int missionCertNum);

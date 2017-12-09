@@ -82,9 +82,17 @@ function imgSearch() {
 		return false;
 	}
 }
+function errorCheck(){
+	var error = '${requestScope.errorMessage}';
+	if(!error){
+		
+	}else{
+		swal("",error,"error")
+	}
+}
 </script>
 </head>
-<body>
+<body onload="errorCheck();">
 	<div class="container-fluid text-center">
 		<header class="row">
 			<tiles:insertAttribute name="header" />
