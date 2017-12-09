@@ -87,7 +87,7 @@ public class ReviewController {
   
   @RequestMapping("selectReviewByNum")
   public ModelAndView selectReview(@RequestParam String reviewNum) {
-	
+	  System.out.println("컨트롤러에 넘어온 파라미터 값 : "+reviewNum);
 	 int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
 	  return new ModelAndView("review","review",review);
