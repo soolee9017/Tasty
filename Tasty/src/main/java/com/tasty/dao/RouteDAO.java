@@ -15,6 +15,6 @@ public interface RouteDAO {
 	
 	Route selectRouteByNum(int routeNum);
 
-	int selectRouteNum();
+	List<Integer> selectRouteNum();
 
 }

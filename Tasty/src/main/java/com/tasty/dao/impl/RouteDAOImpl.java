@@ -47,8 +47,8 @@ public class RouteDAOImpl implements RouteDAO{
 	}
 
 	@Override
-	public int selectRouteNum() {
-		return session.selectOne(makeSqlId("selectRouteNumByEmail"));
+	public List<Integer> selectRouteNum() {
+		return session.selectList(makeSqlId("selectRouteNum"));
 	}
 	
 	

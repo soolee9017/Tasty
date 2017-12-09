@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -205,6 +206,8 @@ public class ReviewController {
 	 reviewService.deletePhoto(Integer.parseInt(photoNum));
 	 return "삭제됨";
   }
+  
+ 
   
   
   

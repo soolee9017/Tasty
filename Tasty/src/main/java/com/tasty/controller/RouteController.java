@@ -102,13 +102,12 @@ public class RouteController {
 	   String[] arr = reviewNum.split(",");
 	   int num = 0;
 	   
+	   int number = routeService.insertRoute(routeName, content);
 	   for(int i =0; i<arr.length; i++) {
 		   num = Integer.parseInt(arr[i]);
-		   routeService.insertRoute(routeName, content);
 		   routeDao.insertTempRoute(new TempRoute(0,num,i));
 	   }
 	   
-	   int number = routeDao.selectRouteNum();
 	   Route route = routeService.selectRouteByNum(number);
 	   return new ModelAndView("route/route_detail.tiles","route",route);
    }

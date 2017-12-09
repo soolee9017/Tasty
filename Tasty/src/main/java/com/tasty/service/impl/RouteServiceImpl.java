@@ -25,10 +25,8 @@ public class RouteServiceImpl implements RouteService{
 		
 		routeDao.insertRoute(new Route(0, routeName, content));
 		
-		return routeDao.selectRouteNum();
+		
+		return routeDao.selectRouteNum().get(0);
 	}
-	
-	
-	
 	
 }

@@ -77,8 +77,8 @@
 			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button>내용
 				수정</button></a>
 	</c:if>
-	
 </sec:authorize>
+		
 
 </body>
 </html>
