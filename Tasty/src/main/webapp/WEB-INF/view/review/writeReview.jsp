@@ -94,9 +94,9 @@ $(document).ready(function(){
    }); 
    
 
-   $("#sendBtn").on("click", function() { 
+  $("#sendBtn").on("click", function() { 
 	   
-     var totalTr = $('#tBody>tr').length;
+      var totalTr = $('#tBody>tr').length;
      var menuName =[];
      var numOfTaste= [];
      var listOfTaste = [];
@@ -149,38 +149,25 @@ $(document).ready(function(){
     }
   
   
-  
  
-
-
-/*   alert(menuName);
-  alert(numOfTaste);
-  alert(listOfTaste);
-  alert(listOfDegree); */
-  
   $('#listOfMenu').val(menuName);
   $('#numOfTaste').val(numOfTaste);
   $('#listOfTaste').val(listOfTaste);
   $('#listOfDegree').val(listOfDegree);
   
-   $("#reviewForm").submit(); 
+   $("#reviewForm").submit();  
     
-  }); 
+  });  
 
   
    
 });
+   
+ 
 
 
 </script>
 
-
-<style type="text/css">
-
- 
-
-
-</style>
 
 </head>
 <body>
@@ -246,7 +233,8 @@ $(document).ready(function(){
 
 
 ---------------리뷰 최종 전송 버튼 ---------------------<br>
-<button id="sendBtn" type="button">리뷰 전송</button>
+ <button id="sendBtn" type="button">리뷰 전송</button> 
+
    </form>
 </body>
 </html> 
