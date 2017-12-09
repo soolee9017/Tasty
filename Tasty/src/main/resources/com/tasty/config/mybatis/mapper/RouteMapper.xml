@@ -49,7 +49,7 @@
 	and rv.store_name = #{storeName}
 	and rv.pos_x = #{posX}
 	and rv.pos_y = #{posY}
-	order by r.route_num desc
+	order by tr.order_of_store asc
 	
 	</select>
 	
@@ -61,7 +61,7 @@
 	and tr.review_num = rv.review_num(+)
 	and rv.email = m.email(+)
 	and r.route_num = #{value}
-	order by r.route_num desc
+	order by tr.order_of_store asc
 	
 	</select>
 	
@@ -73,7 +73,7 @@
 	and tr.review_num = rv.review_num(+)
 	and rv.email = m.email(+)
 	and m.email=#{value}
-	order by r.route_num desc
+	order by tr.order_of_store asc
 	
 	</select>
 	

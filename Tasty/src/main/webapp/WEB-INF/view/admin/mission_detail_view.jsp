@@ -29,21 +29,23 @@ $(document).ready(function() {
    
      
 	$("#regmisBtn").on("click", function(){
-		/* if("${requestScope.outcome}"==0){
+		if("${requestScope.outcome}"==0){
 			alert("이미 참여한 미션입니다.");
-		}else{ */
+		}else{
 		alert("미션에 참여하셨습니다.");
-		/* } */
+		}
 	});//end of regmisBtn
 	
 	$("#cancelmisBtn").on("click", function(){
-		/* if("${requestScope.outcome}"==0){
+		if("${requestScope.outcome}"==0){
 			alert("참여하지 않은 미션입니다.");
-		}else{ */
+		}else{
 		alert("미션에 참여를 취소하셨습니다.");
-		/* } */
+		}
 	});//end of regmisBtn
-
+	$("#delMisBtn").on("click", function(){
+		alert("삭제 성공");
+	});
    
 });//end of document.ready
 
@@ -58,7 +60,8 @@ $(document).ready(function() {
 	<br> 미션이름 : ${requestScope.result.missionName}
 	<br> 참여인원 : ${requestScope.result.currentPeople }/${requestScope.result.maxPeople }
 	<br> 기간 : ${requestScope.result.startDate } ~
-	${requestScope.result.endDate }
+	${requestScope.result.endDate }<br>
+	내용 : ${requestScope.result.missionContent }
 	<br> 사진 :
 	<c:forEach var="missionPhotoList"
 		items="${requestScope.result.missionPhotoList}">
@@ -77,13 +80,25 @@ $(document).ready(function() {
 			name="email" value="<sec:authentication property="principal.email"/>">
 		<button type="submit" id="regmisBtn">미션에 참여하기</button>
 	</form>
-	이거 --> ${requestScope.outcome }
 	<form action="${initParam.rootPath }/mission/cancelMissionMember.do"
 		method="get">
 		<input type="hidden" name="missionNum"
 			value="${requestScope.result.missionNum}"> <input type="hidden"
 			name="email" value="<sec:authentication property="principal.email"/>">
 		<button type="submit" id="cancelmisBtn">참여한 미션 취소하기</button>
+	</form>
+	
+	<!-- 미션 수정/삭제 (관리자페이지) -->
+	<h2>미션 삭제하기</h2>
+	<form id="delMisForm" action="${initParam.rootPath }/mission/removeMissionByMissionNum.do" method="get">
+		<input type="hidden" name="missionNum" value="${requestScope.result.missionNum}">
+		<button type="submit" id="delMisBtn">미션 삭제하기</button>
+	</form>
+	
+	<h2>미션 수정하러가기</h2>
+	<form action="${initParam.rootPath }/mission/selectMissionNum2.do" method="get">
+		<input type="hidden" name="missionNum" value="${requestScope.result.missionNum}">
+		<button type="submit" id="modMisBtn">해당미션 수정하러가기</button>
 	</form>
 
 	<br>
@@ -98,15 +113,13 @@ $(document).ready(function() {
 			action="${initParam.rootPath }/missionCert/registerMissionCert.do"
 			id="content" method="post" enctype="multipart/form-data">
 			<sec:csrfInput />
-			<input type="hidden" name="missionNum"
-				value="${requestScope.result.missionNum }"> <input
-				type="hidden" name="email"
-				value='<sec:authentication property="principal.email"/>'> <input
-				type="hidden" name="missionCertNum" value="0"> 제목 : <input
-				type="text" name="title"><br> 인증 내용 :
-			<textarea name="content" rows="5" cols="20"
-				placeholder="인증글을 입력해주세요."></textarea>
-			<br> 사진 등록 :
+			<input type="hidden" name="missionNum" value="${requestScope.result.missionNum }"> 
+			<input type="hidden" name="email" value='<sec:authentication property="principal.email"/>'> 
+			<input type="hidden" name="missionCertNum" value="0"> 
+			제목 : <input type="text" name="title"><br> 
+			인증 내용 :<textarea name="content" rows="5" cols="20" placeholder="인증글을 입력해주세요."></textarea>
+			<br> 
+			사진 등록 :
 			<table id="photoList">
 				<tr>
 					<td><input type="file" name="upImage"></td>
@@ -143,7 +156,7 @@ $(document).ready(function() {
 				</tr>
 			</c:forEach>
 		</tbody>
-	</table>
+	</table> 
 
 </body>
 </html>

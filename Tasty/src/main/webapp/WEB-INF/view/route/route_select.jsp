@@ -29,6 +29,25 @@ html, body {
 	height: 96.5%;
 	margin: 0 auto;
 }
+.selRouteList{
+	width:100%;
+	height:45px;
+	margin-bottom:20px;
+	border-bottom:1px #000 solid;
+}
+.routeNum{
+	width:20%;
+	height:100%;
+	float:left;
+	font-size:30px;
+}
+.storeName{
+	width:60%;
+	height:100%;
+	float:right;
+	font-size:14px;
+	line-height:40px;
+}
 </style>
 </head>
 
@@ -43,39 +62,42 @@ html, body {
 	<header class="row"> <tiles:insertAttribute name="headers" />
 	</header>
 	<div id="map"
-		style="width: 75%; height: 90%; margin-top: 50px; float: left;"></div>
+		style="width: 75%; height: 70%; margin-top: 50px; float: left;"></div>
 	<div id="list"
-		style="width: 25%; height: 90%; margin-top: 50px; background-color: #FFDC61; float: left; border: 5px #FF6600 solid;">
+		style="width: 25%; height: 70%; margin-top: 50px; background-color: #FFDC61; float: left; border: 5px #FF6600 solid;">
 		<div style="text-align: center; color: black;">
 			<div>
-				<h3 style="color:#000033;">선택한 가게 목록</h3>
+				<h3 style="color: #000033;">선택한 가게 목록</h3>
+				<h6>(루트는 5개까지 선택 가능합니다)</h6> 
 			</div>
 			<div>
-				<button class="btn btn-default" onclick="makeRoute();">선택한 루트 선 이어주기</button>
-				<button class="btn btn-default" onclick="delRoute();">루트 선택 취소</button>
+				<button class="btn btn-default" onclick="makeRoute();">선택한
+					루트 선 이어주기</button>
+				<button class="btn btn-default" onclick="delRoute();">루트 선택
+					취소</button>
 			</div>
 		</div>
 		<p style="width: 100%; height: 5px; background-color: #FF6600;"></p>
 		<div style="width: 100%; overflow: hidden;">
 			<div>
-				<ul id="selectRoute">
+				<form style="width: 100%;"
+					action="${initParam.rootPath }/route/insertRoute.do" id="list_form">
+					<ul id="selectRoute">
 
-				</ul>
+					</ul>
+					<div style="position:absolute; z-index:10; left:3%;top:74%;height:100px;">
+						<span>루트 제목 :  <input id="routeName" type="text" required="required" name="routeName"></span><br><br>
+						<textarea id="content" rows="6" cols="70" required="required" name="content"></textarea>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-	
-	<div style="width:300px;float:right;margin-top:20px;">
-		<form style="float:left;width:45%;"
-			action="여기에다가 컨트롤러로 보낼 링크 써주시면 됩니다. (참고로 넘어가는 리뷰 번호랑 가게 이름은 각각 reviewNum, storeName 으로 넘어갑니다.)"
-			method="post" onsubmit="return listCheck();">
-			<button class="btn btn-default" type="submit" style="width:100%;">글 등록</button>
-		</form>
 
-		<form action="${initParam.rootPath}/main.do" method="post" style="width:45%;float:right;margin-right:20px;"
-		onsubmit="return confirm('작성을 취소하시겠습니까?');">
-			<button class="btn btn-danger" type='submit' style="width: 100%;">작성 취소</button>
-		</form>
+	<div style="width: 300px; float: right; margin-top: 150px;">
+		<button class="btn btn-default" type="submit" style="width: 45%;"
+			onclick="formSubmit();">글 등록</button>
+			<a href="${initParam.rootPath}/main.do" onclick="return confirm('작성을 취소하시겠습니까?');"><button class="btn btn-danger" type='button' style="width:45%;">작성 취소</button></a>
 	</div>
 
 
@@ -167,6 +189,9 @@ html, body {
 								'click',
 								function() {
 									if (path.indexOf(positions[num].latlng) == -1) {
+										if(path.length >= 5){
+											swal('', '루트는 5개까지 등록 가능합니다.', 'info');
+										}else{
 										path.push(positions[num].latlng);
 										$('#selectRoute')
 												.append(
@@ -176,7 +201,8 @@ html, body {
 																+ positions[num].title
 																+ "</div><input type='hidden' name='reviewNum' value='"+ positions[num].reviewNum +"'><input type='hidden' name='storeName' value='"+ positions[num].title +"'></li>");
 										index++;
-									} else {
+										}
+									}else{
 										swal('', '중복 선택 되었습니다.', 'error');
 									}
 								});
@@ -238,13 +264,17 @@ html, body {
 				infowindow.close();
 			};
 		}
-		function listCheck() {
+		function formSubmit() {
 			if (path == '' || path.length == 1) {
 				swal('', '선택하지 않았거나 한개만 선택하였습니다.', 'error');
-				return false;
-			} else {
-				return true;
+				return;
+			} else if(document.getElementById('routeName') && document.getElementById('content')){
+				
+				
+			}else{
+				document.getElementById('list_form').submit();
 			}
+
 		}
 	</script>
 </body>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,22 +64,35 @@ public class MissionController {
 	@RequestMapping("removeMissionByMissionNum")
 	public ModelAndView deleteMissionByMissionNum(@RequestParam int missionNum) {
 		service.deleteMissionByMissionNum(missionNum);
-		return new ModelAndView("/mission/remove_mission_success.jsp","result",missionNum);
+		return new ModelAndView("redirect:/mission/getAllMission.do");//미션 삭제후 원래 모든 미션을 보여주는 목록페이지로 돌아온다.
 	}
 	
 	@RequestMapping("modifyMission")
 	public ModelAndView updateMissionByMissionNum(@ModelAttribute Mission mission, HttpServletRequest request) {
 		service.updateMissionByMissionNum(mission);
-		return new ModelAndView("/mission/mission_update_success.jsp","mission",mission);
+		return new ModelAndView("redirect:/mission/getAllMission.do");
 	}
 	
 	@RequestMapping("enterMissionMember")
-	public ModelAndView enterMissionMember(@ModelAttribute MissionMember missionMember, HttpServletRequest request,@RequestParam int missionNum) {
-		service.enterMissionMember(missionMember,missionNum);
+	public ModelAndView enterMissionMember(@ModelAttribute MissionMember missionMember, HttpServletRequest request,
+			@RequestParam int missionNum, ModelMap model) {
+		int num = service.enterMissionMember(missionMember,missionNum);
 		System.out.println(missionMember);
+		System.out.println("참여결과"+num);
+		
+		model.addAttribute("outcome",num);
+		//0이면 실패, 1이면 성공 --> alert창으로 뿌려주기(이미 참여한 미션입니다~~)
 		return new ModelAndView("redirect:/missionCert/getMissionCertByMN.do","missionNum",missionNum);
 	}
 	
+	@RequestMapping("cancelMissionMember")
+	public ModelAndView cancelMissionMember(@ModelAttribute MissionMember missionMember, HttpServletRequest request,@RequestParam int missionNum) {
+		int num = service.cancelMissionMember(missionMember, missionNum);
+		System.out.println(missionMember);
+		System.out.println("취소결과 : "+num);
+		request.setAttribute("outcome", num);
+		return new ModelAndView("redirect:/missionCert/getMissionCertByMN.do","missionNum",missionNum);
+	}
 	
 	@RequestMapping("moveToRegister")
 	public String moveToRegisterMission() {
@@ -104,6 +118,9 @@ public class MissionController {
 	}
 	
 	
+	
+	
+	
 	/*@RequestMapping("selectMissionNum")
 	public ModelAndView selectMissionByMissionNum(@RequestParam int missionNum) {
 		Mission mission = service.selectMissionByMissionNum(missionNum);
@@ -111,12 +128,12 @@ public class MissionController {
 		return new ModelAndView("/mission/mission_detail_view.tiles","missions",mission);
 	}*/
 	
-/*	@RequestMapping("selectMissionNum2")
-	public ModelAndView selectMissionByMissionNum2(@RequestParam int missionNum) {
+	@RequestMapping("selectMissionNum2")
+	public ModelAndView selectMissionByMissionNum2(@RequestParam int missionNum, ModelMap model) {
 		Mission mission = service.selectMissionByMissionNum(missionNum);
 		System.out.println(mission);
-		return new ModelAndView("/mission/modify_mission.jsp","mission",mission);
-	}*/
+		return new ModelAndView("admin/modify_mission.tiles","mission",mission);
+	}
 	
 
 	

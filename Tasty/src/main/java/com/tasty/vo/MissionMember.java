@@ -10,11 +10,11 @@ public class MissionMember {
 	private Mission mission;
 	
 	
+	public MissionMember() {
+	}
 	public MissionMember(String email, int missionNum) {
 		this.email = email;
 		this.missionNum = missionNum;
-	}
-	public MissionMember() {
 	}
 	public MissionMember(String email, int missionNum, Member member, Mission mission) {
 		this.email = email;

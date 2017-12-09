@@ -7,33 +7,28 @@
 <script type="text/javascript"
 	src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						/*사진추가 button*/
-						$("#addPhoto")
-								.on(
-										"click",
-										function() {
-											var html = '<tr><td>'
-													+ '<input type="file" name="upImage">'
-													+ '</td>';
-											html += '<td><button type="button" class="deletePhoto">사진삭제</button>';
-											html += '</td></tr>';
-											$("#photoList").append(html);
-										});//end of addPhoto
-
+	$(document).ready(function() {
+		/*사진추가 button*/
+		$("#addPhoto").on("click",function() {
+			var html = '<tr><td>'
+					+ '<input type="file" name="upImage">'
+					html += '<td><button type="button" class="deletePhoto">사진삭제</button>';
+					html += '</td></tr>';
+					$("#photoList").append(html);
+					});//end of addPhoto
 						$("#photoList").on("click", function() {
 							$(this).parent(), parent().remove();
 						});//end of photoList
-						
-					
-						
-					});//end of document.ready
+	});//end of document.ready
 </script>
 
 </head>
 <body>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 <form action="${initParam.rootPath }/mission/modifyMission.do" method="get">
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
 		미션이름 : <input type="text" name="missionName" value="${mission.missionName }" /><br>
