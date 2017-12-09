@@ -258,12 +258,12 @@ html, body {
          };
       }
 
-      // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-      function makeOutListener(infowindow) {
-         return function() {
-            infowindow.close();
-         };
-      }
+		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(infowindow) {
+			return function() {
+				infowindow.close();
+			};
+		}
       function formSubmit() {
          if (path == '' || path.length == 1) {
             swal('', '선택하지 않았거나 한개만 선택하였습니다.', 'error');

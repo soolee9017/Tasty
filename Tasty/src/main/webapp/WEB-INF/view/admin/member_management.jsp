@@ -6,6 +6,7 @@
 <title>YOLTY50:관리자:회원관리</title>
 </head>
 <body>
+<div style="margin-top:50px;">
 <h2>YOLTY50 회원관리</h2>
 <p>
 <p>
@@ -27,5 +28,6 @@
 		<%-- 	<a href="${initParam.rootPath }/admin/remove_member.do" class="btn btn-default">삭제</a> --%>
 	<p>
 	<p>
+	</div>
 </body>
 </html>

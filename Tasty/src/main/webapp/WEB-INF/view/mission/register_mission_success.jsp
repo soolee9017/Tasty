@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div style="margin-top:60px;">
 <h1>등록을 성공했습니다.</h1>
 <h2>등록된 미션</h2>
 <div class="regMission">
@@ -47,6 +48,7 @@
 	<div><button type="submit" id="gotoMissionMain" onclick="window.location.href='getAllMission.do'">미션페이지로 이동하기</button></div>
 
 
+</div>
 </div>
 </body>
 </html>

@@ -82,7 +82,7 @@ $(document).ready(function() {
 				style="text-align: center;">
 		</div>
 
-		<button id="duplBtn" class="btn btn-default">중복 확인</button><p> 
+		<button id="duplBtn" type="button" class="btn btn-default">중복 확인</button><p> 
 
 		<div class="form-group">
 			<label for="password">패스워드</label> <input type="password"

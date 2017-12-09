@@ -21,7 +21,7 @@ body{
 
 .rightTile {
 	width: 60%;
-	margin-left: 320px;
+	margin-left: 240px;
 }
 .leftMenuList > div > ul{
 	width:100%;
@@ -39,18 +39,18 @@ body{
 	color:#000;
 	text-decoration:none;
 	-webkit-transition:1s;
-	font-size:20px;
+	font-size:15px;
 }
 .row > div > div{
 	border-bottom:1px #000 solid;
-	height:80px;
+	height:60px;
 }
 .row > div > div > div{
-	line-height:80px;
+	line-height:60px;
 }
 </style>
 <div class="row"
-	style="font-size: 20px; margin-top: 70px; width: 800px; left: 30%; position: relative;">
+	style="font-size: 20px; margin-top: 70px; width: 500px; left: 36%; position: relative;">
 	<div>
 		<div>
 			<div>
@@ -110,7 +110,7 @@ body{
 		</div>
 	</div>
 </div>
-<div class="leftMenuList" style="margin-top: 50px; float: left; width: 350px; position:absolute; left:3%; top:12%;">
+<div class="leftMenuList" style="margin-top: 50px; float: left; width: 250px; position:absolute; left:10%; top:12%;">
 	<div>
 		<ul>
 			<li><a

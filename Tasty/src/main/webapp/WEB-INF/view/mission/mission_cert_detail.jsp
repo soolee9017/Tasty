@@ -14,13 +14,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<br><br><br>
+<div style="margin-top:60px;">
 <h1> 미션 인증글 상세페이지</h1>
 
 제목 : ${requestScope.missionCert.title}<br>
 내용 : ${requestScope.missionCert.content}<br>
 사진 : <br><br><br>
 ${requestScope.missionCert}
-
+</div>
 </body>
 </html>
