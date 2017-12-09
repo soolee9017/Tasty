@@ -62,7 +62,7 @@ public class MissionCertController {
 		return list;
 	}*/
 	
-	@RequestMapping("getMissionCertByMN")
+	/*@RequestMapping("getMissionCertByMN")
 	public ModelAndView selectMissionCertByMN(Principal principal, @RequestParam String missionNum) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member)authentication.getPrincipal();
@@ -75,7 +75,7 @@ public class MissionCertController {
 		}else {
 			return new ModelAndView("/mission/mission_detail_view.tiles","result",missionCert);
 		}
-	}
+	}*/
 	
 	
 	/*@RequestMapping("getMissionCertByMN")
@@ -90,14 +90,24 @@ public class MissionCertController {
    public ModelAndView selectMissionCertByMN(@RequestParam String missionNum, ModelMap model) {
       int num = Integer.parseInt(missionNum);
       
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      Member member = (Member)authentication.getPrincipal();
+      
       Mission mission = service.selectMissionByMissionNum(num);
       List<MissionCert> list = service.selectMissionCertByMissionNum2(num);
+      
+      List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
+      List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
       
       model.addAttribute("result", mission);
       model.addAttribute("certList",list);
 //      List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
     
-      return new ModelAndView("mission/mission_detail_view.tiles");
+      if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
+			return new ModelAndView("admin/mission_detail_view.tiles","result",missionCert); 
+		}else {
+			return new ModelAndView("/mission/mission_detail_view.tiles","result",missionCert);
+		}
    }
    
    @RequestMapping(value="registerMissionCert", method = RequestMethod.POST)

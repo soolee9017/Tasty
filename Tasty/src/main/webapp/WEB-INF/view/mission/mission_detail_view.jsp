@@ -28,9 +28,22 @@ $(document).ready(function() {
    });//end of photoList
    
      
-   $("#regmisBtn").on("click", function(){
-      alert("미션에 참여하셨습니다.");
-   });//end of regmisBtn
+	$("#regmisBtn").on("click", function(){
+		if("${requestScope.outcome}"==0){
+			alert("이미 참여한 미션입니다.");
+		}else{
+		alert("미션에 참여하셨습니다.");
+		}
+	});//end of regmisBtn
+	
+	$("#cancelmisBtn").on("click", function(){
+		if("${requestScope.outcome}"==0){
+			alert("참여하지 않은 미션입니다.");
+		}else{
+		alert("미션에 참여를 취소하셨습니다.");
+		}
+	});//end of regmisBtn
+
    
 });//end of document.ready
 
@@ -60,7 +73,7 @@ $(document).ready(function() {
 	<form action="${initParam.rootPath }/mission/enterMissionMember.do"
 		method="get">
 		<input type="hidden" name="missionNum"
-			value="${result.get(0).missionNum }"> <input type="hidden"
+			value="${requestScope.result.missionNum}"> <input type="hidden"
 			name="email" value="<sec:authentication property="principal.email"/>">
 		<button type="submit" id="regmisBtn">미션에 참여하기</button>
 	</form>
@@ -68,7 +81,7 @@ $(document).ready(function() {
 	<form action="${initParam.rootPath }/mission/cancelMissionMember.do"
 		method="get">
 		<input type="hidden" name="missionNum"
-			value="${result.get(0).missionNum }"> <input type="hidden"
+			value="${requestScope.result.missionNum}"> <input type="hidden"
 			name="email" value="<sec:authentication property="principal.email"/>">
 		<button type="submit" id="cancelmisBtn">참여한 미션 취소하기</button>
 	</form>
