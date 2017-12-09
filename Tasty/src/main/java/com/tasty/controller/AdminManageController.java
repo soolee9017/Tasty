@@ -35,6 +35,7 @@ public class AdminManageController {
 		//redirect 방식이동시 model값은 요청파라미터로 전송된다.
 		return new ModelAndView("redirect:/join_success.do", "email", member.getEmail());
 	}
+
 	
 	//회원 조회 (전체)
 	@RequestMapping("get_member_all")
@@ -81,10 +82,15 @@ public class AdminManageController {
 			String result = String.format("회원이 없습니다.");
 			request.setAttribute("result", result);
 		}*/
-		System.out.println("삭제할거야?");
+		System.out.println("삭제할거야? "+email);
 		return "redirect:/admin/member_management.do";
 	}
 	
+	/**
+	 * 관리자 등록 중복 확인
+	 * @param email
+	 * @return
+	 */
 	@RequestMapping("duplicatedCheck")
 	@ResponseBody
 	public int duplicatedCheck(@RequestParam String email) {

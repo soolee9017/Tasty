@@ -62,12 +62,7 @@ public class MainController {
 		return new ModelAndView("redirect:join_success.do", "email", member.getEmail());
 	}
 	
-	
-/*	@ExceptionHandler(DuplicateKeyException.class)
-	public String handleException() {
-		return "redirect:join_member.do";
-	}
-*/	
+
 	@RequestMapping("join_success")
 	   public ModelAndView joinSuccess(@RequestParam String email){
 	      Member member = service.selectMemberByEmail(email);

@@ -28,11 +28,14 @@ $(document).ready(function() {
 				if(result == 1){
 					check = 1;
 					$("input[name='email']").val(email);
-					alert("사용가능한 email 입니다.");
+					alert("사용가능한 email입니다.");
 				}else if(result == 0){
-					alert("이미 등록된 email 입니다.");
+					alert("이미 등록된 email입니다.");
 					$("input[name='email']").val(txt);
 					$("input[name='email']").focus();
+					return false;
+				}else if("input[name='email']"=""){
+					alert("Email을 입력하세요.")
 					return false;
 				}
 			}
@@ -80,6 +83,7 @@ $(document).ready(function() {
 				id="id" class="form-control" required="required"
 				style="text-align: center;">
 		</div>
+
 		<button id="duplBtn" class="btn btn-default">중복 확인</button><p> 
 
 		<div class="form-group">

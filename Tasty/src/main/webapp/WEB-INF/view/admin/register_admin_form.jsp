@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -53,7 +54,8 @@ $(document).ready(function() {
 <div class="row center-block text-center" style="width: 800px; margin-top: 60px;">
 	<div class="text-left">
 <h2>관리자 등록</h2>
-<form action="${initParam.rootPath }/admin/register_admin.do" method="post" enctype="multipart/form-data">
+</div>
+<form action="${initParam.rootPath }/admin/register_admin.do" method="post" enctype="multipart/form-data" >
 	<div class="form-group">
 		<label for="id">Email</label>
 		<input type="text" name="email" id="email" class="form-control" required="required">
@@ -73,8 +75,8 @@ $(document).ready(function() {
 		<input type="text" name="nickname" id="nickname" class="form-control" required="required">
 	</div>
 	
-	<button type="submit" id="testBtn" class="btn btn-default">가입</button>
+	<button id="testBtn" type="submit" class="btn btn-default">등록</button>
 	<sec:csrfInput/><%-- csrf 토큰 --%>
 </form>
 </div>
-</div>
+
