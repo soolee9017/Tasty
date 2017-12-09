@@ -101,12 +101,11 @@ public class MissionCertController {
       
       model.addAttribute("result", mission);
       model.addAttribute("certList",list);
-//      List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
     
       if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
-			return new ModelAndView("admin/mission_detail_view.tiles","result",missionCert); 
+			return new ModelAndView("admin/mission_detail_view.tiles","result",mission); 
 		}else {
-			return new ModelAndView("/mission/mission_detail_view.tiles","result",missionCert);
+			return new ModelAndView("/mission/mission_detail_view.tiles","result",mission);
 		}
    }
    

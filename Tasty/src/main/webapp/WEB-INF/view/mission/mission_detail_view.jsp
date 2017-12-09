@@ -29,19 +29,19 @@ $(document).ready(function() {
    
      
 	$("#regmisBtn").on("click", function(){
-		if("${requestScope.outcome}"==0){
+		/* if("${requestScope.outcome}"==0){
 			alert("이미 참여한 미션입니다.");
-		}else{
+		}else{ */
 		alert("미션에 참여하셨습니다.");
-		}
+		/* } */
 	});//end of regmisBtn
 	
 	$("#cancelmisBtn").on("click", function(){
-		if("${requestScope.outcome}"==0){
+		/* if("${requestScope.outcome}"==0){
 			alert("참여하지 않은 미션입니다.");
-		}else{
+		}else{ */
 		alert("미션에 참여를 취소하셨습니다.");
-		}
+		/* } */
 	});//end of regmisBtn
 
    
