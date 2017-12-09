@@ -24,6 +24,11 @@
 
 </head>
 <body>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 <form action="${initParam.rootPath }/mission/modifyMission.do" method="get">
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
 		미션이름 : <input type="text" name="missionName" value="${mission.missionName }" /><br>

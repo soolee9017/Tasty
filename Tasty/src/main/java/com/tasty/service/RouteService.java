@@ -7,7 +7,10 @@ import com.tasty.vo.TempRoute;
 
 public interface RouteService {
 	
-	void insertRoute(Route route, TempRoute tempRoute);
 
 	List getAllRouteByXYName(String storeName, String posX, String posY);
+	
+	Route selectRouteByNum(int routeNum);
+	
+	int insertRoute(String routeName, String content);
 }

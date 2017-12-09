@@ -175,7 +175,7 @@ ALTER TABLE MISSION_CERT_BOARD
       )
       REFERENCES MISSION_ADMIN ( -- 미션
          mission_num -- 미션번호
-      )
+      )ON DELETE CASCADE
 
 
 -- 미션 인증 게시판
@@ -187,7 +187,7 @@ ALTER TABLE MISSION_CERT_BOARD
       )
       REFERENCES MEMBER ( -- 회원
          email -- 아이디
-      )
+      )ON DELETE CASCADE;
 
 ------------------------------------------ 13. 미션에 참여한 회원----------------------------------------
 /*ALTER TABLE MISSION_MEMBER
@@ -215,7 +215,7 @@ ALTER TABLE MISSION_MEMBER
       )
       REFERENCES MISSION_ADMIN ( -- 미션
          mission_num -- 미션번호
-   );
+   )ON DELETE CASCADE;
 
 -- 미션에 참여한 회원
 ALTER TABLE MISSION_MEMBER
@@ -226,7 +226,7 @@ ALTER TABLE MISSION_MEMBER
       )
       REFERENCES MEMBER ( -- 회원
          email -- 아이디
-      );
+      )ON DELETE CASCADE;
       
 
        
@@ -331,7 +331,7 @@ ALTER TABLE MISSION_PHOTO
       )
       REFERENCES MISSION_ADMIN ( -- 미션
          mission_num -- 미션번호
-      );
+      )ON DELETE CASCADE;
 
 -- 미션 사진
 ALTER TABLE MISSION_PHOTO
@@ -342,7 +342,7 @@ ALTER TABLE MISSION_PHOTO
       )
       REFERENCES PHOTO ( -- 사진
          photo_num -- 사진번호
-      );
+      )ON DELETE CASCADE;
       
 ------------------------------------------17. 미션 인증 사진----------------------------------------
 /*ALTER TABLE MISSION_CERT_PHOTO
@@ -370,7 +370,7 @@ ALTER TABLE MISSION_CERT_PHOTO
       )
       REFERENCES PHOTO ( -- 사진
          photo_num -- 사진번호
-      );
+      )ON DELETE CASCADE;
 
 -- 미션 인증 사진
 ALTER TABLE MISSION_CERT_PHOTO
@@ -381,7 +381,7 @@ ALTER TABLE MISSION_CERT_PHOTO
       )
       REFERENCES MISSION_CERT_BOARD ( -- 미션 인증 게시판
          mission_cert_num -- 글 번호
-      );
+      )ON DELETE CASCADE;
        
        
  -----------------------------

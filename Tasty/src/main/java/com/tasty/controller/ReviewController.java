@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -87,7 +88,7 @@ public class ReviewController {
   
   @RequestMapping("selectReviewByNum")
   public ModelAndView selectReview(@RequestParam String reviewNum) {
-	
+	  System.out.println("컨트롤러에 넘어온 파라미터 값 : "+reviewNum);
 	 int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
 	  return new ModelAndView("review","review",review);
@@ -205,6 +206,8 @@ public class ReviewController {
 	 reviewService.deletePhoto(Integer.parseInt(photoNum));
 	 return "삭제됨";
   }
+  
+ 
   
   
   
