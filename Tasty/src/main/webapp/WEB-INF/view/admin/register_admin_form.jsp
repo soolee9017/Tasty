@@ -5,9 +5,9 @@
 $(document).ready(function() {
 	
 	var check = 0;
-	var check2 =0;
+	var check2 = 0;
 	$("#duplBtn").on("click",function(){
-		check = 1;
+		
 		var email = $("input[name='email']").val();
 		$.ajax({
 			"url":"/Tasty/admin/duplicatedCheck.do",
@@ -15,26 +15,29 @@ $(document).ready(function() {
 			"success":function(result){
 				var txt = "";
 				if(result == 1){
+					check = 1;
 					$("input[name='email']").val(email);
 					alert("사용가능한 email 입니다.");
-				}else{
+				}else if(result == 0){
 					alert("이미 등록된 email 입니다.");
 					$("input[name='email']").val(txt);
 					$("input[name='email']").focus();
+					return false;
 				}
 			}
 		});
 		if(check2 == 1){
-			check2 = 0;
+			check = 0;
 			return false;
 		}
+		
 	});
 
 	
 	$("#testBtn").on("click",function(){
-		check2 = 1;
 		if(check == 0){
 			alert("email 중복확인 먼저 해주세요.");
+			check2 = 1;
 			return false;
 		}
 	});
@@ -57,8 +60,7 @@ $(document).ready(function() {
 		<label for="id">Email</label>
 		<input type="text" name="email" id="email" class="form-control" required="required">
 	</div>
-
-	<button id="duplBtn" class="btn btn-default">중복 확인</button><p> 
+	<button id="duplBtn" class="btn btn-default" type="submit">중복 확인</button><p> 
 	
 	<div class="form-group">
 		<label for="password">비밀번호</label>

@@ -16,7 +16,7 @@ $(document).ready(function() {
 		}
 	});
 	var check = 0;
-	var check2 =0;
+	var check2 = 0;
 	$("#duplBtn").on("click",function(){
 		check = 1;
 		var email = $("input[name='email']").val();
@@ -26,26 +26,28 @@ $(document).ready(function() {
 			"success":function(result){
 				var txt = "";
 				if(result == 1){
+					check = 1;
 					$("input[name='email']").val(email);
 					alert("사용가능한 email 입니다.");
-				}else{
+				}else if(result == 0){
 					alert("이미 등록된 email 입니다.");
 					$("input[name='email']").val(txt);
 					$("input[name='email']").focus();
+					return false;
 				}
 			}
 		});
 		if(check2 == 1){
-			check2 = 0;
+			check = 0;
 			return false;
 		}
 	});
 
 	
 	$("#testBtn").on("click",function(){
-		check2 = 1;
 		if(check == 0){
 			alert("email 중복확인 먼저 해주세요.");
+			check2 = 1;
 			return false;
 		}else if($("input[type='checkbox']:checked").length == 0){
 			alert('맛 1개 이상 고르세요.');
