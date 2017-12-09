@@ -34,9 +34,6 @@ $(document).ready(function() {
 					$("input[name='email']").val(txt);
 					$("input[name='email']").focus();
 					return false;
-				}else if("input[name='email']"=""){
-					alert("Email을 입력하세요.")
-					return false;
 				}
 			}
 		});
