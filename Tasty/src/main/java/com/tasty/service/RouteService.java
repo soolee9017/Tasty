@@ -5,7 +5,8 @@ import com.tasty.vo.TempRoute;
 
 public interface RouteService {
 	
-	void insertRoute(Route route, TempRoute tempRoute);
 
+	Route selectRouteByNum(int routeNum);
 	
+	int insertRoute(String routeName, String content);
 }

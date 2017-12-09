@@ -48,33 +48,39 @@ html, body {
 		style="width: 25%; height: 90%; margin-top: 50px; background-color: #FFDC61; float: left; border: 5px #FF6600 solid;">
 		<div style="text-align: center; color: black;">
 			<div>
-				<h3 style="color:#000033;">선택한 가게 목록</h3>
+				<h3 style="color: #000033;">선택한 가게 목록</h3>
 			</div>
 			<div>
-				<button class="btn btn-default" onclick="makeRoute();">선택한 루트 선 이어주기</button>
-				<button class="btn btn-default" onclick="delRoute();">루트 선택 취소</button>
+				<button class="btn btn-default" onclick="makeRoute();">선택한
+					루트 선 이어주기</button>
+				<button class="btn btn-default" onclick="delRoute();">루트 선택
+					취소</button>
 			</div>
 		</div>
 		<p style="width: 100%; height: 5px; background-color: #FF6600;"></p>
 		<div style="width: 100%; overflow: hidden;">
 			<div>
-				<ul id="selectRoute">
+				<form style="float: left; width: 45%;"
+					action="${initParam.rootPath }/route/insertRoute.do"
+					id="list_form">
+					<ul id="selectRoute">
 
-				</ul>
+					</ul>
+				</form>
 			</div>
 		</div>
 	</div>
-	
-	<div style="width:300px;float:right;margin-top:20px;">
-		<form style="float:left;width:45%;"
-			action="여기에다가 컨트롤러로 보낼 링크 써주시면 됩니다. (참고로 넘어가는 리뷰 번호랑 가게 이름은 각각 reviewNum, storeName 으로 넘어갑니다.)"
-			method="post" onsubmit="return listCheck();">
-			<button class="btn btn-default" type="submit" style="width:100%;">글 등록</button>
-		</form>
 
-		<form action="${initParam.rootPath}/main.do" method="post" style="width:45%;float:right;margin-right:20px;"
-		onsubmit="return confirm('작성을 취소하시겠습니까?');">
-			<button class="btn btn-danger" type='submit' style="width: 100%;">작성 취소</button>
+	<div style="width: 300px; float: right; margin-top: 20px;">
+
+		<button class="btn btn-default" type="submit" style="width: 45%;" onclick="formSubmit();">글 등록</button>
+
+
+		<form action="${initParam.rootPath}/main.do" method="post"
+			style="width: 45%; float: right; margin-right: 20px;"
+			onsubmit="return confirm('작성을 취소하시겠습니까?');">
+			<button class="btn btn-danger" type='submit' style="width: 100%;">작성
+				취소</button>
 		</form>
 	</div>
 
@@ -238,13 +244,14 @@ html, body {
 				infowindow.close();
 			};
 		}
-		function listCheck() {
+		function formSubmit(){
 			if (path == '' || path.length == 1) {
 				swal('', '선택하지 않았거나 한개만 선택하였습니다.', 'error');
-				return false;
+				return;
 			} else {
-				return true;
+				document.getElementById('list_form').submit();
 			}
+			
 		}
 	</script>
 </body>

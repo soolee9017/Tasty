@@ -10,7 +10,8 @@
 	
 	<insert id="insertTempRoute" parameterType="TempRoute">
 	insert into temp_route values (route_num_seq.currval,
-									#{reviewNum})
+									#{reviewNum},
+									#{orderOfStore})
 	</insert>
 	
 	
@@ -40,7 +41,13 @@
 	</resultMap>
 	
 	<!-- select -->
-	<select id="getAllRoute" resultMap="Route-Review-join-resultmap">
+	<select id="selectRouteNum" resultType="int">
+		select route_num 
+		from route 
+		order by route_num desc
+	</select>
+	
+	<select id="getAllRoute" resultMap="Route-Review-join-resultmap" parameterType="map">
 	select *
 	from route r, temp_route tr, review rv, member m
 	where r.route_num = tr.route_num(+)

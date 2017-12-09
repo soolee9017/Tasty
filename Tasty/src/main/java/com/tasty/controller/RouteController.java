@@ -15,8 +15,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.RouteDAO;
 import com.tasty.service.ReviewService;
+import com.tasty.service.RouteService;
 import com.tasty.vo.Review;
 import com.tasty.vo.Route;
+import com.tasty.vo.TempRoute;
 
 @Controller
 @RequestMapping("/route/")
@@ -30,6 +32,9 @@ public class RouteController {
    
    @Autowired
    RouteDAO routeDao;
+   
+   @Autowired
+   RouteService routeService;
    
    @RequestMapping("getXYByEmail")
    public ModelAndView getXYByEmail(@RequestParam String email){
@@ -86,6 +91,26 @@ public class RouteController {
       
       
       return new ModelAndView("route","list",str);
+   }
+   
+   @RequestMapping("insertRoute")
+   public ModelAndView insertRoute(@RequestParam String reviewNum, @RequestParam String storeName,
+		   @RequestParam String routeName, @RequestParam String content) {
+	   System.out.println("----루트작성하기 누르고 온 파라미터값-----");
+	   System.out.println("리뷰번호 리스트 : "+reviewNum);
+	   System.out.println("String 리뷰번호를 리스트로 바꿈------");
+	   String[] arr = reviewNum.split(",");
+	   int num = 0;
+	   
+	   for(int i =0; i<arr.length; i++) {
+		   num = Integer.parseInt(arr[i]);
+		   routeService.insertRoute(routeName, content);
+		   routeDao.insertTempRoute(new TempRoute(0,num,i));
+	   }
+	   
+	   int number = routeDao.selectRouteNum();
+	   Route route = routeService.selectRouteByNum(number);
+	   return new ModelAndView("route/route_detail.tiles","route",route);
    }
    
    //작성된 루트에서 하나의 마커를 클릭했을 때, 리뷰 상세보기가 보일것이다. 그걸 클릭하면 여태까지 쓰여진 리뷰들이 보여질 것이다.
