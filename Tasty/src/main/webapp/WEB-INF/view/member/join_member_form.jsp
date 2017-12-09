@@ -2,10 +2,10 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script type="text/javascript"
+   src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	
 	$(".tastes").on("click", function() {
 		if ($('input:checkbox[name="tastes"]:checked').length >= 3) {
 			$('input:checkbox[name="tastes"]').attr("disabled",true);
@@ -34,9 +34,6 @@ $(document).ready(function() {
 					$("input[name='email']").val(txt);
 					$("input[name='email']").focus();
 					return false;
-				}else if("input[name='email']"=""){
-					alert("Email을 입력하세요.")
-					return false;
 				}
 			}
 		});
@@ -48,6 +45,7 @@ $(document).ready(function() {
 
 	
 	$("#testBtn").on("click",function(){
+		alert('등록?');
 		if(check == 0){
 			alert("email 중복확인 먼저 해주세요.");
 			check2 = 1;
