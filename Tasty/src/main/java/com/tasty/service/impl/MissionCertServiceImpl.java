@@ -60,9 +60,9 @@ public class MissionCertServiceImpl implements MissionCertService {
 				String fileName = UUID.randomUUID().toString().replace("-", "") + photo.getOriginalFilename();
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName));
-/*				FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
+				FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
 						new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\missionCert",
-								fileName));*/
+								fileName));
 				photoDao.insertPhoto(fileName);
 				photoList.add(fileName);
 				System.out.println(fileName);
@@ -74,8 +74,8 @@ public class MissionCertServiceImpl implements MissionCertService {
 	}
 
 	@Override
-	public List<MissionCert> selectMissionCertByMissionNum(int missionNum) {
-		return missionCertDao.selectMissionCertByMissionNum(missionNum);
+	public List<MissionCert> selectMissionCertByMissionNum(int missionCertNum) {
+		return missionCertDao.selectMissionCertByMissionNum(missionCertNum);
 	}
 
 	
@@ -100,5 +100,13 @@ public class MissionCertServiceImpl implements MissionCertService {
 	public int deleteMissionCertByMissionCertNum(int missionCertNum) {
 		return missionCertDao.deleteMissionCertByMissionNum(missionCertNum);
 	}
+
+	/*@Override
+	public MissionCert selectMissionCertByMissionCertNum(int missionCertNum) {
+		return missionCertDao.selectMissionCertByMissionCertNum(missionCertNum);
+	}*/
+	
+	
+	
 
 }

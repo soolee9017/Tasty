@@ -12,20 +12,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.dao.MemberDAO;
 import com.tasty.dao.MissionCertDAO;
+import com.tasty.dao.MissionDAO;
 import com.tasty.service.MissionCertService;
 import com.tasty.vo.Authority;
 import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionCert;
+import com.tasty.vo.MissionMember;
 
 @Controller
 @RequestMapping("/missionCert/")
@@ -41,6 +43,10 @@ public class MissionCertController {
 	
 	@Autowired
 	MissionCertDAO missionCertDao;
+	
+	
+	@Autowired
+	MissionDAO missionDao;
 	
 	
 	
@@ -70,8 +76,8 @@ public class MissionCertController {
 		List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
 		List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
 		System.out.println(missionCert);
-		if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
-			return new ModelAndView("admin/mission_detail_view.tiles","result",missionCert); 
+		if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {",missionCer
+			return new ModelAndView("admin/mission_detail_view.tiles","resultt); 
 		}else {
 			return new ModelAndView("/mission/mission_detail_view.tiles","result",missionCert);
 		}
@@ -98,9 +104,15 @@ public class MissionCertController {
       
       List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
       List<MissionCert> missionCert = service.selectMissionCertByMissionNum(num);
+      MissionMember missionMember = new MissionMember();
+      missionMember.setEmail(member.getEmail());
+      missionMember.setMissionNum(num);
+      boolean isMissionMember = missionDao.selectMissionMemberByMissionMember(missionMember);
+      
       
       model.addAttribute("result", mission);
       model.addAttribute("certList",list);
+      model.addAttribute("isMissionMember",isMissionMember);
     
       if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
 			return new ModelAndView("admin/mission_detail_view.tiles","result",mission); 
@@ -109,7 +121,8 @@ public class MissionCertController {
 		}
    }
    
-   @RequestMapping(value="registerMissionCert", method = RequestMethod.POST)
+   //@RequestMapping(value="registerMissionCert", method = RequestMethod.POST)
+   @RequestMapping("registerMissionCert")
    public ModelAndView registerMissionCert(Principal principal, @ModelAttribute MissionCert missionCert, HttpServletRequest request, @RequestParam List<MultipartFile> upImage,
          @RequestParam String missionNum) throws IllegalStateException, IOException {
       System.out.println("insert 하러 컨트롤러 옴.");
@@ -119,16 +132,17 @@ public class MissionCertController {
    }
    
    @RequestMapping("removeMissionCertByMCN")
-   @ResponseBody
-   public int removeMissionCertByMissionCertNum(@RequestParam int missionCertNum, HttpServletRequest request) {
-      return service.deleteMissionCertByMissionCertNum(missionCertNum);
+   public ModelAndView removeMissionCertByMissionCertNum(@RequestParam int missionCertNum, HttpServletRequest request) {
+      System.out.println("delete하러옴");
+      service.deleteMissionCertByMissionCertNum(missionCertNum);
+	  return new ModelAndView("redirect:/mission/getAllMission.do"); 
    }
    
-   @RequestMapping("modifyMissionCertByMCN")
-   @ResponseBody
-   public int modifyMisisonCertByMissionCertNum(@RequestParam int missionCertNum, HttpServletRequest request) {
-      return service.updateMissionCertByMissionCertNum(missionCertNum);
-   }
+/*   @RequestMapping("modifyMissionCertByMCN")
+   public ModelAndView modifyMisisonCertByMissionCertNum(@RequestParam int missionCertNum, HttpServletRequest request) {
+	   service.updateMissionCertByMissionCertNum(missionCertNum);
+      return new ModelAndView
+   }*/
    
    
    @RequestMapping("getMissionCertByNum")
@@ -137,6 +151,16 @@ public class MissionCertController {
 	  System.out.println(mc);
 	  return new ModelAndView("mission/mission_cert_detail.tiles","missionCert",mc);
    }
+   
+   
+   
+	@RequestMapping("moveToModifyMisCert")
+	public ModelAndView moveToModifyMissionCert(@RequestParam int missionCertNum, ModelMap model) {
+		MissionCert mc = missionCertDao.selectMissionCertByMCN(missionCertNum);
+		  System.out.println(mc);
+		return new ModelAndView("/mission/modify_mission_cert.tiles","missionCert",mc);
+	}
+	
       
    
    

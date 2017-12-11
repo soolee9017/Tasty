@@ -1,6 +1,7 @@
 package com.tasty.controller;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,11 +69,32 @@ public class MissionController {
 		return new ModelAndView("redirect:/mission/getAllMission.do");//미션 삭제후 원래 모든 미션을 보여주는 목록페이지로 돌아온다.
 	}
 	
-	@RequestMapping("modifyMission")
-	public ModelAndView updateMissionByMissionNum(@ModelAttribute Mission mission, HttpServletRequest request) {
-		service.updateMissionByMissionNum(mission);
+	
+	@RequestMapping(value="modifyMission"/*, method=RequestMethod.POST*/)
+	public ModelAndView updateMissionByMissionNum(Principal principal, 
+												HttpServletRequest request,  
+												Mission mission, 
+												@RequestParam List<MultipartFile> upImage,
+												@RequestParam int missionNum,
+												@RequestParam String missionName,
+												@RequestParam String missionContent,
+												@RequestParam int currentPeople,
+												@RequestParam int maxPeople,
+												@RequestParam Date startDate,
+												@RequestParam Date endDate
+												) throws Exception {
+	
+		System.out.println(missionNum);
+		service.updateMissionByMissionNum(principal, request, upImage, missionNum, missionName, currentPeople, maxPeople, startDate, endDate);
 		return new ModelAndView("redirect:/mission/getAllMission.do");
 	}
+	/*@RequestMapping(value="modifyMission", method=RequestMethod.POST)
+	public ModelAndView updateMissionByMissionNum(@ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
+	
+		System.out.println(mission);
+		service.updateMissionByMissionNum(mission, request, upImage);
+		return new ModelAndView("redirect:/mission/getAllMission.do");
+	}*/
 	
 	@RequestMapping("enterMissionMember")
 	public ModelAndView enterMissionMember(@ModelAttribute MissionMember missionMember, HttpServletRequest request,
@@ -101,7 +124,7 @@ public class MissionController {
 	
 
 	@RequestMapping("insertMission")
-	public ModelAndView insertMisson(Principal principal, @ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
+	public ModelAndView insertMission(Principal principal, @ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
 		//service.insertMission(mission,request,upImage);
 		service.insertMission(principal, mission, request, upImage);
 		
@@ -135,6 +158,9 @@ public class MissionController {
 		return new ModelAndView("admin/modify_mission.tiles","mission",mission);
 	}
 	
+	
+	
+
 
 	
 

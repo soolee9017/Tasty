@@ -1,42 +1,22 @@
 package com.tasty.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionMember;
 
 public interface MissionDAO {
 	
-	/**
-	 * 미션을 등록하는 dao
-	 * @param mission
-	 * @return
-	 */
 	int insertMission(Mission mission);
 	
-	/**
-	 * 미션을 조회하는 dao
-	 * @return
-	 */
 	List<Mission> selectAllMission();
 	
-	/**
-	 * 미션번호로 미션을 삭제하는 dao
-	 * @param missionNum
-	 * @return
-	 */
 	int deleteMissionByMissionNum(int missionNum);
 	
-	/**
-	 * 미션을 수정하는 dao
-	 * @param missionNum
-	 * @return
-	 */
-	int updateMissionByMissionNum(Mission mission);
-	
+	int updateMissionByMissionNum(Map map);
 	
 	List<Mission> selectMissionByMissionName(String missionName);
-	
 	
 	int insertMissionMember(MissionMember missionMember);
 	
@@ -46,7 +26,7 @@ public interface MissionDAO {
 	
 	int minusMissionCurrentPeoplePlus(int missionNum);
 	
-	List<MissionMember> selectMissionMemberByMissionMember(MissionMember missionMember);//있으면 1없으면 0 return
+	boolean selectMissionMemberByMissionMember(MissionMember missionMember);//있으면 1없으면 0 return
 	
 	Mission selectMissionByMissionNum(int missionNum);
 	
