@@ -26,16 +26,15 @@ html, body {
 margin-top:30px;
 border: 1px solid black;
 width : 80%;
+height:140px;
 margin-left:100px;
 }
 
 .writer{
 border: 1px solid red;
-
-}
-
-.writer{
 float : left;
+width:25%;
+height:100%;
 }
 
 .reviewNum{
@@ -50,9 +49,7 @@ display:none;
 <script type="text/javascript">
 $(document).ready(function(){
    var address = '<%=(String)session.getAttribute("eateryJibun") %>';
-   
    var ajaxCon;
-   
    var atxt="";
    if($(".loginCheck").html()==1){
       ajaxCon = "getReviewByAddress2.do"; //로그인 안한 사람
@@ -65,8 +62,6 @@ $(document).ready(function(){
       "data":"address="+address,
       "dataType":"json",
       "error":function(a, b,c){
-         alert(c);
-         alert("리뷰들 불러오는게 에러");
       },
       "success":function(list){
          var txt = "";
@@ -92,8 +87,8 @@ $(document).ready(function(){
             txt += "<div class='title'>제목 : " + this.title + "</div>";
             txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
             txt += "<div class='content'>내용 : " + this.content + "</div>";
-            txt += "이 리뷰를 추천/비추천?<button class='plus'>추천</button>";
-            txt += "<button class='minus'>비추천</button><br>";
+            txt += "이 리뷰를 추천/비추천?<button class='plus glyphicon glyphicon-thumbs-up'></button>";
+            txt += "<button class='minus 	glyphicon glyphicon-thumbs-down'></button><br>";
             txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
             txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
             txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
@@ -112,10 +107,8 @@ $(document).ready(function(){
       "data":"address="+address,
       "dataType":"json",
       "error":function(a, b,c){
-         alert("평균평점 에러");
       },
       "success":function(avg){
-         $("#ratings").append('평균 평점 : '+avg + '점 / 5점'); 
       }
    });
    
@@ -217,7 +210,6 @@ $(document).ready(function(){
          "data":"address="+address,
          "dataType":"json",
          "error":function(a, b,c){
-            alert(c);
          },
          "success":function(list){
             var txt = "";
@@ -235,8 +227,8 @@ $(document).ready(function(){
                txt +=    "<div class='title'>제목 : " + this.title + "</div>";
                txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
                txt += "<div class='content'>내용 : " + this.content + "</div>";
-               txt += "이 리뷰를 추천/비추천?<button class='plus'>추천</button>";
-               txt += "<button class='minus'>비추천</button><br>";
+               txt += "이 리뷰를 추천/비추천?<button class='plus glyphicon glyphicon-thumbs-up'></button>";
+               txt += "<button class='minus glyphicon glyphicon-thumbs-down'></button><br>";
                txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
                txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
                txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
@@ -255,7 +247,6 @@ $(document).ready(function(){
             "data":"address="+address,
             "dataType":"json",
             "error":function(a, b,c){
-               alert(c);
             },
             "success":function(list){
                var txt = "";
@@ -264,8 +255,11 @@ $(document).ready(function(){
                $.each(list, function(){
              
                    total = this.member.totalUps + this.member.totalDowns;
+                   if(total!=0){
                    pos = (this.member.totalUps / total) * 100;
-                  
+                   }else{
+                	   pos=0;
+                   }
                   
                   txt += "<div class='review'>";
                   txt += "<div class='reviewNum'>" + this.reviewNum + "</div>";
@@ -275,8 +269,8 @@ $(document).ready(function(){
                   txt +=    "<div class='title'>제목 : " + this.title + "</div>";
                   txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
                   txt += "<div class='content'>내용 : " + this.content + "</div>";
-                  txt += "이 리뷰를 추천/비추천?<button class='plus'>추천</button>";
-                  txt += "<button class='minus'>비추천</button><br>";
+                  txt += "이 리뷰를 추천/비추천?<button class='plus glyphicon glyphicon-thumbs-up'></button>";
+                  txt += "<button class='minus 	glyphicon glyphicon-thumbs-down'></button><br>";
                   txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
                   txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
                   txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
@@ -328,13 +322,13 @@ $(document).ready(function(){
                 </c:otherwise>
                  </c:choose> 
 		</c:forEach>
-	<br><a href="#"><button>루트 상세보기</button></a>
+	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button>루트 상세보기</button></a>
 	</div>
 </c:forEach>
 
 <p>
 <p>
-<p>
+<p> 
 
 <!-- <table border="1">
    <thead>
@@ -355,7 +349,7 @@ $(document).ready(function(){
 </table> -->
 
 
-<div id="reviews" style="overflow-x:hidden;overflow-y:auto; width:45%;">
+<div id="reviews" style="overflow-x:hidden;overflow-y:auto; width:45%; height:400px;">
 </div>
 <div id="routeReviews" style="overflow-x:hidden;overflow-y:auto;width:45%;">
 

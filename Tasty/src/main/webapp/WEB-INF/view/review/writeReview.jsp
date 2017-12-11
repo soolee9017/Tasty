@@ -52,7 +52,7 @@ $(document).ready(function(){
       
    $("#plusMenu").on("click",function(){
    var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
-      txt += "<td><input type='text' name='menu'></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
+      txt += "<td><input type='text' name='menu' required></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
       txt += "<td><span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select>";
       txt += "<select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select></span></td></tr>";
       $("#menu_layer > tbody").append(txt)
@@ -93,9 +93,10 @@ $(document).ready(function(){
        $(this).parent().remove(); //this(btnDel)의 부모(td)의 부모(tr)를 삭제
    }); 
    
-   
-   $("#sendBtn").on("click", function() { 
-     var totalTr = $('#tBody>tr').length;
+
+  $("#sendBtn").on("click", function() { 
+	   
+      var totalTr = $('#tBody>tr').length;
      var menuName =[];
      var numOfTaste= [];
      var listOfTaste = [];
@@ -148,38 +149,25 @@ $(document).ready(function(){
     }
   
   
-  
  
-
-
-/*   alert(menuName);
-  alert(numOfTaste);
-  alert(listOfTaste);
-  alert(listOfDegree); */
-  
   $('#listOfMenu').val(menuName);
   $('#numOfTaste').val(numOfTaste);
   $('#listOfTaste').val(listOfTaste);
   $('#listOfDegree').val(listOfDegree);
   
-   $("#reviewForm").submit(); 
+   $("#reviewForm").submit();  
     
-   }); 
-   
+  });  
+
   
    
 });
+   
+ 
 
 
 </script>
 
-
-<style type="text/css">
-
- 
-
-
-</style>
 
 </head>
 <body>
@@ -245,7 +233,8 @@ $(document).ready(function(){
 
 
 ---------------리뷰 최종 전송 버튼 ---------------------<br>
-<button id="sendBtn" type="button">리뷰 전송</button>
+ <button id="sendBtn" type="button">리뷰 전송</button> 
+
    </form>
 </body>
 </html> 

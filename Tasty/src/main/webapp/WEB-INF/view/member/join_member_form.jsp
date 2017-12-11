@@ -2,10 +2,10 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script type="text/javascript"
+   src="${initParam.rootPath}/resource/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	
 	$(".tastes").on("click", function() {
 		if ($('input:checkbox[name="tastes"]:checked').length >= 3) {
 			$('input:checkbox[name="tastes"]').attr("disabled",true);
@@ -17,17 +17,21 @@ $(document).ready(function() {
 	});
 	var check = 0;
 	var check2 = 0;
+	var checkemail = null;
+	var email = null; 
+	
 	$("#duplBtn").on("click",function(){
 		check = 1;
-		var email = $("input[name='email']").val();
+		email = $("input[name='email']").val(); //현재 적힌 email
 		$.ajax({
 			"url":"/Tasty/duplicatedCheck.do",
 			"data":"email="+email,
 			"success":function(result){
 				var txt = "";
 				if(result == 1){
+					checkemail = $("input[name='email']").val(); //중복확인 눌렀을때 email
 					check = 1;
-					$("input[name='email']").val(email);
+					$("input[name='email']").val(checkemail);
 					alert("사용가능한 email입니다.");
 				}else if(result == 0){
 					alert("이미 등록된 email입니다.");
@@ -45,7 +49,8 @@ $(document).ready(function() {
 
 	
 	$("#testBtn").on("click",function(){
-		if(check == 0){
+		email = $("input[name='email']").val(); //현재 적힌 email
+		if(email != checkemail || check == 0){
 			alert("email 중복확인 먼저 해주세요.");
 			check2 = 1;
 			return false;
@@ -53,10 +58,6 @@ $(document).ready(function() {
 			alert('맛 1개 이상 고르세요.');
 			return false;
 		}
-		/* else($("input[type='checkbox']:checked").length == 0){
-			alert("맛을 1개 이상 고르세요.");
-			return false;
-		} */
 	});
 	
 });
@@ -81,7 +82,7 @@ $(document).ready(function() {
 				style="text-align: center;">
 		</div>
 
-		<button id="duplBtn" class="btn btn-default">중복 확인</button><p> 
+		<button id="duplBtn" type="button" class="btn btn-default">중복 확인</button><p> 
 
 		<div class="form-group">
 			<label for="password">패스워드</label> <input type="password"

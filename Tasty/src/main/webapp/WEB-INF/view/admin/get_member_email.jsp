@@ -17,6 +17,7 @@
 <title>YOLTY50:관리자:회원조회</title>
 </head>
 <body>
+<div style="margin-top:50px;">
 	<h2>회원조회(Email)</h2>
 
 		<p>
@@ -76,7 +77,7 @@
 			</c:choose>
 		</tbody>
 	</table>
-
+</div>
 </body>
 </html>
 

@@ -24,11 +24,7 @@
 
 </head>
 <body>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+<div style="margin-top:50px;">
 <form action="${initParam.rootPath }/mission/modifyMission.do" method="get">
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
 		미션이름 : <input type="text" name="missionName" value="${mission.missionName }" /><br>
@@ -52,5 +48,6 @@
 		<button type="submit">미션 등록</button>
 		<button type="submit">수정하기</button>
 	</form>
+	</div>
 </body>
 </html>

@@ -31,9 +31,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<br>
-	<br>
-	<br>
+<div style="margin-top:60px;">
 	<h1>미션 상세페이지</h1>
 	<fmt:formatDate var="stD" pattern = "yyyy-MM-dd" value = "${requestScope.result.startDate}" />
 	<fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${requestScope.result.endDate}" />	
@@ -127,6 +125,6 @@ $(document).ready(function() {
 			</c:forEach>
 		</tbody>
 	</table>
-
+</div>
 </body>
 </html>

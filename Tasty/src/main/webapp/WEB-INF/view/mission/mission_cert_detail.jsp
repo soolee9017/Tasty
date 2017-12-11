@@ -26,7 +26,7 @@ function button_event(){
 </script>
 </head>
 <body>
-<br><br><br>
+<div style="margin-top:60px;">
 <h1> 미션 인증글 상세페이지</h1>
 
 제목 : ${requestScope.missionCert.title}<br>
@@ -49,5 +49,6 @@ function button_event(){
 </form>
 <button type="submit" onclick="window.location.href='getMissionCertByMN.do?missionNum=${requestScope.missionCert.missionNum}'">미션상세페이지로 돌아기</button>
 
+</div>
 </body>
 </html>

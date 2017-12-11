@@ -103,8 +103,8 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
-								 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
-									  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
+								 //FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+									//  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
 				photoDao.insertPhoto(fileName);
 				photoDao.insertReviewPhoto();
 			}
@@ -221,8 +221,8 @@ public class ReviewServiceImpl implements ReviewService{
 
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/review"),fileName));
-								 FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
-									  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
+								// FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/review"),fileName),
+									//  new File("C:\\JAVA\\GitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\review",fileName));
 				photoDao.insertPhoto(fileName);
 				photoDao.insertReviewPhotoWithRn(Integer.parseInt(reviewNum));
 			}
