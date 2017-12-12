@@ -20,7 +20,6 @@
 루트제목 : ${requestScope.route.routeName }<br>
 루트내용 : ${requestScope.route.content }<br>
 
-requestScope.list 확인 : ${requestScope.list}<br>
 
 
 <div id="map"
