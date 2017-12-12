@@ -16,5 +16,7 @@ public interface RouteDAO {
 	Route selectRouteByNum(int routeNum);
 
 	List<Integer> selectRouteNum();
+	
+	List<Integer> getRouteNumByEmail(String email);
 
 }

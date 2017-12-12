@@ -14,6 +14,7 @@
 	<result column = "downs" property="downs"/>
 	<result column = "pos_x" property="posX"/>
 	<result column = "pos_y" property="posY"/>
+	<result column = "write_date" property="writeDate"/>
 </resultMap>
 
 
@@ -96,11 +97,11 @@
 <!-- 마이페이지에서 내가 쓴 리뷰조회할때 페이징처리하기 위함. -->
 <select id="selectReviewByEmail" parameterType="map" resultMap="review-join-menu-resultmap">
 	<![CDATA[	
-	select review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y
+	select review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y,write_date
 	from(
-		select rownum rn, review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y
+		select rownum rn, review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y,write_date
 		from(	
-			select r.review_num, r.address, r.store_name, r.email, r.title, r.content, r.ratings, r.ups, r.downs, r.pos_x, r.pos_y 
+			select r.review_num, r.address, r.store_name, r.email, r.title, r.content, r.ratings, r.ups, r.downs, r.pos_x, r.pos_y, r.write_date
 			from review r, menu m, menu_taste mt, all_taste at, taste t, degree d, review_photo rp, photo p 
 			where r.email = #{email}
 			and r.review_num=m.review_num(+)
@@ -136,7 +137,7 @@ insert into review (review_num, title, address) values (review_num_seq.nextval, 
 
 <insert id="insertReview" parameterType="review">
 insert into review values (review_num_seq.nextval, #{address},#{storeName},#{email},#{title},#{content},
-#{ratings},#{ups},#{downs},#{posX},#{posY})
+#{ratings},#{ups},#{downs},#{posX},#{posY},sysdate)
 </insert>
 
 

@@ -26,9 +26,24 @@ public class RouteServiceImpl implements RouteService{
 	@Override
 	public List getAllRouteByXYName(String storeName, String posX, String posY) {
 		List<Integer> listOfNum = routeDao.getAllRouteNum(storeName, posX, posY);
-		System.out.println(listOfNum);
+		List<Integer> newList = new ArrayList<>();
+		
+	
+			for(int a:listOfNum) {
+				
+				int flag = 0;	
+					for(int b:newList) {
+						if(a==b) {
+							flag = 1;
+						}
+					}
+				if (flag==0) {
+					newList.add(a);
+				}
+			}
+		
 		List bigList = new ArrayList();
-			for(int a : listOfNum) {
+			for(int a : newList) {
 				Route route = routeDao.selectRouteByNum(a);
 				bigList.add(route);
 			}
@@ -45,5 +60,36 @@ public class RouteServiceImpl implements RouteService{
 		
 		return routeDao.selectRouteNum().get(0);
 	}
+
+	@Override
+	public List getAllRouteByEmail(String email) {
+		List<Integer> listOfNum = routeDao.getRouteNumByEmail(email);
+		
+		List<Integer> newList = new ArrayList<>();
+		
+		
+		for(int a:listOfNum) {
+			
+			int flag = 0;	
+				for(int b:newList) {
+					if(a==b) {
+						flag = 1;
+					}
+				}
+			if (flag==0) {
+				newList.add(a);
+			}
+		}
+		
+		List bigList = new ArrayList();
+		for(int a : newList) {
+			Route route = routeDao.selectRouteByNum(a);
+			bigList.add(route);
+		}
+	
+	return bigList;
+	}
+	
+	
 	
 }

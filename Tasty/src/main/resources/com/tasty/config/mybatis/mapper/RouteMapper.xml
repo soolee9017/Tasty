@@ -5,7 +5,7 @@
 	<insert id="insertRoute" parameterType="Route">
 	insert into route values (route_num_seq.nextval,
 								#{routeName},
-								#{content})
+								#{content},sysdate)
 	</insert>
 	
 	<insert id="insertTempRoute" parameterType="TempRoute">
@@ -22,6 +22,7 @@
 		<id column="route_num" property="routeNum"/>
 		<result column="route_name" property="routeName"/>
 		<result column="content" property="content"/>
+		<result column = "write_date" property="writeDate"/>
 		<collection property="tempRouteList" ofType="TempRoute">
 			<result column="route_num" property="routeNum"/>
 			<result column="review_num" property="reviewNum"/>
@@ -54,6 +55,20 @@
 	order by r.route_num asc
 
 	</select>
+	
+	<select id="getRouteNumByEmail" resultType="_int" parameterType="string">
+	select r.route_num
+	
+	from route r, temp_route tr, review rv
+	where r.route_num = tr.route_num(+)
+	and tr.review_num = rv.review_num(+)
+	and rv.email=#{value}
+	order by r.route_num asc
+
+	</select>
+	
+	
+	
 	<select id="selectRouteNum" resultType="int">
 		select route_num 
 		from route 

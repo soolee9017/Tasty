@@ -49,6 +49,7 @@ public class ReviewController {
    @ResponseBody
    public List<Review> getAllReviewByAddress(@RequestParam String address){
       List<Review> list = reviewService.selectAllReviewAndMemberByAddress(address);
+      System.out.println(list);
       return list;
    }
    
@@ -67,6 +68,7 @@ public class ReviewController {
     public List<Review> getReviewByAddress2(@RequestParam String address){
      	
        List<Review> list = reviewService.selectAllReviewAndMemberByAddress(address);
+       System.out.println(list);
        return list;
     }
     
