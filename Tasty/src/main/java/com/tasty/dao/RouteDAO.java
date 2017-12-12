@@ -16,5 +16,11 @@ public interface RouteDAO {
 	Route selectRouteByNum(int routeNum);
 
 	List<Integer> selectRouteNum();
+	
+	int updateRoute(Route route);
+	
+	int deleteTempRoute(int routeNum);
+	
+	int updateTempRoute(TempRoute tempRoute);
 
 }

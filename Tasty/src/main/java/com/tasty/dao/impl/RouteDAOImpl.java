@@ -51,6 +51,21 @@ public class RouteDAOImpl implements RouteDAO{
 	public List<Integer> selectRouteNum() {
 		return session.selectList(makeSqlId("selectRouteNum"));
 	}
+
+	@Override
+	public int updateRoute(Route route) {
+		return session.update(makeSqlId("updateRoute"), route);
+	}
+
+	@Override
+	public int updateTempRoute(TempRoute tempRoute) {
+		return session.update(makeSqlId("updateTempRoute"), tempRoute);
+	}
+
+	@Override
+	public int deleteTempRoute(int routeNum) {
+		return session.delete(makeSqlId("deleteTempRoute"), routeNum);
+	}
 	
 	
 	

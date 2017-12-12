@@ -1,5 +1,8 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="com.tasty.vo.Member"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +23,19 @@
 루트제목 : ${requestScope.route.routeName }<br>
 루트내용 : ${requestScope.route.content }<br>
 
-requestScope.list 확인 : ${requestScope.list}<br>
+<%-- requestScope.list 확인 : ${requestScope.list}<br> --%>
+
+<sec:authorize access="isAuthenticated()">
+	<%
+		String email = ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
+		pageContext.setAttribute("email", email);
+	%>
+
+	<c:if test="${requestScope.email==email}">
+		<a href="${initParam.rootPath}/route/getXYByEmail.do?routeNum=${requestScope.route.routeNum}&email=${requestScope.email}"><button>내용
+				수정</button></a>
+	</c:if>
+</sec:authorize>
 
 
 <div id="map"
