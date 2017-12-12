@@ -337,6 +337,8 @@ $(document).ready(function(){
             }
          });
    });
+   
+
 
    
 });
@@ -355,7 +357,7 @@ $(document).ready(function(){
 <sec:authorize access="isAuthenticated()">
 	<span class="loginCheck" style="display:none;">0</span>
 	<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
-	<a href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'><button>루트 작성하기</button></a>
+	<a id="writeRoute" href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'><button>루트 작성하기</button></a>
 </sec:authorize>	
 <br><br>
 <p>

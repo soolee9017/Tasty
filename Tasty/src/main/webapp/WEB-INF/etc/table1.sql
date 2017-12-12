@@ -415,9 +415,9 @@ ALTER TABLE MENU_TASTE
       )
       REFERENCES ALL_TASTE ( -- 맛 + 정도
          td_num -- 맛정도 번호
-      )
+      ) ON DELETE SET NULL
        
-       ;
+;
 
 -- 메뉴의 맛
 ALTER TABLE MENU_TASTE

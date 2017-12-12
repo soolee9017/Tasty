@@ -112,9 +112,13 @@
 		<a
 			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button>내용
 				수정</button></a>
+				
+		<a href="${initParam.rootPath}/review/deleteReview.do?reviewNum=${requestScope.review.reviewNum}">
+		<button onclick="return confirm('정말 삭제하시겠습니까?');">리뷰 삭제</button></a>		
 	</c:if>
 </sec:authorize>
 
+<br>
 <a href="${initParam.rootPath}/review/backToList.do?storeName=${requestScope.review.storeName}&posX=${requestScope.review.posX}&posY=${requestScope.review.posY}">
 <button>목록으로 돌아가기</button>
 </a>

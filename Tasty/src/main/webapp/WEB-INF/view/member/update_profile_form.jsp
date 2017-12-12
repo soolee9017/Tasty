@@ -36,10 +36,65 @@
 	input{
 		text-align:center;
 	}
+	
+	
+	
+	body{
+	background-color:rgb(235,235,235);
+}
+
+.leftMenuList > div > ul{
+	width:100%;
+}
+.leftMenuList > div > ul > li{
+	width:100%;
+	height:50px;
+	border-bottom:1px #000 solid;
+}
+.leftMenuList > div > ul > li:hover{
+	background-color:rgb(245,245,245);
+}
+.leftMenuList > div > ul > li > a{
+	line-height:50px;
+	color:#000;
+	text-decoration:none;
+	-webkit-transition:1s;
+	font-size:15px;
+}
+
 </style>
-<div class="text-center center-block" style="margin-top:70px; width:800px;">
+
+<div class="leftMenuList" style="margin-top: 50px; float: left; width: 250px; position:absolute; left:10%; top:12%;">
+	<div>
+		<ul>
+			<li><a
+				href='${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>'>내가
+					작성한 리뷰 보기</a></li>
+			<li><a
+				href='${initParam.rootPath}/route/getRouteByEmail.do?email=<sec:authentication property="principal.email"/>'>내가 작성한 루트 보기</a></li>
+			
+				<li><a
+				href='#'>내가 참여중인 미션 보기</a></li>
+			
+			
+			
+			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
+			<li><a
+				href='${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>'>탈퇴</a></li>
+		</ul>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<div class="text-center center-block" style="margin-top:70px; width:600px;">
 	<div class="text-left">
-		<h2>정보 수정 가입</h2>
+		<h2>내 정보 수정</h2>
 	</div>
 	<p style="height:1px; width:800px; background-color:#000;"></p>
 	<c:if test="${not empty requestScope.errorMessage}">
