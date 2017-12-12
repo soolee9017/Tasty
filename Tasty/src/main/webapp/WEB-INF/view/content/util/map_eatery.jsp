@@ -519,8 +519,8 @@ html, body {
 					+ '</div>'
 					+ '<form action="${initParam.rootPath}/review/setSession.do">'
 					+ '<div class="body">'
-					+ '<div style="float:left;">'
-					+ '<span class="places_jibun"></span>'
+					+ '<div style="float:left;width:200px; overflow:auto;">'
+					+ '<span class="places_jibun" ></span>'
 					+ '<br>'
 					+ '<span class="places_tel"></span>'
 					+ '</div>'
@@ -529,7 +529,7 @@ html, body {
 					+ '<input type="hidden" id="eateryTitle" name="eateryTitle" value="">'//가게 이름
 					+ '<input type="hidden" id="lat" name="lat" value="">' //위도
 					+ '<input type="hidden" id="lng" name="lng" value="">' //경도
-					+ '<button type="submit" class="btn btn-info" style="float:right;height:50px;">리뷰보기</button></div>'
+					+ '<button type="submit" class="btn btn-info" style="float:right;height:50px;width:50px;">리뷰보기</button></div>'
 					+ '</div>' + '</form>' + '</div>';
 			map.setLevel(4, {
 				anchor : new daum.maps.LatLng(marker.getPosition().getLat(),

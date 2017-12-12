@@ -21,7 +21,7 @@ body{
 
 .rightTile {
 	width: 60%;
-	margin-left: 320px;
+	margin-left: 240px;
 }
 .leftMenuList > div > ul{
 	width:100%;
@@ -39,18 +39,18 @@ body{
 	color:#000;
 	text-decoration:none;
 	-webkit-transition:1s;
-	font-size:20px;
+	font-size:15px;
 }
 .row > div > div{
 	border-bottom:1px #000 solid;
-	height:80px;
+	height:60px;
 }
 .row > div > div > div{
-	line-height:80px;
+	line-height:60px;
 }
 </style>
 <div class="row"
-	style="font-size: 20px; margin-top: 70px; width: 800px; left: 30%; position: relative;">
+	style="font-size: 20px; margin-top: 70px; width: 500px; left: 36%; position: relative;">
 	<div>
 		<div>
 			<div>
@@ -110,17 +110,20 @@ body{
 		</div>
 	</div>
 </div>
-<div class="leftMenuList" style="margin-top: 50px; float: left; width: 350px; position:absolute; left:3%; top:12%;">
+<div class="leftMenuList" style="margin-top: 50px; float: left; width: 250px; position:absolute; left:10%; top:12%;">
 	<div>
 		<ul>
 			<li><a
 				href="${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>">내가
 					작성한 리뷰 보기</a></li>
 			<li><a
-				href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'>루트
-					작성하기</a></li>
-			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
+				href='${initParam.rootPath}/route/getRouteByEmail.do?email=<sec:authentication property="principal.email"/>'>내가 작성한 루트 보기</a></li>
+				
 			<li><a
+				href='#'>내가 참여중인 미션 보기</a></li>
+		
+			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
+			<li><a onclick="return confirm('정말 탈퇴하시겠습니까?');"
 				href="${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>">탈퇴</a></li>
 		</ul>
 	</div>

@@ -18,15 +18,17 @@ public interface MissionCertService {
    
    int insertMissionCert(Principal principal, MissionCert missionCert, HttpServletRequest request, List<MultipartFile> upImage) throws IllegalStateException, IOException;
    
-   List<MissionCert> selectMissionCertByMissionNum(int missionNum);
+   List<MissionCert> selectMissionCertByMissionNum(int missionCertNum);
    
-   List<MissionCert> selectMissionCertByMissionNum2(int missionNum);
+   List<MissionCert> selectMissionCertByMissionNum2(int missionCertNum);
    
    Mission selectMissionByMissionNum(int missionNum);
    
    int updateMissionCertByMissionCertNum(int missionCertNum);
    
    int deleteMissionCertByMissionCertNum(int missionCertNum);
+   
+   //MissionCert selectMissionCertByMissionCertNum(int missionCertNum);
    
 
 }

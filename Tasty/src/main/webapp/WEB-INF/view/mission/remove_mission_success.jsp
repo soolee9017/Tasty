@@ -6,6 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div style="margin-top:60px;">
 <h1>미션 삭제 성공</h1>
+</div>
 </body>
 </html>

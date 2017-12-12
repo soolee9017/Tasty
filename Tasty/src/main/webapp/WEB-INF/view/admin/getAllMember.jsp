@@ -20,6 +20,7 @@ function moveToRemove(email){
 <title>YOLTY50:관리자:회원조회</title>
 </head>
 <body>
+<div style="margin-top:50px;">
 	<h2>회원조회(전체)</h2>
 
 		<p>
@@ -78,7 +79,7 @@ function moveToRemove(email){
 			</c:choose>
 		</tbody>
 	</table>
-
+</div>
 </body>
 </html>
 

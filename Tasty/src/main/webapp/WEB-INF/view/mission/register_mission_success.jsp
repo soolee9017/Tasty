@@ -8,8 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div style="margin-top:60px;">
 <h1>등록을 성공했습니다.</h1>
 <h2>등록된 미션</h2>
+<fmt:formatDate var="stD" pattern = "yyyy-MM-dd" value = "${mission.startDate }" />
+<fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${mission.endDate }" />
 <div class="regMission">
 	<div>
 		<c:forEach var="photoList" items="${requestScope.photos }">
@@ -38,15 +41,16 @@
 	</div>
 	<div id="stD">
 		<div>시작날짜</div>
-		<div>${mission.startDate }</div>
+		<div>${stD}</div>
 	</div>
 	<div id="eD">
 		<div>마감날짜</div>
-		<div>${mission.endDate }</div>
+		<div>${eD}</div>
 	</div>
 	<div><button type="submit" id="gotoMissionMain" onclick="window.location.href='getAllMission.do'">미션페이지로 이동하기</button></div>
 
 
+</div>
 </div>
 </body>
 </html>

@@ -47,7 +47,7 @@ public class MissionCertDAOImpl implements MissionCertDAO{
 
 	@Override
 	public int updateMissionCertByMissionCertNum(int missionCertNum) {
-		return session.update(makeSqlId("updateMissionByMisisonCertNum"),missionCertNum);
+		return session.update(makeSqlId("updateMissionCertByMissionCertNum"),missionCertNum);
 	}
 
 	@Override
@@ -59,6 +59,13 @@ public class MissionCertDAOImpl implements MissionCertDAO{
 	public MissionCert selectMissionCertByMCN(int number) {
 		return session.selectOne(makeSqlId("selectMissionCertByMCN"),number);
 	}
+
+	/*@Override
+	public MissionCert selectMissionCertByMissionCertNum(int missionCertNum) {
+		return session.selectOne(makeSqlId("selectMissionCertByMissionCertNum"),missionCertNum);
+	}
+	*/
+	
 
 
 		

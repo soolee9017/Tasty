@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec"
-   uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,66 +26,47 @@ $(document).ready(function() {
    $("#photoList").on("click",".deletePhoto", function() {
       $(this).parent().parent().remove();
    });//end of photoList
-   
-     
-	$("#regmisBtn").on("click", function(){
-		/* if("${requestScope.outcome}"==0){
-			alert("이미 참여한 미션입니다.");
-		}else{ */
-		alert("미션에 참여하셨습니다.");
-		/* } */
-	});//end of regmisBtn
-	
-	$("#cancelmisBtn").on("click", function(){
-		/* if("${requestScope.outcome}"==0){
-			alert("참여하지 않은 미션입니다.");
-		}else{ */
-		alert("미션에 참여를 취소하셨습니다.");
-		/* } */
-	});//end of regmisBtn
-
-   
 });//end of document.ready
 
 </script>
 </head>
 <body>
-	<br>
-	<br>
-	<br>
+<div style="margin-top:60px;">
 	<h1>미션 상세페이지</h1>
+	<fmt:formatDate var="stD" pattern = "yyyy-MM-dd" value = "${requestScope.result.startDate}" />
+	<fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${requestScope.result.endDate}" />	
 	<br> 미션번호 : ${requestScope.result.missionNum}
 	<br> 미션이름 : ${requestScope.result.missionName}
 	<br> 참여인원 : ${requestScope.result.currentPeople }/${requestScope.result.maxPeople }
-	<br> 기간 : ${requestScope.result.startDate } ~
-	${requestScope.result.endDate }
+	<br> 기간 : ${stD} ~	${eD}
 	<br> 사진 :
-	<c:forEach var="missionPhotoList"
-		items="${requestScope.result.missionPhotoList}">
-		<c:forEach var="photoList" items="${photoList}">
-			<img
-				src="${initParam.rootPath }/photos/mission/${photoList.photoPath}"
-				width="300px">
-		</c:forEach>
+	<c:forEach var="missionPhoto" items="${requestScope.result.missionPhotoList}">
+		<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photo.photoPath }" width="300px">
 	</c:forEach>
 
 	<!--  미션 참여/ 취소 button -->
-	<form action="${initParam.rootPath }/mission/enterMissionMember.do"
-		method="get">
-		<input type="hidden" name="missionNum"
-			value="${requestScope.result.missionNum}"> <input type="hidden"
-			name="email" value="<sec:authentication property="principal.email"/>">
-		<button type="submit" id="regmisBtn">미션에 참여하기</button>
-	</form>
-	이거 --> ${requestScope.outcome }
-	<form action="${initParam.rootPath }/mission/cancelMissionMember.do"
-		method="get">
-		<input type="hidden" name="missionNum"
-			value="${requestScope.result.missionNum}"> <input type="hidden"
-			name="email" value="<sec:authentication property="principal.email"/>">
-		<button type="submit" id="cancelmisBtn">참여한 미션 취소하기</button>
-	</form>
+	
 
+<c:choose>
+    <c:when test="${requestScope.isMissionMember eq false}">
+		<form action="${initParam.rootPath }/mission/enterMissionMember.do"
+			method="get">
+			<input type="hidden" name="missionNum"
+				value="${requestScope.result.missionNum}"> <input type="hidden"
+				name="email" value="<sec:authentication property="principal.email"/>">
+			<button type="submit" id="regmisBtn">미션에 참여하기</button>
+		</form>
+    </c:when>
+    <c:otherwise>
+		<form action="${initParam.rootPath }/mission/cancelMissionMember.do"
+			method="get">
+			<input type="hidden" name="missionNum"
+				value="${requestScope.result.missionNum}"> <input type="hidden"
+				name="email" value="<sec:authentication property="principal.email"/>">
+			<button type="submit" id="cancelmisBtn">참여한 미션 취소하기</button>
+		</form>
+    </c:otherwise>
+</c:choose>
 	<br>
 	<br>
 	<p>
@@ -144,6 +125,6 @@ $(document).ready(function() {
 			</c:forEach>
 		</tbody>
 	</table>
-
+</div>
 </body>
 </html>

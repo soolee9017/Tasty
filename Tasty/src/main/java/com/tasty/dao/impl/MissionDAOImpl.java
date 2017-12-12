@@ -1,6 +1,7 @@
 package com.tasty.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class MissionDAOImpl implements MissionDAO{
 	}
 
 	@Override
-	public int updateMissionByMissionNum(Mission mission) {
-		return session.update(makeSqlId("updateMissionByMissionNum"), mission);
+	public int updateMissionByMissionNum(Map map) {
+		return session.update(makeSqlId("updateMissionByMissionNum"), map);
 	}
 
 	
@@ -75,8 +76,9 @@ public class MissionDAOImpl implements MissionDAO{
 	
 	
 	@Override
-	public List<MissionMember> selectMissionMemberByMissionMember(MissionMember missionMember) {
-		return session.selectList(makeSqlId("selectMissionMemberByMissionMember"),missionMember);
+	public boolean selectMissionMemberByMissionMember(MissionMember missionMember) {
+		return session.selectOne(makeSqlId("selectMissionMemberByMissionMember"),missionMember) != null;
+		
 	}
 
 	@Override

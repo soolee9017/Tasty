@@ -24,11 +24,7 @@
 
 </head>
 <body>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+<div style="margin-top:50px;">
 <form action="${initParam.rootPath }/mission/modifyMission.do" method="get">
 		<input type="hidden" name="missionNum" value="${mission.missionNum }" />
 		미션이름 : <input type="text" name="missionName" value="${mission.missionName }" /><br>
@@ -38,7 +34,7 @@
 		최대인원 : <input type="number" name="maxPeople" value="${mission.maxPeople }" /> <br>
 		미션 시작일 : <input type="date" name="startDate" id="startDate" value="${mission.startDate }" /> <br>
 		미션 종료일 : <input type="date" name="endDate" id="endDate" value="${mission.endDate }" /><br>
-		사진 등록 :
+		<!-- 사진 등록 :
 		<table id="photoList">
 			<tr>
 				<td><input type="file" name="upImage"></td>
@@ -46,11 +42,12 @@
 			</tr>
 		</table>
 		<button type="button" id="addPhoto">사진추가</button>
-		<br>
+		<br> -->
 
 
 		<button type="submit">미션 등록</button>
 		<button type="submit">수정하기</button>
 	</form>
+	</div>
 </body>
 </html>

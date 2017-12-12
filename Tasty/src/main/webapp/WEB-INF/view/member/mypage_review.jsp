@@ -53,7 +53,6 @@ td, th {
 <body>
 
 
-
 	<!-- ${initParam.rootPath }/findBoard?item=${item.itemNum} -->
 
 <%String email = (String)request.getAttribute("email"); %>

@@ -3,7 +3,10 @@ package com.tasty.service.impl;
 import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +43,49 @@ public class MissionServiceImpl implements MissionService{
 	}
 
 	@Override
-	public int updateMissionByMissionNum(Mission mission) {
-		return missionDao.updateMissionByMissionNum(mission);
+	public int updateMissionByMissionNum(Principal principal, 
+			  HttpServletRequest request, 
+			  List<MultipartFile>upImage, 
+			  int missionNum, 
+			  String missionName, 
+			  int currentPeople, 
+			  int maxPeople, 
+			  Date startDate, 
+			  Date endDate) throws Exception {
+		
+		
+		
+		Map map = new HashMap<>();
+		map.put("missionNum", missionNum);
+		map.put("missionName", missionName);
+		map.put("currentPeople", currentPeople);
+		map.put("maxPeople", maxPeople);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		
+		missionDao.updateMissionByMissionNum(map);
+		File file = new File(request.getServletContext().getRealPath("/photos/mission"));
+        if(!file.exists()) {
+           file.mkdirs();
+        }
+        List<String> photoList = new ArrayList<>();
+        for(MultipartFile photo : upImage) {
+              if(photo != null && !photo.isEmpty()) {
+              String fileName = UUID.randomUUID().toString().replace("-", "")+photo.getOriginalFilename();
+              
+
+             photo.transferTo(new File(request.getServletContext().getRealPath("/photos/mission"),fileName));
+             FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/mission"),fileName),
+                   new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\mission",fileName));
+             
+             
+              photoDao.insertPhoto(fileName);
+              photoList.add(fileName);
+              request.setAttribute("photos", photoList);
+              photoDao.insertMissionPhoto();
+              }
+           }
+		return 0;
 	}
 
 	@Override
@@ -75,8 +119,8 @@ public class MissionServiceImpl implements MissionService{
               
 
              photo.transferTo(new File(request.getServletContext().getRealPath("/photos/mission"),fileName));
-             FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/mission"),fileName),
-                   new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\mission",fileName));
+             //FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/mission"),fileName),
+                //   new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\mission",fileName));
              
              
               photoDao.insertPhoto(fileName);
@@ -96,9 +140,9 @@ public class MissionServiceImpl implements MissionService{
 	@Override
 	public int enterMissionMember(MissionMember missionMember,int missionNum) {
 		
-		int num = missionDao.selectMissionMemberByMissionMember(missionMember).size();
-		System.out.println("여기봐봐"+num);
-		if(num==0) {
+		boolean isMissionMember = missionDao.selectMissionMemberByMissionMember(missionMember);
+		System.out.println("여기봐봐"+isMissionMember);
+		if(isMissionMember==false) {
 			missionDao.insertMissionMember(missionMember);
 			missionDao.plusMissionCurrentPeoplePlus(missionNum);
 			return 1;//1이면 미션 참가 성공
@@ -110,9 +154,9 @@ public class MissionServiceImpl implements MissionService{
 	
 	@Override
 	public int cancelMissionMember(MissionMember missionMember,int missionNum) {
-		int num = missionDao.selectMissionMemberByMissionMember(missionMember).size();
-		System.out.println("여기봐봐"+num);
-		if(num==1) {
+		boolean isMissionMember = missionDao.selectMissionMemberByMissionMember(missionMember);
+		System.out.println("여기봐봐"+isMissionMember);
+		if(isMissionMember==true) {
 			missionDao.deleteMissionMember(missionMember);
 			missionDao.minusMissionCurrentPeoplePlus(missionNum);
 			return 1;//1이면 미션참여 취소 성공
@@ -130,6 +174,10 @@ public class MissionServiceImpl implements MissionService{
 	public List<Mission> selectAllMissionList() {
 		return missionDao.selectAllMissionList();
 	}
+
+	
+	
+	
 	
 	
 	

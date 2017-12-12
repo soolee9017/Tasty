@@ -17,10 +17,10 @@
 		<collection property="missionCertPhotoList" ofType="MissionCertPhoto">
 			<result column="photo_num" property="photoNum" />
 			<result column="mission_cert_num" property="missionCertNum" />
-			<collection property="photoList" ofType="Photo">
-				<id column="photo_num" property="photoNum" />
-				<result column="photo_path" property="photoPath" />
-			</collection>
+			<association property="photo" javaType="Photo">
+				<id column="photo_num" property="photoNum"/>
+				<result column="photo_path" property="photoPath"/>
+			</association>
 
 		</collection>
 	</resultMap>
@@ -32,10 +32,10 @@
 		extends="missionCert-resultmap">
 		<result column="photo_num" property="photoNum" />
 		<result column="mission_cert_num" property="missionCertNum" />
-		<collection property="photoList" ofType="Photo">
-			<id column="photo_num" property="photoNum" />
-			<result column="photo_path" property="photoPath" />
-		</collection>
+		<association property="photo" javaType="Photo">
+			<id column="photo_num" property="photoNum"/>
+			<result column="photo_path" property="photoPath"/>
+		</association>
 	</resultMap>
 
 
@@ -61,18 +61,10 @@
 		<collection property="missionCertPhotoList" ofType="MissionCertPhoto">
 			<result column="photo_num" property="photoNum" />
 			<result column="mission_cert_num" property="missionCertNum" />
-			<collection property="photoList" ofType="Photo">
-				<id column="photo_num" property="photoNum" />
-				<result column="photo_path" property="photoPath" />
-				<association property="missionCertPhoto" javaType="MissionCertPhoto">
-					<result column="mission_cert_num" property="missionCertNum" />
-					<result column="photo_num" property="photoNum" />
-				</association>
-				<association property="missionPhoto" javaType="MissionPhoto">
-					<result column="mission_num" property="missionNum" />
-					<result column="photo_num" property="photoNum" />
-				</association>
-			</collection>
+			<association property="photo" javaType="Photo">
+				<id column="photo_num" property="photoNum"/>
+				<result column="photo_path" property="photoPath"/>
+			</association>
 		</collection>
 
 	</resultMap>
@@ -91,10 +83,10 @@
 		<collection property="missionPhotoList" ofType="MissionPhoto">
 			<result column="photo_num" property="photoNum" />
 			<result column="mission_num" property="missionNum" />
-			<collection property="photoList" ofType="Photo">
-				<id column="photo_num" property="photoNum" />
-				<result column="photo_path" property="photoPath" />
-			</collection>
+			<association property="photo" javaType="Photo">
+				<id column="photo_num" property="photoNum"/>
+				<result column="photo_path" property="photoPath"/>
+			</association>
 		</collection>
 	</resultMap>
 
@@ -110,10 +102,10 @@
 			<collection property="missionCertPhotoList" ofType="MissionCertPhoto">
 				<result column="photo_num" property="photoNum" />
 				<result column="mission_cert_num" property="missionCertNum" />
-				<collection property="photoList" ofType="Photo">
-					<id column="photo_num" property="photoNum" />
-					<result column="photo_path" property="photoPath" />
-				</collection>
+				<association property="photo" javaType="Photo">
+					<id column="photo_num" property="photoNum"/>
+					<result column="photo_path" property="photoPath"/>
+				</association>
 			</collection>
 		</collection>
 	</resultMap>
@@ -159,7 +151,7 @@
 		and mp.photo_num=p.photo_num(+)
 		and m.email=mm.email
 
-	</select>
+	</select> 
 
 
 	<resultMap type="MissionCert" id="mission-content-result-map">
@@ -206,6 +198,7 @@
 		where mcb.mission_num = #{value}
 		and mcb.mission_cert_num = mcp.mission_cert_num(+)
 		and mcp.photo_num = p.photo_num(+)
+		order by mcb.mission_cert_num desc
 
 	</select>
 
@@ -219,6 +212,24 @@
 		and mcp.photo_num = p.photo_num(+)
 
 	</select>
+	
+	
+	<delete id="deleteMissionCertByMissionCertNum" parameterType="_int">
+		delete from mission_cert_board
+		where mission_cert_num=#{missionCertNum}
+	</delete>
+	
+	
+	<update id="updateMissionCertByMissionCertNum" parameterType="missionCert" >
+		update mission_cert_board
+		set  title=#{title},
+			 content=#{content}
+		where mission_cert_num=#{missionCertNum}
+	</update>
+	
+	
+
+	
 
 
 

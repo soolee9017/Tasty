@@ -1,6 +1,7 @@
 package com.tasty.service;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +19,18 @@ public interface MissionService {
 	List<Mission> selectAllMission();
 	
 	
-	int updateMissionByMissionNum(Mission mission);
+	int updateMissionByMissionNum(Principal principal, 
+								  HttpServletRequest request, 
+								  List<MultipartFile>upImage, 
+								  int missionNum, String missionName, 
+								  int currentPeople, 
+								  int maxPeople, 
+								  Date startDate, 
+								  Date endDate) throws Exception;
 	
-	public int enterMissionMember(MissionMember missionMember,int missionNum);
+	int enterMissionMember(MissionMember missionMember,int missionNum);
 	
-	public int cancelMissionMember(MissionMember missionMember,int missionNum);
+	int cancelMissionMember(MissionMember missionMember,int missionNum);
 	
 	int deleteMissionByMissionNum(int missionNum);
 	
@@ -31,5 +39,6 @@ public interface MissionService {
 	Mission selectMissionByMissionNum(int missionNum);
 	
 	List<Mission> selectAllMissionList();
+	
 	
 }
