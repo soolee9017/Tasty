@@ -58,9 +58,7 @@ body{
 				<li><a
 				href='#'>내가 참여중인 미션 보기</a></li>
 			
-			<li><a
-				href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'>루트
-					작성하기</a></li>
+			
 			
 			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
 			<li><a
@@ -71,8 +69,9 @@ body{
 <br><br><br><br>
 
 
-내가 작성한 루트 페이지 
 
+<div class="row"
+	style="font-size: 20px; margin-top: 70px; width: 500px; left: 36%; position: relative;">
 <table>
 <thead>
 	<tr>
@@ -90,6 +89,6 @@ body{
 </tbody>
 
 </table>
-
+</div>
 
 

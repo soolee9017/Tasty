@@ -287,13 +287,7 @@ $(document).ready(function(){
 
 <body>
 
-<sec:authorize access="isAnonymous()">
-	<span class="loginCheck" style="display:none;">1</span>
-</sec:authorize>
-<sec:authorize access="isAuthenticated()">
-	<span class="loginCheck" style="display:none;">0</span>
-	<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
-</sec:authorize>
+
 
 <br><br><br>
 <div style="margin-top:55px;">
@@ -303,21 +297,29 @@ $(document).ready(function(){
 <h4 id="ratings"></h4>
 
 
-<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
+
+<sec:authorize access="isAnonymous()">
+	<span class="loginCheck" style="display:none;">1</span>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+	<span class="loginCheck" style="display:none;">0</span>
+	<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
+	<a href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'><button>루트 작성하기</button></a>
+</sec:authorize>	
+
 
 <br><br>
 <c:forEach items="${requestScope.listOfRoute}" var="Route">
 	<div style="border: 1px solid black;width:50%">
 	루트 이름 : ${Route.routeName}<br>
-	루트 설명 : ${Route.content}<br> 
 	
 		<c:forEach items="${Route.tempRouteList}" var="tempRoute" varStatus="cnt">
 				<c:choose>
                 <c:when test="${cnt.count == 1}">
-                ${tempRoute.orderOfStore}.${tempRoute.review.storeName}
+                ${tempRoute.orderOfStore+1}.${tempRoute.review.storeName}
                 </c:when>
                 <c:otherwise>
-                ------>${tempRoute.orderOfStore}.${tempRoute.review.storeName}
+                ------>${tempRoute.orderOfStore+1}.${tempRoute.review.storeName}
                 </c:otherwise>
                  </c:choose> 
 		</c:forEach>

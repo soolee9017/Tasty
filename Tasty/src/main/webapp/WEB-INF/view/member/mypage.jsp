@@ -121,12 +121,9 @@ body{
 				
 			<li><a
 				href='#'>내가 참여중인 미션 보기</a></li>
-			<li><a
-				href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'>루트
-					작성하기</a></li>
-			
+		
 			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
-			<li><a
+			<li><a onclick="return confirm('정말 탈퇴하시겠습니까?');"
 				href="${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>">탈퇴</a></li>
 		</ul>
 	</div>
