@@ -400,4 +400,5 @@ drop sequence route_num_seq;
 create sequence route_num_seq;
 
 
-
+ALTER TABLE review ADD(write_date date);
+ALTER TABLE route ADD(write_date date);

@@ -66,6 +66,10 @@ public class RouteDAOImpl implements RouteDAO{
 	public int deleteTempRoute(int routeNum) {
 		return session.delete(makeSqlId("deleteTempRoute"), routeNum);
 	}
+	public List<Integer> getRouteNumByEmail(String email) {
+		return session.selectList(makeSqlId("getRouteNumByEmail"),email);
+	}
+	
 	
 	
 	

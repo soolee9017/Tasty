@@ -13,4 +13,6 @@ public interface RouteService {
 	Route selectRouteByNum(int routeNum);
 	
 	int insertRoute(String routeName, String content);
+	
+	List getAllRouteByEmail(String email);
 }

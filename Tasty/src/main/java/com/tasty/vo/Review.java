@@ -1,7 +1,7 @@
 package com.tasty.vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Review implements Serializable{
@@ -17,6 +17,7 @@ public class Review implements Serializable{
 	private int downs;
 	private String posX;
 	private String posY;
+	private Date writeDate;
 	
 	private Member member;
 	private List<Menu> menuList;
@@ -65,6 +66,8 @@ public class Review implements Serializable{
 		this.posX = posX;
 		this.posY = posY;
 	}
+	
+	
 
 	public Review(int reviewNum, String address, String storeName, String email, String title, String content,
 			float ratings, int ups, int downs, String posX, String posY, Member member) {
@@ -194,6 +197,19 @@ public class Review implements Serializable{
 	public void setPosY(String posY) {
 		this.posY = posY;
 	}
+	
+	
+	
+
+	public Date getWriteDate() {
+		return writeDate;
+	}
+
+
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
+	}
+
 
 	public Member getMember() {
 		return member;
@@ -236,15 +252,13 @@ public class Review implements Serializable{
 	}
 
 
-
 	@Override
 	public String toString() {
 		return String.format(
-				"Review [reviewNum=%s, address=%s, storeName=%s, email=%s, title=%s, content=%s, ratings=%s, ups=%s, downs=%s, posX=%s, posY=%s, member=%s, menuList=%s, tempRouteList=%s, reviewPhotoList=%s]",
-				reviewNum, address, storeName, email, title, content, ratings, ups, downs, posX, posY, member, menuList,
-				tempRouteList, reviewPhotoList);
+				"Review [reviewNum=%s, address=%s, storeName=%s, email=%s, title=%s, content=%s, ratings=%s, ups=%s, downs=%s, posX=%s, posY=%s, writeDate=%s, member=%s, menuList=%s, tempRouteList=%s, reviewPhotoList=%s]",
+				reviewNum, address, storeName, email, title, content, ratings, ups, downs, posX, posY, writeDate,
+				member, menuList, tempRouteList, reviewPhotoList);
 	}
-
 
 
 	@Override
@@ -266,9 +280,9 @@ public class Review implements Serializable{
 		result = prime * result + ((tempRouteList == null) ? 0 : tempRouteList.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ups;
+		result = prime * result + ((writeDate == null) ? 0 : writeDate.hashCode());
 		return result;
 	}
-
 
 
 	@Override
@@ -343,9 +357,18 @@ public class Review implements Serializable{
 			return false;
 		if (ups != other.ups)
 			return false;
+		if (writeDate == null) {
+			if (other.writeDate != null)
+				return false;
+		} else if (!writeDate.equals(other.writeDate))
+			return false;
 		return true;
 	}
+	
 
+
+
+	
 	
 	
 	

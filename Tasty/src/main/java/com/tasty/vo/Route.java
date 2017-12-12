@@ -1,6 +1,7 @@
 package com.tasty.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class Route implements Serializable{
@@ -8,6 +9,7 @@ public class Route implements Serializable{
 	private int routeNum;
 	private String routeName;
 	private String content;
+	private Date writeDate;
 	private List<TempRoute> tempRouteList;
 	
 	public Route() {}
@@ -49,6 +51,16 @@ public class Route implements Serializable{
 		this.content = content;
 	}
 
+	
+	
+	public Date getWriteDate() {
+		return writeDate;
+	}
+
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
+	}
+
 	public List<TempRoute> getTempRouteList() {
 		return tempRouteList;
 	}
@@ -59,8 +71,8 @@ public class Route implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("Route [routeNum=%s, routeName=%s, content=%s, tempRouteList=%s]", routeNum, routeName,
-				content, tempRouteList);
+		return String.format("Route [routeNum=%s, routeName=%s, content=%s, writeDate=%s, tempRouteList=%s]", routeNum,
+				routeName, content, writeDate, tempRouteList);
 	}
 
 	@Override
@@ -71,6 +83,7 @@ public class Route implements Serializable{
 		result = prime * result + ((routeName == null) ? 0 : routeName.hashCode());
 		result = prime * result + routeNum;
 		result = prime * result + ((tempRouteList == null) ? 0 : tempRouteList.hashCode());
+		result = prime * result + ((writeDate == null) ? 0 : writeDate.hashCode());
 		return result;
 	}
 
@@ -100,8 +113,15 @@ public class Route implements Serializable{
 				return false;
 		} else if (!tempRouteList.equals(other.tempRouteList))
 			return false;
+		if (writeDate == null) {
+			if (other.writeDate != null)
+				return false;
+		} else if (!writeDate.equals(other.writeDate))
+			return false;
 		return true;
 	}
+
+	
 	
 	
 	

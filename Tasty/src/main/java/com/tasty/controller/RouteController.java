@@ -241,5 +241,13 @@ public class RouteController {
    }
    
    
+   @RequestMapping("getRouteByEmail")
+   public ModelAndView getRouteByEmail(@RequestParam String email){
+	   List routeList = routeService.getAllRouteByEmail(email);
+	   return new ModelAndView("/route/my_route_list.tiles","listOfRoute", routeList);
+	   
+   }
+   
+   
 
 }

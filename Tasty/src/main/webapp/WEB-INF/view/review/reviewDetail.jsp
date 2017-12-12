@@ -33,16 +33,20 @@
 	<h2>${requestScope.review.storeName }</h2>
 	<h3>${requestScope.review.address }</h3>
 	<br>
+	
+	
+	
 	<input id="s" name="rating" readonly="" type="text"
 		class="rating rating-loading" value="${requestScope.review.ratings}"
 		data-size="sm" title="">
-	<h4>평점 : ${requestScope.review.ratings } /5.0</h4>
-	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
 	<h4>제목: ${requestScope.review.title}</h4>
+	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
+	<h4>작성날짜: ${requestScope.review.writeDate}</h4>
 	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
 	<h4>내용: ${requestScope.review.content}</h4>
 	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
-
+	
+	
 
 	<c:forEach items="${requestScope.review.menuList }" var="menu">
 	${menu.menuName } : 
@@ -80,6 +84,10 @@
 				수정</button></a>
 	</c:if>
 </sec:authorize>
+
+<a href="${initParam.rootPath}/review/backToList.do?storeName=${requestScope.review.storeName}&posX=${requestScope.review.posX}&posY=${requestScope.review.posY}">
+<button>목록으로 돌아가기</button>
+</a>
 </div>
 
 

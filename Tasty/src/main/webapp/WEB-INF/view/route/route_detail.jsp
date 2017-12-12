@@ -23,6 +23,7 @@
 루트제목 : ${requestScope.route.routeName }<br>
 루트내용 : ${requestScope.route.content }<br>
 
+<<<<<<< HEAD
 <%-- requestScope.list 확인 : ${requestScope.list}<br> --%>
 
 <sec:authorize access="isAuthenticated()">
