@@ -24,13 +24,15 @@ html, body {
 
 .review{
 margin-top:30px;
-border: 1px solid black;
+border-radius:10px;
 width : 80%;
 height:140px;
-margin-left:100px;
+margin-left:50px;
+background-color:white;
 }
 
 .writer{
+border-radius:10px;
 border: 1px solid red;
 float : left;
 width:25%;
@@ -40,7 +42,28 @@ height:100%;
 .reviewNum{
 display:none;
 }
-
+#mtTasteBtn{
+	top:35%;
+	left:20%;
+	position:absolute;
+	z-index:10;
+	border-radius:5px;
+	border:0px;
+	height:35px;
+	background-color:#FE9A2E;
+	width:120px;
+}
+#moreBtn{
+	top:35%;
+	left:20%;
+	position:absolute;
+	z-index:11;
+	border-radius:5px;
+	border:0px;
+	height:35px;
+	background-color:#FE9A2E;
+	width:120px;
+}
 </style>
 
 <script type="text/javascript"
@@ -288,24 +311,19 @@ $(document).ready(function(){
 
 <body>
 
-<sec:authorize access="isAnonymous()">
-	<span class="loginCheck" style="display:none;">1</span>
-</sec:authorize>
-<sec:authorize access="isAuthenticated()">
-	<span class="loginCheck" style="display:none;">0</span>
-	<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
-</sec:authorize>
-
 <br><br><br>
 <div style="margin-top:55px;">
 <h2> 식당명: ${sessionScope.eateryTitle}</h2>
 <h3>식당 주소: ${sessionScope.eateryJibun}</h3>
 <h3>식당 전화번호: ${sessionScope.eateryTel }</h3>
 <h4 id="ratings"></h4>
-
-
-<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
-
+<sec:authorize access="isAnonymous()">
+	<span class="loginCheck" style="display:none;">1</span>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+	<span class="loginCheck" style="display:none;">0</span>
+	<a href="/Tasty/review/getAllTaste.do"><button type="button" class="btn btn-info">리뷰 작성하기</button></a>
+</sec:authorize>
 <br><br>
 <c:forEach items="${requestScope.listOfRoute}" var="Route">
 	<div style="border: 1px solid black;width:50%">
@@ -349,7 +367,8 @@ $(document).ready(function(){
 </table> -->
 
 
-<div id="reviews" style="overflow-x:hidden;overflow-y:auto; width:45%; height:400px;">
+<div id="reviews" style="overflow-x:hidden;overflow-y:auto; width:45%; height:400px;background-color:#D8D8D8;">
+
 </div>
 <div id="routeReviews" style="overflow-x:hidden;overflow-y:auto;width:45%;">
 
