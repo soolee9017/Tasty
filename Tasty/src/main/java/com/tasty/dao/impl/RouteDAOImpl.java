@@ -53,9 +53,33 @@ public class RouteDAOImpl implements RouteDAO{
 	}
 
 	@Override
-	public List<Integer> getRouteNumByEmail(String email) {
-		return session.selectList(makeSqlId("getRouteNumByEmail"),email);
+	public int updateRoute(Route route) {
+		return session.update(makeSqlId("updateRoute"), route);
 	}
+
+	@Override
+	public int updateTempRoute(TempRoute tempRoute) {
+		return session.update(makeSqlId("updateTempRoute"), tempRoute);
+	}
+
+	@Override
+	public int deleteTempRoute(int routeNum) {
+		return session.delete(makeSqlId("deleteTempRoute"), routeNum);
+	}
+	public List<Integer> getRouteNumByEmail(String email, int begin, int end) {
+		Map map = new HashMap<>();
+		map.put("email", email);
+		map.put("begin", begin);
+		map.put("end",end);
+		
+		return session.selectList(makeSqlId("getRouteNumByEmail"),map);
+	}
+
+	@Override
+	public int selectRouteCount(String email) {
+		return session.selectOne(makeSqlId("selectRouteCount"),email);
+	}
+
 	
 	
 	

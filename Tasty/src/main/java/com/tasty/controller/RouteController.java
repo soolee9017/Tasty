@@ -1,9 +1,17 @@
 package com.tasty.controller;
 
+import java.security.Principal;
+import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +25,7 @@ import com.tasty.dao.ReviewDAO;
 import com.tasty.dao.RouteDAO;
 import com.tasty.service.ReviewService;
 import com.tasty.service.RouteService;
+import com.tasty.vo.Member;
 import com.tasty.vo.Review;
 import com.tasty.vo.Route;
 import com.tasty.vo.TempRoute;
@@ -38,7 +47,8 @@ public class RouteController {
    RouteService routeService;
    
    @RequestMapping("getXYByEmail")
-   public ModelAndView getXYByEmail(@RequestParam String email){
+   public ModelAndView getXYByEmail(HttpServletRequest request, @RequestParam String email, ModelMap model){
+	   
 	  String errorMessage = "작성한 리뷰가 한개거나 없습니다.";
       List<Review> list = reviewDao.selectAllReviewByEmail(email);
       if(list.isEmpty() || list.size() == 1) {
@@ -87,8 +97,61 @@ public class RouteController {
    }
    
    @RequestMapping("insertRoute")
-   public ModelAndView insertRoute(@RequestParam String reviewNum, @RequestParam String storeName,
+   public ModelAndView insertRoute(Principal principal, HttpServletRequest request, @RequestParam String reviewNum, @RequestParam String storeName,
 		   @RequestParam String routeName, @RequestParam String content, ModelMap model) {
+	   
+	   System.out.println("insertRoute controller.");
+	   System.out.println(request.getParameter("routeNum"));
+	   //route update (delete -> 새로 insert)
+	   if(request.getParameter("routeNum") != null) {
+		   String num1 = (String)request.getParameter("routeNum");
+		   int routeNum = Integer.parseInt(num1);
+		   routeDao.updateRoute(new Route(routeNum, routeName, content));
+		   System.out.println("routeNum delete?");
+		   routeDao.deleteTempRoute(routeNum);
+		   
+		   //temp_route 다시 넣기
+		   String[] arr = reviewNum.split(",");
+		   int num = 0;
+		   
+		   int number = routeService.insertRoute(routeName, content);
+		   for(int i =0; i<arr.length; i++) {
+			   num = Integer.parseInt(arr[i]);
+			   routeDao.updateTempRoute(new TempRoute(routeNum,num,i));
+		   }
+		   
+		   Route route = routeService.selectRouteByNum(routeNum);
+		   
+		   List bigList = new ArrayList<>();
+		   
+		   for(TempRoute tr : route.getTempRouteList()) {
+			   List smallList = new ArrayList<>();
+			   smallList.add(tr.getReviewNum());
+			   smallList.add(tr.getReview().getStoreName());
+			   smallList.add(tr.getReview().getPosX());
+			   smallList.add(tr.getReview().getPosY());
+			   bigList.add(smallList);
+		   }
+		   
+		   ObjectMapper om = new ObjectMapper();
+		      String str = null;
+		      try {
+		         str = om.writeValueAsString(bigList);
+		      } catch (JsonProcessingException e) {
+		         e.printStackTrace();
+		      }
+		   
+		   model.addAttribute("route",route);
+		   model.addAttribute("list",str);
+		   return new ModelAndView("route/route_detail.tiles");
+		   
+	   
+	   }
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member= (Member)authentication.getPrincipal();
+
+		request.setAttribute("email", member.getEmail());
+	   
 	   String[] arr = reviewNum.split(",");
 	   int num = 0;
 	   
@@ -127,6 +190,7 @@ public class RouteController {
    @RequestMapping("getRouteByNum")
    public ModelAndView getRouteByNum(@RequestParam int number, ModelMap model) {
 	   
+
 	   Route route = routeService.selectRouteByNum(number);
 	   
 	   List bigList = new ArrayList<>();
@@ -180,10 +244,21 @@ public class RouteController {
    
    
    @RequestMapping("getRouteByEmail")
-   public ModelAndView getRouteByEmail(@RequestParam String email){
-	   List routeList = routeService.getAllRouteByEmail(email);
-	   return new ModelAndView("/member/my_route_list.tiles","listOfRoute", routeList);
+   public ModelAndView getRouteByEmail(HttpServletRequest request, @RequestParam String email){
+	   SecurityContext context = SecurityContextHolder.getContext();
+	   Authentication authentication = context.getAuthentication();
+	   String email2 = (String)((Member)authentication.getPrincipal()).getEmail();
 	   
+	   int page = 1;
+		  try {
+			  page = Integer.parseInt(request.getParameter("page"));
+		  }catch(NumberFormatException e) {}
+		  Map<String, Object> map = routeService.getAllRouteByEmail(email2, page);
+
+		  
+		  request.setAttribute("email", email2);
+	   return new ModelAndView("/route/my_route_list.tiles","map",map);
+ 
    }
    
    
