@@ -7,6 +7,47 @@
 <title>Insert title here</title>
 </head>
 <style>
+a:link {
+	/*방문하지 않은 링크 설정.*/
+	text-decoration: none; /*밑줄 안나오도록 처리.*/
+}
+
+a:visited {
+	/*방문한 링크 설정*/
+	text-decoration: none;
+}
+
+a:hover {
+	/*마우스 포인터가 올라간 시점의 설정.*/
+	text-decoration: underline;
+}
+
+a:active {
+	/*마우스를 링크에 클릭하는 시점*/
+	color: blue;
+}
+
+table, td, th {
+	border: 1px solid gray;
+}
+
+table {
+	left:31%;
+	position:relative; 
+	margin-top : 100px;
+	border-collapse: collapse;
+	width: 500px;
+	margin-top: 50px;
+}
+
+td, th {
+	padding: 10px;
+}
+
+
+</style>
+
+<style>
 body{
 	background-color:rgb(235,235,235);
 }
@@ -71,8 +112,6 @@ body{
 
 
 
-<div class="row"
-	style="font-size: 20px; margin-top: 70px; width: 500px; left: 36%; position: relative;">
 <table>
 <thead>
 	<tr>
@@ -157,7 +196,6 @@ body{
 	</p>
 
 </table>
-</div>
 </body>
 
 
