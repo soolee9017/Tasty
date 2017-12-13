@@ -286,12 +286,10 @@ public class RouteController {
 		  }catch(NumberFormatException e) {}
 		  Map<String, Object> map = routeService.getAllRouteByEmail(email2, page);
 
-		  
 		  request.setAttribute("email", email2);
 	   return new ModelAndView("/member/my_route_list.tiles","map",map);
  
    }
-   
    
 
 }

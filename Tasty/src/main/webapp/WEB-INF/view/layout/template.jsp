@@ -52,7 +52,7 @@ section header h1 {
 .foots {
 	padding-top:30px;
 	background-color:#8c8c8c;
-	bottom: 0%;
+	bottom: -20%;
 	width: 100%;
 	height: 14.7%;
 	position:absolute;
