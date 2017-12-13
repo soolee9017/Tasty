@@ -24,7 +24,6 @@
 		String email = ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
 		pageContext.setAttribute("email", email);
 	%>
-
 	<c:if test="${requestScope.route.tempRouteList[0].review.member.email == email}">
 		<a style="margin-right:50px; margin-left:50px;" href="${initParam.rootPath}/route/getXYByEmail.do?routeNum=${requestScope.route.routeNum}&email=${requestScope.email}"><button class="btn btn-primary">내용
 				수정</button></a>
