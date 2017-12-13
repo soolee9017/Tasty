@@ -36,7 +36,7 @@
 	<c:if test="${requestScope.route.tempRouteList[0].review.member.email == email}">
 		<a href="${initParam.rootPath}/route/getXYByEmail.do?routeNum=${requestScope.route.routeNum}&email=${requestScope.email}"><button>내용
 				수정</button></a>
-			<a href="#">
+			<a href="${initParam.rootPath}/route/deleteRoute.do?routeNum=${requestScope.route.routeNum}">
 		<button onclick="return confirm('정말 삭제하시겠습니까?');">루트 삭제</button></a>
 	</c:if>
 </sec:authorize>

@@ -291,5 +291,12 @@ public class RouteController {
  
    }
    
+   @RequestMapping("deleteRoute")
+   public ModelAndView deleteRoute(@RequestParam String routeNum) {
+	   int num = Integer.parseInt(routeNum);
+	   routeService.deleteTempAndRoute(num);
+	   return new ModelAndView("member/mypage.tiles");
+   }
+   
 
 }

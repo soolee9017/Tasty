@@ -66,6 +66,12 @@ public class RouteDAOImpl implements RouteDAO{
 	public int deleteTempRoute(int routeNum) {
 		return session.delete(makeSqlId("deleteTempRoute"), routeNum);
 	}
+	
+	@Override
+	public int deleteRoute(int routeNum) {
+		return session.delete(makeSqlId("deleteRoute"), routeNum);
+	}
+	
 	public List<Integer> getRouteNumByEmail(String email, int begin, int end) {
 		Map map = new HashMap<>();
 		map.put("email", email);
