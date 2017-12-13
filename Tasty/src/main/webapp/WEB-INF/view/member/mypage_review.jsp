@@ -109,8 +109,8 @@ body{
 			
 			
 			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
-			<li><a
-				href='${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>'>탈퇴</a></li>
+			<li><a onclick="return confirm('정말 탈퇴하시겠습니까?');"
+				href="${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>">탈퇴</a></li>
 		</ul>
 	</div>
 </div>
