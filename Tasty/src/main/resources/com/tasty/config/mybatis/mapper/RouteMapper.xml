@@ -107,7 +107,7 @@
 		
 		select r.route_num
 		from route r, temp_route tr, review rv 
-		where rv.email = 'q'
+		where rv.email = #{email}
 		and r.route_num = tr.route_num
 		and tr.review_num = rv.review_num
 		
