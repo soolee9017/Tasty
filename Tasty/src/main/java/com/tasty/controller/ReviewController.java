@@ -49,7 +49,6 @@ public class ReviewController {
    @ResponseBody
    public List<Review> getAllReviewByAddress(@RequestParam String address){
       List<Review> list = reviewService.selectAllReviewAndMemberByAddress(address);
-      System.out.println(list);
       return list;
    }
    
@@ -68,7 +67,6 @@ public class ReviewController {
     public List<Review> getReviewByAddress2(@RequestParam String address){
      	
        List<Review> list = reviewService.selectAllReviewAndMemberByAddress(address);
-       System.out.println(list);
        return list;
     }
     
@@ -90,10 +88,17 @@ public class ReviewController {
   
   @RequestMapping("selectReviewByNum")
   public ModelAndView selectReview(@RequestParam String reviewNum) {
-	  System.out.println("컨트롤러에 넘어온 파라미터 값 : "+reviewNum);
 	 int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
 	  return new ModelAndView("review","review",review);
+}
+  
+  
+  @RequestMapping("selectReviewByNum2")
+  public ModelAndView selectReview2(@RequestParam String reviewNum) {
+	 int number=Integer.parseInt(reviewNum);
+	  Review review = reviewService.selectReviewByNum(number);
+	  return new ModelAndView("review2","review",review);
 }
   
   

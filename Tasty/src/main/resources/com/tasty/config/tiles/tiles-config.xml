@@ -17,6 +17,10 @@
 		<put-attribute name="headers" value="/WEB-INF/view/layout/header.jsp"/>
 	</definition>
 	
+	<definition name="review2" template="/WEB-INF/view/member/my_page_reviewDetail.jsp">
+		<put-attribute name="headers" value="/WEB-INF/view/layout/header.jsp"/>
+	</definition>
+	
 	<definition name="route" template="/WEB-INF/view/route/route_select.jsp">
 		<put-attribute name="headers" value="/WEB-INF/view/layout/header.jsp"/>
 	</definition>

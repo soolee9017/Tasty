@@ -109,8 +109,8 @@ body{
 			
 			
 			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
-			<li><a
-				href='${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>'>탈퇴</a></li>
+			<li><a onclick="return confirm('정말 탈퇴하시겠습니까?');"
+				href="${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>">탈퇴</a></li>
 		</ul>
 	</div>
 </div>
@@ -132,7 +132,7 @@ body{
 				<tr>
 					<td>${item.reviewNum}</td>
 					<td><a
-						href="${initParam.rootPath}/review/selectReviewByNum.do?reviewNum=${item.reviewNum}">${item.title}</a></td>
+						href="${initParam.rootPath}/review/selectReviewByNum2.do?reviewNum=${item.reviewNum}">${item.title}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
