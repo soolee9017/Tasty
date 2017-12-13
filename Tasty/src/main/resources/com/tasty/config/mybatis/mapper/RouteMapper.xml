@@ -91,7 +91,7 @@
 			and tr.review_num = rv.review_num
 			
 			)
-			order by route_num asc
+			order by route_num desc
 			) 
 		where rownum <= #{end}
 		)
