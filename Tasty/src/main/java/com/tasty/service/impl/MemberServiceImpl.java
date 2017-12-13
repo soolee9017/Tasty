@@ -46,18 +46,18 @@ public class MemberServiceImpl implements MemberService{
 	
 
 	@Override
-	public void removeMemberByEmail(String email) {
-		memberDao.deleteMemberByEmail(email);
+	public int removeMemberByEmail(String email) {
+		return memberDao.deleteMemberByEmail(email);
 	}
 
 	@Override
-	public void removeAuthorityByEmail(String email) {
-		memberDao.deleteAuthorityByEmail(email);
+	public int removeAuthorityByEmail(String email) {
+		return memberDao.deleteAuthorityByEmail(email);
 	}
 	
 	@Override
-	public void removeMemberTasteByEmail(String email) {
-		memberDao.deleteMemberTasteByEmail(email);
+	public int removeMemberTasteByEmail(String email) {
+		return memberDao.deleteMemberTasteByEmail(email);
 	}
 	
 	@Override
