@@ -6,6 +6,7 @@
 
 -------------------------------------1.회원------------------------------
 
+
 INSERT INTO MEMBER VALUES ('aaa@aaa.com', 'aaa', 'a1', 'aaa', '000-0000-0000', 'f', '11', '1');
 INSERT INTO MEMBER VALUES ('bbb@bbb.com', 'bbb', 'b2', 'bbb', '111-1111-1111', 'm', '22', '2');
 INSERT INTO MEMBER VALUES ('ccc@ccc.com', 'ccc', 'c3', 'ccc', '222-2222-2222', 'f', '33', '3');
@@ -97,18 +98,15 @@ select * from users;
 select * from AUTHORITy;
 
 <<<<<<< HEAD
-insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN');
 =======
+insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN');
 insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN')
->>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
       
 insert into AUTHORITY VALUES('z', 'ROLE_ADMIN');
 
-<<<<<<< HEAD
 insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN');
-=======
->>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
      
+>>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
 
 ------------------------------ 2.입맛-------------------------------------------------------------
 
@@ -415,9 +413,9 @@ ALTER TABLE MENU_TASTE
       )
       REFERENCES ALL_TASTE ( -- 맛 + 정도
          td_num -- 맛정도 번호
-      )
+      ) ON DELETE SET NULL
        
-       ;
+;
 
 -- 메뉴의 맛
 ALTER TABLE MENU_TASTE
@@ -465,6 +463,7 @@ INSERT INTO TASTE VALUES (taste_seq.nextval,'쓴');
 INSERT INTO TASTE VALUES (taste_seq.nextval,'싱거운');
 INSERT INTO TASTE VALUES (taste_seq.nextval,'완벽한');
 
+INSERT INTO DEGREE VALUES (0,0);
 INSERT INTO DEGREE VALUES (degree_seq.nextval,'1');
 INSERT INTO DEGREE VALUES (degree_seq.nextval,'2');   
 INSERT INTO DEGREE VALUES (degree_seq.nextval,'3');
@@ -477,5 +476,4 @@ drop sequence td_num_seq;
 create sequence review_num_seq;
 create sequence menu_num_seq;
 create sequence td_num_seq;
-
       

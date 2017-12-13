@@ -25,8 +25,16 @@ insert into review_photo values (photo_num_seq.currval, #{value})
 	insert into mission_photo values(mission_admin_seq.currval,photo_num_seq.currval)
 </insert>
 
+<insert id="insertMissionPhoto2">
+	insert into mission_photo values(#{value}, photo_num_seq.currval)
+</insert>
+
 <insert id="insertMissionCertPhoto">
 	insert into mission_cert_photo values(photo_num_seq.currval,mission_cert_board_seq.currval)
+</insert>
+
+<insert id="insertMissionCertPhoto2">
+	insert into mission_cert_photo values(photo_num_seq.currval,#{value})
 </insert>
 
 
@@ -36,6 +44,15 @@ insert into review_photo values (photo_num_seq.currval, #{value})
 
 <delete id="deleteReviewPhoto" parameterType="int">
 	delete from review_photo where photo_num = #{value}
+</delete>
+
+
+<delete id="deleteMissionPhoto" parameterType="int">
+	delete from mission_photo where photo_num = #{value}
+</delete>
+
+<delete id="deleteMissionCertPhoto" parameterType="int">
+	delete from mission_cert_photo where photo_num = #{value}
 </delete>
 
 

@@ -17,6 +17,13 @@ public interface RouteDAO {
 
 	List<Integer> selectRouteNum();
 	
-	List<Integer> getRouteNumByEmail(String email);
+	int updateRoute(Route route);
+	
+	int deleteTempRoute(int routeNum);
+	
+	int updateTempRoute(TempRoute tempRoute);
+	
+	List<Integer> getRouteNumByEmail(String email, int begin, int end);
 
+	int selectRouteCount(String email);
 }

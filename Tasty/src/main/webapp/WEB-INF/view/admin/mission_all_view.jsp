@@ -16,7 +16,6 @@
 <fmt:formatDate var="stD" pattern = "yyyy-MM-dd" value = "${missions.startDate }" />
 <fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${missions.endDate }" />
 
-미션번호 : ${missions.missionNum}<br>
 미션이름 : ${missions.missionName }<br>
 참여인원 : ${missions.currentPeople }/${missions.maxPeople }<br>
 기간 : ${stD} ~ ${eD}<br>

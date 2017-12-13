@@ -31,6 +31,7 @@ public interface MissionDAO {
 	Mission selectMissionByMissionNum(int missionNum);
 	
 	List<Mission> selectAllMissionList();
+
 	
 }
 

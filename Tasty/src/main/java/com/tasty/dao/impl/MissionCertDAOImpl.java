@@ -1,6 +1,7 @@
 package com.tasty.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class MissionCertDAOImpl implements MissionCertDAO{
 	}
 
 	@Override
-	public int updateMissionCertByMissionCertNum(int missionCertNum) {
-		return session.update(makeSqlId("updateMissionCertByMissionCertNum"),missionCertNum);
+	public int updateMissionCertByMissionCertNum(Map map) {
+		return session.update(makeSqlId("updateMissionCertByMissionCertNum"),map);
 	}
 
 	@Override
