@@ -68,7 +68,7 @@ td{
 				<th>인증 여부</th>
 				<th>선호하는 맛</th>
 				<th><form action="${initParam.rootPath }/admin/member_management.do" method='get'>
-				<button type="submit" class="btn btn-info">돌아가기</button>
+				<button type="submit" class="btn btn-info" style="margin-bottom:10px;">돌아가기</button>
 				</form>
 				</th>
 			</tr>
