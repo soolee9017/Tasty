@@ -37,6 +37,7 @@ function button_event(){
 	<img src="${initParam.rootPath }/photos/missionCert/${missionCertPhoto.photo.photoPath}" width="300px">
 </c:forEach>
 
+
 <!-- 인증글 수정하기랑 삭제하기에 if 문으로 조건걸기(로그인한사람이거나, admin이 접근하면 버튼 보여주는것으로 -->
 <form action="${initParam.rootPath }/missionCert/moveToModifyMisCert.do" method="get">
 	<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum}">
