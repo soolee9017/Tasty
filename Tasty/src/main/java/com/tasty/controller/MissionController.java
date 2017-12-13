@@ -1,8 +1,11 @@
 package com.tasty.controller;
 
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tasty.dao.MemberDAO;
+import com.tasty.dao.PhotoDAO;
 import com.tasty.service.MissionCertService;
 import com.tasty.service.MissionService;
 import com.tasty.vo.Authority;
@@ -42,6 +46,10 @@ public class MissionController {
 	MissionCertService mcService;
 	
 	
+	@Autowired
+	PhotoDAO photoDao;
+	
+	
 	
 	@RequestMapping("getMissonByMissionNum")
 	public ModelAndView registerMission(@ModelAttribute Mission mission, HttpServletRequest request){
@@ -62,31 +70,33 @@ public class MissionController {
 		}
 		
 	}
-	
 	@RequestMapping("removeMissionByMissionNum")
-	public ModelAndView deleteMissionByMissionNum(@RequestParam int missionNum) {
-		service.deleteMissionByMissionNum(missionNum);
+	public ModelAndView deleteMissionByMissionNum(Principal principal, 
+			HttpServletRequest request,@RequestParam String missionNum) {
+		int num = Integer.parseInt(missionNum);
+		service.deleteMissionByMissionNum(principal, request, num);
 		return new ModelAndView("redirect:/mission/getAllMission.do");//미션 삭제후 원래 모든 미션을 보여주는 목록페이지로 돌아온다.
 	}
+
 	
-	
-	@RequestMapping(value="modifyMission"/*, method=RequestMethod.POST*/)
+	@RequestMapping(value="modifyMission", method=RequestMethod.POST)
 	public ModelAndView updateMissionByMissionNum(Principal principal, 
-												HttpServletRequest request,  
-												Mission mission, 
-												@RequestParam List<MultipartFile> upImage,
-												@RequestParam int missionNum,
-												@RequestParam String missionName,
-												@RequestParam String missionContent,
-												@RequestParam int currentPeople,
-												@RequestParam int maxPeople,
-												@RequestParam Date startDate,
-												@RequestParam Date endDate
-												) throws Exception {
-	
-		System.out.println(missionNum);
-		service.updateMissionByMissionNum(principal, request, upImage, missionNum, missionName, currentPeople, maxPeople, startDate, endDate);
-		return new ModelAndView("redirect:/mission/getAllMission.do");
+		HttpServletRequest request,  
+		@RequestParam int missionNum,
+		@RequestParam String missionName,
+		@RequestParam String missionContent,
+		@RequestParam int currentPeople,
+		@RequestParam int maxPeople,
+		@RequestParam String startDate,
+		@RequestParam String endDate,
+		@RequestParam List<MultipartFile> upImage) throws Exception {
+		
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date sdate = format.parse(startDate);
+		Date edate = format.parse(endDate);
+		service.updateMissionByMissionNum(principal, request, upImage, missionNum, missionName, missionContent, currentPeople, maxPeople, sdate, edate);
+		
+		return new ModelAndView("redirect:/missionCert/getMissionCertByMN.do?missionNum="+missionNum);
 	}
 	/*@RequestMapping(value="modifyMission", method=RequestMethod.POST)
 	public ModelAndView updateMissionByMissionNum(@ModelAttribute Mission mission, HttpServletRequest request , @RequestParam List<MultipartFile> upImage) throws Exception {
@@ -158,6 +168,13 @@ public class MissionController {
 		return new ModelAndView("admin/modify_mission.tiles","mission",mission);
 	}
 	
+	
+	
+	@RequestMapping("deleteMissionPhoto")
+	public ModelAndView deleteMissionPhoto(@RequestParam int photoNumber, @RequestParam int missionNum) {
+		photoDao.deleteMissionPhoto(photoNumber);
+		return new ModelAndView("redirect:/missionCert/getMissionCertByMN.do?missionNum="+missionNum);
+	}
 	
 	
 

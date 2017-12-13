@@ -34,17 +34,17 @@ function button_event(){
 사진 : 
 <br><br><br>
 <c:forEach items="${requestScope.missionCert.missionCertPhotoList}" var="missionCertPhoto">
-	<img src="${initParam.rootPath }/photos/missionCert/${missionCertPhoto.photo.photoPath }" width="300px">
+	<img src="${initParam.rootPath }/photos/missionCert/${missionCertPhoto.photo.photoPath}" width="300px">
 </c:forEach>
 
-
+<!-- 인증글 수정하기랑 삭제하기에 if 문으로 조건걸기(로그인한사람이거나, admin이 접근하면 버튼 보여주는것으로 -->
 <form action="${initParam.rootPath }/missionCert/moveToModifyMisCert.do" method="get">
-	<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum }">
+	<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum}">
 	<button type="submit" id="modMisCBtn">미션 인증글 수정하기</button>
 </form>
 
 <form id="remMisCForm" action="${initParam.rootPath }/missionCert/removeMissionCertByMCN.do" method="get">
-	<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum }">
+	<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum}">
 	<button type="button" id="remMisCBtn" onclick="button_event()">삭제하기</button>
 </form>
 <button type="submit" onclick="window.location.href='getMissionCertByMN.do?missionNum=${requestScope.missionCert.missionNum}'">미션상세페이지로 돌아기</button>
