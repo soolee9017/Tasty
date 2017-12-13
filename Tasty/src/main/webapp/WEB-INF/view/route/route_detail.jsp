@@ -11,20 +11,12 @@
 </head>
 
 <body>
-
-
-
-<br><br><br><br>
-
-
-
-
+<div style="margin-top:50px;width:100%;">
 <h1>Route 상세정보</h1>
-루트제목 : ${requestScope.route.routeName }<br>
-루트내용 : ${requestScope.route.content }<br>
 
-<a href="${initParam.rootPath}/review/backToList.do?storeName=${sessionScope.eateryTitle}&posX=${sessionScope.lng}&posY=${sessionScope.lat}">
-<button>목록으로 돌아가기</button>
+
+<a style="float:right;position:absolute;left:85%;" href="${initParam.rootPath}/review/backToList.do?storeName=${sessionScope.eateryTitle}&posX=${sessionScope.lng}&posY=${sessionScope.lat}">
+<button class="btn btn-info" style="margin-bottom:20px;">목록으로 돌아가기</button><br>
 </a>
 
 <sec:authorize access="isAuthenticated()">
@@ -34,24 +26,29 @@
 	%>
 
 	<c:if test="${requestScope.route.tempRouteList[0].review.member.email == email}">
-		<a href="${initParam.rootPath}/route/getXYByEmail.do?routeNum=${requestScope.route.routeNum}&email=${requestScope.email}"><button>내용
+		<a style="margin-right:50px; margin-left:50px;" href="${initParam.rootPath}/route/getXYByEmail.do?routeNum=${requestScope.route.routeNum}&email=${requestScope.email}"><button class="btn btn-primary">내용
 				수정</button></a>
 			<a href="#">
-		<button onclick="return confirm('정말 삭제하시겠습니까?');">루트 삭제</button></a>
+		<button onclick="return confirm('정말 삭제하시겠습니까?');" class="btn btn-danger">루트 삭제</button></a>
 	</c:if>
 </sec:authorize>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 <a href="#">
-<button onclick="return confirm('정말 삭제하시겠습니까?');">루트 삭제</button></a>
+<button onclick="return confirm('정말 삭제하시겠습니까?');" class="btn btn-danger">루트 삭제</button></a>
 </sec:authorize>
 
-
+<div style="width:100%;">
 <div id="map"
-      style="width: 1000px; height: 700px; margin-top: 50px;"></div>
+      style="width: 75%; height: 500px; margin-top: 50px; float:left;"></div>
 
-
-
+</div>
+<div style="width:25%;float:right;margin-top:30px;">
+	<h2>${requestScope.route.routeName }</h2>
+	<p style="width:100%;height:1px;background-color:black;"></p>
+	<h4>${requestScope.route.content }</h4>
+</div>
+</div>
 
 
  <script type="text/javascript"

@@ -87,10 +87,17 @@ function imgSearch() {
 }
 function errorCheck(){
 	var error = '${requestScope.errorMessage}';
+	var message = '${requestScope.message}';
 	if(!error){
 		
 	}else{
 		swal("",error,"error")
+	}
+	
+	if(!message){
+		
+	}else{
+		swal("",message,"success")
 	}
 }
 </script>
