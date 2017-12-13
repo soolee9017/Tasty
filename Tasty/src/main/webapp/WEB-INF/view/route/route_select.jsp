@@ -95,8 +95,8 @@ html, body {
     			<input type="hidden" name="routeNum" value="${requestScope.routeNum }" />
     			</c:if>    
                <div style="position:absolute; z-index:10; left:3%;top:74%;height:100px;">
-                  <span>루트 제목 :  <input id="routeName" type="text" required="required" name="routeName"></span><br><br>
-                  <textarea id="content" rows="6" cols="70" required="required" name="content"></textarea>
+                  <span>루트 제목 :  <input id="routeName" type="text" required="required" name="routeName" size="88"></span><br><br>
+                  <textarea id="content" rows="6" cols="100" required="required" name="content"></textarea>
                </div>
             </form>
          </div>

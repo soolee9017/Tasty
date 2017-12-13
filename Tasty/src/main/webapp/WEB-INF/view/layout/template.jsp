@@ -43,7 +43,7 @@ section header h1 {
 .back {
 	background-color: rgba(0, 0, 0, 0.3);
 	width: 100%;
-	height: 78.4%;
+	height: 77.8%;
 	margin-top: 49.5px;
 	z-index: 2;
 	position: absolute;
@@ -52,7 +52,7 @@ section header h1 {
 .foots {
 	background-color:#8c8c8c;
 	padding-top:40px;
-	bottom:0%;
+	bottom: -20%;
 	width: 100%;
 	height: 14.8%;
 	position:absolute;

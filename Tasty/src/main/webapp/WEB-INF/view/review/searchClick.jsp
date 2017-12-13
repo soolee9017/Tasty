@@ -356,8 +356,8 @@ $(document).ready(function(){
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
 	<span class="loginCheck" style="display:none;">0</span>
-	<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
-	<a id="writeRoute" href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'><button>루트 작성하기</button></a>
+	<a href="/Tasty/review/getAllTaste.do"><button type="button" class="btn btn-primary">리뷰 작성하기</button></a>
+	<a id="writeRoute" href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'><button class="btn btn-default">루트 작성하기</button></a>
 </sec:authorize>	
 <br><br>
 <p>
@@ -389,7 +389,7 @@ $(document).ready(function(){
 <div id="routeReviews" style="overflow-x:hidden;overflow-y:auto;width:45%; height:400px;background-color:#D8D8D8;float:right;margin-top:70px;">
 	<c:forEach items="${requestScope.listOfRoute}" var="Route">
 	<div class="center-block" style="border-radius:5px; box-shadow:5px 5px grey; height:120px; width:80%;margin-top:30px;background-color:white;">
-	<h4>${Route.routeName}</h4><br>
+	<h4 style="padding-top:10px;">${Route.routeName}</h4><br>
 	
 		<c:forEach items="${Route.tempRouteList}" var="tempRoute" varStatus="cnt">
 				<c:choose>
@@ -401,7 +401,7 @@ $(document).ready(function(){
                 </c:otherwise>
                  </c:choose> 
 		</c:forEach>
-	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button style="border:1px #6495ED solid; margin-top:10px;
+	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button style="border:1px #6495ED solid; margin-top:2px;
 border-radius:10px;" class="btn btn-info">루트 상 세보기</button></a>
 	</div>
 </c:forEach>
