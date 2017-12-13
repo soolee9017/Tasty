@@ -220,11 +220,12 @@
 	</delete>
 	
 	
-	<update id="updateMissionCertByMissionCertNum" parameterType="missionCert" >
-		update mission_cert_board
-		set  title=#{title},
-			 content=#{content}
-		where mission_cert_num=#{missionCertNum}
+	<update id="updateMissionCertByMissionCertNum" parameterType="map" >
+		UPDATE mission_cert_board
+		SET  title=#{title},
+			 content=#{content},
+			 mission_num=#{missionNum}
+		WHERE mission_cert_num=#{missionCertNum}
 	</update>
 	
 	

@@ -30,6 +30,11 @@ public class PhotoDAOImpl implements PhotoDAO{
 	public int insertMissionPhoto() {
 		return session.insert(makeSqlId("insertMissionPhoto"));
 	}
+	
+	@Override
+	public int insertMissionPhoto(int missionNumber) {
+		return session.insert(makeSqlId("insertMissionPhoto2"),missionNumber);
+	}
 
 	@Override
 	public int deletePhoto(int number) {
@@ -50,6 +55,23 @@ public class PhotoDAOImpl implements PhotoDAO{
 	public int insertMissionCertPhoto() {
 		return session.insert(makeSqlId("insertMissionCertPhoto"));
 	}
+
+	@Override
+	public int deleteMissionPhoto(int photoNumber) {
+		return session.delete(makeSqlId("deleteMissionPhoto"),photoNumber);
+	}
+
+	@Override
+	public int deleteMissionCertPhoto(int photoNumber) {
+		return session.delete(makeSqlId("deleteMissionCertPhoto"),photoNumber);
+	}
+
+	@Override
+	public int insertMissionCertPhoto(int missionCertNumber) {
+		return session.insert(makeSqlId("insertMissionCertPhoto2"),missionCertNumber);
+	}
+	
+	
 	
 	
 
