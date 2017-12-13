@@ -18,6 +18,14 @@ public interface PhotoDAO {
 	int insertReviewPhotoWithRn(int number);
 	
 	int insertMissionCertPhoto();
+
+	int insertMissionPhoto(int missionNumber);
+	
+	int deleteMissionPhoto(int photoNumber);
+	
+	int insertMissionCertPhoto(int missionCertNumber);
+	
+	int deleteMissionCertPhoto(int photoNumber);
 	
 }
 
