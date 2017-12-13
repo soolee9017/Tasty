@@ -20,6 +20,7 @@
 루트제목 : ${requestScope.route.routeName }<br>
 루트내용 : ${requestScope.route.content }<br>
 
+ <button>뒤로 돌아가기</button>
 
 
 <div id="map"
@@ -121,6 +122,9 @@
       map.setBounds(bounds);
       manager.put(daum.maps.drawing.OverlayType.POLYLINE, points);
    </script>
+   
+   
+  
 
 </body>
 </html>
