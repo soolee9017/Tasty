@@ -6,7 +6,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,18 +23,22 @@
 <script type="text/javascript"
 	src="${initParam.rootPath}/resource/bootstrap/js/star-rating.js"></script>
 <style type="text/css">
+*{
+	text-decoration:none;
+	list-style:none;
+}
 .item{
 	width:100%;
-	height:300px;
+	height:600px;
 }
 .slideImg{
 	width:100%;
-	height:300px;
+	height:auto;
 
 }
 </style>
 </head>
-<body>
+<body style=" background-color:#dcdcdc;">
 
 	<header class="row">
 		<tiles:insertAttribute name="headers" ignore="true"/>
@@ -49,28 +53,38 @@
 	<input id="s" name="rating" readonly="" type="text"
 		class="rating rating-loading" value="${requestScope.review.ratings}"
 		data-size="sm" title="">
-	<h4>제목: ${requestScope.review.title}</h4>
-	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
+	<h2>${requestScope.review.title}</h2>
+	<p style="width:100%;height:1px;background-color:#000;position:relative;"></p>
 	<h4>작성날짜: ${requestScope.review.writeDate}</h4>
-	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
-	<h4>내용: ${requestScope.review.content}</h4>
-	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
+	<p style="width:100%;height:1px;background-color:#000;position:relative;"></p>
+	<h3>${requestScope.review.content}</h3>
+	<p style="width:100%;height:1px;background-color:#000;position:relative;"></p>
 	
-	
-
+	<div style="height:150px; width:100%; overflow-x:auto; ">
+	<ul>
 	<c:forEach items="${requestScope.review.menuList }" var="menu">
-	${menu.menuName } : 
-	
-	<c:forEach items="${menu.mtList }" var="menuTaste">
-		${menuTaste.allTaste.taste.tasteName}맛 ${menuTaste.allTaste.degree.degree} 단계,
-	</c:forEach>
+	<li style="float:left;"><h2 style="color:#CD2E57; width:120px;">${menu.menuName }</h2>
+	<c:forEach items="${menu.mtList }" var="menuTaste" varStatus="cnt"> 
+		<c:choose>
+			<c:when test="${menuTaste.allTaste.taste.tasteName eq '완벽한'}">
+				<span style="font-size:20px; color:#EF904C;">${menuTaste.allTaste.taste.tasteName}</span>맛
+			</c:when>
+			<c:when test="${cnt.count == fn:length(menu.mtList)}">
+				<span style="font-size:20px; color:#EF904C;">${menuTaste.allTaste.taste.tasteName}</span>맛 <span style="font-size:20px;">${menuTaste.allTaste.degree.degree}</span>단계
+			</c:when>
+			<c:otherwise>
+				<span style="font-size:20px; color:#EF904C;">${menuTaste.allTaste.taste.tasteName}</span>맛 <span style="font-size:20px;">${menuTaste.allTaste.degree.degree}</span> 단계,
+			</c:otherwise>
+		</c:choose>
 		<br>
+	</c:forEach></li>
 	</c:forEach>
-	<p style="width:20%;height:1px;background-color:#000;left:40%;position:relative;"></p>
+	</ul>
+	</div>
 
 	
 	
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:100%; height:300px;">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:100%; height:600px;">
   <!-- Indicators -->
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
@@ -110,11 +124,11 @@
 
 	<c:if test="${requestScope.review.email==email}">
 		<a
-			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button>내용
+			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button class="btn btn-info">내용
 				수정</button></a>
 				
 		<a href="${initParam.rootPath}/review/deleteReview.do?reviewNum=${requestScope.review.reviewNum}">
-		<button onclick="return confirm('정말 삭제하시겠습니까?');">리뷰 삭제</button></a>		
+		<button class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">리뷰 삭제</button></a>		
 	</c:if>
 </sec:authorize>
 
@@ -128,7 +142,7 @@
 
 <br>
 <a href="${initParam.rootPath}/review/backToList.do?storeName=${requestScope.review.storeName}&posX=${requestScope.review.posX}&posY=${requestScope.review.posY}">
-<button>목록으로 돌아가기</button>
+<button style="margin-top:20px;" class="btn btn-default">목록으로 돌아가기</button>
 </a>
 </div>
 
