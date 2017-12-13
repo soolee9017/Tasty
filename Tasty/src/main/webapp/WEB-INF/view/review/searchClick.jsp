@@ -388,20 +388,21 @@ $(document).ready(function(){
 </div>
 <div id="routeReviews" style="overflow-x:hidden;overflow-y:auto;width:45%; height:400px;background-color:#D8D8D8;float:right;margin-top:70px;">
 	<c:forEach items="${requestScope.listOfRoute}" var="Route">
-	<div class="center-block" style="border-radius:5px; box-shadow:5px 5px grey; width:80%;margin-top:30px;background-color:white;">
-	루트 이름 : ${Route.routeName}<br>
+	<div class="center-block" style="border-radius:5px; box-shadow:5px 5px grey; height:120px; width:80%;margin-top:30px;background-color:white;">
+	<h4>${Route.routeName}</h4><br>
 	
 		<c:forEach items="${Route.tempRouteList}" var="tempRoute" varStatus="cnt">
 				<c:choose>
                 <c:when test="${cnt.count == 1}">
-                ${tempRoute.orderOfStore+1}.${tempRoute.review.storeName}
+                ${tempRoute.review.storeName}
                 </c:when>
                 <c:otherwise>
-                <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;${tempRoute.orderOfStore+1}.${tempRoute.review.storeName}
+                <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;${tempRoute.review.storeName}
                 </c:otherwise>
                  </c:choose> 
 		</c:forEach>
-	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button>루트 상세보기</button></a>
+	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button style="border:1px #6495ED solid; margin-top:10px;
+border-radius:10px;" class="btn btn-info">루트 상 세보기</button></a>
 	</div>
 </c:forEach>
 </div>
