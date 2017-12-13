@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
-
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -115,8 +116,8 @@ body{
 <table>
 <thead>
 	<tr>
-		<th>NO.</th>
-		<th>제목</th>
+		<th width="15%;">NO.</th>
+		<th width="85%;" style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</th>
 	</tr>
 </thead>
 <tbody>
@@ -127,6 +128,8 @@ body{
 		</tr>
 	</c:forEach>
 </tbody>
+
+</table>
 
 <%String email = (String)request.getAttribute("email"); %>
 <%-- 페이징 처리 --%>
@@ -195,7 +198,7 @@ body{
 
 	</p>
 
-</table>
 </body>
+</html>
 
 
