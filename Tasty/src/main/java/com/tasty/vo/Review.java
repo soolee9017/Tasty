@@ -18,6 +18,7 @@ public class Review implements Serializable{
 	private String posX;
 	private String posY;
 	private Date writeDate;
+	private int reviewCert;
 	
 	private Member member;
 	private List<Menu> menuList;
@@ -210,6 +211,13 @@ public class Review implements Serializable{
 		this.writeDate = writeDate;
 	}
 
+	public int getReviewCert() {
+		return reviewCert;
+	}
+
+	public void setReviewCert(int reviewCert) {
+		this.reviewCert = reviewCert;
+	}
 
 	public Member getMember() {
 		return member;
@@ -255,9 +263,9 @@ public class Review implements Serializable{
 	@Override
 	public String toString() {
 		return String.format(
-				"Review [reviewNum=%s, address=%s, storeName=%s, email=%s, title=%s, content=%s, ratings=%s, ups=%s, downs=%s, posX=%s, posY=%s, writeDate=%s, member=%s, menuList=%s, tempRouteList=%s, reviewPhotoList=%s]",
+				"Review [reviewNum=%s, address=%s, storeName=%s, email=%s, title=%s, content=%s, ratings=%s, ups=%s, downs=%s, posX=%s, posY=%s, writeDate=%s, reviewCert=%s, member=%s, menuList=%s, tempRouteList=%s, reviewPhotoList=%s]",
 				reviewNum, address, storeName, email, title, content, ratings, ups, downs, posX, posY, writeDate,
-				member, menuList, tempRouteList, reviewPhotoList);
+				reviewCert, member, menuList, tempRouteList, reviewPhotoList);
 	}
 
 
@@ -274,6 +282,7 @@ public class Review implements Serializable{
 		result = prime * result + ((posX == null) ? 0 : posX.hashCode());
 		result = prime * result + ((posY == null) ? 0 : posY.hashCode());
 		result = prime * result + Float.floatToIntBits(ratings);
+		result = prime * result + reviewCert;
 		result = prime * result + reviewNum;
 		result = prime * result + ((reviewPhotoList == null) ? 0 : reviewPhotoList.hashCode());
 		result = prime * result + ((storeName == null) ? 0 : storeName.hashCode());
@@ -333,6 +342,8 @@ public class Review implements Serializable{
 			return false;
 		if (Float.floatToIntBits(ratings) != Float.floatToIntBits(other.ratings))
 			return false;
+		if (reviewCert != other.reviewCert)
+			return false;
 		if (reviewNum != other.reviewNum)
 			return false;
 		if (reviewPhotoList == null) {
@@ -364,12 +375,7 @@ public class Review implements Serializable{
 			return false;
 		return true;
 	}
-	
 
 
-
-	
-	
-	
 	
 }

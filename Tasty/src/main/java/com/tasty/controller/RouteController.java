@@ -52,7 +52,7 @@ public class RouteController {
 	  String errorMessage = "작성한 리뷰가 한개거나 없습니다.";
       List<Review> list = reviewDao.selectAllReviewByEmail(email);
       if(list.isEmpty() || list.size() == 1) {
-    	  return new ModelAndView("member/mypage.tiles","errorMessage",errorMessage);
+    	return new ModelAndView("content/main.tiles","errorMessage",errorMessage);
       }
       List<ArrayList> bigList2 = new ArrayList<>();
       
@@ -258,7 +258,7 @@ public class RouteController {
 		  
 		  request.setAttribute("email", email2);
 	   return new ModelAndView("/route/my_route_list.tiles","map",map);
-	   
+ 
    }
    
    

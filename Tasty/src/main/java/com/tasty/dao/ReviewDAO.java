@@ -48,4 +48,6 @@ public interface ReviewDAO {
 	
 	List<Review> selectAllReviewByEmail(String email);
 	
+	int updateReviewCert(int number);
+	
 }

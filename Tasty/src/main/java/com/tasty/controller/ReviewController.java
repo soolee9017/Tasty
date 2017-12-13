@@ -209,7 +209,15 @@ public class ReviewController {
 	 return "삭제됨";
   }
   
- 
+  
+  @RequestMapping("deleteReview")
+  public String deleteReview(@RequestParam String reviewNum){
+	  	
+	  reviewDao.updateReviewCert(Integer.parseInt(reviewNum));
+	  return "content/main.tiles";
+	  
+  }
+  
   
   
   

@@ -14,22 +14,39 @@ html, body {
 }
 .plus {
    color: blue;
-   font-weight: bold; 
+   font-weight: bold;
+   margin-right:20px;
+   border:1px #3c3c3c solid;
+   height:24px;
+   border-radius:5px;
+}
+.plus:active{
+	background-color:#969696;
+	box-shadow:0 5px 5px 0 grey inset;
 }
 .minus{
    color: red;
    font-weight: bold;
+   border:1px #3c3c3c solid;
+   height:24px;
+   border-radius:5px;
 }
-
+.minus:active{
+background-color:#969696;
+box-shadow:0 5px 5px 0 grey inset;
+}
 .review{
 margin-top:30px;
-border: 1px solid black;
+border-radius:10px;
 width : 80%;
 height:140px;
-margin-left:100px;
+margin-left:50px;
+background-color:white;
+box-shadow:5px 5px grey;
 }
 
 .writer{
+border-radius:10px;
 border: 1px solid red;
 float : left;
 width:25%;
@@ -39,7 +56,54 @@ height:100%;
 .reviewNum{
 display:none;
 }
-
+.rvBtn{
+margin-top:10px;
+border:1px #6495ED solid;
+border-radius:10px;
+background-color:#50C2FF;
+color:#E8F5FF;
+}
+.rvBtn:active{
+background-color:#3CAEFF;
+box-shadow:0 5px 5px 0 #289AFF inset;
+}
+.content{
+	overflow:hidden;
+}
+.title{
+	font-size:22px;
+}
+#mtTasteBtn{
+	top:35%;
+	left:20%;	
+	position:absolute;
+	z-index:10;
+	border-radius:5px;
+	border:0px;
+	height:35px;
+	background-color:#FE9A2E;
+	width:120px;
+	
+}
+#mtTasteBtn:active{
+	background-color:#FF8200;
+	box-shadow:0 5px 5px 0 #FF6100 inset;
+}
+#moreBtn{
+	top:35%;
+	left:20%;
+	position:absolute;
+	z-index:11;
+	border-radius:5px;
+	border:0px;
+	height:35px;
+	background-color:#FE9A2E;
+	width:120px;
+}
+#moreBtn:active{
+	background-color:#FF8200;
+	box-shadow:0 5px 5px 0 #FF6100 inset;
+}
 </style>
 
 <script type="text/javascript"
@@ -83,13 +147,11 @@ $(document).ready(function(){
             txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
             txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
             txt += "긍정평가률 : " + pos.toFixed(2) + "%</div>";
-            txt += "<div class='title'>제목 : " + this.title + "</div>";
+            txt += "<div class='title'>" + this.title + "</div>";
             txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
-            txt += "<div class='content'>내용 : " + this.content + "</div>";
-            txt += "이 리뷰를 추천/비추천?<button class='plus glyphicon glyphicon-thumbs-up'></button>";
-            txt += "<button class='minus 	glyphicon glyphicon-thumbs-down'></button><br>";
-            txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
-            txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
+            txt += "<div class='content'>" + this.content + "</div>";
+            txt += "<button class='plus glyphicon glyphicon-thumbs-up'><span>추천 " + this.ups + "</span></button>";
+            txt += "<button class='minus 	glyphicon glyphicon-thumbs-down'><span>비추천 " + this.downs + "</span></button><br>";
             txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
             txt += "</div><br>";
          });
@@ -223,13 +285,11 @@ $(document).ready(function(){
                txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
                txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
                txt += "긍정평가률 : " + pos.toFixed(2) + "%</div>";
-               txt +=    "<div class='title'>제목 : " + this.title + "</div>";
+               txt +=    "<div class='title'>" + this.title + "</div>";
                txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
-               txt += "<div class='content'>내용 : " + this.content + "</div>";
-               txt += "이 리뷰를 추천/비추천?<button class='plus glyphicon glyphicon-thumbs-up'></button>";
-               txt += "<button class='minus glyphicon glyphicon-thumbs-down'></button><br>";
-               txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
-               txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
+               txt += "<div class='content'>" + this.content + "</div>";
+               txt += "<button class='plus glyphicon glyphicon-thumbs-up'><span>추천 " + this.ups + "</span></button>";
+               txt += "<button class='minus 	glyphicon glyphicon-thumbs-down'><span>비추천 " + this.downs + "</span></button><br>";
                txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
                txt += "</div><br>";
             });
@@ -265,13 +325,11 @@ $(document).ready(function(){
                   txt += "<div class='writer'>리뷰 쓴사람 정보<br>글쓴이 : " + this.email + "<br>";
                   txt += "신뢰도 <br> 받은 총 평가수" + total + "<br>";
                   txt += "긍정평가률 : " + pos.toFixed(2) + "%</div>";
-                  txt +=    "<div class='title'>제목 : " + this.title + "</div>";
+                  txt +=    "<div class='title'>" + this.title + "</div>";
                   txt += "<div class='ratings'>별점 : " + this.ratings + "/5.0</div>";
-                  txt += "<div class='content'>내용 : " + this.content + "</div>";
-                  txt += "이 리뷰를 추천/비추천?<button class='plus glyphicon glyphicon-thumbs-up'></button>";
-                  txt += "<button class='minus 	glyphicon glyphicon-thumbs-down'></button><br>";
-                  txt += "<span class='ups'>추천수 : " + this.ups + "     </span>"; 
-                  txt += "<span class='downs'>비추천수 : " + this.downs + "  </span><br>";
+                  txt += "<div class='content'>" + this.content + "</div>";
+                  txt += "<button class='plus glyphicon glyphicon-thumbs-up'><span>추천 " + this.ups + "</span></button>";
+                  txt += "<button class='minus 	glyphicon glyphicon-thumbs-down'><span>비추천 " + this.downs + "</span></button><br>";
                   txt += "<button type='button' class='rvBtn'>리뷰 상세보기</button>";
                   txt += "</div><br>";
                });
@@ -279,6 +337,8 @@ $(document).ready(function(){
             }
          });
    });
+   
+
 
    
 });
@@ -286,47 +346,20 @@ $(document).ready(function(){
 </script>
 
 <body>
-
-
-
-<br><br><br>
 <div style="margin-top:55px;">
 <h2> 식당명: ${sessionScope.eateryTitle}</h2>
 <h3>식당 주소: ${sessionScope.eateryJibun}</h3>
 <h3>식당 전화번호: ${sessionScope.eateryTel }</h3>
 <h4 id="ratings"></h4>
-
-
-
 <sec:authorize access="isAnonymous()">
 	<span class="loginCheck" style="display:none;">1</span>
 </sec:authorize>
 <sec:authorize access="isAuthenticated()">
 	<span class="loginCheck" style="display:none;">0</span>
 	<a href="/Tasty/review/getAllTaste.do"><button type="button">리뷰 작성하기</button></a>
-	<a href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'><button>루트 작성하기</button></a>
+	<a id="writeRoute" href='${initParam.rootPath}/route/getXYByEmail.do?email=<sec:authentication property="principal.email"/>'><button>루트 작성하기</button></a>
 </sec:authorize>	
-
-
 <br><br>
-<c:forEach items="${requestScope.listOfRoute}" var="Route">
-	<div style="border: 1px solid black;width:50%">
-	루트 이름 : ${Route.routeName}<br>
-	
-		<c:forEach items="${Route.tempRouteList}" var="tempRoute" varStatus="cnt">
-				<c:choose>
-                <c:when test="${cnt.count == 1}">
-                ${tempRoute.orderOfStore+1}.${tempRoute.review.storeName}
-                </c:when>
-                <c:otherwise>
-                ------>${tempRoute.orderOfStore+1}.${tempRoute.review.storeName}
-                </c:otherwise>
-                 </c:choose> 
-		</c:forEach>
-	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button>루트 상세보기</button></a>
-	</div>
-</c:forEach>
-
 <p>
 <p>
 <p> 
@@ -350,10 +383,27 @@ $(document).ready(function(){
 </table> -->
 
 
-<div id="reviews" style="overflow-x:hidden;overflow-y:auto; width:45%; height:400px;">
-</div>
-<div id="routeReviews" style="overflow-x:hidden;overflow-y:auto;width:45%;">
+<div id="reviews" style="overflow-x:hidden;overflow-y:auto; width:45%; height:400px;background-color:#D8D8D8;float:left;margin-top:70px;">
 
+</div>
+<div id="routeReviews" style="overflow-x:hidden;overflow-y:auto;width:45%; height:400px;background-color:#D8D8D8;float:right;margin-top:70px;">
+	<c:forEach items="${requestScope.listOfRoute}" var="Route">
+	<div class="center-block" style="border-radius:5px; box-shadow:5px 5px grey; width:80%;margin-top:30px;background-color:white;">
+	루트 이름 : ${Route.routeName}<br>
+	
+		<c:forEach items="${Route.tempRouteList}" var="tempRoute" varStatus="cnt">
+				<c:choose>
+                <c:when test="${cnt.count == 1}">
+                ${tempRoute.orderOfStore+1}.${tempRoute.review.storeName}
+                </c:when>
+                <c:otherwise>
+                <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;${tempRoute.orderOfStore+1}.${tempRoute.review.storeName}
+                </c:otherwise>
+                 </c:choose> 
+		</c:forEach>
+	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button>루트 상세보기</button></a>
+	</div>
+</c:forEach>
 </div>
 
 
