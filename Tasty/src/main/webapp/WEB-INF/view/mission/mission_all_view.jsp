@@ -16,14 +16,13 @@
 <fmt:formatDate var="stD" pattern = "yyyy-MM-dd" value = "${missions.startDate }" />
 <fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${missions.endDate }" />
 
-미션번호 : ${missions.missionNum}<br>
-미션이름 : ${missions.missionName }<br>
-참여인원 : ${missions.currentPeople }/${missions.maxPeople }<br>
-기간 : ${stD} ~ ${eD}<br>
-사진 : 
-	<c:forEach var="missionPhoto" items="${missions.missionPhotoList}">
+<c:forEach var="missionPhoto" items="${missions.missionPhotoList}">
 		<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photo.photoPath }" width="300px">
-	</c:forEach>
+</c:forEach>
+미션이름 : ${missions.missionName }<br>
+기간 : ${stD} ~ ${eD}<br>
+참여인원 : ${missions.currentPeople }/${missions.maxPeople }<br>
+	
 	<a href="${initParam.rootPath }/missionCert/getMissionCertByMN.do?missionNum=${missions.missionNum}"><button class="btn" type="button">상세보기</button></a>
 	<br><br><p><p>
 </c:forEach>

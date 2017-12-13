@@ -88,10 +88,17 @@ public class ReviewController {
   
   @RequestMapping("selectReviewByNum")
   public ModelAndView selectReview(@RequestParam String reviewNum) {
-	  System.out.println("컨트롤러에 넘어온 파라미터 값 : "+reviewNum);
 	 int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
 	  return new ModelAndView("review","review",review);
+}
+  
+  
+  @RequestMapping("selectReviewByNum2")
+  public ModelAndView selectReview2(@RequestParam String reviewNum) {
+	 int number=Integer.parseInt(reviewNum);
+	  Review review = reviewService.selectReviewByNum(number);
+	  return new ModelAndView("review2","review",review);
 }
   
   
@@ -207,7 +214,15 @@ public class ReviewController {
 	 return "삭제됨";
   }
   
- 
+  
+  @RequestMapping("deleteReview")
+  public String deleteReview(@RequestParam String reviewNum){
+	  	
+	  reviewDao.updateReviewCert(Integer.parseInt(reviewNum));
+	  return "content/main.tiles";
+	  
+  }
+  
   
   
   

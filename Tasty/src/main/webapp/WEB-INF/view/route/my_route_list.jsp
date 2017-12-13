@@ -1,52 +1,11 @@
-<%@page import="java.util.Map"%>
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<html>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-a:link {
-	/*방문하지 않은 링크 설정.*/
-	text-decoration: none; /*밑줄 안나오도록 처리.*/
-}
-
-a:visited {
-	/*방문한 링크 설정*/
-	text-decoration: none;
-}
-
-a:hover {
-	/*마우스 포인터가 올라간 시점의 설정.*/
-	text-decoration: underline;
-}
-
-a:active {
-	/*마우스를 링크에 클릭하는 시점*/
-	color: blue;
-}
-
-table, td, th {
-	border: 1px solid gray;
-}
-
-table {
-	left:31%;
-	position:relative; 
-	margin-top : 100px;
-	border-collapse: collapse;
-	width: 500px;
-	margin-top: 50px;
-}
-
-td, th {
-	padding: 10px;
-}
-</style>
-
+</head>
 <style>
 body{
 	background-color:rgb(235,235,235);
@@ -87,10 +46,7 @@ body{
 	line-height:60px;
 }
 </style>
-</head>
 <body>
-
-
 <div class="leftMenuList" style="margin-top: 50px; float: left; width: 250px; position:absolute; left:10%; top:12%;">
 	<div>
 		<ul>
@@ -106,40 +62,38 @@ body{
 			
 			
 			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
-			<li><a onclick="return confirm('정말 탈퇴하시겠습니까?');"
-				href="${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>">탈퇴</a></li>
+			<li><a
+				href='${initParam.rootPath }/member/withdraw_member.do?email=<sec:authentication property="principal.email"/>'>탈퇴</a></li>
 		</ul>
 	</div>
 </div>
+<br><br><br><br>
 
 
 
-	<!-- ${initParam.rootPath }/findBoard?item=${item.itemNum} -->
-<br><br><br>
+<div class="row"
+	style="font-size: 20px; margin-top: 70px; width: 500px; left: 36%; position: relative;">
+<table>
+<thead>
+	<tr>
+		<th>NO.</th>
+		<th>제목</th>
+	</tr>
+</thead>
+<tbody>
+	<c:forEach items="${requestScope.map.bigList}" var="Route">
+		<tr>
+			<td>${Route.routeNum}</td>
+			<td><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'>${Route.routeName}</a></td>
+		</tr>
+	</c:forEach>
+</tbody>
+
 <%String email = (String)request.getAttribute("email"); %>
-	<table>
-		<thead>
-			<tr>
-				<th width="15%;">NO.</th>
-				<th width="85%;" style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${requestScope.map.list}" var="item">
-				<tr>
-					<td>${item.reviewNum}</td>
-					<td><a
-						href="${initParam.rootPath}/review/selectReviewByNum2.do?reviewNum=${item.reviewNum}">${item.title}</a></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
-
-	<%-- 페이징 처리 --%>
+<%-- 페이징 처리 --%>
 	<p>
 		<%--첫페이지로 이동--%>
-		<a href="${initParam.rootPath }/review/getReviewByEmail.do?page=1&email=<%=email%>">첫페이지&nbsp;&nbsp;</a>
+		<a href="${initParam.rootPath }/route/getRouteByEmail.do?page=1&email=<%=email%>">첫페이지&nbsp;&nbsp;</a>
 
 
 		<%--
@@ -151,7 +105,7 @@ body{
 		<c:choose>
 			<c:when test="${requestScope.map.pageBean.previousPageGroup }">
 				<a
-					href="${initParam.rootPath }/review/getReviewByEmail.do?page=${requestScope.map.pageBean.beginPage-1}&email=<%=email%>">
+					href="${initParam.rootPath }/route/getRouteByEmail.do?page=${requestScope.map.pageBean.beginPage-1}&email=<%=email%>">
 					◀ </a>
 			</c:when>
 			<c:otherwise>
@@ -172,7 +126,7 @@ body{
 			</c:when>
 				<c:otherwise>
 					<a
-						href="${initParam.rootPath }/review/getReviewByEmail.do?page=${num}&email=<%=email%>">${num }</a>
+						href="${initParam.rootPath }/route/getRouteByEmail.do?page=${num}&email=<%=email%>">${num }</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -187,23 +141,24 @@ body{
 		<c:choose>
 			<c:when test="${requestScope.map.pageBean.nextPageGroup }">
 				<a
-					href="${initParam.rootPath }/review/getReviewByEmail.do?page=${requestScope.map.pageBean.endPage+1}&email=<%=email%>">▶</a>
+					href="${initParam.rootPath }/route/getRouteByEmail.do?page=${requestScope.map.pageBean.endPage+1}&email=<%=email%>">▶</a>
 			</c:when>
 			<c:otherwise>
 	 	▶
 	 	</c:otherwise>
 		</c:choose>
+		
 
 
 
 		<%-- 마지막 페이지로 이동 --%>
 		<a
-			href="${initParam.rootPath }/review/getReviewByEmail.do?page=${requestScope.map.pageBean.totalPage }&email=<%=email%>">마지막페이지</a>
+			href="${initParam.rootPath }/route/getRouteByEmail.do?page=${requestScope.map.pageBean.totalPage }&email=<%=email%>">마지막페이지</a>
 
 	</p>
 
-
-
-
+</table>
+</div>
 </body>
-</html>
+
+

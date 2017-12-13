@@ -23,9 +23,7 @@
 루트제목 : ${requestScope.route.routeName }<br>
 루트내용 : ${requestScope.route.content }<br>
 
-<a href="${initParam.rootPath}/review/backToList.do?storeName=${sessionScope.eateryTitle}&posX=${sessionScope.lng}&posY=${sessionScope.lat}">
-<button>목록으로 돌아가기</button>
-</a>
+<a href='${initParam.rootPath }/route/getRouteByEmail.do?email=<sec:authentication property="principal.email"/>'><button>돌아가기</button></a>
 
 <sec:authorize access="isAuthenticated()">
 	<%

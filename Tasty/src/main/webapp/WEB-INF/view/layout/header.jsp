@@ -59,7 +59,6 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-left">
         <li><a href="#home">공지사항</a></li>
-        <li><a href="${initParam.rootPath}/route/getXYByEmail">추천루트</a></li>
         <li><a href="${initParam.rootPath }/mission/getAllMission.do">미션</a></li>
         <li><a href="#contact">커뮤니티</a></li>
         <li class="dropdown">

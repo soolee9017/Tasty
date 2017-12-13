@@ -5,7 +5,7 @@
 	<insert id="insertRoute" parameterType="Route">
 	insert into route values (route_num_seq.nextval,
 								#{routeName},
-								#{content})
+								#{content},sysdate)
 	</insert>
 	
 	<insert id="insertTempRoute" parameterType="TempRoute">
@@ -14,6 +14,24 @@
 									#{orderOfStore})
 	</insert>
 	
+	<insert id="updateTempRoute" parameterType="TempRoute">
+	insert into temp_route values (#{routeNum}, #{reviewNum}, #{orderOfStore})
+	</insert>
+	
+	
+	<!-- update -->
+	<update id="updateRoute" parameterType="Route">
+		UPDATE route
+		SET	   route_name = #{routeName},
+			   content = #{content}
+	    WHERE  route_num = #{routeNum}
+	</update>
+	
+	<!-- delete -->
+	<delete id="deleteTempRoute" parameterType="int">
+		DELETE FROM temp_route
+		WHERE route_num = #{routeNum}
+	</delete>
 	
 	
 	
@@ -22,6 +40,7 @@
 		<id column="route_num" property="routeNum"/>
 		<result column="route_name" property="routeName"/>
 		<result column="content" property="content"/>
+		<result column = "write_date" property="writeDate"/>
 		<collection property="tempRouteList" ofType="TempRoute">
 			<result column="route_num" property="routeNum"/>
 			<result column="review_num" property="reviewNum"/>
@@ -54,6 +73,49 @@
 	order by r.route_num asc
 
 	</select>
+	
+	<select id="getRouteNumByEmail" resultType="_int" parameterType="map">
+	<![CDATA[	
+	select route_num
+	from(
+		select rownum rn, route_num
+		from(	
+			select route_num from route 
+			where route_num 
+			in (
+			
+			select r.route_num
+			from route r, temp_route tr, review rv 
+			where rv.email = #{email}
+			and r.route_num = tr.route_num
+			and tr.review_num = rv.review_num
+			
+			)
+			order by route_num desc
+			) 
+		where rownum <= #{end}
+		)
+	where rn >= #{begin}		
+	]]>
+
+	</select>
+	
+	<select id="selectRouteCount" resultType="_int" parameterType="String">
+		select count(*) from route 
+		where route_num 
+		in (
+		
+		select r.route_num
+		from route r, temp_route tr, review rv 
+		where rv.email = 'q'
+		and r.route_num = tr.route_num
+		and tr.review_num = rv.review_num
+		
+		)
+	</select>
+	
+	
+	
 	<select id="selectRouteNum" resultType="int">
 		select route_num 
 		from route 

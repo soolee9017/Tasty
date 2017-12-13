@@ -401,3 +401,7 @@ create sequence route_num_seq;
 
 
 
+ALTER TABLE review ADD(write_date date);
+ALTER TABLE route ADD(write_date date);
+ALTER table review add(review_cert number(1));
+update review set review_cert = 0 where review_cert is null;

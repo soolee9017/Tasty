@@ -80,11 +80,20 @@ html, body {
       <p style="width: 100%; height: 5px; background-color: #FF6600;"></p>
       <div style="width: 100%; overflow: hidden;">
          <div>
+    <%
+       if(request.getParameter("routeNum") != null){
+       		String num = (String)request.getParameter("routeNum");
+       		request.setAttribute("routeNum", num);
+       }
+      %>
             <form style="width: 100%;"
                action="${initParam.rootPath }/route/insertRoute.do" id="list_form">
                <ul id="selectRoute">
-
+	
                </ul>
+               <c:if test="${requestScope.routeNum != null}">
+    			<input type="hidden" name="routeNum" value="${requestScope.routeNum }" />
+    			</c:if>    
                <div style="position:absolute; z-index:10; left:3%;top:74%;height:100px;">
                   <span>루트 제목 :  <input id="routeName" type="text" required="required" name="routeName"></span><br><br>
                   <textarea id="content" rows="6" cols="70" required="required" name="content"></textarea>

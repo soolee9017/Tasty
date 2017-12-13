@@ -49,10 +49,13 @@ section header h1 {
 	position: absolute;
 }
 
-.foot {
-	bottom: 0;
+.foots {
+	padding-top:30px;
+	background-color:#8c8c8c;
+	bottom: 0%;
 	width: 100%;
-	height: 12%;
+	height: 14.7%;
+	position:absolute;
 }
 </style>
 <link type="text/css" rel="stylesheet"
@@ -102,7 +105,7 @@ function errorCheck(){
 				<tiles:insertAttribute name="content" />
 			</article>
 		</section>
-		<footer class="row text-center foot">
+		<footer class="row text-center foots">
 			<tiles:insertAttribute name="footer" />
 		</footer>
 	</div>

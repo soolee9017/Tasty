@@ -14,6 +14,8 @@
 	<result column = "downs" property="downs"/>
 	<result column = "pos_x" property="posX"/>
 	<result column = "pos_y" property="posY"/>
+	<result column = "write_date" property="writeDate"/>
+	<result column = "review_cert" property="reviewCert"/>
 </resultMap>
 
 
@@ -80,6 +82,7 @@
 	where store_name = #{storeName}
 	and pos_x = #{posX}
 	and pos_y = #{posY}
+	and review_cert != 1
 </select>
 
 <select id="selectReviewByAddress" parameterType="String" resultMap="review-join-menu-resultmap">
@@ -91,16 +94,17 @@
 	and mt.td_num=at.td_num(+)
 	and at.taste_num=t.taste_num(+)
 	and at.degree_num=d.degree_num(+) 
+	and r.review_cert != 1
 </select>
 
 <!-- 마이페이지에서 내가 쓴 리뷰조회할때 페이징처리하기 위함. -->
 <select id="selectReviewByEmail" parameterType="map" resultMap="review-join-menu-resultmap">
 	<![CDATA[	
-	select review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y
+	select review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y,write_date
 	from(
-		select rownum rn, review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y
+		select rownum rn, review_num, address, store_name, email, title, content, ratings, ups, downs, pos_x, pos_y,write_date
 		from(	
-			select r.review_num, r.address, r.store_name, r.email, r.title, r.content, r.ratings, r.ups, r.downs, r.pos_x, r.pos_y 
+			select r.review_num, r.address, r.store_name, r.email, r.title, r.content, r.ratings, r.ups, r.downs, r.pos_x, r.pos_y, r.write_date
 			from review r, menu m, menu_taste mt, all_taste at, taste t, degree d, review_photo rp, photo p 
 			where r.email = #{email}
 			and r.review_num=m.review_num(+)
@@ -110,6 +114,7 @@
 			and at.degree_num=d.degree_num(+)
 			and r.review_num=rp.review_num(+)
 			and rp.photo_num=p.photo_num(+)
+			and r.review_cert != 1
 			order by r.review_num desc
 			) 
 		where rownum <= #{end}
@@ -123,10 +128,13 @@
 	select * 
 	from review 
 	where email = #{email}
+	and review_cert != 1
 </select>
 
 <select id="selectReviewCount" resultType="_int" parameterType="String">
-	select count(*) from review where email = #{value}
+	select count(*) from review
+	 where email = #{value}
+	and review_cert != 1
 </select>
 
 <!-- 
@@ -136,7 +144,7 @@ insert into review (review_num, title, address) values (review_num_seq.nextval, 
 
 <insert id="insertReview" parameterType="review">
 insert into review values (review_num_seq.nextval, #{address},#{storeName},#{email},#{title},#{content},
-#{ratings},#{ups},#{downs},#{posX},#{posY})
+#{ratings},#{ups},#{downs},#{posX},#{posY},sysdate,0)
 </insert>
 
 
@@ -211,6 +219,7 @@ and r.review_num=m.review_num(+)
 	and at.degree_num=d.degree_num(+) 
 	and r.review_num=rp.review_num(+)
 	and rp.photo_num=p.photo_num(+)
+	and r.review_cert != 1
 order by m.menu_num, mt.td_num, p.photo_num asc
 
 
@@ -223,7 +232,10 @@ SELECT AVG(ratings) FROM review where address=#{value}
 </select>
 
 <select id="selectReviewNumByEmail" parameterType="String" resultType="int">
-select review_num from review where email=#{value} order by review_num desc
+select review_num from review
+where email=#{value} 
+and review_cert != 1
+order by review_num desc
 </select>
 
 
@@ -238,6 +250,7 @@ and mn.menu_num = mt.menu_num(+)
 and mt.td_num = at.td_num(+)
 and at.taste_num = #{tasteNum}
 and r.address = #{address}
+and r.review_cert != 1
 order by r.ups desc
 
 </select>
@@ -247,21 +260,23 @@ select *
 from review r, member m 
 where r.email = m.email 
 and r.address = #{value}
+and r.review_cert != 1
 order by r.ups desc
 </select>
 
 
-
 <update id="updateReviewWithMap" parameterType="map">
-
 UPDATE review
 SET   title = #{title},
 	  content = #{content},
 	  ratings = #{rating}
 		
 where review_num = #{reviewNum}
+</update>
 
-
+<update id="updateReviewCert" parameterType="_int">
+update review set review_cert = 1
+where review_num=#{value} 
 </update>
 
 

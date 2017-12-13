@@ -1,14 +1,13 @@
-<%@page import="java.util.Map"%>
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
+</head>
+<style>
 a:link {
 	/*방문하지 않은 링크 설정.*/
 	text-decoration: none; /*밑줄 안나오도록 처리.*/
@@ -45,6 +44,8 @@ table {
 td, th {
 	padding: 10px;
 }
+
+
 </style>
 
 <style>
@@ -87,10 +88,7 @@ body{
 	line-height:60px;
 }
 </style>
-</head>
 <body>
-
-
 <div class="leftMenuList" style="margin-top: 50px; float: left; width: 250px; position:absolute; left:10%; top:12%;">
 	<div>
 		<ul>
@@ -111,35 +109,33 @@ body{
 		</ul>
 	</div>
 </div>
+<br><br><br><br>
 
 
 
-	<!-- ${initParam.rootPath }/findBoard?item=${item.itemNum} -->
-<br><br><br>
+<table>
+<thead>
+	<tr>
+		<th width="15%;">NO.</th>
+		<th width="85%;" style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</th>
+	</tr>
+</thead>
+<tbody>
+	<c:forEach items="${requestScope.map.bigList}" var="Route">
+		<tr>
+			<td>${Route.routeNum}</td>
+			<td><a href='${initParam.rootPath}/route/getRouteByNum2.do?number=${Route.routeNum}'>${Route.routeName}</a></td>
+		</tr>
+	</c:forEach>
+</tbody>
+
+</table>
+
 <%String email = (String)request.getAttribute("email"); %>
-	<table>
-		<thead>
-			<tr>
-				<th width="15%;">NO.</th>
-				<th width="85%;" style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${requestScope.map.list}" var="item">
-				<tr>
-					<td>${item.reviewNum}</td>
-					<td><a
-						href="${initParam.rootPath}/review/selectReviewByNum2.do?reviewNum=${item.reviewNum}">${item.title}</a></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
-
-	<%-- 페이징 처리 --%>
+<%-- 페이징 처리 --%>
 	<p>
 		<%--첫페이지로 이동--%>
-		<a href="${initParam.rootPath }/review/getReviewByEmail.do?page=1&email=<%=email%>">첫페이지&nbsp;&nbsp;</a>
+		<a href="${initParam.rootPath }/route/getRouteByEmail.do?page=1&email=<%=email%>">첫페이지&nbsp;&nbsp;</a>
 
 
 		<%--
@@ -151,7 +147,7 @@ body{
 		<c:choose>
 			<c:when test="${requestScope.map.pageBean.previousPageGroup }">
 				<a
-					href="${initParam.rootPath }/review/getReviewByEmail.do?page=${requestScope.map.pageBean.beginPage-1}&email=<%=email%>">
+					href="${initParam.rootPath }/route/getRouteByEmail.do?page=${requestScope.map.pageBean.beginPage-1}&email=<%=email%>">
 					◀ </a>
 			</c:when>
 			<c:otherwise>
@@ -172,7 +168,7 @@ body{
 			</c:when>
 				<c:otherwise>
 					<a
-						href="${initParam.rootPath }/review/getReviewByEmail.do?page=${num}&email=<%=email%>">${num }</a>
+						href="${initParam.rootPath }/route/getRouteByEmail.do?page=${num}&email=<%=email%>">${num }</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -187,7 +183,7 @@ body{
 		<c:choose>
 			<c:when test="${requestScope.map.pageBean.nextPageGroup }">
 				<a
-					href="${initParam.rootPath }/review/getReviewByEmail.do?page=${requestScope.map.pageBean.endPage+1}&email=<%=email%>">▶</a>
+					href="${initParam.rootPath }/route/getRouteByEmail.do?page=${requestScope.map.pageBean.endPage+1}&email=<%=email%>">▶</a>
 			</c:when>
 			<c:otherwise>
 	 	▶
@@ -198,12 +194,11 @@ body{
 
 		<%-- 마지막 페이지로 이동 --%>
 		<a
-			href="${initParam.rootPath }/review/getReviewByEmail.do?page=${requestScope.map.pageBean.totalPage }&email=<%=email%>">마지막페이지</a>
+			href="${initParam.rootPath }/route/getRouteByEmail.do?page=${requestScope.map.pageBean.totalPage }&email=<%=email%>">마지막페이지</a>
 
 	</p>
 
-
-
-
 </body>
 </html>
+
+

@@ -59,14 +59,18 @@ public class TasteController {
 		session.setAttribute("lng", lng);
 		
 		List listOfRoute = rService.getAllRouteByXYName(eateryTitle, lng, lat);
-		System.out.println(listOfRoute);
+		return new ModelAndView("review/searchClick.tiles","listOfRoute",listOfRoute);
+	}
+	
+	@RequestMapping("backToList")
+	public ModelAndView backToList(@RequestParam String storeName, @RequestParam String posX, @RequestParam String posY) {
+		List listOfRoute = rService.getAllRouteByXYName(storeName, posX, posY);
 		return new ModelAndView("review/searchClick.tiles","listOfRoute",listOfRoute);
 	}
 	
 	@RequestMapping("getAllTaste2") //회원가입페이지로 넘어감
 	public ModelAndView getAllTaste2() {
 		List tasteList = service.selectAllTaste();
-		System.out.println("join_taste");
 		tasteList.remove(tasteList.size()-1);
 		return new ModelAndView("member/join_member_form.tiles","tasteList", tasteList);
 	}
@@ -74,7 +78,6 @@ public class TasteController {
 	@RequestMapping("getAllTaste3") //회원수정페이지로 넘어감
 	public ModelAndView getAllTaste3() {
 		List tasteList = service.selectAllTaste();
-		System.out.println("수정할 때 쓰려고 taste 가지러 왔멘");
 		tasteList.remove(tasteList.size()-1);
 		return new ModelAndView("member/update_profile_form.tiles","tasteList", tasteList);
 	}
