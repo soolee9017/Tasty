@@ -257,7 +257,7 @@ public class RouteController {
 
 		  
 		  request.setAttribute("email", email2);
-	   return new ModelAndView("/route/my_route_list.tiles","map",map);
+	   return new ModelAndView("/member/my_route_list.tiles","map",map);
  
    }
    
