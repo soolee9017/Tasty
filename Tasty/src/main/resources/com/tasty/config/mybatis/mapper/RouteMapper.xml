@@ -74,15 +74,44 @@
 
 	</select>
 	
-	<select id="getRouteNumByEmail" resultType="_int" parameterType="string">
-	select r.route_num
-	
-	from route r, temp_route tr, review rv
-	where r.route_num = tr.route_num(+)
-	and tr.review_num = rv.review_num(+)
-	and rv.email=#{value}
-	order by r.route_num asc
+	<select id="getRouteNumByEmail" resultType="_int" parameterType="map">
+	<![CDATA[	
+	select route_num
+	from(
+		select rownum rn, route_num
+		from(	
+			select route_num from route 
+			where route_num 
+			in (
+			
+			select r.route_num
+			from route r, temp_route tr, review rv 
+			where rv.email = #{email}
+			and r.route_num = tr.route_num
+			and tr.review_num = rv.review_num
+			
+			)
+			order by route_num asc
+			) 
+		where rownum <= #{end}
+		)
+	where rn >= #{begin}		
+	]]>
 
+	</select>
+	
+	<select id="selectRouteCount" resultType="_int" parameterType="String">
+		select count(*) from route 
+		where route_num 
+		in (
+		
+		select r.route_num
+		from route r, temp_route tr, review rv 
+		where rv.email = 'q'
+		and r.route_num = tr.route_num
+		and tr.review_num = rv.review_num
+		
+		)
 	</select>
 	
 	

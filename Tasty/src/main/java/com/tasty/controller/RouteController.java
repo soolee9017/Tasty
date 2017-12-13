@@ -4,11 +4,13 @@ import java.security.Principal;
 import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -242,9 +244,20 @@ public class RouteController {
    
    
    @RequestMapping("getRouteByEmail")
-   public ModelAndView getRouteByEmail(@RequestParam String email){
-	   List routeList = routeService.getAllRouteByEmail(email);
-	   return new ModelAndView("/route/my_route_list.tiles","listOfRoute", routeList);
+   public ModelAndView getRouteByEmail(HttpServletRequest request, @RequestParam String email){
+	   SecurityContext context = SecurityContextHolder.getContext();
+	   Authentication authentication = context.getAuthentication();
+	   String email2 = (String)((Member)authentication.getPrincipal()).getEmail();
+	   
+	   int page = 1;
+		  try {
+			  page = Integer.parseInt(request.getParameter("page"));
+		  }catch(NumberFormatException e) {}
+		  Map<String, Object> map = routeService.getAllRouteByEmail(email2, page);
+
+		  
+		  request.setAttribute("email", email2);
+	   return new ModelAndView("/route/my_route_list.tiles","map",map);
 	   
    }
    
