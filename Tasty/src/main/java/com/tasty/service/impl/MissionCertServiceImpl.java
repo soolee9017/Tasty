@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,9 +93,42 @@ public class MissionCertServiceImpl implements MissionCertService {
 		return missionCertDao.selectMissionCertByMissionNum2(missionNum);
 	}
 
+	
+
 	@Override
-	public int updateMissionCertByMissionCertNum(int missionCertNum) {
-		return missionCertDao.updateMissionCertByMissionCertNum(missionCertNum);
+	public int updateMissionCertByMissionCertNum(Principal principal, HttpServletRequest request,
+			List<MultipartFile> upImage, int missionCertNum, String title, String content, int missionNum)
+			throws Exception {
+		
+		Map map = new HashMap<>();
+		map.put("missionCertNum", missionCertNum);
+		map.put("title", title);
+		map.put("content", content);
+		map.put("missionNum", missionNum);
+		System.out.println("-----------");
+		System.out.println(map);
+		File file = new File(request.getServletContext().getRealPath("/photos/missionCert"));
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		List<String> photoList = new ArrayList<>();
+		for (MultipartFile photo : upImage) {
+			if (photo != null && !photo.isEmpty()) {
+				String fileName = UUID.randomUUID().toString().replace("-", "") + photo.getOriginalFilename();
+
+				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName));
+				FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
+						new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\missionCert",
+								fileName));
+
+				photoDao.insertPhoto(fileName);
+				photoList.add(fileName);
+				request.setAttribute("photos", photoList);
+				photoDao.insertMissionCertPhoto(missionCertNum);
+			}
+		}
+		missionCertDao.updateMissionCertByMissionCertNum(map);
+		return 0;
 	}
 
 	@Override

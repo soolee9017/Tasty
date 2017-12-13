@@ -85,6 +85,10 @@ public class MissionDAOImpl implements MissionDAO{
 	public List<Mission> selectAllMissionList() {
 		return session.selectList(makeSqlId("selectAllMission2"));
 	}
+
+	
+	
+	
 	
 	
 	

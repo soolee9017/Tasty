@@ -18,27 +18,21 @@ public interface MissionService {
 	
 	List<Mission> selectAllMission();
 	
-	
-	int updateMissionByMissionNum(Principal principal, 
-								  HttpServletRequest request, 
-								  List<MultipartFile>upImage, 
-								  int missionNum, String missionName, 
-								  int currentPeople, 
-								  int maxPeople, 
-								  Date startDate, 
-								  Date endDate) throws Exception;
-	
-	int enterMissionMember(MissionMember missionMember,int missionNum);
-	
 	int cancelMissionMember(MissionMember missionMember,int missionNum);
-	
-	int deleteMissionByMissionNum(int missionNum);
 	
 	List<Mission> selectMissionByMissionName(String missionName);
 	
 	Mission selectMissionByMissionNum(int missionNum);
 	
 	List<Mission> selectAllMissionList();
-	
+
+	int enterMissionMember(MissionMember missionMember, int missionNum);
+
+	int updateMissionByMissionNum(Principal principal, HttpServletRequest request, List<MultipartFile> upImage,
+			int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople, Date startDate,
+			Date endDate) throws Exception;
+
+
+	int deleteMissionByMissionNum(Principal principal, HttpServletRequest request, int missionNum);
 	
 }

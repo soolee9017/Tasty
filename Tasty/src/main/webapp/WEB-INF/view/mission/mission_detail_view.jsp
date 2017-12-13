@@ -48,12 +48,23 @@ $(document).ready(function() {
 	
 
 <c:choose>
+	<c:when test="${requestScope.isPeopleFull eq true}">
+		<h3>미션에 참여한 인원이 가득 차있습니다.</h3>
+		<c:if test="${requestScope.isMissionMember eq true}">
+			<form action="${initParam.rootPath }/mission/cancelMissionMember.do"
+				method="get">
+				<input type="hidden" name="missionNum"
+					value="${requestScope.result.missionNum}"> <input type="hidden"
+					name="email" value="<sec:authentication property="principal.email"/>">
+				<button type="submit" id="cancelmisBtn">참여한 미션 취소하기</button>
+			</form>
+	    </c:if>
+    </c:when>
     <c:when test="${requestScope.isMissionMember eq false}">
 		<form action="${initParam.rootPath }/mission/enterMissionMember.do"
 			method="get">
-			<input type="hidden" name="missionNum"
-				value="${requestScope.result.missionNum}"> <input type="hidden"
-				name="email" value="<sec:authentication property="principal.email"/>">
+			<input type="hidden" name="missionNum" value="${requestScope.result.missionNum}"> 
+			<input type="hidden" name="email" value="<sec:authentication property="principal.email"/>">
 			<button type="submit" id="regmisBtn">미션에 참여하기</button>
 		</form>
     </c:when>

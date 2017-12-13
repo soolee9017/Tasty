@@ -29,26 +29,6 @@ $(document).ready(function() {
       $(this).parent().parent().remove();
    });//end of photoList
    
-     
-	$("#regmisBtn").on("click", function(){
-		if("${requestScope.outcome}"==0){
-			alert("이미 참여한 미션입니다.");
-		}else{
-		alert("미션에 참여하셨습니다.");
-		}
-	});//end of regmisBtn
-	
-	$("#cancelmisBtn").on("click", function(){
-		if("${requestScope.outcome}"==0){
-			alert("참여하지 않은 미션입니다.");
-		}else{
-		alert("미션에 참여를 취소하셨습니다.");
-		}
-	});//end of regmisBtn
-	$("#delMisBtn").on("click", function(){
-		alert("삭제 성공");
-	});
-	
 	var dateFormat = "yy-mm-dd",
     from = $( "#startDate" )
       .datepicker({	         
@@ -103,18 +83,29 @@ $(document).ready(function() {
 		미션 시작일 : <input type="text" name="startDate" id="startDate" value="${startDate }" /> <br>
 		미션 종료일 : <input type="text" name="endDate" id="endDate" value="${endDate }" /><br>
 		
-	<%-- <c:forEach var="missionPhoto" items="${requestScope.result.missionPhotoList}">
-		<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photo.photoPath }" width="300px">
-	</c:forEach> --%>
 	
-		<!-- <table id="photoList">
+	
+		<table id="photoList">
 			<tr>
 				<td><input type="file" name="upImage"></td>
 				<td><button type="button" class="deletePhoto">사진삭제</button></td>
 			</tr>
-		</table> -->
+		</table>
+		<button type="button" id="addPhoto">사진추가</button>
+		<br>
 		<button type="submit">수정하기</button>
 	</form>
+	
+	<c:forEach var="missionPhoto" items="${requestScope.result.missionPhotoList}">
+		<c:if test="${missionPhoto.photoNum ne 0}">
+		<form method="get" action="${initParam.rootPath }/mission/deleteMissionPhoto.do">
+			<input type="hidden" name="missionNum" value="${requestScope.result.missionNum }" />		
+			<input type="hidden" name="photoNumber" value="${missionPhoto.photo.photoNum }" />
+			<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photo.photoPath }" width="300px">
+			<button type="submit">사진 삭제</button>
+		</form>
+		</c:if>
+	</c:forEach>
 		
 	<!-- 미션 삭제하기 -->
 	<h2>미션 삭제하기</h2>
@@ -122,6 +113,7 @@ $(document).ready(function() {
 		<input type="hidden" name="missionNum" value="${requestScope.result.missionNum}">
 		<button type="submit" id="delMisBtn">미션 삭제하기</button>
 	</form>
+	<button  type="button" onclick="location.href=''">전체 미션페이지로 돌아가기</button>
 	<br>
 	<br>
 	<p>

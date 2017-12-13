@@ -2,6 +2,7 @@ package com.tasty.service;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,8 @@ public interface MissionCertService {
    
    Mission selectMissionByMissionNum(int missionNum);
    
-   int updateMissionCertByMissionCertNum(int missionCertNum);
+   int updateMissionCertByMissionCertNum(Principal principal, HttpServletRequest request, List<MultipartFile> upImage,
+			int missionCertNum, String title, String content, int missionNum) throws Exception;
    
    int deleteMissionCertByMissionCertNum(int missionCertNum);
    

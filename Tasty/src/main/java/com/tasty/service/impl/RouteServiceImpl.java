@@ -69,7 +69,6 @@ public class RouteServiceImpl implements RouteService{
 		map.put("pageBean", pb);
 		List<Integer> listOfNum = routeDao.getRouteNumByEmail(email, pb.getBeginItemInPage(), pb.getEndItemInPage());
 		
-		
 		List bigList = new ArrayList();
 		
 		for(int a : listOfNum) {

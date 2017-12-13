@@ -12,19 +12,16 @@
 a:link {
 	/*방문하지 않은 링크 설정.*/
 	text-decoration: none; /*밑줄 안나오도록 처리.*/
-	color: green;
 }
 
 a:visited {
 	/*방문한 링크 설정*/
 	text-decoration: none;
-	color: green;
 }
 
 a:hover {
 	/*마우스 포인터가 올라간 시점의 설정.*/
 	text-decoration: underline;
-	color: red;
 }
 
 a:active {
