@@ -21,12 +21,12 @@
 
 <c:forEach var="missionPhoto" items="${missions.missionPhotoList}">
 		<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photo.photoPath }" width="300px">
-</c:forEach>
+</c:forEach><br>
 미션이름 : ${missions.missionName }<br>
 기간 : ${stD} ~ ${eD}<br>
 참여인원 : ${missions.currentPeople }/${missions.maxPeople }<br>
 	<sec:authorize access="hasRole('ROLE_MEMBER')">
-	<a href="${initParam.rootPath }/missionCert/getMissionCertByMN.do?missionNum=${missions.missionNum}"><button class="btn" type="button">상세보기</button></a>
+	<a href="${initParam.rootPath }/missionCert/getMissionCertByMN.do?missionNum=${missions.missionNum}"><button class="btn btn-info" type="button">상세보기</button></a>
 	</sec:authorize>
 	<br><br><p><p>
 </c:forEach>

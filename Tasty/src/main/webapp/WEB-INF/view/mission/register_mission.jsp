@@ -63,7 +63,8 @@
 
 </head>
 <body>
-<div style="margin-top:60px;">
+<div style="margin-top: 70px;"></div>
+<div class="text-left" style="width:1000px;margin:0 auto;">
 	<h2>미션 등록하기</h2>
 	<form id="regForm"
 		action="${initParam.rootPath }/mission/insertMission.do" method="post" enctype="multipart/form-data" id="missionForm">

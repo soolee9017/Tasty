@@ -101,7 +101,7 @@
   		</c:when>
   		<c:otherwise>
   		<div class="item">
-  			<img class="slideImg" src="${initParam.rootPath }/photos/review/${reviewPhoto.photoList[0].photoPath}">
+  			<img class="slideImg" src="${initParam.rootPath }/photos/review/${reviewPhoto.photoList[0].photoPath}" width="300px"height="300px">
   		</div>
   		</c:otherwise>
   	</c:choose>

@@ -143,11 +143,6 @@
 	</select>
 	
 	
-<!-- 	<select id="selectMissionByMissionNum" resultMap="mission-resultmap">
-		select * from mission_admin
-		where mission_num=#{value}
-	</select> -->
-	
 	 <!--   멤버가 미션 참여하기를 누르면 current_people 을 +1 하고, 
 	 		mission_member에 현재 로그인되어있는 아이디와, 현재 들어가있는 미션번호 값들을 삽입한다. -->
 	<update id="plusCurrentPeople" parameterType="mission">
@@ -188,7 +183,7 @@
 	
 
 	<!-- 마이페이지에서 내가 쓴 리뷰조회할때 페이징처리하기 위함. -->
-<select id="selectMissionByEmail" parameterType="map" resultMap="missionMember-resultmap">
+<!-- <select id="selectMissionByEmail" parameterType="map" resultMap="missionMember-resultmap">
 	<![CDATA[	
 	select mission_num, mission_name
 	from(
@@ -204,6 +199,22 @@
 		)
 	where rn >= #{begin}		
 	]]>
+</select> -->
+
+
+<select id="selectMissionByEmail" parameterType="map" resultMap="missionMember-resultmap">
+	select ma.mission_num, 
+		   ma.mission_name, 
+		   ma.mission_content, 
+		   ma.current_people, 
+		   ma.max_people, 
+		   ma.start_date, 
+		   ma.end_date, 
+		   mm.email  
+	from mission_admin ma, mission_member mm
+	where mm.email=#{email}
+	and mm.mission_num=ma.mission_num(+)
+	order by mm.mission_num desc
 </select>
 
 <select id="selectMissionByEmail2" parameterType="String" resultMap="missionMember-resultmap">
