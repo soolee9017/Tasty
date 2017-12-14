@@ -48,7 +48,6 @@ $(document).ready(function() {
 
 	<!--  기간이 지난 미션이면 참여하기대신 종료된 미션임을 알리고, 미션에 참여하기와, 미션 인증글 작성란을 보이지 않게 한다. -->
 	<!--  미션 참여/ 취소 button -->
-
 <c:set var="today" value="<%=new Date()%>"/>
 <fmt:formatDate value="${today}" pattern="yyyy-MM-dd" var="today"/>
 <fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${requestScope.result.endDate}" />	
