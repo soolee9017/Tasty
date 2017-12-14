@@ -6,12 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,8 +24,6 @@ import com.tasty.dao.MemberDAO;
 import com.tasty.dao.PhotoDAO;
 import com.tasty.service.MissionCertService;
 import com.tasty.service.MissionService;
-import com.tasty.vo.Authority;
-import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionMember;
 
@@ -136,6 +133,21 @@ public class MissionController {
 	public ModelAndView deleteMissionPhoto(@RequestParam int photoNumber, @RequestParam int missionNum) {
 		photoDao.deleteMissionPhoto(photoNumber);
 		return new ModelAndView("redirect:/missionCert/getMissionCertByMN.do?missionNum="+missionNum);
+	}
+	
+	
+	@RequestMapping("getMissionByEmail")
+	public ModelAndView getMissioinByEmail(@RequestParam String email, HttpServletRequest request) {
+		System.out.println("애니바디히얼?");
+		int page = 1;
+		  try {
+			  page = Integer.parseInt(request.getParameter("page"));
+		  }catch(NumberFormatException e) {}
+		  Map<String, Object> map = service.selectMissionByEmail(email, page); 
+
+		  request.setAttribute("email", email);
+	   return new ModelAndView("member/my_mission_list.tiles","map",map);
+		
 	}
 	
 	

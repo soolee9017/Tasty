@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
@@ -47,9 +48,9 @@ $(document).ready(function() {
 
 	<!--  기간이 지난 미션이면 참여하기대신 종료된 미션임을 알리고, 미션에 참여하기와, 미션 인증글 작성란을 보이지 않게 한다. -->
 	<!--  미션 참여/ 취소 button -->
-<jsp:useBean id="now" class="java.util.Date" />
 
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
+<c:set var="today" value="<%=new Date()%>"/>
+<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" var="today"/>
 <fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${requestScope.result.endDate}" />	
 <c:if test="${today <= eD }">
 	<c:choose>
@@ -88,6 +89,13 @@ $(document).ready(function() {
 		<p>
 		<p>
 			<!-- 미션인증글 작성란 -->
+		
+		<c:choose>
+		<c:when test="${requestScope.isMissionMember eq false}">
+			<h3>미션에 참여하셔야 인증글을 작성할 수 있습니다.</h3>
+	    </c:when>
+	    <c:when test="${requestScope.isMissionMember eq true}">
+			<!-- 여기 인증글 작성란 들어갈곳 -->
 		<div
 			style="width: 30%; background-color: pink; text-align: left; margin-left: 10px;">
 	
@@ -117,6 +125,8 @@ $(document).ready(function() {
 				<button id="missionCert" type="submit">미션 인증 완료</button>
 			</form>
 		</div>
+	    </c:when>
+	</c:choose>
 	</c:if>
 	<br>
 	<br>인증글 게시판
