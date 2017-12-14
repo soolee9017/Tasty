@@ -61,17 +61,4 @@ public class MissionCertDAOImpl implements MissionCertDAO{
 		return session.selectOne(makeSqlId("selectMissionCertByMCN"),number);
 	}
 
-	/*@Override
-	public MissionCert selectMissionCertByMissionCertNum(int missionCertNum) {
-		return session.selectOne(makeSqlId("selectMissionCertByMissionCertNum"),missionCertNum);
-	}
-	*/
-	
-
-
-		
-
-
-
-
 }

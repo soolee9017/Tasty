@@ -120,7 +120,7 @@ body{
 				href='${initParam.rootPath}/route/getRouteByEmail.do?email=<sec:authentication property="principal.email"/>'>내가 작성한 루트 보기</a></li>
 				
 			<li><a
-				href='#'>내가 참여중인 미션 보기</a></li>
+				href='${initParam.rootPath}/mission/getMissionByEmail.do?email=<sec:authentication property="principal.email"/>'>내가 참여중인 미션 보기</a></li>
 		
 			<li><a href="${initParam.rootPath }/review/getAllTaste3.do">정보수정</a></li>
 			<li><a onclick="return confirm('정말 탈퇴하시겠습니까?');"
