@@ -20,8 +20,6 @@ public interface MissionService {
 	
 	int cancelMissionMember(MissionMember missionMember,int missionNum);
 	
-	List<Mission> selectMissionByMissionName(String missionName);
-	
 	Mission selectMissionByMissionNum(int missionNum);
 	
 	List<Mission> selectAllMissionList();
@@ -32,7 +30,8 @@ public interface MissionService {
 			int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople, Date startDate,
 			Date endDate) throws Exception;
 
-
 	int deleteMissionByMissionNum(Principal principal, HttpServletRequest request, int missionNum);
+	
+	List<Mission> getMissionByEmail(Principal principal, HttpServletRequest request, String email);
 	
 }

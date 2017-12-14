@@ -65,6 +65,12 @@ $(document).ready(function() {
 				</form>
 			</c:if>
 		</c:forEach>
+		
+		
+		<form action="${initParam.rootPath }/missionCert/getMisisonCertByMCN">
+		<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum }">
+		<button type="submit" id="">이전페이지로 이동하기</button>
+		</form>
 
 	</div>
 </body>
