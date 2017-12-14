@@ -191,11 +191,6 @@ public class RouteController {
    @RequestMapping("getRouteByNum")
    public ModelAndView getRouteByNum(HttpServletRequest request,@RequestParam int number, ModelMap model) {
 	   
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member member= (Member)authentication.getPrincipal();
-
-		request.setAttribute("email", member.getEmail());
-		
 	   Route route = routeService.selectRouteByNum(number);
 	   
 	   List bigList = new ArrayList<>();

@@ -98,11 +98,10 @@ public class MissionCertController {
 	
    @RequestMapping("getMissionCertByMN")
    public ModelAndView selectMissionCertByMN(@RequestParam String missionNum, ModelMap model) {
-      int num = Integer.parseInt(missionNum);
-      
-      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-      Member member = (Member)authentication.getPrincipal();
-      
+	   Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	   Member member = (Member)authentication.getPrincipal();
+	   
+	   int num = Integer.parseInt(missionNum);
       Mission mission = service.selectMissionByMissionNum(num);
       List<MissionCert> list = service.selectMissionCertByMissionNum2(num);
       
