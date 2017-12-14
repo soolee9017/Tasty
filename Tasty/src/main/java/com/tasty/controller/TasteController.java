@@ -44,7 +44,7 @@ public class TasteController {
 	@RequestMapping("getAllTaste") //리뷰페이지로 넘어감
 	public ModelAndView getAllTaste() {
 		List tasteList = service.selectAllTaste();
-		return new ModelAndView("review/writeReview.jsp","tasteList",tasteList);
+		return new ModelAndView("write","tasteList",tasteList);
 	}
 	
 	@RequestMapping("setSession")//리뷰작성 페이지로

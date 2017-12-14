@@ -25,6 +25,10 @@
 		<put-attribute name="headers" value="/WEB-INF/view/layout/header.jsp"/>
 	</definition>
 	
+	<definition name="write" template="/WEB-INF/view/review/writeReview.jsp">
+		<put-attribute name="headers" value="/WEB-INF/view/layout/header.jsp"></put-attribute>
+	</definition>
+	
 	<definition name="*.tiles" extends="template">
 		<put-attribute name="content" value="/WEB-INF/view/{1}.jsp"/>
 	</definition>
