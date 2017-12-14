@@ -1,6 +1,9 @@
 package com.tasty.vo;
 
-public class MissionMember {
+import java.io.Serializable;
+import java.util.List;
+
+public class MissionMember implements Serializable{
 	
 	private String email;
 	private int missionNum;
@@ -89,6 +92,7 @@ public class MissionMember {
 			return false;
 		return true;
 	}
+	
 	
 	
 }

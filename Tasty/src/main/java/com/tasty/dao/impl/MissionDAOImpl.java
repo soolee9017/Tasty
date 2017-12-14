@@ -82,7 +82,7 @@ public class MissionDAOImpl implements MissionDAO{
 	}
 
 	@Override
-	public List<Mission> selectMissionByEmail(String email, int begin, int end) {
+	public List<MissionMember> selectMissionByEmail(String email, int begin, int end) {
 		Map map = new HashMap<>();
 		map.put("email", email);
 		map.put("begin", begin);
@@ -93,6 +93,11 @@ public class MissionDAOImpl implements MissionDAO{
 	@Override
 	public int selectCountMission(String email) {
 		return session.selectOne(makeSqlId("selectCountMission"),email);
+	}
+
+	@Override
+	public List<MissionMember> selectMissionByEmail2(String email) {
+		return session.selectList(makeSqlId("selectMissionByEmail2"),email);
 	}
 	
 	

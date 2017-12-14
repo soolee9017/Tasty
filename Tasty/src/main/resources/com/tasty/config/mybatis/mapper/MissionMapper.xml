@@ -37,10 +37,10 @@
 		<result column="end_date" property="endDate"/>
 	</resultMap>
 	
-	<resultMap type="missionMember" id="missionMember-resultmap">
+	<resultMap type="MissionMember" id="missionMember-resultmap">
 		<result column="email" property="email"/>
 		<result column="mission_num" property="missionNum"/>
-		<association property="mission" javaType="Mission">
+		<collection property="mission" ofType="Mission">
 			<id column="mission_num" property="missionNum"/>
 			<result column="mission_name" property="missionName"/>
 			<result column="mission_content" property="missionContent"/>
@@ -48,7 +48,7 @@
 			<result column="max_people" property="maxPeople"/>
 			<result column="start_date" property="startDate"/>
 			<result column="end_date" property="endDate"/>
-		</association>
+		</collection>
 	</resultMap>
 	
 	
@@ -190,14 +190,14 @@
 	<!-- 마이페이지에서 내가 쓴 리뷰조회할때 페이징처리하기 위함. -->
 <select id="selectMissionByEmail" parameterType="map" resultMap="missionMember-resultmap">
 	<![CDATA[	
-	select mission_num, mission_name, mission_content, current_people, max_people, start_date, end_date, email
+	select mission_num, mission_name
 	from(
-		select rownum rn, mission_num, mission_name, mission_content, current_people, max_people, start_date, end_date,email 
+		select rownum rn, mission_num, mission_name
 		from(	
 			select ma.mission_num, ma.mission_name, ma.mission_content, ma.current_people, ma.max_people, ma.start_date, ma.end_date, mm.email  
 			from mission_admin ma, mission_member mm
 			where mm.email=#{email}
-			and mm.mission_num=ma.mission_num
+			and mm.mission_num=ma.mission_num(+)
 			order by mm.mission_num desc
 			) 
 		where rownum <= #{end}
@@ -205,6 +205,16 @@
 	where rn >= #{begin}		
 	]]>
 </select>
+
+<select id="selectMissionByEmail2" parameterType="String" resultMap="missionMember-resultmap">
+	select ma.mission_num, ma.mission_name, ma.mission_content, ma.current_people, ma.max_people, ma.start_date, ma.end_date, mm.email  
+	from mission_admin ma, mission_member mm
+	where mm.email=#{email}
+	and mm.mission_num=ma.mission_num(+)
+	order by mm.mission_num desc
+</select>
+
+
 
 <select id="selectCountMission" resultType="_int" parameterType="String"> 
 	select count(*)  

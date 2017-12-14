@@ -161,10 +161,13 @@ public class MissionServiceImpl implements MissionService {
 
 	@Override
 	public Map<String, Object> selectMissionByEmail(String email, int page) {
+		List<MissionMember> list2 = missionDao.selectMissionByEmail2(email);
+		System.out.println("페이징 없는 list : "+list2);
 		HashMap<String, Object> map = new HashMap<>();
 		PagingBean pb = new PagingBean(missionDao.selectCountMission(email),page);
 		map.put("pageBean", pb);
-		List<Mission> list = missionDao.selectMissionByEmail(email, pb.getBeginItemInPage(), pb.getBeginItemInPage());
+		List<MissionMember> list = missionDao.selectMissionByEmail(email, pb.getBeginItemInPage(), pb.getBeginItemInPage());
+		System.out.println(list);
 		map.put("list",list);
 		return map;
 	}

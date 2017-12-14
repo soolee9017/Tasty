@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 
 <body>
-<div style='margin-top: 70px;'>
+<div style='margin-top: 70px;height:700px;overflow-y:auto;width:100%;'>
 
 <h1>미션목록</h1>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -25,7 +25,9 @@
 미션이름 : ${missions.missionName }<br>
 기간 : ${stD} ~ ${eD}<br>
 참여인원 : ${missions.currentPeople }/${missions.maxPeople }<br>
+	<sec:authorize access="hasRole('ROLE_MEMBER')">
 	<a href="${initParam.rootPath }/missionCert/getMissionCertByMN.do?missionNum=${missions.missionNum}"><button class="btn" type="button">상세보기</button></a>
+	</sec:authorize>
 	<br><br><p><p>
 </c:forEach>
 
