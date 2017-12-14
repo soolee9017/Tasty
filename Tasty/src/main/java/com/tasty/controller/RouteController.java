@@ -51,6 +51,7 @@ public class RouteController {
 		   
 		   @RequestParam String fromWhere, ModelMap model){
 	   
+	   
 	  String errorMessage = "작성한 리뷰가 한개거나 없습니다.";
       List<Review> list = reviewDao.selectAllReviewByEmail(email);
       System.out.println(list);
@@ -99,6 +100,14 @@ public class RouteController {
       int from = Integer.parseInt(fromWhere);
       model.addAttribute("fromWhere",from);
       model.addAttribute("list",str);
+      
+      if(request.getParameter("routeNum") != null) {
+    	  int routeNum = Integer.parseInt(request.getParameter("routeNum"));
+    	  model.addAttribute("routeNum",routeNum);
+    	  Route route = routeService.selectRouteByNum(routeNum);
+    	  model.addAttribute("title",route.getRouteName());
+    	  model.addAttribute("content",route.getContent());
+      }
       
       return new ModelAndView("route");
    }

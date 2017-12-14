@@ -65,17 +65,17 @@
 	<div style="height:150px; width:100%; overflow-x:auto; ">
 	<ul>
 	<c:forEach items="${requestScope.review.menuList }" var="menu">
-	<li style="float:left;"><h2 style="color:#CD2E57; width:120px;">${menu.menuName }</h2>
+	<li style="float:left;"><h2 style="color:#CD2E57; width:200px;">${menu.menuName }</h2>
 	<c:forEach items="${menu.mtList }" var="menuTaste" varStatus="cnt"> 
 		<c:choose>
 			<c:when test="${menuTaste.allTaste.taste.tasteName eq '완벽한'}">
-				<span style="font-size:20px; color:#EF904C;">${menuTaste.allTaste.taste.tasteName}</span>맛
+				<span style="font-size:20px; color:tomato;">${menuTaste.allTaste.taste.tasteName}</span>맛
 			</c:when>
 			<c:when test="${cnt.count == fn:length(menu.mtList)}">
-				<span style="font-size:20px; color:#EF904C;">${menuTaste.allTaste.taste.tasteName}</span>맛 <span style="font-size:20px;">${menuTaste.allTaste.degree.degree}</span>단계
+				<span style="font-size:20px; color:tomato;">${menuTaste.allTaste.taste.tasteName}</span>맛 <span style="font-size:20px;">${menuTaste.allTaste.degree.degree}</span>단계
 			</c:when>
 			<c:otherwise>
-				<span style="font-size:20px; color:#EF904C;">${menuTaste.allTaste.taste.tasteName}</span>맛 <span style="font-size:20px;">${menuTaste.allTaste.degree.degree}</span> 단계,
+				<span style="font-size:20px; color:tomato;">${menuTaste.allTaste.taste.tasteName}</span>맛 <span style="font-size:20px;">${menuTaste.allTaste.degree.degree}</span> 단계,
 			</c:otherwise>
 		</c:choose>
 		<br>

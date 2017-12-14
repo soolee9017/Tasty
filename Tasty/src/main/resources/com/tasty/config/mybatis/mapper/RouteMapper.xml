@@ -148,7 +148,6 @@
 	and rv.email = m.email(+)
 	and r.route_num = #{value}
 	order by tr.order_of_store asc
-	
 	</select>
 	
 	<select id="selectRouteByEmail" parameterType="string" resultMap = "Route-Review-join-resultmap">
@@ -162,6 +161,7 @@
 	order by tr.order_of_store asc
 	
 	</select>
+	
 	
 
 </mapper>
