@@ -82,15 +82,15 @@
 	</ul>
 	</div>
 
-	
-	
-<c:forEach items="${requestScope.review.reviewPhotoList}" var="reviewPhoto" varStatus="indexs">
-<c:if test="${reviewPhoto.photoList[0].photoPath ne null}">
+
+리뷰 사진들<br>
+
+
 <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:100%; height:600px;">
   <!-- Indicators -->
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-  
+ <c:forEach items="${requestScope.review.reviewPhotoList}" var="reviewPhoto" varStatus="indexs">
   	<c:choose>
   		<c:when test="${indexs.index == 0}">
   			<div class="item active">
@@ -104,6 +104,7 @@
   		</div>
   		</c:otherwise>
   	</c:choose>
+</c:forEach>
 	
   </div>
 
@@ -117,8 +118,8 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-</c:if>
-</c:forEach>
+
+
 <sec:authorize access="isAuthenticated()">
 	<%
 		String email = ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
