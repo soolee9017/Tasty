@@ -96,8 +96,10 @@ function errorCheck(){
 	
 	if(!message){
 		
-	}else{
+	}else if(message.indexOf("성공") != -1){
 		swal("",message,"success")
+	}else{
+		swal("",message,"error")
 	}
 }
 </script>
