@@ -66,11 +66,13 @@ public class AdminManageController {
 	
 	//회원 삭제
 	@RequestMapping("remove_member")
-	public String removeMemberByEmail(@RequestParam String email, HttpServletRequest request) {
-		System.out.println("삭제하러 왔니?");
-		service.removeMemberByEmail(email);
-		System.out.println("삭제할거야? "+email);
-		return "redirect:/admin/member_management.do";
+	public ModelAndView removeMemberByEmail(@RequestParam String email, HttpServletRequest request) {
+		int i = service.removeMemberByEmail(email);
+		String message = email+"이란 회원이 성공적으로 삭제되었습니다.";
+		if(i == 0) {
+			message = "없는 회원이거나 이미 삭제된 회원입니다";
+		}
+		return new ModelAndView("admin/member_management.tiles","message",message);
 	}
 	
 	/**

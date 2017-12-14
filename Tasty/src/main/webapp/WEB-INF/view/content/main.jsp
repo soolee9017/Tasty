@@ -6,6 +6,11 @@
 
 .slideImg {
 	width: 100%;
+	height:100%;
+}
+.item{
+	width:100%;
+	height:100%;
 }
 </style>
 <div class="row back">
@@ -40,7 +45,7 @@
 		<div class="item active">
 			<img class="slideImg"
 				src="${initParam.rootPath}/icon/slide/batch_chicken.jpg"
-				alt="Chicken">
+				alt="Chicken" height="400px">
 		</div>
 		<div class="item">
 			<img class="slideImg"

@@ -3,6 +3,7 @@ package com.tasty.service;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,6 +33,7 @@ public interface MissionService {
 
 	int deleteMissionByMissionNum(Principal principal, HttpServletRequest request, int missionNum);
 	
-	List<Mission> getMissionByEmail(Principal principal, HttpServletRequest request, String email);
+	Map<String, Object> selectMissionByEmail(String email,int page);
+		
 	
 }

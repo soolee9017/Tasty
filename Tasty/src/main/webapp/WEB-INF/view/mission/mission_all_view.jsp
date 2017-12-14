@@ -25,7 +25,6 @@
 미션이름 : ${missions.missionName }<br>
 기간 : ${stD} ~ ${eD}<br>
 참여인원 : ${missions.currentPeople }/${missions.maxPeople }<br>
-	
 	<a href="${initParam.rootPath }/missionCert/getMissionCertByMN.do?missionNum=${missions.missionNum}"><button class="btn" type="button">상세보기</button></a>
 	<br><br><p><p>
 </c:forEach>

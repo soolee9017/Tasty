@@ -20,7 +20,7 @@
 
 
 
-<resultMap type="review" id="review-join-menu-resultmap" extends="review-resultmap">
+<resultMap type="Review" id="review-join-menu-resultmap" extends="review-resultmap">
 	<collection property="menuList" ofType="menu">
 		<id column="menu_num" property="menuNum"/>
 		<result column="menu_name" property="menuName"/>
@@ -47,7 +47,7 @@
 </resultMap>
 
 
-<resultMap type="review" id="review-join-menu-photo-resultmap" extends="review-join-menu-resultmap">
+<resultMap type="Review" id="review-join-menu-photo-resultmap" extends="review-join-menu-resultmap">
 
 	<collection property="reviewPhotoList" ofType="reviewPhoto">
 		<result column="photo_num" property="photoNum"/>
@@ -62,7 +62,7 @@
 
 
 
-<resultMap type="review" id="review-join-member-resultmap" extends ="review-join-menu-resultmap">
+<resultMap type="Review" id="review-join-member-resultmap" extends ="review-join-menu-resultmap">
 	<association property="member" javaType="member">
 		<id column="email" property="email"/>
 		<result column="password" property="password"/>
@@ -142,7 +142,7 @@
 insert into review (review_num, title, address) values (review_num_seq.nextval, #{title}, #{address})
 </insert> -->
 
-<insert id="insertReview" parameterType="review">
+<insert id="insertReview" parameterType="Review">
 insert into review values (review_num_seq.nextval, #{address},#{storeName},#{email},#{title},#{content},
 #{ratings},#{ups},#{downs},#{posX},#{posY},sysdate,0)
 </insert>

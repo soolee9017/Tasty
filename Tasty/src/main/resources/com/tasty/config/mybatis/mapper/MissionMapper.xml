@@ -38,8 +38,17 @@
 	</resultMap>
 	
 	<resultMap type="missionMember" id="missionMember-resultmap">
-		<id column="email" property="email"/>
-		<id column="mission_num" property="missionNum"/>
+		<result column="email" property="email"/>
+		<result column="mission_num" property="missionNum"/>
+		<association property="mission" javaType="Mission">
+			<id column="mission_num" property="missionNum"/>
+			<result column="mission_name" property="missionName"/>
+			<result column="mission_content" property="missionContent"/>
+			<result column="current_people" property="currentPeople"/>
+			<result column="max_people" property="maxPeople"/>
+			<result column="start_date" property="startDate"/>
+			<result column="end_date" property="endDate"/>
+		</association>
 	</resultMap>
 	
 	
@@ -175,27 +184,36 @@
 	
 	
 	
-	<select id="selectMissionByEmail" resultMap="missionMember-resultmap">
-		select * 
-		from mission_admin ma, mission_member mm
-		where mm.email=#{value}
-		and mm.mission_num=ma.mission_num
-	</select>
-	
 
 	
+
+	<!-- 마이페이지에서 내가 쓴 리뷰조회할때 페이징처리하기 위함. -->
+<select id="selectMissionByEmail" parameterType="map" resultMap="missionMember-resultmap">
+	<![CDATA[	
+	select mission_num, mission_name, mission_content, current_people, max_people, start_date, end_date, email
+	from(
+		select rownum rn, mission_num, mission_name, mission_content, current_people, max_people, start_date, end_date,email 
+		from(	
+			select ma.mission_num, ma.mission_name, ma.mission_content, ma.current_people, ma.max_people, ma.start_date, ma.end_date, mm.email  
+			from mission_admin ma, mission_member mm
+			where mm.email=#{email}
+			and mm.mission_num=ma.mission_num
+			order by mm.mission_num desc
+			) 
+		where rownum <= #{end}
+		)
+	where rn >= #{begin}		
+	]]>
+</select>
+
+<select id="selectCountMission" resultType="_int" parameterType="String"> 
+	select count(*)  
+	from mission_admin ma, mission_member mm
+	where mm.email=#{email}
+	and mm.mission_num=ma.mission_num
+</select>
 	
- 	
-	<!-- 미션정보 조회 (+사진) -->
-<!-- 	 <select id="selectMissionByMissionNum" parameterType="int" resultMap="mission-join-photo-resultmap">
-		select * 
-		from mission_admin ma, mission_photo mp, photo p
-		where ma.mission_num = #{value}
-		and mp.photo_num = p.photo_num(+)
-		and ma.mission_num = mp.mission_num(+)
-		order by p.photo_num asc  
-	</select>
-	 -->
+
 
 
 	
