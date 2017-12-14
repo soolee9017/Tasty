@@ -124,7 +124,7 @@ body{
 	<c:forEach items="${requestScope.map.bigList}" var="Route">
 		<tr>
 			<td>${Route.routeNum}</td>
-			<td><a href='${initParam.rootPath}/route/getRouteByNum2.do?number=${Route.routeNum}'>${Route.routeName}</a></td>
+			<td><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}&fromWhere=1'>${Route.routeName}</a></td>
 		</tr>
 	</c:forEach>
 </tbody>

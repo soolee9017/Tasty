@@ -129,7 +129,7 @@ body{
 				<tr>
 					<td>${item.reviewNum}</td>
 					<td><a
-						href="${initParam.rootPath}/review/selectReviewByNum2.do?reviewNum=${item.reviewNum}">${item.title}</a></td>
+						href="${initParam.rootPath}/review/selectReviewByNum.do?reviewNum=${item.reviewNum}&fromWhere=1">${item.title}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

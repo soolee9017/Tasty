@@ -401,7 +401,7 @@ $(document).ready(function(){
                 </c:otherwise>
                  </c:choose> 
 		</c:forEach>
-	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}'><button style="border:1px #6495ED solid; margin-top:10px;
+	<br><a href='${initParam.rootPath}/route/getRouteByNum.do?number=${Route.routeNum}&fromWhere=0'><button style="border:1px #6495ED solid; margin-top:10px;
 border-radius:10px;" class="btn btn-info">루트 상 세보기</button></a>
 	</div>
 </c:forEach>
@@ -411,6 +411,7 @@ border-radius:10px;" class="btn btn-info">루트 상 세보기</button></a>
 <form action="${initParam.rootPath }/review/selectReviewByNum.do" id="reviewDetail" method="post">
  <sec:csrfInput/>
 <input type="hidden" id="reviewNumber" name="reviewNum" value="">
+<input type="hidden" id="fromwhere" name="fromWhere" value="0">
 </form>
 </div>
 </body>

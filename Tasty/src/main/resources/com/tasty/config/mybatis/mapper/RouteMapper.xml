@@ -34,6 +34,11 @@
 	</delete>
 	
 	
+	<delete id="deleteRoute" parameterType="int">
+		DELETE FROM ROUTE
+		WHERE route_num = #{routeNum}
+	</delete>
+	
 	
 	<!-- resultMap -->
 	<resultMap type="Route" id="Route-Review-join-resultmap">
