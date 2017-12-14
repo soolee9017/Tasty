@@ -56,16 +56,16 @@ public class MissionController {
 	}
 	
 	@RequestMapping("getAllMission")
-	public ModelAndView getAllMission(Principal principal){
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public ModelAndView getAllMission(/*Principal principal*/){
+		/*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member)authentication.getPrincipal();
-		List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());
+		List<Authority> authority = memberDao.selectAuthorityByEmail(member.getEmail());*/
 		List<Mission> list = service.selectAllMissionList();
-		if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
+/*		if((authority.get(0).getAuthority()).equals("ROLE_ADMIN")) {
 			return new ModelAndView("admin/mission_all_view.tiles","result",list); 
 		}else {
-			return new ModelAndView("mission/mission_all_view.tiles","result",list);
-		}
+*/			return new ModelAndView("mission/mission_all_view.tiles","result",list);
+		
 		
 	}
 	@RequestMapping(value="removeMissionByMissionNum", method=RequestMethod.POST)

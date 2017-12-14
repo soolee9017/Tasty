@@ -32,19 +32,19 @@ public interface MemberService {
 	 * 회원 삭제
 	 * @param email
 	 */
-	void removeMemberByEmail(String email);
+	 int removeMemberByEmail(String email);
 	
 	/**
 	 * 권한 삭제(탈퇴)
 	 * @param email
 	 */
-	void removeAuthorityByEmail(String email);
+	 int removeAuthorityByEmail(String email);
 	
 	/**
 	 * 맛 삭제
 	 * @param email
 	 */
-	void removeMemberTasteByEmail(String email);
+	 int removeMemberTasteByEmail(String email);
 	
 	/**
 	 * 회원 조회(email)

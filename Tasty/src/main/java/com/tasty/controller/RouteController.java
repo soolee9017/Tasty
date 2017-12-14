@@ -51,6 +51,7 @@ public class RouteController {
 	   
 	  String errorMessage = "작성한 리뷰가 한개거나 없습니다.";
       List<Review> list = reviewDao.selectAllReviewByEmail(email);
+      System.out.println(list);
       if(list.isEmpty() || list.size() == 1) {
     	return new ModelAndView("content/main.tiles","errorMessage",errorMessage);
       }
@@ -188,9 +189,13 @@ public class RouteController {
    }
    
    @RequestMapping("getRouteByNum")
-   public ModelAndView getRouteByNum(@RequestParam int number, ModelMap model) {
+   public ModelAndView getRouteByNum(HttpServletRequest request,@RequestParam int number, ModelMap model) {
 	   
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member= (Member)authentication.getPrincipal();
 
+		request.setAttribute("email", member.getEmail());
+		
 	   Route route = routeService.selectRouteByNum(number);
 	   
 	   List bigList = new ArrayList<>();
@@ -218,8 +223,12 @@ public class RouteController {
    }
    
    @RequestMapping("getRouteByNum2")
-   public ModelAndView getRouteByNum2(@RequestParam int number, ModelMap model) {
+   public ModelAndView getRouteByNum2(HttpServletRequest request, @RequestParam int number, ModelMap model) {
 	   
+	   Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member= (Member)authentication.getPrincipal();
+
+		request.setAttribute("email", member.getEmail());
 
 	   Route route = routeService.selectRouteByNum(number);
 	   
@@ -286,12 +295,10 @@ public class RouteController {
 		  }catch(NumberFormatException e) {}
 		  Map<String, Object> map = routeService.getAllRouteByEmail(email2, page);
 
-		  
 		  request.setAttribute("email", email2);
 	   return new ModelAndView("/member/my_route_list.tiles","map",map);
  
    }
-   
    
 
 }
