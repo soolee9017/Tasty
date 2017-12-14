@@ -19,7 +19,10 @@
    src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
    src="${initParam.rootPath}/resource/bootstrap/js/star-rating.js"></script>
-
+   <link type="text/css" rel="stylesheet"
+   href="${initParam.rootPath}/resource/sweetalert/css/sweetalert2.css">
+   <script type="text/javascript"
+   src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
 
 <script type="text/javascript">
 
@@ -90,6 +93,21 @@ $(document).ready(function(){
 	   
 	   
 	   $("#sendBtn").on("click", function() { 
+		   
+		   
+			  if(document.getElementById('s').value == "" || document.getElementById('title').value == ""
+				  || document.getElementById('content').value == ""){
+	          swal('', '빈칸확인','error');
+	          return;
+		  }
+		  
+		  if($(".menu_name").val() == "" || $(".tasteSel").val() == "" || $("#degreeSel").val() == ""){
+	      swal('', '빈칸확인','error');
+	      return;
+	 	 }
+
+		   
+		   
 		     var totalTr = $('#tBody>tr').length;
 		     
 		     var name;
@@ -222,8 +240,8 @@ $(document).ready(function(){
    <sec:csrfInput/>
     기존 별점 : ${requestScope.review.ratings}<br>
    <input id="s" name="rating" type="text" class="rating rating-loading" value="${requestScope.review.ratings}" data-size="sm" title="" required="required">
-    제목 : <input type="text" name="title" required="required" value="${requestScope.review.title}"><br>
-      내용: <textarea name="content" cols="40" rows="8" required="required">${requestScope.review.content}</textarea>
+    제목 : <input type="text" name="title" required="required" value="${requestScope.review.title}" id="title"><br>
+      내용: <textarea name="content" cols="40" rows="8" required="required" id="content">${requestScope.review.content}</textarea>
      <br><br> 
    <h2>메뉴 수정</h2> 
     

@@ -47,7 +47,9 @@ public class RouteController {
    RouteService routeService;
    
    @RequestMapping("getXYByEmail")
-   public ModelAndView getXYByEmail(HttpServletRequest request, @RequestParam String email, ModelMap model){
+   public ModelAndView getXYByEmail(HttpServletRequest request, @RequestParam String email, 
+		   
+		   @RequestParam String fromWhere, ModelMap model){
 	   
 	  String errorMessage = "작성한 리뷰가 한개거나 없습니다.";
       List<Review> list = reviewDao.selectAllReviewByEmail(email);
@@ -94,15 +96,18 @@ public class RouteController {
          e.printStackTrace();
       }
       
-      return new ModelAndView("route","list",str);
+      int from = Integer.parseInt(fromWhere);
+      model.addAttribute("fromWhere",from);
+      model.addAttribute("list",str);
+      
+      return new ModelAndView("route");
    }
    
    @RequestMapping("insertRoute")
    public ModelAndView insertRoute(Principal principal, HttpServletRequest request, @RequestParam String reviewNum, @RequestParam String storeName,
-		   @RequestParam String routeName, @RequestParam String content, ModelMap model) {
+		   @RequestParam String routeName, @RequestParam String content, 
+		   @RequestParam String fromWhere, ModelMap model) {
 	   
-	   System.out.println("insertRoute controller.");
-	   System.out.println(request.getParameter("routeNum"));
 	   //route update (delete -> 새로 insert)
 	   if(request.getParameter("routeNum") != null) {
 		   String num1 = (String)request.getParameter("routeNum");
@@ -144,6 +149,9 @@ public class RouteController {
 		   
 		   model.addAttribute("route",route);
 		   model.addAttribute("list",str);
+		   
+		   int from = Integer.parseInt(fromWhere);
+		   model.addAttribute("fromWhere",from);
 		   return new ModelAndView("route/route_detail.tiles");
 		   
 	   

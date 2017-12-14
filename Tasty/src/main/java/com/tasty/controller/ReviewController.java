@@ -77,13 +77,16 @@ public class ReviewController {
 		   @RequestParam String listOfMenu, @RequestParam String numOfTaste,
          @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating,
          @RequestParam String title,
-         @RequestParam String content,@RequestParam List<MultipartFile> upImage) throws Exception {
+         @RequestParam String content,@RequestParam List<MultipartFile> upImage, ModelMap model) throws Exception {
          
 	  int num = reviewService.insertReview(principal,request,listOfMenu, numOfTaste, listOfTaste, 
 			  listOfDegree, rating, title, content, upImage);
          
          Review review = reviewService.selectReviewByNum(num);
-         return new ModelAndView("review","review",review);
+         model.addAttribute("review",review);
+         int from = 0;
+         model.addAttribute("fromWhere",from);
+         return new ModelAndView("review");
    }
   
   @RequestMapping("selectReviewByNum")

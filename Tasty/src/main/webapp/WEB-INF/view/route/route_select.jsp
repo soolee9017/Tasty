@@ -98,6 +98,8 @@ html, body {
                   <span>루트 제목 :  <input id="routeName" type="text" required="required" name="routeName" size="88"></span><br><br>
                   <textarea id="content" rows="6" cols="100" required="required" name="content"></textarea>
                </div>
+               
+               <input type="hidden" name="fromWhere" value="${requestScope.fromWhere}" />
             </form>
          </div>
       </div>

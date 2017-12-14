@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,8 @@
 		data-size="sm" title="">
 	<h2>${requestScope.review.title}</h2>
 	<p style="width:100%;height:1px;background-color:#000;position:relative;"></p>
-	<h4>작성날짜: ${requestScope.review.writeDate}</h4>
+	<h4>작성날짜:<fmt:formatDate value="${requestScope.review.writeDate}" pattern="yyyy-MM-dd"/></h4>
+
 	<p style="width:100%;height:1px;background-color:#000;position:relative;"></p>
 	<h3>${requestScope.review.content}</h3>
 	<p style="width:100%;height:1px;background-color:#000;position:relative;"></p>
@@ -83,7 +85,6 @@
 	</div>
 
 
-리뷰 사진들<br>
 
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:100%; height:600px;">
@@ -147,7 +148,7 @@
 
 <c:choose>
   		<c:when test="${requestScope.fromWhere == 1}">
-  			<br>
+  			
 <a href='${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>'><button>돌아가기</button></a>
 
   		</c:when>

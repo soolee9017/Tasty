@@ -13,6 +13,9 @@
 </head>
 
 <body>
+
+
+
 	<div style="margin-top: 50px; width: 100%;">
 		<h1>Route 상세정보</h1>
 		<c:choose>
@@ -42,7 +45,7 @@
 			<c:if
 				test="${requestScope.route.tempRouteList[0].review.member.email == email}">
 				<a style="margin-right: 50px; margin-left: 50px;"
-					href="${initParam.rootPath}/route/getXYByEmail.do?routeNum=${requestScope.route.routeNum}&email=${email}"><button
+					href="${initParam.rootPath}/route/getXYByEmail.do?routeNum=${requestScope.route.routeNum}&email=${email}&fromWhere=${requestScope.fromWhere}"><button
 						class="btn btn-primary">내용 수정</button></a>
 				<a href="${initParam.rootPath}/route/deleteRoute.do?routeNum=${requestScope.route.routeNum}&fromWhere=${requestScope.fromWhere}">
 					<button onclick="return confirm('정말 삭제하시겠습니까?');"

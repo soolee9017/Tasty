@@ -17,6 +17,10 @@
    src="${initParam.rootPath}/resource/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
    src="${initParam.rootPath}/resource/bootstrap/js/star-rating.js"></script>
+   <link type="text/css" rel="stylesheet"
+   href="${initParam.rootPath}/resource/sweetalert/css/sweetalert2.css">
+   <script type="text/javascript"
+   src="${initParam.rootPath}/resource/sweetalert/js/sweetalert2.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -52,7 +56,7 @@ $(document).ready(function(){
       
    $("#plusMenu").on("click",function(){
    var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
-      txt += "<td><input type='text' name='menu' required></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
+      txt += "<td><input type='text' name='menu' class='menu_name' required></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
       txt += "<td><span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select>";
       txt += "<select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select></span></td></tr>";
       $("#menu_layer > tbody").append(txt)
@@ -95,6 +99,22 @@ $(document).ready(function(){
    
 
   $("#sendBtn").on("click", function() { 
+	  
+	  if(document.getElementById('s').value == "" || document.getElementById('title').value == ""
+			  || document.getElementById('content').value == ""){
+          swal('', '빈칸확인','error');
+          return;
+	  }
+	  
+	  if($(".menu_name").val() == "" || $(".tasteSel").val() == "" || $("#degreeSel").val() == ""){
+      swal('', '빈칸확인','error');
+      return;
+ 	 }
+
+	  
+
+	  
+	  
 	   
       var totalTr = $('#tBody>tr').length;
      var menuName =[];
@@ -177,8 +197,8 @@ $(document).ready(function(){
    enctype="multipart/form-data">
    <sec:csrfInput/>
    <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="sm" title="" required="required">
-    제목 : <input type="text" name="title" required="required"><br>
-      내용: <textarea name="content" cols="40" rows="8" required="required"></textarea>
+    제목 : <input type="text" name="title" id="title" required="required"><br>
+      내용: <textarea name="content" cols="40" rows="8" required="required" id="content"></textarea>
       <br>
       <table id="menu_layer" border="1">
          <thead>
@@ -192,7 +212,7 @@ $(document).ready(function(){
          <tbody id="tBody">
             <tr>
                <td><button type="button" class="deleteMenu">메뉴삭제</button></td>
-               <td><input type='text' name='menu' required></td>
+               <td><input type='text' name='menu' class="menu_name" required></td>
                <td><button type='button'class='plusTaste2'>맛 추가</button></td>
                <td><span><select class='tasteSel' name="tastes" required="required">
                      <option value="">맛을 선택하세요.</option>
