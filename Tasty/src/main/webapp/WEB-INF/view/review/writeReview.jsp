@@ -34,7 +34,7 @@ $(document).ready(function(){
             if(evtSrc.selectedIndex == 0){
                alert("맛을 선택하세요");
                /* $(evtSrc).next() 는 $("#menu, #menu_layer").on("change" 액션을 취하고, 다음 tag에 적용하는 것이다.. */ 
-               $(evtSrc).next().html("<option value=''>정도를 선택하세요</option>");
+               $(evtSrc).next().html('<option value="">정도를 선택하세요</option>');
                return false;
             }else if(evtSrc.selectedIndex == 8){
                $(evtSrc).next().html("<option value='0'>선택불가</option>");
@@ -43,7 +43,7 @@ $(document).ready(function(){
          },
          "success":function(list){
             
-            var txt="<option value=''>정도를 선택하세요</option>";
+            var txt='<option value="">정도를 선택하세요</option>';
             $.each(list, function(){
                txt += "<option>"+this+"</option>"
             });
@@ -67,18 +67,18 @@ $(document).ready(function(){
     
    
    $("#menu_layer").on("click",".plusTaste2",function(){
-      if($(this).parent().next().children().length == 4){
+      if($(this).parent().next().children().length == 3){
          alert('더이상 맛 추가 안됨');
          return;
       }
-        var txt = "<span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select><select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select><button type='button' class='deleteTaste btn btn-danger'>X</button></span>";
+        var txt = "<span>&nbsp;&nbsp;<select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select><select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select><button type='button' class='deleteTaste btn btn-danger'>X</button></span>";
         $(this).parent().next().append(txt);
    });
 
    
    $("#plusPhoto").on("click",function(){
-       var html = '<tr><td>' + '<input type="file" name="upImage">' + '</td>'; //tr, td를 열고 + 문자열로 바꾸고 +td 닫기
-       html += '<td><button type="button" class="deletePhoto">Del</button>'; //html변수에 삭제버튼을 대입
+       var html = '<tr><td>' + '<input type="file" name="upImage" class="btn btn-default">' + '</td>'; //tr, td를 열고 + 문자열로 바꾸고 +td 닫기
+       html += '<td><button type="button" class="deletePhoto btn btn-danger">Del</button>'; //html변수에 삭제버튼을 대입
        html += '</td></tr>';
        $("#photolist").append(html);
    });
@@ -198,10 +198,12 @@ $(document).ready(function(){
 		border-bottom:1px #000 solid;
 	}
 	tbody tr{
-		height:60px;
+		height:65px;
+		border-bottom:1px black solid;
 	}
 	select {
 		height:30px;
+		margin-top:10px;
 	}
 </style>
 
@@ -210,7 +212,7 @@ $(document).ready(function(){
 <header class="row" style="width:100%; margin-bottom:70px;">
 			<tiles:insertAttribute name="headers" />
 </header>
-<div style="width:1000px; margin-top:70px; margin:0 auto;">
+<div style="width:1300px; margin-top:70px; margin:0 auto;">
    <h1>${sessionScope.eateryTitle}</h1>
    <p style="width:100%; height:1px; background-color:black;"></p>
    <form action="${initParam.rootPath }/review/registerReview.do" method="post" id="reviewForm"
@@ -218,7 +220,7 @@ $(document).ready(function(){
    
    <sec:csrfInput/>
    <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="md" title="" required="required">
-    <input placeholder="제목" type="text" name="title" id="title" required="required" size="78" style="margin-bottom:30px; height:40px;">
+    <input placeholder="제목" type="text" name="title" id="title" required="required" size="78" style="margin-bottom:30px; height:40px;"><br>
       <textarea placeholder="내용" name="content" cols="80" rows="8" required="required" id="content" style="overflow:auto;"></textarea>
       <br>
       <table id="menu_layer" style="margin-top:30px;">
@@ -242,7 +244,7 @@ $(document).ready(function(){
                      </c:forEach>
                </select> <select id="degreeSel" name="degrees" required="required">
                      <option value="">정도를 선택하세요</option>
-               </select></span><br></td>
+               </select></span></td>
             </tr>
          </tbody>
       </table>
@@ -266,10 +268,12 @@ $(document).ready(function(){
 <input type="hidden" id="listOfTaste" name="listOfTaste" value="">
 <input type="hidden" id="listOfDegree" name="listOfDegree" value="">
 
-
+<br><br>
  <button id="sendBtn" type="button" class="btn btn-success">리뷰 전송</button> 
 
    </form>
+   
+   <br><br><br>
 </div>
 </body>
 </html> 

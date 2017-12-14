@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 <!DOCTYPE html>
 <html>
@@ -62,9 +62,9 @@ $(document).ready(function(){
 	    
 	    
 	$("#plusMenu").on("click",function(){
-	   var txt = "<tr><td><button  type='button' class='deleteMenu'>메뉴삭제</button></td>";
+	   var txt = "<tr><td><button  type='button' class='deleteMenu btn btn-danger'>메뉴삭제</button></td>";
 	   	  txt += "<td class='menuNum'>0</td>"
-	      txt += "<td><input type='text' name='menu'></td><td><button type='button' class='plusTaste2'>맛 추가</button></td>";
+	      txt += "<td><input type='text' name='menu'></td><td><button type='button' class='plusTaste2 btn btn-primary'>맛 추가</button></td>";
 	      txt += "<td><span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select>";
 	      txt += "<select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select></span></td></tr>";
 	      $("#menuTable > tbody").append(txt)
@@ -77,7 +77,7 @@ $(document).ready(function(){
 		         alert('더이상 맛 추가 안됨');
 		         return;
 		      }
-		        var txt = "<span><select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select><select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select><button type='button' class='deleteTaste'>X</button></span>";
+		        var txt = "<span>&nbsp;&nbsp;<select class='tasteSel' name='tastes' required='required'><option value=''>맛을 선택하세요.</option><c:forEach items='${requestScope.tasteList }' var='taste' varStatus='cnt'><option value='${cnt.count}'>${taste.tasteName}</option></c:forEach></select><select id='degreeSel' name='degrees' required='required'><option value=''>정도를 선택하세요</option></select><button type='button' class='deleteTaste btn btn-danger'>X</button></span>";
 		        $(this).parent().next().append(txt);
 		   });
 	   
@@ -197,8 +197,8 @@ $(document).ready(function(){
 	   
 	   
 	   $("#plusPhoto").on("click",function(){
-	       var html = '<tr><td>' + '<input type="file" name="upImage">' + '</td>'; //tr, td를 열고 + 문자열로 바꾸고 +td 닫기
-	       html += '<td><button type="button" class="deletePhoto">Del</button>'; //html변수에 삭제버튼을 대입
+	       var html = '<tr><td>' + '<input type="file" name="upImage" class="btn btn-default">' + '</td>'; //tr, td를 열고 + 문자열로 바꾸고 +td 닫기
+	       html += '<td><button type="button" class="deletePhoto btn btn-danger">Del</button>'; //html변수에 삭제버튼을 대입
 	       html += '</td></tr>';
 	       $("#photolist").append(html);
 	   });
@@ -227,7 +227,8 @@ $(document).ready(function(){
 	html, body{
 		width:100%;
 	}
-	thead td{
+	
+	thead th{
 		text-align:center;
 		color:black;
 		font-size:20px;
@@ -235,6 +236,7 @@ $(document).ready(function(){
 	}
 	tbody tr{
 		height:60px;
+		border-bottom:1px black solid;
 	}
 	select {
 		height:30px;
@@ -245,22 +247,24 @@ $(document).ready(function(){
 
 </head>
 <body style="background-color:#bebebe;">
+<header class="row" style="width:100%; margin-bottom:70px;">
+			<tiles:insertAttribute name="headers" />
+</header>
 
 
-
-<div style="width:1000px; margin-top:70px; margin:0 auto;">
+<div style="width:1300px; margin-top:70px; margin:0 auto;">
 <h2>${requestScope.review.storeName} 리뷰 수정 페이지</h2>
 <p style="width:100%; height:1px; background-color:black;"></p>
    <form action="${initParam.rootPath }/review/updateReview.do" method="post" id="reviewForm" enctype="multipart/form-data">
    <sec:csrfInput/>
     기존 별점 : ${requestScope.review.ratings}<br>
-   <input id="s" name="rating" type="text" class="rating rating-loading" value="${requestScope.review.ratings}" data-size="sm" title="" required="required">
-    제목 : <input type="text" name="title" required="required" value="${requestScope.review.title}" id="title"><br>
-      내용: <textarea name="content" cols="40" rows="8" required="required" id="content">${requestScope.review.content}</textarea>
+   <input id="s" name="rating" type="text" class="rating rating-loading" value="${requestScope.review.ratings}" data-size="md" title="" required="required">
+    <input type="text" name="title" required="required" value="${requestScope.review.title}" id="title" size="78" style="margin-bottom: 30px; height:40px;"><br>
+     <textarea name="content" cols="80" rows="8" required="required" id="content">${requestScope.review.content}</textarea>
      <br><br> 
    <h2>메뉴 수정</h2> 
     
-    <table border="1" id="menuTable">
+    <table id="menuTable">
     <thead>
     	<tr>
     		<th>메뉴 삭제</th>
@@ -275,10 +279,10 @@ $(document).ready(function(){
     <tbody id="tBody">
     	   <c:forEach items="${requestScope.review.menuList }" var="menu">
 				<tr>
-					<td><button type="button" class="delMenuBtn">메뉴 삭제</button></td>
+					<td><button type="button" class="deleteMenu btn btn-danger">메뉴 삭제</button></td>
 					<td class="menuNum">${menu.menuNum}</td>
 					<td><input type="text" value="${menu.menuName}"> </td>
-					<td><button type="button" class="plusTaste2">맛 추가</button></td>
+					<td><button type="button" class="plusTaste2 btn btn-primary">맛 추가</button></td>
 					<td>
 					<c:forEach items="${menu.mtList }" var="menuTaste" varStatus="totalCnt">
 					
@@ -329,7 +333,7 @@ $(document).ready(function(){
            					   </select>
            					   
            					   <c:if test="${totalCnt.count != 1}" >
-           					   <button type='button' class='deleteTaste'>X</button>
+           					   <button type='button' class='deleteTaste btn btn-danger'>X</button>
            					   </c:if>
            				</span>
 			
@@ -340,7 +344,7 @@ $(document).ready(function(){
 		   </c:forEach>       
     </tbody>
     </table>
-    <button type="button" id="plusMenu">메뉴추가</button>
+    <button type="button" id="plusMenu" class="btn btn-primary">메뉴추가</button>
     
     
      
@@ -353,7 +357,7 @@ $(document).ready(function(){
  	<div class="reviewPhoto">
 	<img src="${initParam.rootPath }/photos/review/${reviewPhoto.photoList[0].photoPath}" width="300px">
 	<span style="display:none;" class="photoNum">${reviewPhoto.photoList[0].photoNum}</span>
-	<button type="button" class="deleteOgPhotoBtn">이 사진 삭제</button>
+	<button type="button" class="deleteOgPhotoBtn btn btn-danger">이 사진 삭제</button>
 	</div>
 </c:forEach>
     
@@ -362,11 +366,11 @@ $(document).ready(function(){
       
       <table id="photolist">
          <tr>
-            <td><input type="file" name="upImage" value="냠냠"></td>
-            <td><button type="button" class="deletePhoto">Del</button></td>
+            <td><input type="file" name="upImage" value="냠냠" class="btn btn-default"></td>
+            <td><button type="button" class="deletePhoto btn btn-danger">Del</button></td>
          </tr>
       </table>
-      <button type="button" id="plusPhoto">사진추가</button>
+      <button type="button" id="plusPhoto" class="btn btn-primary">사진추가</button>
       <br>
       <br>
       <br>
@@ -389,8 +393,8 @@ $(document).ready(function(){
 
    </form>
    
-<button id="sendBtn" type="button">리뷰 수정</button>
-<button id="cancelBtn" type="button">취소</button>
+<button id="sendBtn" type="button" class="btn btn-info">리뷰 수정</button>
+<button id="cancelBtn" type="button" class="btn btn-danger">취소</button>
 </div>
 </body>
 </html>

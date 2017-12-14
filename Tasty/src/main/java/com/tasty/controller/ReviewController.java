@@ -186,7 +186,7 @@ public class ReviewController {
 	  model.addAttribute("review",review);
 	  model.addAttribute("tasteList",tasteList);
 	  model.addAttribute("degreeList",degreeList);
-	  return new ModelAndView("review/changeReview.jsp");
+	  return new ModelAndView("writeUpdate");
   }
   
   @RequestMapping("updateReview")
