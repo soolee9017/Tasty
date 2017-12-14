@@ -24,6 +24,4 @@ public interface MissionCertDAO {
    
    MissionCert selectMissionCertByMCN(int number);
    
-   //MissionCert selectMissionCertByMissionCertNum(int missionCertNum);
-   
 }

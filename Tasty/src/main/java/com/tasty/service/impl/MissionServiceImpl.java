@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tasty.dao.MissionDAO;
 import com.tasty.dao.PhotoDAO;
 import com.tasty.service.MissionService;
+import com.tasty.util.PagingBean;
 import com.tasty.vo.Member;
 import com.tasty.vo.Mission;
 import com.tasty.vo.MissionMember;
@@ -123,11 +124,6 @@ public class MissionServiceImpl implements MissionService {
 	}
 
 	@Override
-	public List<Mission> selectMissionByMissionName(String missionName) {
-		return missionDao.selectMissionByMissionName(missionName);
-	}
-
-	@Override
 	public int enterMissionMember(MissionMember missionMember, int missionNum) {
 		boolean isMissionMember = missionDao.selectMissionMemberByMissionMember(missionMember);
 		if (isMissionMember == false) {
@@ -162,5 +158,20 @@ public class MissionServiceImpl implements MissionService {
 	public List<Mission> selectAllMissionList() {
 		return missionDao.selectAllMissionList();
 	}
+
+	@Override
+	public Map<String, Object> selectMissionByEmail(String email, int page) {
+		HashMap<String, Object> map = new HashMap<>();
+		PagingBean pb = new PagingBean(missionDao.selectCountMission(email),page);
+		map.put("pageBean", pb);
+		List<Mission> list = missionDao.selectMissionByEmail(email, pb.getBeginItemInPage(), pb.getBeginItemInPage());
+		map.put("list",list);
+		return map;
+	}
+
+	
+	
+	
+	
 
 }

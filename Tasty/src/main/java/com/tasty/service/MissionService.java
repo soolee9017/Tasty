@@ -3,6 +3,7 @@ package com.tasty.service;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,8 +21,6 @@ public interface MissionService {
 	
 	int cancelMissionMember(MissionMember missionMember,int missionNum);
 	
-	List<Mission> selectMissionByMissionName(String missionName);
-	
 	Mission selectMissionByMissionNum(int missionNum);
 	
 	List<Mission> selectAllMissionList();
@@ -32,7 +31,9 @@ public interface MissionService {
 			int missionNum, String missionName, String missionContent, int currentPeople, int maxPeople, Date startDate,
 			Date endDate) throws Exception;
 
-
 	int deleteMissionByMissionNum(Principal principal, HttpServletRequest request, int missionNum);
+	
+	Map<String, Object> selectMissionByEmail(String email,int page);
+		
 	
 }

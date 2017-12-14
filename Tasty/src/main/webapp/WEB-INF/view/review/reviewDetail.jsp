@@ -128,7 +128,7 @@
 
 	<c:if test="${requestScope.review.email==email}">
 		<a
-			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button class="btn btn-info">내용
+			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}&fromWhere=${requestScope.fromWhere}"><button class="btn btn-info">내용
 				수정</button></a>
 				
 		<a href="${initParam.rootPath}/review/deleteReview.do?reviewNum=${requestScope.review.reviewNum}">
@@ -144,10 +144,35 @@
 
 
 
+<c:choose>
+  		<c:when test="${requestScope.fromWhere == 1}">
+  			<br>
+<a href='${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>'><button>돌아가기</button></a>
+
+  		</c:when>
+  		<c:otherwise>
+  		<a href="${initParam.rootPath}/review/backToList.do?storeName=${requestScope.review.storeName}&posX=${requestScope.review.posX}&posY=${requestScope.review.posY}">
+<button style="margin-top:20px;" class="btn btn-default">돌아가기</button>
+</a>
+  		
+  		</c:otherwise>
+  	</c:choose>
+
+
+
+<%-- 
+<c:if test="${requestScope.fromWhere == 1}">
+<br>
+<a href='${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>'><button>돌아가기</button></a>
+</c:if>
+<br>
+<c:if test="${requestScope.fromWhere == 0}">
 <br>
 <a href="${initParam.rootPath}/review/backToList.do?storeName=${requestScope.review.storeName}&posX=${requestScope.review.posX}&posY=${requestScope.review.posY}">
-<button style="margin-top:20px;" class="btn btn-default">목록으로 돌아가기</button>
+<button style="margin-top:20px;" class="btn btn-default">돌아가기</button>
 </a>
+</c:if>
+--%>
 </div>
 
 

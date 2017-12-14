@@ -1,17 +1,13 @@
-<%@page
-	import="org.springframework.security.core.context.SecurityContextHolder"%>
-<%@page import="com.tasty.vo.Member"%>
 <%@ page contentType="text/html;charset=utf-8"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>참여한 미션보기</title>
 <link type="text/css" rel="stylesheet"
 	href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" media="all"
@@ -35,8 +31,7 @@
 </style>
 </head>
 <body>
-
-	<header class="row">
+<header class="row">
 		<tiles:insertAttribute name="headers" ignore="true"/>
 	</header>
 <div style="margin-top:80px; width:1000px; height:500px; left:17%;position:relative; text-align: center;">
@@ -101,33 +96,10 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-<sec:authorize access="isAuthenticated()">
-	<%
-		String email = ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
-		pageContext.setAttribute("email", email);
-	%>
-
-
-	<c:if test="${requestScope.review.email==email}">
-		<a
-			href="${initParam.rootPath}/review/changeReview.do?reviewNum=${requestScope.review.reviewNum}"><button>내용
-				수정</button></a>
-				
-		<a href="${initParam.rootPath}/review/deleteReview.do?reviewNum=${requestScope.review.reviewNum}">
-		<button onclick="return confirm('정말 삭제하시겠습니까?');">리뷰 삭제</button></a>		
-	</c:if>
-</sec:authorize>
-
-
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-<a href="${initParam.rootPath}/review/deleteReview.do?reviewNum=${requestScope.review.reviewNum}">
-<button onclick="return confirm('정말 삭제하시겠습니까?');">리뷰 삭제</button></a>
-</sec:authorize>
-
 
 
 <br>
-<a href='${initParam.rootPath }/review/getReviewByEmail.do?email=<sec:authentication property="principal.email"/>'><button>돌아가기</button></a>
+<a href='${initParam.rootPath }/mission/getMissionByEmail.do?email=<sec:authentication property="principal.email"/>'><button>돌아가기</button></a>
 </div>
 
 

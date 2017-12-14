@@ -217,7 +217,7 @@ $(document).ready(function(){
 
 
 
-<h2>${requestScope.review.storeName} 리뷰 수정 페이지!!</h2>
+<h2>${requestScope.review.storeName} 리뷰 수정 페이지</h2>
    <form action="${initParam.rootPath }/review/updateReview.do" method="post" id="reviewForm" enctype="multipart/form-data">
    <sec:csrfInput/>
     기존 별점 : ${requestScope.review.ratings}<br>
@@ -352,7 +352,7 @@ $(document).ready(function(){
 
 
 <input type="hidden" id="listOfDelPhoto" name="listOfDelPhoto" value="">
-
+<input type="hidden" id="fromWhere" name="fromWhere" value="${requestScope.fromWhere}">
 
    </form>
    

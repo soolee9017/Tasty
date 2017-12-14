@@ -21,6 +21,8 @@ public interface RouteDAO {
 	
 	int deleteTempRoute(int routeNum);
 	
+	int deleteRoute(int routeNum);
+	
 	int updateTempRoute(TempRoute tempRoute);
 	
 	List<Integer> getRouteNumByEmail(String email, int begin, int end);

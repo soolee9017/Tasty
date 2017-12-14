@@ -15,4 +15,6 @@ public interface RouteService {
 	int insertRoute(String routeName, String content);
 	
 	Map<String, Object> getAllRouteByEmail(String email, int page);
+	
+	void deleteTempAndRoute(int number);
 }

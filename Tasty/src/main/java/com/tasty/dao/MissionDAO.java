@@ -16,8 +16,6 @@ public interface MissionDAO {
 	
 	int updateMissionByMissionNum(Map map);
 	
-	List<Mission> selectMissionByMissionName(String missionName);
-	
 	int insertMissionMember(MissionMember missionMember);
 	
 	int deleteMissionMember(MissionMember missionMember);
@@ -31,6 +29,11 @@ public interface MissionDAO {
 	Mission selectMissionByMissionNum(int missionNum);
 	
 	List<Mission> selectAllMissionList();
+	
+	List<Mission> selectMissionByEmail(String email, int begin, int end);
+	
+	int selectCountMission(String email);
+	
 
 	
 }
