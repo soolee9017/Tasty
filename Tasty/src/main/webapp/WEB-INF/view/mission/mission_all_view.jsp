@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 
 <body>
+<sec:authorize access="isAnonymous()">
 <div style='margin-top: 70px;'>
 
 <h1>미션목록</h1>
@@ -28,6 +29,6 @@
 </c:forEach>
 
 </div>
-
+</sec:authorize>
 </body>
 </html>

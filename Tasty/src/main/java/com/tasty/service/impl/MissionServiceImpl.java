@@ -123,11 +123,6 @@ public class MissionServiceImpl implements MissionService {
 	}
 
 	@Override
-	public List<Mission> selectMissionByMissionName(String missionName) {
-		return missionDao.selectMissionByMissionName(missionName);
-	}
-
-	@Override
 	public int enterMissionMember(MissionMember missionMember, int missionNum) {
 		boolean isMissionMember = missionDao.selectMissionMemberByMissionMember(missionMember);
 		if (isMissionMember == false) {
@@ -162,5 +157,13 @@ public class MissionServiceImpl implements MissionService {
 	public List<Mission> selectAllMissionList() {
 		return missionDao.selectAllMissionList();
 	}
+
+	@Override
+	public List<Mission> getMissionByEmail(Principal principal, HttpServletRequest request, String email) {
+		return missionDao.selectMissionByEmail(email);
+	}
+	
+	
+	
 
 }

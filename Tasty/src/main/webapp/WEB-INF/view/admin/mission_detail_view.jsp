@@ -109,7 +109,8 @@ $(document).ready(function() {
 		
 	<!-- 미션 삭제하기 -->
 	<h2>미션 삭제하기</h2>
-	<form id="delMisForm" action="${initParam.rootPath }/mission/removeMissionByMissionNum.do" method="get">
+	<form id="delMisForm" action="${initParam.rootPath }/mission/removeMissionByMissionNum.do" method="post">
+	<sec:csrfInput/>
 		<input type="hidden" name="missionNum" value="${requestScope.result.missionNum}">
 		<button type="submit" id="delMisBtn">미션 삭제하기</button>
 	</form>

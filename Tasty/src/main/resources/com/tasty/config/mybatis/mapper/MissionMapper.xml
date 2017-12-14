@@ -43,12 +43,6 @@
 	</resultMap>
 	
 	
-	<!-- <resultMap type="Mission" id="mission-missionMember-resultmap">
-		<id column="email" property="email"/>
-		<id column="mission_num" property="missionNum"/>
-	
-	</resultMap> -->
-	
 	<resultMap type="mission" id="mission-join-photo-resultmap" extends="mission-resultmap">
 			<collection property="missionPhotoList" ofType="missionPhoto">
 				<result column="photo_num" property="photoNum"/>
@@ -60,24 +54,6 @@
 			</collection>
 	</resultMap>
 	
-	
-	
-<!-- <resultMap type="mission" id="mission-join-photo-resultmap" extends="mission-resultmap">
-	<collection property="missionPhotoList" ofType="missionPhoto">
-		<result column="photo_num" property="photoNum"/>
-		<result column="mission_num" property="missionNum"/>
-		<collection property="photoList" ofType="photo">
-				<id column="photo_num" property="photoNum"/>
-				<result column="photo_path" property="photoPath"/>
-		</collection>
-	</collection>
-</resultMap> -->
-	
-	
-	
-	
-	
-
 
 	<select id="selectAllMission2" resultMap="mission-join-photo-resultmap">
 		select * 
@@ -195,6 +171,15 @@
 		from mission_member
 		where mission_num=#{missionNum}
 		and email=#{email}
+	</select>
+	
+	
+	
+	<select id="selectMissionByEmail" resultMap="missionMember-resultmap">
+		select * 
+		from mission_admin ma, mission_member mm
+		where mm.email=#{value}
+		and mm.mission_num=ma.mission_num
 	</select>
 	
 
