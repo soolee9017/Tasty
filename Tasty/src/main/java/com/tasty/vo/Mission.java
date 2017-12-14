@@ -21,11 +21,22 @@ public class Mission implements Serializable{
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
 	
+	private MissionMember missionMember;
 	private List<MissionCert> missionCertList;
 	private List<MissionPhoto> missionPhotoList;//생성자 만들었음
 	private List<MissionMember> missionMemberList;
 	
 	
+	public MissionMember getMissionMember() {
+		return missionMember;
+	}
+
+
+	public void setMissionMember(MissionMember missionMember) {
+		this.missionMember = missionMember;
+	}
+
+
 	public Mission() {}
 
 

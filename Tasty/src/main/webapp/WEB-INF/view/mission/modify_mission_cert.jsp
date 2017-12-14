@@ -67,10 +67,12 @@ $(document).ready(function() {
 		</c:forEach>
 		
 		
-		<form action="${initParam.rootPath }/missionCert/getMisisonCertByMCN">
+		<form action="${initParam.rootPath }/missionCert/getMissionCertByNum.do">
 		<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum }">
 		<button type="submit" id="">이전페이지로 이동하기</button>
 		</form>
+		
+		<%-- <input type="button" value="This is button link" onclick="window.location.href='${initParam.rootPath }/missionCert/getMissionCertByMCN.do?missioniNum=${requestScope.missionCert.missoinNum }'"> --%>
 
 	</div>
 </body>

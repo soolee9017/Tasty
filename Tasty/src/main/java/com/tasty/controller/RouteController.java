@@ -208,7 +208,6 @@ public class RouteController {
    @RequestMapping("getRouteByNum")
    public ModelAndView getRouteByNum(HttpServletRequest request,@RequestParam int number, @RequestParam String fromWhere,ModelMap model) {
 	   
-
 	   Route route = routeService.selectRouteByNum(number);
 	   
 	   List bigList = new ArrayList<>();
