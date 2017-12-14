@@ -12,6 +12,9 @@
 <div style='margin-top: 70px;'>
 
 <h1>미션목록</h1>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+<button id="regBtn" type="submit" onclick="window.location.href='moveToRegister.do'">미션 등록</button>
+</sec:authorize><br><br>
 <c:forEach var="missions" items="${result }">
 <fmt:formatDate var="stD" pattern = "yyyy-MM-dd" value = "${missions.startDate }" />
 <fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${missions.endDate }" />
@@ -28,6 +31,5 @@
 </c:forEach>
 
 </div>
-
 </body>
 </html>
