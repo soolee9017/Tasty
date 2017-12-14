@@ -87,20 +87,18 @@ public class ReviewController {
    }
   
   @RequestMapping("selectReviewByNum")
-  public ModelAndView selectReview(@RequestParam String reviewNum) {
+  public ModelAndView selectReview(@RequestParam String reviewNum, @RequestParam String fromWhere, ModelMap model) {
 	 int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
-	  return new ModelAndView("review","review",review);
+	  
+	  int from = Integer.parseInt(fromWhere);
+	  model.addAttribute("fromWhere",from);
+	  model.addAttribute("review",review);
+	  return new ModelAndView("review");
 }
   
   
-  @RequestMapping("selectReviewByNum2")
-  public ModelAndView selectReview2(@RequestParam String reviewNum) {
-	 int number=Integer.parseInt(reviewNum);
-	  Review review = reviewService.selectReviewByNum(number);
-	  return new ModelAndView("review2","review",review);
-}
-  
+
   
   @RequestMapping("updateReviewUps")
   @ResponseBody
@@ -172,13 +170,16 @@ public class ReviewController {
   
   
   @RequestMapping("changeReview")
-  public ModelAndView changeReview(@RequestParam String reviewNum, ModelMap model){
+  public ModelAndView changeReview(@RequestParam String reviewNum, ModelMap model, @RequestParam String fromWhere){
 
 	  int number=Integer.parseInt(reviewNum);
 	  Review review = reviewService.selectReviewByNum(number);
 	  
 	  List tasteList = tasteService.selectAllTaste();
 	  List degreeList= tasteService.selectAllDegree();
+	  
+	  int from = Integer.parseInt(fromWhere);
+	  model.addAttribute("fromWhere",from);
 	  model.addAttribute("review",review);
 	  model.addAttribute("tasteList",tasteList);
 	  model.addAttribute("degreeList",degreeList);
@@ -193,7 +194,8 @@ public class ReviewController {
   @RequestParam String listOfTaste,@RequestParam String listOfDegree,@RequestParam String rating,
   @RequestParam String title,
   @RequestParam String content,@RequestParam List<MultipartFile> upImage,
-  @RequestParam String listOfDelPhoto) throws Exception{
+  @RequestParam String listOfDelPhoto,
+  @RequestParam String fromWhere, ModelMap model) throws Exception{
 	
 
 	  reviewService.updateReview(principal, request, reviewNum, numOfOg, ogMenuNum, 
@@ -201,7 +203,10 @@ public class ReviewController {
 	  
 	  Review review = reviewService.selectReviewByNum(Integer.parseInt(reviewNum));
 	  
-	  return new ModelAndView("review","review",review);
+	  int from = Integer.parseInt(fromWhere);
+	  model.addAttribute("fromWhere",from);
+	  model.addAttribute("review",review);
+	  return new ModelAndView("review");
 
   }
   
