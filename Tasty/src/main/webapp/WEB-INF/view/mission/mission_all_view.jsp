@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 
 <body>
-<div style='margin-top: 70px;'>
+<div style='margin-top: 70px;height:700px;overflow-y:auto;width:100%;'>
 
 <h1>미션목록</h1>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
