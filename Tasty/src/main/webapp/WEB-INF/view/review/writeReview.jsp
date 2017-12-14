@@ -201,7 +201,6 @@ $(document).ready(function(){
 		height:60px;
 	}
 	select {
-		float:left;
 		height:30px;
 	}
 </style>
@@ -219,8 +218,8 @@ $(document).ready(function(){
    
    <sec:csrfInput/>
    <input id="s" name="rating" type="text" class="rating rating-loading" value="0" data-size="md" title="" required="required">
-    <input type="text" name="title" id="title" required="required" size="78"><br>
-      <textarea name="content" cols="80" rows="8" required="required" id="content" style="overflow:auto;"></textarea>
+    <input placeholder="제목" type="text" name="title" id="title" required="required" size="78" style="margin-bottom:30px; height:40px;">
+      <textarea placeholder="내용" name="content" cols="80" rows="8" required="required" id="content" style="overflow:auto;"></textarea>
       <br>
       <table id="menu_layer" style="margin-top:30px;">
          <thead>

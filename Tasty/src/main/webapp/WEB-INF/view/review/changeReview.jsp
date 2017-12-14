@@ -224,18 +224,33 @@ $(document).ready(function(){
  #menuTable tr > *:nth-child(2) {
     display: none;
 }
-
+	html, body{
+		width:100%;
+	}
+	thead td{
+		text-align:center;
+		color:black;
+		font-size:20px;
+		border-bottom:1px #000 solid;
+	}
+	tbody tr{
+		height:60px;
+	}
+	select {
+		height:30px;
+	}
 
 </style>
 
 
 </head>
-<body>
+<body style="background-color:#bebebe;">
 
 
 
-
+<div style="width:1000px; margin-top:70px; margin:0 auto;">
 <h2>${requestScope.review.storeName} 리뷰 수정 페이지</h2>
+<p style="width:100%; height:1px; background-color:black;"></p>
    <form action="${initParam.rootPath }/review/updateReview.do" method="post" id="reviewForm" enctype="multipart/form-data">
    <sec:csrfInput/>
     기존 별점 : ${requestScope.review.ratings}<br>
@@ -376,6 +391,6 @@ $(document).ready(function(){
    
 <button id="sendBtn" type="button">리뷰 수정</button>
 <button id="cancelBtn" type="button">취소</button>
-
+</div>
 </body>
 </html>
