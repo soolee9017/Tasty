@@ -74,7 +74,7 @@
 				href='${initParam.rootPath}/route/getRouteByEmail.do?email=<sec:authentication property="principal.email"/>'>내가 작성한 루트 보기</a></li>
 			
 				<li><a
-				href='#'>내가 참여중인 미션 보기</a></li>
+				href='${initParam.rootPath}/Mission/getMissionByEmail.do?email=<sec:authentication property="principal.email"/>'>내가 참여중인 미션 보기</a></li>
 			
 			
 			

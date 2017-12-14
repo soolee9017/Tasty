@@ -79,6 +79,14 @@ public class RouteServiceImpl implements RouteService{
 	
 	return map;
 	}
+
+	@Override
+	public void deleteTempAndRoute(int number) {
+			routeDao.deleteTempRoute(number);
+			routeDao.deleteRoute(number);
+	}
+	
+	
 	
 	
 	

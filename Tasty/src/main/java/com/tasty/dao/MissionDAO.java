@@ -30,7 +30,10 @@ public interface MissionDAO {
 	
 	List<Mission> selectAllMissionList();
 	
-	List<Mission> selectMissionByEmail(String email);
+	List<Mission> selectMissionByEmail(String email, int begin, int end);
+	
+	int selectCountMission(String email);
+	
 
 	
 }

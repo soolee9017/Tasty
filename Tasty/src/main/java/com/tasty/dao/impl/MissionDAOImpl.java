@@ -1,5 +1,6 @@
 package com.tasty.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,10 +82,21 @@ public class MissionDAOImpl implements MissionDAO{
 	}
 
 	@Override
-	public List<Mission> selectMissionByEmail(String email) {
-		return session.selectList(makeSqlId("selectMissionByEmail"),email);
+	public List<Mission> selectMissionByEmail(String email, int begin, int end) {
+		Map map = new HashMap<>();
+		map.put("email", email);
+		map.put("begin", begin);
+		map.put("end", end);
+		return session.selectList(makeSqlId("selectMissionByEmail"),map);
+	}
+
+	@Override
+	public int selectCountMission(String email) {
+		return session.selectOne(makeSqlId("selectCountMission"),email);
 	}
 	
+	
+
 	
 	
 	
