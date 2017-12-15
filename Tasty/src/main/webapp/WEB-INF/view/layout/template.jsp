@@ -43,7 +43,7 @@ section header h1 {
 .back {
 	background-color: rgba(0, 0, 0, 0.3);
 	width: 100%;
-	height: 77.8%;
+	height: 80%;
 	margin-top: 49.5px;
 	z-index: 2;
 	position: absolute;
@@ -52,11 +52,24 @@ section header h1 {
 .foots {
 	background-color:#8c8c8c;
 	padding-top:40px;
-	bottom: -40%;
+	bottom: -100%;
 	width: 100%;
 	height: 14.8%;
 	position:absolute;
 }
+ .container {
+      padding: 80px 120px;
+  }
+  .person {
+      border: 10px solid transparent;
+      margin-bottom: 25px;
+      width: 80%;
+      height: 80%;
+      opacity: 0.7;
+  }
+  .person:hover {
+      border-color: #f1f1f1;
+  }
 </style>
 <link type="text/css" rel="stylesheet"
 	href="${initParam.rootPath}/resource/bootstrap/css/bootstrap.min.css">

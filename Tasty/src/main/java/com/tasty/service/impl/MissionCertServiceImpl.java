@@ -62,9 +62,9 @@ public class MissionCertServiceImpl implements MissionCertService {
 				String fileName = UUID.randomUUID().toString().replace("-", "") + photo.getOriginalFilename();
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName));
-				FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
-						new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\missionCert",
-								fileName));
+				//FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
+					//	new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\missionCert",
+						//		fileName));
 				photoDao.insertPhoto(fileName);
 				photoList.add(fileName);
 				System.out.println(fileName);
@@ -117,9 +117,9 @@ public class MissionCertServiceImpl implements MissionCertService {
 				String fileName = UUID.randomUUID().toString().replace("-", "") + photo.getOriginalFilename();
 
 				photo.transferTo(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName));
-				FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
-						new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\missionCert",
-								fileName));
+				//FileCopyUtils.copy(new File(request.getServletContext().getRealPath("/photos/missionCert"), fileName),
+					//	new File("C:\\Java\\gitRepository\\Tasty\\Tasty\\src\\main\\webapp\\photos\\missionCert",
+						//		fileName));
 
 				photoDao.insertPhoto(fileName);
 				photoList.add(fileName);

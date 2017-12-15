@@ -54,6 +54,7 @@ $(document).ready(function() {
 	<br> 미션번호 : ${requestScope.result.missionNum}
 	<br> 미션이름 : ${requestScope.result.missionName}
 	<br> 참여인원 : ${requestScope.result.currentPeople }/${requestScope.result.maxPeople }
+	<br> 내용 : ${requestScope.result.missionContent}
 	<br> 기간 : ${stD} ~	${eD}
 	<br>
 	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:600px; height:300px;margin: 0 auto;">

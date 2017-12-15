@@ -58,17 +58,13 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-left">
-        <li><a href="#home">공지사항</a></li>
         <li><a href="${initParam.rootPath }/mission/getAllMission.do">미션</a></li>
-        <li><a href="#contact">커뮤니티</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">더 보기
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li><a href="${initParam.rootPath}/content/util/information.do">회사 소개</a></li>
-            <li><a href="#">인사말</a></li>
-            <li><a href="#">연혁 소개</a></li>
             <li><a href="${initParam.rootPath}/content/util/follow.do">Follow</a></li> 
           </ul>
         </li>
