@@ -61,7 +61,9 @@ ALTER TABLE TEMP_ROUTE
       )
       REFERENCES ROUTE ( -- 루트
          route_num -- 루트번호
-      )
+      ) 
+      
+      on delete cascade
        
        ;
 
@@ -76,6 +78,8 @@ ALTER TABLE TEMP_ROUTE
          review_num -- 리뷰번호
       )
        
+      on delete cascade
+      
        ;
       
 

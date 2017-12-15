@@ -66,12 +66,6 @@ ALTER TABLE MEMBER
  
 DROP TABLE AUTHORITY;
 /*권한 테이블 - ROLE_ADMIN, ROLE_MEMBER*/
-CREATE TABLE AUTHORITY(
-   EMAIL VARCHAR2(50),
-   AUTHORITY VARCHAR2(20) NOT NULL,
-   CONSTRAINT PK_AUTHORITY PRIMARY KEY(EMAIL, AUTHORITY),
-   CONSTRAINT FK_AUTHORITY_MEMBER FOREIGN KEY(EMAIL) REFERENCES MEMBER
-);    
 
 CREATE TABLE AUTHORITY(
    EMAIL VARCHAR2(50),
@@ -96,18 +90,10 @@ ALTER TABLE AUTHORITY
 select * from users;
 
 select * from AUTHORITy;
-
-<<<<<<< HEAD
-=======
-insert into AUTHORITIES VALUES('admin', 'ROLE_ADMIN');
-insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN')
       
 insert into AUTHORITY VALUES('z', 'ROLE_ADMIN');
 
 insert into AUTHORITY VALUES('admin', 'ROLE_ADMIN');
-     
->>>>>>> branch 'master' of https://github.com/soolee9017/Tasty.git
-
 ------------------------------ 2.입맛-------------------------------------------------------------
 
 /*ALTER TABLE TASTE
@@ -158,7 +144,8 @@ ALTER TABLE DEGREE
          degree_num -- 정도 번호
       );
       
-            
+
+      select * from degree
       
       
       
@@ -446,6 +433,9 @@ drop sequence taste_seq;
 create sequence taste_seq;
 
 drop sequence degree_seq;
+drop sequence review_num_seq;
+drop sequence mission_admin_seq;
+drop sequence photo_num_seq;
 create sequence degree_seq;
 create sequence review_num_seq;
 create sequence mission_admin_seq;
