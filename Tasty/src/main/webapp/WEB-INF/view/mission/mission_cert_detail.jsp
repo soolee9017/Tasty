@@ -25,6 +25,21 @@ function button_event(){
 
 
 </script>
+<style type="text/css">
+*{
+	text-decoration:none;
+	list-style:none;
+}
+.item{
+	width:600px;
+	height:300px;
+}
+.slideImg{
+	width:600px;
+	height:300px;
+
+}
+</style>
 </head>
 <body>
 <div style="margin-top:60px;">
@@ -35,14 +50,42 @@ function button_event(){
 사진 : 
 <br><br>
 		<br> <br>
-		<c:forEach var="missionCertPhoto"
-			items="${requestScope.missionCert.missionCertPhotoList}">
-			<c:if test="${missionCertPhoto.photoNum ne 0}">
-				<img
+		<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:600px; height:300px;margin: 0 auto;">
+  <!-- Indicators -->
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+ <c:forEach var="missionCertPhoto"
+			items="${requestScope.missionCert.missionCertPhotoList}" varStatus="indexs">
+  	<c:choose>
+  		<c:when test="${indexs.index == 0}">
+  			<div class="item active">
+    		  <img class="slideImg"
 					src="${initParam.rootPath }/photos/missionCert/${missionCertPhoto.photo.photoPath }"
-					width="300px">
-			</c:if>
-		</c:forEach>
+					width="300px" height="300px">
+   		 	</div>
+  		</c:when>
+  		<c:otherwise>
+  		<div class="item">
+  			 <img class="slideImg"
+					src="${initParam.rootPath }/photos/missionCert/${missionCertPhoto.photo.photoPath }"
+					width="300px" height="300px">
+  		</div>
+  		</c:otherwise>
+  	</c:choose>
+</c:forEach>
+	
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 		
 		<!-- 글을 작성한사람만 인증글 수정하기, 삭제하기 가능함. -->
 		<sec:authorize access="isAuthenticated()">
@@ -55,18 +98,18 @@ function button_event(){
 				<!-- 삭제버튼과 내용 수정버튼 -->
 				<form action="${initParam.rootPath }/missionCert/moveToModifyMisCert.do" method="get">
 					<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum}">
-					<button type="submit" id="modMisCBtn">미션 인증글 수정하기</button>
+					<button type="submit" id="modMisCBtn" class="btn btn-primary">미션 인증글 수정하기</button>
 				</form>
 
 				<form id="remMisCForm" action="${initParam.rootPath }/missionCert/removeMissionCertByMCN.do" method="get">
 					<input type="hidden" name="missionCertNum" value="${requestScope.missionCert.missionCertNum}">
-					<button type="button" id="remMisCBtn" onclick="button_event()">삭제하기</button>
+					<button type="button" id="remMisCBtn" onclick="button_event()" class="btn btn-danger">삭제하기</button>
 				</form>
 			</c:if>
 		</sec:authorize>
 		<!-- 미션상세페이지로 돌아가는 button -->
 		<br>
-		<button type="submit" onclick="window.location.href='getMissionCertByMN.do?missionNum=${requestScope.missionCert.missionNum}'">미션상세페이지로돌아기</button>
+		<button type="submit" onclick="window.location.href='getMissionCertByMN.do?missionNum=${requestScope.missionCert.missionNum}'" class="btn btn-info">미션상세페이지로돌아기</button>
 
 	</div>
 </body>

@@ -30,9 +30,24 @@ $(document).ready(function() {
 });//end of document.ready
 
 </script>
+<style type="text/css">
+*{
+	text-decoration:none;
+	list-style:none;
+}
+.item{
+	width:600px;
+	height:300px;
+}
+.slideImg{
+	width:600px;
+	height:300px;
+
+}
+</style>
 </head>
 <body>
-<div style="margin-top:60px;">
+<div style="margin-top:60px; margin-bottom:200px;">
 	<h1>미션 상세페이지</h1>
 	<fmt:formatDate var="stD" pattern = "yyyy-MM-dd" value = "${requestScope.result.startDate}" />
 	<fmt:formatDate var="eD" pattern = "yyyy-MM-dd" value = "${requestScope.result.endDate}" />	
@@ -40,10 +55,40 @@ $(document).ready(function() {
 	<br> 미션이름 : ${requestScope.result.missionName}
 	<br> 참여인원 : ${requestScope.result.currentPeople }/${requestScope.result.maxPeople }
 	<br> 기간 : ${stD} ~	${eD}
-	<br> 사진 :
-	<c:forEach var="missionPhoto" items="${requestScope.result.missionPhotoList}">
-		<img src="${initParam.rootPath }/photos/mission/${missionPhoto.photo.photoPath }" width="300px">
-	</c:forEach>
+	<br>
+	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:600px; height:300px;margin: 0 auto;">
+  <!-- Indicators -->
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+ <c:forEach var="missionPhoto" items="${requestScope.result.missionPhotoList}" varStatus="indexs">
+  	<c:choose>
+  		<c:when test="${indexs.index == 0}">
+  			<div class="item active">
+    		  <img class="slideImg" src="${initParam.rootPath }/photos/mission/${missionPhoto.photo.photoPath }" width="300px"height="300px">
+   		 	</div>
+  		</c:when>
+  		<c:otherwise>
+  		<div class="item">
+  			<img class="slideImg" src="${initParam.rootPath }/photos/mission/${missionPhoto.photo.photoPath }" width="300px"height="300px">
+  		</div>
+  		</c:otherwise>
+  	</c:choose>
+</c:forEach>
+	
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+	
+		
 
 
 	<!--  기간이 지난 미션이면 참여하기대신 종료된 미션임을 알리고, 미션에 참여하기와, 미션 인증글 작성란을 보이지 않게 한다. -->
@@ -61,7 +106,7 @@ $(document).ready(function() {
 					<input type="hidden" name="missionNum"
 						value="${requestScope.result.missionNum}"> <input type="hidden"
 						name="email" value="<sec:authentication property="principal.email"/>">
-					<button type="submit" id="cancelmisBtn">참여한 미션 취소하기</button>
+					<button type="submit" id="cancelmisBtn" class="btn btn-danger">참여한 미션 취소하기</button>
 				</form>
 		    </c:if>
 	    </c:when>
@@ -70,7 +115,7 @@ $(document).ready(function() {
 				method="get">
 				<input type="hidden" name="missionNum" value="${requestScope.result.missionNum}"> 
 				<input type="hidden" name="email" value="<sec:authentication property="principal.email"/>">
-				<button type="submit" id="regmisBtn">미션에 참여하기</button>
+				<button type="submit" id="regmisBtn" class="btn btn-primary">미션에 참여하기</button>
 			</form>
 	    </c:when>
 	    <c:otherwise>
@@ -79,7 +124,7 @@ $(document).ready(function() {
 				<input type="hidden" name="missionNum"
 					value="${requestScope.result.missionNum}"> <input type="hidden"
 					name="email" value="<sec:authentication property="principal.email"/>">
-				<button type="submit" id="cancelmisBtn">참여한 미션 취소하기</button>
+				<button type="submit" id="cancelmisBtn" class="btn btn-danger">참여한 미션 취소하기</button>
 			</form>
 	    </c:otherwise>
 	</c:choose>
@@ -96,7 +141,7 @@ $(document).ready(function() {
 	    <c:when test="${requestScope.isMissionMember eq true}">
 			<!-- 여기 인증글 작성란 들어갈곳 -->
 		<div
-			style="width: 30%; background-color: pink; text-align: left; margin-left: 10px;">
+			style="width: 30%; background-color: gray; text-align: left; margin-left: 10px;">
 	
 			<form
 				action="${initParam.rootPath }/missionCert/registerMissionCert.do"
